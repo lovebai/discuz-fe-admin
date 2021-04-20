@@ -11,9 +11,11 @@
         >{{ item.title }}</span
       >
     </div>
+
     <Card
       :header="$router.history.current.query.name + '--' + activeTab.title"
     ></Card>
+
     <!-- 操作权限 -->
     <div v-show="activeTab.name === 'userOperate'">
       <div class="user-operate__title">
@@ -32,24 +34,14 @@
           <Card header="内容发布权限">
           </Card>
         </div>
-        <Card>
-          <CardRow description="允许发布文字帖">
+
+        <!-- 7帖合一  统一为发帖权限-->
+        <Card class="hasSelect">
+          <CardRow description="允许发布帖子的权限">
             <el-checkbox
               v-model="checked"
-              label="createThread.0"
-              :disabled="
-                $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
-              "
-              >发布文字</el-checkbox
-            >
-          </CardRow>
-        </Card>
-        <Card>
-          <CardRow description="允许发布帖子">
-            <el-checkbox
-              v-model="checked"
-              label="createThread.1"
+              label="switch.createThread"
+              @change="changeChecked($event,'createThread')"
               :disabled="
                 $router.history.current.query.id === '1' ||
                   $router.history.current.query.id === '7'
@@ -57,75 +49,314 @@
               >发布帖子</el-checkbox
             >
           </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.createThread"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.createThread') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'createThread')"
+            @remove-tag="clearItem($event, 'createThread')"
+          ></el-cascader>
         </Card>
-        <Card>
-          <CardRow description="允许发布视频帖，需先开启腾讯云-云点播服务">
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入图片的权限">
             <el-checkbox
               v-model="checked"
-              label="createThread.2"
+              label="switch.insertImage"
+              @change="changeChecked($event,'insertImage')"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >插入图片</el-checkbox
+            >
+          </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertImage"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertImage') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertImage')"
+            @remove-tag="clearItem($event, 'insertImage')"
+          ></el-cascader>
+        </Card>
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入视频的权限">
+            <el-checkbox
+              v-model="checked"
+              label="switch.insertVideo"
+              @change="changeChecked($event,'insertVideo')"
               :disabled="
                 videoDisabled ||
                   $router.history.current.query.id === '1' ||
                   $router.history.current.query.id === '7'
               "
-              >发布视频</el-checkbox
+              >插入视频</el-checkbox
             >
           </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertVideo"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertVideo') === -1 || videoDisabled"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertVideo')"
+            @remove-tag="clearItem($event, 'insertVideo')"
+          ></el-cascader>
         </Card>
-        <Card>
-          <CardRow description="允许发布图片帖">
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入语音的权限">
             <el-checkbox
               v-model="checked"
-              label="createThread.3"
-              :disabled="
-                $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
-              "
-              >发布图片</el-checkbox
-            >
-          </CardRow>
-        </Card>
-        <Card>
-          <CardRow description="允许发布语音帖，需先开启腾讯云-云点播服务">
-            <el-checkbox
-              v-model="checked"
-              label="createThread.4"
+              label="switch.insertAudio"
+              @change="changeChecked($event,'insertAudio')"
               :disabled="
                 videoDisabled ||
                   $router.history.current.query.id === '1' ||
                   $router.history.current.query.id === '7'
               "
-              >发布语音</el-checkbox
+              >插入语音</el-checkbox
             >
           </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertAudio"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertAudio') === -1 || videoDisabled"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertAudio')"
+            @remove-tag="clearItem($event, 'insertAudio')"
+          ></el-cascader>
         </Card>
-        <Card>
-          <CardRow
-            description="允许发布问答，只有在开启微信支付且允许发布付费内容时才能设置提问价格"
-          >
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入附件的权限">
             <el-checkbox
               v-model="checked"
-              label="createThread.5"
+              label="switch.insertAttachment"
+              @change="changeChecked($event,'insertAttachment')"
               :disabled="
                 $router.history.current.query.id === '1' ||
                   $router.history.current.query.id === '7'
               "
-              >发布问答</el-checkbox
+              >插入附件</el-checkbox
             >
           </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertAttachment"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertAttachment') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertAttachment')"
+            @remove-tag="clearItem($event, 'insertAttachment')"
+          ></el-cascader>
         </Card>
-        <Card>
-          <CardRow description="允许发布商品帖">
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入商品的权限">
             <el-checkbox
               v-model="checked"
-              label="createThread.6"
+              label="switch.insertGoods"
+              @change="changeChecked($event,'insertGoods')"
               :disabled="
                 $router.history.current.query.id === '1' ||
                   $router.history.current.query.id === '7'
               "
-              >发布商品</el-checkbox
+              >插入商品</el-checkbox
             >
           </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertGoods"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertGoods') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertGoods')"
+            @remove-tag="clearItem($event, 'insertGoods')"
+          ></el-cascader>
+        </Card>
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入付费的权限">
+            <el-checkbox
+              v-model="checked"
+              label="switch.insertPay"
+              @change="changeChecked($event,'insertPay')"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >插入付费</el-checkbox
+            >
+          </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertPay"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertPay') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertPay')"
+            @remove-tag="clearItem($event, 'insertPay')"
+          ></el-cascader>
+        </Card>
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入悬赏的权限">
+            <el-checkbox
+              v-model="checked"
+              label="switch.insertReward"
+              @change="changeChecked($event,'insertReward')"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >插入悬赏</el-checkbox
+            >
+          </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertReward"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertReward') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertReward')"
+            @remove-tag="clearItem($event, 'insertReward')"
+          ></el-cascader>
+        </Card>
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入红包的权限">
+            <el-checkbox
+              v-model="checked"
+              label="switch.insertRedPacket"
+              @change="changeChecked($event,'insertRedPacket')"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >插入红包</el-checkbox
+            >
+          </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertRedPacket"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertRedPacket') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertRedPacket')"
+            @remove-tag="clearItem($event, 'insertRedPacket')"
+          ></el-cascader>
+        </Card>
+        <Card class="hasSelect">
+          <CardRow description="允许发帖插入位置的权限">
+            <el-checkbox
+              v-model="checked"
+              label="switch.insertPosition"
+              @change="changeChecked($event,'insertPosition')"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >插入位置</el-checkbox
+            >
+          </CardRow>
+          <el-cascader
+            :key="keyValue"
+            placeholder="请选择"
+            v-model="selectList.insertPosition"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.insertPosition') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'insertPosition')"
+            @remove-tag="clearItem($event, 'insertPosition')"
+          ></el-cascader>
         </Card>
         <Card>
           <CardRow description="允许发布私信">
@@ -137,44 +368,6 @@
                   $router.history.current.query.id === '7'
               "
               >发布私信</el-checkbox
-            >
-          </CardRow>
-        </Card>
-        <Card>
-          <CardRow description="允许成为发布问答时的提问对象">
-            <el-checkbox
-              v-model="checked"
-              label="canBeAsked"
-              :disabled="$router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'"
-              >允许被提问</el-checkbox>
-          </CardRow>
-          <!--
-          <el-input
-            style="position: absolute;left: 45%;top: 0;height: 40PX;width: 340PX"
-            clearable
-            placeholder="被提问的最低价格"
-            type="number"
-            :disabled="checked.indexOf('canBeAsked') === -1"
-            @input="getLowestPrice"
-            v-model="lowestPrice"
-            min="0"
-          ></el-input>
-          -->
-        </Card>
-        <Card>
-          <CardRow
-            description="允许在发布问答时设置围观，需先在全局设置里配置问答围观价格"
-          >
-            <el-checkbox
-              v-model="checked"
-              label="canBeOnlooker"
-              :disabled="
-                !canBeOnlooker ||
-                  $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
-              "
-              >设置围观</el-checkbox
             >
           </CardRow>
         </Card>
@@ -217,37 +410,6 @@
           </CardRow>
         </Card>
         <Card class="hasSelect">
-          <CardRow description="允许在内容分类发布主题的权限">
-            <el-checkbox
-              v-model="checked"
-              label="switch.createThread"
-              @change="changeChecked($event,'createThread')"
-              :disabled="
-                $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
-              "
-              >发布主题</el-checkbox
-            >
-          </CardRow>
-          <el-select
-            v-model="selectList.createThread"
-            @remove-tag="clearItem($event, 'createThread')"
-            multiple
-            :disabled="checked.indexOf('switch.createThread') === -1"
-            collapse-tags
-            placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('createThread', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
-        </Card>
-        <Card class="hasSelect">
           <CardRow description="允许在内容分类回复主题的权限">
             <el-checkbox
               v-model="checked"
@@ -260,23 +422,24 @@
               >回复主题</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.reply']"
-            :disabled="checked.indexOf('switch.thread.reply') === -1"
-            @remove-tag="clearItem($event, 'thread.reply')"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.reply', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.reply']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.reply') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.reply')"
+            @remove-tag="clearItem($event, 'thread.reply')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="内容分类下内容允许被打赏的权限">
@@ -287,28 +450,30 @@
               :disabled="
                 $router.history.current.query.id === '1' ||
                   $router.history.current.query.id === '7' ||
-                  wechatPayment
+                  wechatPayment ||
+                  !isReward
               "
               >允许被打赏</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.canBeReward']"
-            multiple
-            collapse-tags
-            :disabled="checked.indexOf('switch.thread.canBeReward') === -1"
-            @remove-tag="clearItem($event, 'thread.canBeReward')"
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.canBeReward', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.canBeReward']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.canBeReward') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.canBeReward')"
+            @remove-tag="clearItem($event, 'thread.canBeReward')"
+          ></el-cascader>
         </Card>
       </div>
       <div class="user-operate">
@@ -328,23 +493,24 @@
               >查看主题列表</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList.viewThreads"
-            @remove-tag="clearItem($event, 'viewThreads')"
-            :disabled="checked.indexOf('switch.viewThreads') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('viewThreads', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList.viewThreads"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.viewThreads') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'viewThreads')"
+            @remove-tag="clearItem($event, 'viewThreads')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="查看内容分类主题详情的权限">
@@ -356,23 +522,24 @@
               >查看主题详情</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.viewPosts']"
-            @remove-tag="clearItem($event, 'thread.viewPosts')"
-            :disabled="checked.indexOf('switch.thread.viewPosts') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.viewPosts', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.viewPosts']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.viewPosts') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.viewPosts')"
+            @remove-tag="clearItem($event, 'thread.viewPosts')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="免费查看内容分类下的付费帖子">
@@ -384,23 +551,24 @@
               >免费查看付费帖子</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.freeViewPosts.1']"
-            @remove-tag="clearItem($event, 'thread.freeViewPosts.1')"
-            :disabled="checked.indexOf('switch.thread.freeViewPosts.1') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.freeViewPosts.1', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.freeViewPosts.1']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.freeViewPosts.1') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.freeViewPosts.1')"
+            @remove-tag="clearItem($event, 'thread.freeViewPosts.1')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="免费查看内容分类下的付费视频">
@@ -412,23 +580,24 @@
               >免费查看付费视频</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.freeViewPosts.2']"
-            @remove-tag="clearItem($event, 'thread.freeViewPosts.2')"
-            :disabled="checked.indexOf('switch.thread.freeViewPosts.2') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.freeViewPosts.2', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.freeViewPosts.2']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.freeViewPosts.2') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.freeViewPosts.2')"
+            @remove-tag="clearItem($event, 'thread.freeViewPosts.2')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="免费查看内容分类下的付费图片">
@@ -440,23 +609,24 @@
               >免费查看付费图片</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.freeViewPosts.3']"
-            @remove-tag="clearItem($event, 'thread.freeViewPosts.3')"
-            :disabled="checked.indexOf('switch.thread.freeViewPosts.3') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.freeViewPosts.3', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.freeViewPosts.3']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.freeViewPosts.3') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.freeViewPosts.3')"
+            @remove-tag="clearItem($event, 'thread.freeViewPosts.3')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="免费查看内容分类下的付费语音">
@@ -468,23 +638,24 @@
               >免费查看付费语音</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.freeViewPosts.4']"
-            @remove-tag="clearItem($event, 'thread.freeViewPosts.4')"
-            :disabled="checked.indexOf('switch.thread.freeViewPosts.4') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.freeViewPosts.4', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.freeViewPosts.4']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.freeViewPosts.4') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.freeViewPosts.4')"
+            @remove-tag="clearItem($event, 'thread.freeViewPosts.4')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="免费查看内容分类下的付费问答">
@@ -496,23 +667,24 @@
               >免费查看付费问答</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.freeViewPosts.5']"
-            @remove-tag="clearItem($event, 'thread.freeViewPosts.5')"
-            :disabled="checked.indexOf('switch.thread.freeViewPosts.5') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.freeViewPosts.5', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.freeViewPosts.5']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.freeViewPosts.5') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.freeViewPosts.5')"
+            @remove-tag="clearItem($event, 'thread.freeViewPosts.5')"
+          ></el-cascader>
         </Card>
       </div>
       <div class="user-operate">
@@ -587,23 +759,24 @@
               >加精</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.essence']"
-            @remove-tag="clearItem($event, 'thread.essence')"
-            :disabled="checked.indexOf('switch.thread.essence') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.essence', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.essence']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.essence') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.essence')"
+            @remove-tag="clearItem($event, 'thread.essence')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="前台单个主题的编辑权限">
@@ -618,23 +791,24 @@
               >编辑主题</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.edit']"
-            @remove-tag="clearItem($event, 'thread.edit')"
-            :disabled="checked.indexOf('switch.thread.edit') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.edit', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.edit']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.edit') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.edit')"
+            @remove-tag="clearItem($event, 'thread.edit')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="前台删除单个主题的权限">
@@ -649,23 +823,24 @@
               >删除主题</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.hide']"
-            @remove-tag="clearItem($event, 'thread.hide')"
-            :disabled="checked.indexOf('switch.thread.hide') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.hide', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.hide']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.hide') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.hide')"
+            @remove-tag="clearItem($event, 'thread.hide')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="前台单个回复的编辑权限">
@@ -680,23 +855,24 @@
               >编辑回复</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.editPosts']"
-            @remove-tag="clearItem($event, 'thread.editPosts')"
-            :disabled="checked.indexOf('switch.thread.editPosts') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.editPosts', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.editPosts']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.editPosts') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.editPosts')"
+            @remove-tag="clearItem($event, 'thread.editPosts')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="前台删除单个回复的权限">
@@ -711,23 +887,24 @@
               >删除回复</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.hidePosts']"
-            @remove-tag="clearItem($event, 'thread.hidePosts')"
-            :disabled="checked.indexOf('switch.thread.hidePosts') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.hidePosts', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.hidePosts']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.hidePosts') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.hidePosts')"
+            @remove-tag="clearItem($event, 'thread.hidePosts')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="作者编辑自己的主题或回复的权限">
@@ -742,23 +919,24 @@
               >编辑自己的主题或回复</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.editOwnThreadOrPost']"
-            @remove-tag="clearItem($event, 'thread.editOwnThreadOrPost')"
-            :disabled="checked.indexOf('switch.thread.editOwnThreadOrPost') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.editOwnThreadOrPost', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.editOwnThreadOrPost']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.editOwnThreadOrPost') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.editOwnThreadOrPost')"
+            @remove-tag="clearItem($event, 'thread.editOwnThreadOrPost')"
+          ></el-cascader>
         </Card>
         <Card class="hasSelect">
           <CardRow description="作者删除自己的主题或回复的权限">
@@ -773,23 +951,24 @@
               >删除自己的主题或回复</el-checkbox
             >
           </CardRow>
-          <el-select
-            v-model="selectList['thread.hideOwnThreadOrPost']"
-            @remove-tag="clearItem($event, 'thread.hideOwnThreadOrPost')"
-            :disabled="checked.indexOf('switch.thread.hideOwnThreadOrPost') === -1"
-            multiple
-            collapse-tags
+          <el-cascader
+            :key="keyValue"
             placeholder="请选择"
-          >
-            <el-option
-              @click.native="changeCategory('thread.hideOwnThreadOrPost', item.id)"
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
+            v-model="selectList['thread.hideOwnThreadOrPost']"
+            :options="categoriesList"
+            :disabled="checked.indexOf('switch.thread.hideOwnThreadOrPost') === -1"
+            :props="{
+              value: 'id',
+              label: 'name',
+              children: 'children',
+              multiple: true,
+              checkStrictly: true,
+              expandTrigger: 'hover'
+            }"
+            collapse-tags
+            @change="changeCategory($event, 'thread.hideOwnThreadOrPost')"
+            @remove-tag="clearItem($event, 'thread.hideOwnThreadOrPost')"
+          ></el-cascader>
         </Card>
       </div>
     </div>
@@ -873,7 +1052,7 @@
           description="允许用户裂变推广以及通过推广注册进来的用户收入是否能分成"
         >
           <el-checkbox
-            v-model="is_subordinate"
+            v-model="isSubordinate"
             @change="handlePromotionChange"
             :disabled="
               $router.history.current.query.id === '1' ||
@@ -882,7 +1061,7 @@
             >裂变推广</el-checkbox
           >
           <el-checkbox
-            v-model="is_commission"
+            v-model="isCommission"
             @change="handleScaleChange"
             :disabled="
               $router.history.current.query.id === '1' ||
@@ -894,7 +1073,7 @@
         <CardRow
           description="站点开启付费模式时下线付费加入、主题被打赏、被付费等的分成比例设置，填1表示10%，不填或为0时为不分成"
           class="proportion-box"
-          v-if="is_subordinate || is_commission"
+          v-if="isSubordinate || isCommission"
         >
           <div>
             <span>提成比例</span>

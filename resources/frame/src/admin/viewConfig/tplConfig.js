@@ -669,8 +669,7 @@ export default {
           },
           "rol-permission": {
             comLoad: function (resolve) {
-              // require(["../view/site/user/userRol/rolPermissionView"], resolve);
-              require(["../view/site/user/userRol/rolPermissionPayView"], resolve);
+              require(["../view/site/user/userRol/rolPermissionView"], resolve);
             },
             metaInfo: {
               title: "用户角色",

@@ -2,7 +2,7 @@ import Card from "../../../view/site/common/card/card";
 import CardRow from "../../../view/site/common/card/cardRow";
 
 export default {
-  data: function() {
+  data: function () {
     return {
       // 关闭站点
       closeList: [],
@@ -35,9 +35,6 @@ export default {
       fileList: [],
       deleBtn: false,
       disabled: true, // 付费模式置灰
-      askPrice: "", // 问答围观价格
-      // purchase: false, // 权限购买
-      purchaseNum: 0,
       numberimg: [
         {
           imageUrl: "",
@@ -71,7 +68,7 @@ export default {
     };
   },
 
-  created: function() {
+  created: function () {
     //初始化请求设置
     this.loadStatus();
   },
@@ -145,7 +142,6 @@ export default {
               this.siteMasterId = data.readdata._data.set_site.site_author.id;
             }
 
-            this.askPrice = data.readdata._data.set_site.site_onlooker_price;
             // if (data.readdata._data.logo) {
             //   this.fileList.push({url: data.readdata._data.logo});
             // }
@@ -168,7 +164,6 @@ export default {
             }, []);
 
             this.siteCloseMsg = data.readdata._data.set_site.site_close_msg;
-            // this.purchase = !!Number(data.readdata._data.set_site.site_pay_group_close);
             // 微信支付关闭时置灰付费模式
             if (data.readdata._data.paycenter.wxpay_close == false) {
               this.disabled = true;
@@ -205,7 +200,7 @@ export default {
             });
           }
         })
-        .catch(error => {});
+        .catch(error => { });
     },
     //删除已上传logo
     deleteImage(file, index, fileList) {
@@ -241,7 +236,7 @@ export default {
             this.$message("删除成功");
           }
         })
-        .catch(error => {});
+        .catch(error => { });
     },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
@@ -264,7 +259,7 @@ export default {
     handleAvatarSuccess(res, file) {
       // this.imageUrl = URL.createObjectURL(file.raw);
     },
-    handleFile() {},
+    handleFile() { },
     getScaleImgSize(url, obj) {
       if (url === "") {
         return;
@@ -310,7 +305,7 @@ export default {
         file.type == "image/jpeg" ||
         file.type == "image/png" ||
         file.type == "image/gif" ||
-        file.type == "image/ico"  ||
+        file.type == "image/ico" ||
         file.type == "image/vnd.microsoft.icon" ||
         file.type == "image/x-icon";
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -366,7 +361,7 @@ export default {
             this.$message({ message: "上传成功", type: "success" });
           }
         })
-        .catch(error => {});
+        .catch(error => { });
     },
     siteSetPost() {
 
@@ -374,139 +369,97 @@ export default {
         item.value = this.closeSelectList.indexOf(item.key) != - 1;
         return item;
       })
+
+      const params = [
+        {
+          key: "site_name",
+          value: this.siteName ? this.siteName : "",
+          tag: "default"
+        },
+        {
+          key: "site_introduction",
+          value: this.siteIntroduction ? this.siteIntroduction : "",
+          tag: "default"
+        },
+        {
+          key: "site_keywords",
+          value: this.siteKeywords ? this.siteKeywords : "",
+          tag: "default"
+        },
+        {
+          key: "site_title",
+          value: this.siteTitle ? this.siteTitle : "",
+          tag: "default"
+        },
+        {
+          key: "site_author",
+          value: this.siteMasterId,
+          tag: "default"
+        },
+        {
+          key: "site_mode",
+          value: this.siteMode,
+          tag: "default"
+        },
+        {
+          key: "site_price",
+          value: this.sitePrice,
+          tag: "default"
+        },
+        {
+          key: "site_expire",
+          value: this.siteExpire,
+          tag: "default"
+        },
+        {
+          key: "site_author_scale",
+          value: this.siteAuthorScale,
+          tag: "default"
+        },
+        {
+          key: "site_master_scale",
+          value: this.siteMasterScale,
+          tag: "default"
+        },
+        {
+          key: "site_record",
+          value: this.siteRecord,
+          tag: "default"
+        },
+        {
+          key: "site_record_code",
+          value: this.recodeNumber,
+          tag: "default"
+        },
+        {
+          key: "site_stat",
+          value: this.siteStat,
+          tag: "default"
+        },
+        // {
+        //   key: "site_close",
+        //   value: this.siteClose,
+        //   tag: "default"
+        // },
+        {
+          key: "site_manage",
+          value: closeData,
+          tag: "default"
+        },
+        {
+          key: "site_close_msg",
+          value: this.siteCloseMsg,
+          tag: "default"
+        },
+      ];
+
       this.appFetch({
-        url: "settings",
+        url: "settings_post_v3",
         method: "post",
         data: {
-          data: [
-            {
-              attributes: {
-                key: "site_name",
-                value: this.siteName ? this.siteName : "",
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_introduction",
-                value: this.siteIntroduction ? this.siteIntroduction : "",
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_keywords",
-                value: this.siteKeywords ? this.siteKeywords : "",
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_title",
-                value: this.siteTitle ? this.siteTitle : "",
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_author",
-                value: this.siteMasterId,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_mode",
-                value: this.siteMode,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_price",
-                value: this.sitePrice,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_expire",
-                value: this.siteExpire,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_author_scale",
-                value: this.siteAuthorScale,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_master_scale",
-                value: this.siteMasterScale,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_record",
-                value: this.siteRecord,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_record_code",
-                value: this.recodeNumber,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_stat",
-                value: this.siteStat,
-                tag: "default"
-              }
-            },
-            // {
-            //   attributes: {
-            //     key: "site_close",
-            //     value: this.siteClose,
-            //     tag: "default"
-            //   }
-            // },
-            {
-              attributes: {
-                key: "site_manage",
-                value: closeData,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_close_msg",
-                value: this.siteCloseMsg,
-                tag: "default"
-              }
-            },
-            {
-              attributes: {
-                key: "site_onlooker_price",
-                value: this.askPrice,
-                tag: "default"
-              }
-            },
-            // {
-            //   attributes: {
-            //     key: "site_pay_group_close",
-            //     value: this.purchase,
-            //     tag: "default"
-            //   }
-            // }
-          ]
-        }
+          data: params
+        },
+        apiType: 'v3'
       })
         .then(data => {
           if (data.errors) {
@@ -524,7 +477,7 @@ export default {
             });
           }
         })
-        .catch(error => {});
+        .catch(error => { });
     },
     onblurFun() {
       if (this.siteAuthorScale == null || this.siteAuthorScale == "") {

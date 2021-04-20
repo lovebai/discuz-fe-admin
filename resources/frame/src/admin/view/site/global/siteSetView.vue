@@ -99,21 +99,6 @@
       </CardRow>
     </Card>
 
-    <Card header="问答围观价格：">
-      <div class="record-top">
-        <CardRow description="问答围观的价格，平台先分成，剩下的提问者和回答者对半分，不填或为0时不允许设置围观">
-          <el-input v-model="askPrice"></el-input>
-        </CardRow>
-      </div>
-    </Card>
-
-    <!-- <Card header="权限购买">
-      <CardRow class="card-pays" description="开启后，用户角色将可以配置价格和有效期，用户可在前台进行用户角色购买">
-        <el-switch v-model="purchase" active-color="#336699" inactive-color="#bbbbbb">
-        </el-switch>
-      </CardRow>
-    </Card> -->
-
     <Card header="网站备案信息：">
       <div class="record-top">
         <CardRow description="你的Discuz! Q 站点的 ICP 备案编号">
