@@ -213,7 +213,7 @@ export default {
       this.isSubordinate = data.isSubordinate;
       this.value = data.isPaid;
 
-      const permissions = data.permission;
+      const permissions = data.permission || [];
       this.checked = [];
       permissions.forEach(item => {
         this.checked.push(item.permission);
@@ -311,6 +311,7 @@ export default {
         apiType: 'v3',
         params: {
           id: this.groupId,
+          include: 'permission',
         }
       })
     },
