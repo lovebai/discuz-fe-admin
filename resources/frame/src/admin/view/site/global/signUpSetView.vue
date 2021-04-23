@@ -3,7 +3,7 @@
 
     <Card header="新用户注册：">
       <CardRow description="设置是否允许游客注册成为会员">
-        <el-checkbox v-model="checked">允许新用户注册</el-checkbox>
+        <el-checkbox v-model="is_register_close">允许新用户注册</el-checkbox>
       </CardRow>
     </Card>
 
@@ -14,14 +14,20 @@
         <el-radio v-model="register_type" :label="2" :disabled="qcloud_wx">微信无感模式</el-radio>
       </CardRow>
     </Card>
-    
+
     <Card header="扩展信息：">
       <CardRow description="注册时需要用户填写的额外信息">
         <el-checkbox :disabled="extendsBtn" v-model="extensionOn">注册扩展信息</el-checkbox>
         <span class="registration-btn" @click="configurat">配置字段</span>
       </CardRow>
     </Card>
-    
+
+    <Card header="启用微信内落地页：">
+      <CardRow description="启用落地页，使得在微信内，微信登录模式下，微信号当前未绑定注册用户时，可进入独立的选择绑定的落地页，可用于绑定已存在用户的用户名密码、手机号 或 新用户注册。">
+        <el-checkbox v-model="is_need_transition">微信内，且微信登录模式下，启用落地页，用于绑定已有账号</el-checkbox>
+      </CardRow>
+    </Card>
+
     <Card header="新用户审核：">
       <CardRow description="设置新注册的用户是否需要审核">
         <el-checkbox v-model="register_validate">新用户注册审核</el-checkbox>
@@ -65,14 +71,14 @@
       </CardRow>
     </Card>
 
-    <Card v-show="register === '1'" v-bind:class="{ fullScreen: registerFull }"> 
+    <Card v-show="register === '1'" v-bind:class="{ fullScreen: registerFull }">
       <CardRow description="用户协议的详细内容 双击输入框可扩大/缩小">
         <el-input
           type="textarea"
           :autosize="{ minRows: 4, maxRows: 4}"
           placeholder="用户协议"
           v-model="register_content"
-          @dblclick.native="changeSize('registerFull')" 
+          @dblclick.native="changeSize('registerFull')"
         ></el-input>
       </CardRow>
     </Card>
@@ -91,7 +97,7 @@
           :autosize="{ minRows: 4, maxRows: 4}"
           placeholder="隐私政策"
           v-model="privacy_content"
-          @dblclick.native="changeSize('privacyFull')" 
+          @dblclick.native="changeSize('privacyFull')"
         ></el-input>
       </CardRow>
     </Card>
