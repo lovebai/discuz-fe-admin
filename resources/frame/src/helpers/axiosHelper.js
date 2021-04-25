@@ -150,7 +150,11 @@ const appFetch = function(params, options) {
     params.url = apiUrl;
   } else {
     params.baseURL = "/";
-    params.url = appConfig.apiBaseUrl + apiUrl;
+    if (params.apiType === 'v3') { // 临时兼容v3环境
+      params.url = appConfig.apiBaseUrl + params.apiType + apiUrl;
+    } else {
+      params.url = appConfig.apiBaseUrl + apiUrl;
+    }
   }
 
   params.withCredentials = true;
