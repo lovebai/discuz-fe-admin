@@ -62,10 +62,10 @@ export default {
           title: "安全设置",
           name: "security"
         },
-        {
-          title: "价格设置",
-          name: "pricesetting"
-        },
+        // {
+        //   title: "价格设置",
+        //   name: "pricesetting"
+        // },
         {
           title: "其他设置",
           name: "other"
@@ -206,12 +206,12 @@ export default {
       const data = res.Data;
       this.ispad = data.isPaid;
       this.scale = data.scale;
-      this.dyedate = data.days;
-      this.purchasePrice = data.fee;
+      // this.dyedate = data.days;
+      // this.purchasePrice = data.fee;
       this.defaultuser = data.default;
       this.isCommission = data.isCommission;
       this.isSubordinate = data.isSubordinate;
-      this.value = data.isPaid;
+      // this.value = data.isPaid;
 
       const permissions = data.permission || [];
       this.checked = [];
@@ -234,9 +234,9 @@ export default {
       this.wechatPayment = data.paycenter.wxpay_close === false;
       this.isReward = data.set_site.site_can_reward === 1;
       this.allowtobuy = siteData.site_pay_group_close;
-      if (!this.allowtobuy) {
-        this.value = false;
-      }
+      // if (!this.allowtobuy) {
+      //   this.value = false;
+      // }
     },
     // 扩展项回显
     setSelectValue(data) {
@@ -360,9 +360,9 @@ export default {
           data: {
             attributes: {
               name: this.$route.query.name,
-              is_paid: this.value ? 1 : 0,
-              fee: this.purchasePrice,
-              days: this.dyedate,
+              // is_paid: this.value ? 1 : 0,
+              // fee: this.purchasePrice,
+              // days: this.dyedate,
               scale: this.scale,
               is_subordinate: this.isSubordinate,
               is_commission: this.isCommission

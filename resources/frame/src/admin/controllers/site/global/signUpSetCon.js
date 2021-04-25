@@ -5,7 +5,8 @@ import CardRow from '../../../view/site/common/card/cardRow';
 export default {
   data:function () {
     return {
-      checked:'',
+      is_register_close:'', //是否允许游客注册成为会员
+      is_need_transition:'', //是否启用微信内落地页
       register_validate:'',   //注册审核
       pwdLength:'',           //密码长度
       checkList:[],           //密码规则
@@ -44,7 +45,8 @@ export default {
           const agreement = res.readdata._data.agreement;
           console.log(res);
           // this.pwdLength = res.readdata._data.setreg.password_length
-          this.checked = res.readdata._data.set_reg.register_close;
+          this.is_register_close = res.readdata._data.set_reg.register_close;
+          this.is_need_transition = res.readdata._data.set_reg.is_need_transition;
           this.register_validate = res.readdata._data.set_reg.register_validate;
           this.pwdLength = res.readdata._data.set_reg.password_length;
           this.checkList = res.readdata._data.set_reg.password_strength;
@@ -167,7 +169,7 @@ export default {
             {
              "attributes":{
               "key":'register_close',
-              "value":this.checked,
+              "value":this.is_register_close,
               "tag": 'default'
              }
             },
