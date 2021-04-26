@@ -175,6 +175,13 @@ export default {
             },
             {
               "attributes":{
+                "key":'is_need_transition',
+                "value":this.is_register_close,
+                "tag": 'default'
+              }
+            },
+            {
+              "attributes":{
                 "key":'register_validate',
                 "value":this.register_validate,
                 "tag": 'default'
