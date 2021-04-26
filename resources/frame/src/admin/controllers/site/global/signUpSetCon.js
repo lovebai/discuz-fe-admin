@@ -176,7 +176,7 @@ export default {
             {
               "attributes":{
                 "key":'is_need_transition',
-                "value":this.is_register_close,
+                "value":this.is_need_transition,
                 "tag": 'default'
               }
             },
