@@ -1004,20 +1004,6 @@
         </CardRow>
       </Card>
 
-      <Card>
-        <CardRow description="绑定手机后才可发布内容">
-          <el-checkbox
-            v-model="checked"
-            label="publishNeedBindPhone"
-            :disabled="
-              bindPhoneDisabled ||
-                $router.history.current.query.id === '1' ||
-                $router.history.current.query.id === '7'
-            "
-            >发布内容需先绑定手机</el-checkbox
-          >
-        </CardRow>
-      </Card>
     </div>
     <!-- 默认权限 -->
     <div v-show="activeTab.name === 'default'">
