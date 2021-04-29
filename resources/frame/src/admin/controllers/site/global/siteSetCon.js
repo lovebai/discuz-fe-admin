@@ -147,6 +147,7 @@ export default {
             // }
 
             // 旧关闭站点
+            console.log(data.readdata._data.set_site);
             this.siteClose = data.readdata._data.set_site.site_close;
             if (this.siteClose === true) {
               this.radio2 = "1";
