@@ -170,8 +170,8 @@
           <CardRow description="允许发帖插入附件的权限">
             <el-checkbox
               v-model="checked"
-              label="switch.insertAttachment"
-              @change="changeChecked($event,'insertAttachment')"
+              label="switch.insertDoc"
+              @change="changeChecked($event,'insertDoc')"
               :disabled="
                 $router.history.current.query.id === '1' ||
                   $router.history.current.query.id === '7'
@@ -182,9 +182,9 @@
           <el-cascader
             :key="keyValue"
             placeholder="请选择"
-            v-model="selectList.insertAttachment"
+            v-model="selectList.insertDoc"
             :options="categoriesList"
-            :disabled="checked.indexOf('switch.insertAttachment') === -1"
+            :disabled="checked.indexOf('switch.insertDoc') === -1"
             :props="{
               value: 'id',
               label: 'name',
@@ -194,8 +194,8 @@
               expandTrigger: 'hover'
             }"
             collapse-tags
-            @change="changeCategory($event, 'insertAttachment')"
-            @remove-tag="clearItem($event, 'insertAttachment')"
+            @change="changeCategory($event, 'insertDoc')"
+            @remove-tag="clearItem($event, 'insertDoc')"
           ></el-cascader>
         </Card>
         <Card class="hasSelect">
