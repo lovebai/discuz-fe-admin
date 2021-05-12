@@ -21,23 +21,8 @@ export default {
         description: '用户在小程序使用微信授权登录',
         status:'',
         icon:'iconxiaochengxu'
-      }, {
-        name: 'PC端微信扫码登录',
-        type:'oplatform_close',
-        tag: 'wx_oplatform',
-        description: '用户在PC的网页使用微信扫码登录',
-        status:'',
-        icon:'iconweixin'
-      }, // {
-      //   name: 'UCenter',
-      //   type: 'ucenter_close',
-      //   tag:'ucenter',
-      //   description: '配置UCenter地址以及通信密钥',
-      //   status: '',
-      //   icon: 'iconucenter',
-      // }
+      },
     ]
-      // settingStatus:{}
     }
   },
   created:function(){
@@ -57,26 +42,13 @@ export default {
         }else {
           this.forums = data.readdata._data;
           console.log(data,'这是初始化');
-          if (data.readdata._data.passport.offiaccount_close == '0') {
-            this.settingStatus[0].status = false;
-          } else {
-            this.settingStatus[0].status = true;
+          if (data.errors){
+            return this.$message.error(res.errors[0].code);
           }
-          if (data.readdata._data.passport.miniprogram_close == '0') {
-            this.settingStatus[1].status = false;
-          } else {
-            this.settingStatus[1].status = true;
-          }
-          if (data.readdata._data.passport.oplatform_close == '0') {
-            this.settingStatus[2].status = false;
-          } else {
-            this.settingStatus[2].status = true;
-          }
-          if (data.readdata._data.ucenter.ucenter == false) {
-            this.settingStatus[3].status = false;
-          } else {
-            this.settingStatus[3].status = true;
-          }
+          this.forums = data.readdata._data;
+          console.log(data,'这是初始化');
+          this.settingStatus[0].status = (data.readdata._data.passport.offiaccount_close != '0');
+          this.settingStatus[1].status = (data.readdata._data.passport.miniprogram_close != '0');
         }
         // this.$message({'修改成功'});
       }).catch(error=>{
