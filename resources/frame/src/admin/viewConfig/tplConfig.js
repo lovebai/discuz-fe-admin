@@ -53,17 +53,6 @@ export default {
               alias: "站点信息"
             }
           },
-          "site-theme": {
-            comLoad: function (resolve) {
-              require(["../view/site/global/siteSet/siteThemeView"], resolve);
-            },
-            metaInfo: {
-              title: "站点设置",
-              name: "siteSet",
-              attribution: "全局",
-              alias: "主题设置"
-            }
-          },
           "site-function-set": {
             comLoad: function (resolve) {
               require(["../view/site/global/siteSet/siteFunctionSetView"], resolve);

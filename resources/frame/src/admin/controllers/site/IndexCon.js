@@ -52,18 +52,12 @@ export default {
                 },
                 {
                   id: 1,
-                  title: "主题设置",
-                  name: "siteSet",
-                  icon: "iconzhandianshezhi"
-                },
-                {
-                  id: 2,
                   title: "功能设置",
                   name: "siteSet",
                   icon: "iconzhandianshezhi"
                 },
                 {
-                  id: 3,
+                  id: 2,
                   title: "首页数据设置",
                   name: "siteSet",
                   icon: "iconzhandianshezhi"
@@ -331,7 +325,7 @@ export default {
       userName: "", //用户名
 
       dialogVisible: false, // 云API配置弹框
-      secretId:'', 
+      secretId:'',
       secretKey:'',
       appId:'',
     };
@@ -570,10 +564,6 @@ export default {
             query: { name: "站点设置" }
           });
           break;
-        case "主题设置":
-          this.sideSubmenuSelect = title;
-          this.$router.push({ path: "/admin/site-theme" });
-          break;
         case "功能设置":
           this.sideSubmenuSelect = title;
           this.$router.push({ path: "/admin/site-function-set" });
@@ -694,17 +684,13 @@ export default {
             this.sideSubmenu = this.navList[1].submenu[0].submenu;
             this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[0].title;
             break;
-          case "主题设置":
+          case "功能设置":
             this.sideSubmenu = this.navList[1].submenu[0].submenu;
             this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[1].title;
             break;
-          case "功能设置":
-            this.sideSubmenu = this.navList[1].submenu[0].submenu;
-            this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[2].title;
-            break;
           case "首页数据设置":
             this.sideSubmenu = this.navList[1].submenu[0].submenu;
-            this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[3].title;
+            this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[2].title;
             break;
           case "最新主题":
             this.sideSubmenu = this.navList[3].submenu[1].submenu;
