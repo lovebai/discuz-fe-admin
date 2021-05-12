@@ -8,7 +8,7 @@ export default {
       closeList: [],
       closeSelectList: [],
       radio: "1",
-      // radio2: "2",
+      radio2: "2",
       // fileList:[],
       loading: true,
       fullscreenLoading: false,
@@ -147,21 +147,22 @@ export default {
             // }
 
             // 旧关闭站点
-            // this.siteClose = data.readdata._data.set_site.site_close;
-            // if (this.siteClose === true) {
-            //   this.radio2 = "1";
-            // } else {
-            //   this.radio2 = "2";
-            // }
+            console.log(data.readdata._data.set_site);
+            this.siteClose = data.readdata._data.set_site.site_close;
+            if (this.siteClose === true) {
+              this.radio2 = "1";
+            } else {
+              this.radio2 = "2";
+            }
             // 新的关闭站点
-
-            this.closeList = data.readdata._data.set_site.site_manage || [];
-            this.closeSelectList = this.closeList.reduce((result, item) => {
-              if (item.value) {
-                result.push(item.key);
-              }
-              return result;
-            }, []);
+            // console.log(data);
+            // this.closeList = data.readdata._data.set_site.site_manage || [];
+            // this.closeSelectList = this.closeList.reduce((result, item) => {
+            //   if (item.value) {
+            //     result.push(item.key);
+            //   }
+            //   return result;
+            // }, []);
 
             this.siteCloseMsg = data.readdata._data.set_site.site_close_msg;
             // 微信支付关闭时置灰付费模式
@@ -436,11 +437,11 @@ export default {
           value: this.siteStat,
           tag: "default"
         },
-        // {
-        //   key: "site_close",
-        //   value: this.siteClose,
-        //   tag: "default"
-        // },
+        {
+          key: "site_close",
+          value: this.siteClose,
+          tag: "default"
+        },
         {
           key: "site_manage",
           value: closeData,

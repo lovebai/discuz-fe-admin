@@ -123,18 +123,28 @@
 
     <Card header="站点开关：" class="card-radio-con">
       <CardRow description="站点当前开放的可访问的端，勾选则代表开启">
-        <!-- <el-radio @change="radioChangeClose('1')" v-model="radio2" label="1">是</el-radio>
-        <el-radio @change="radioChangeClose('2')" v-model="radio2" label="2">否</el-radio> -->
+        <el-radio @change="radioChangeClose('1')" v-model="radio2" label="1">关闭</el-radio>
+        <el-radio @change="radioChangeClose('2')" v-model="radio2" label="2">开启</el-radio>
 
-        <el-checkbox-group @change="closeListChange" v-model="closeSelectList">
+        <!-- <el-checkbox-group @change="closeListChange" v-model="closeSelectList">
           <el-checkbox v-for="item in closeList" :key="item.key" :label="item.key">
             {{ item.desc }}
           </el-checkbox>
-        </el-checkbox-group>
+        </el-checkbox-group> -->
       </CardRow>
     </Card>
 
     <el-collapse-transition>
+      <div v-show="radio2 === '1'">
+        <Card header>
+          <CardRow description="站点关闭时出现的提示信息">
+            <el-input v-model="siteCloseMsg"></el-input>
+          </CardRow>
+        </Card>
+      </div>
+    </el-collapse-transition>
+
+    <!-- <el-collapse-transition>
       <div v-show="changeCloseList">
         <Card header>
           <CardRow description="未开启且被访问时的提示信息">
@@ -142,7 +152,7 @@
           </CardRow>
         </Card>
       </div>
-    </el-collapse-transition>
+    </el-collapse-transition> -->
 
     <Card class="footer-btn">
       <el-button type="primary" size="medium" @click="siteSetPost">提交</el-button>
