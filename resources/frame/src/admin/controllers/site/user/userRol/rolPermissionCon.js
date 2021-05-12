@@ -24,7 +24,7 @@ export default {
         "insertImage": [], // 插入图片
         "insertVideo": [], // 插入视频
         "insertAudio": [], // 插入语音
-        "insertAttachment": [], // 插入附件
+        "insertDoc": [], // 插入附件
         "insertGoods": [], // 插入商品
         "insertPay": [], // 插入付费
         "insertReward": [], // 插入悬赏
@@ -92,7 +92,7 @@ export default {
         "insertImage",
         "insertVideo",
         "insertAudio",
-        "insertAttachment",
+        "insertDoc",
         "insertGoods",
         "insertPay",
         "insertReward",
@@ -475,8 +475,8 @@ export default {
           return false;
         }
       }
-      if (this.checked.includes('switch.insertAttachment')) {
-        if (this.selectList.insertAttachment.length === 0) {
+      if (this.checked.includes('switch.insertDoc')) {
+        if (this.selectList.insertDoc.length === 0) {
           this.$message.error("请选择插入附件权限");
           return false;
         }
@@ -619,7 +619,7 @@ export default {
         "insertImage": [], // 插入图片
         "insertVideo": [], // 插入视频
         "insertAudio": [], // 插入语音
-        "insertAttachment": [], // 插入附件
+        "insertDoc": [], // 插入附件
         "insertGoods": [], // 插入商品
         "insertPay": [], // 插入付费
         "insertReward": [], // 插入悬赏
@@ -679,7 +679,7 @@ export default {
         "switch.insertImage", // 插入图片
         "switch.insertVideo", // 插入视频
         "switch.insertAudio", // 插入语音
-        "switch.insertAttachment", // 插入附件
+        "switch.insertDoc", // 插入附件
         "switch.insertGoods", // 插入商品
         "switch.insertPay", // 插入付费
         "switch.insertReward", // 插入悬赏
