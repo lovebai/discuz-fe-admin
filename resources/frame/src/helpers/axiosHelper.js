@@ -145,16 +145,13 @@ const appFetch = function(params, options) {
   }
 
   //如果是本地请求，就走接口代理,使用apiType判断接口类型
+  const preUrl = params.apiType === 'v3' ? appConfig.newApiBasePath : appConfig.apiBasePath;
   if(process.env.NODE_ENV === 'development') {
-    params.baseURL = params.apiType === 'v3' ? '/apiv3' : '/api';
+    params.baseURL = preUrl;
     params.url = apiUrl;
   } else {
     params.baseURL = "/";
-    if (params.apiType === 'v3') { // 临时兼容v3环境
-      params.url = appConfig.apiBaseUrl + params.apiType + apiUrl;
-    } else {
-      params.url = appConfig.apiBaseUrl + apiUrl;
-    }
+    params.url = appConfig.apiBaseUrl + preUrl + apiUrl;
   }
 
   params.withCredentials = true;
