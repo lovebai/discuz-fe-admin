@@ -13,39 +13,21 @@ export default {
       captchaDisabled: false, // 是否开启验证码
       realNameDisabled: false, // 是否开启实名认证
       isSubordinate: false, // 是否开启推广下线
-      isCommission: false, // 是否开启分成
       scale: 0, // 提成比例
       bindPhoneDisabled: false, // 是否开启短信验证
-      wechatPayment: false, // 是否开启微信支付
-      isReward: false, // 是否开启打赏功能
       categoriesList: [], // 分类列表
       selectList: {
         "createThread": [], // 发布帖子
-        "insertImage": [], // 插入图片
-        "insertVideo": [], // 插入视频
-        "insertAudio": [], // 插入语音
-        "insertDoc": [], // 插入附件
-        "insertGoods": [], // 插入商品
-        "insertPay": [], // 插入付费
-        "insertReward": [], // 插入悬赏
-        "insertRedPacket": [], // 插入红包
-        "insertPosition": [], // 插入位置
         'viewThreads': [], // 查看主题列表扩展
         'thread.reply': [], // 回复主题扩展项
         'thread.edit': [], // 编辑主题扩展
         'thread.hide': [], // 删除主题扩展
         'thread.essence': [], // 加精扩展
         'thread.viewPosts': [], // 查看主题详情扩展
-        'thread.editPosts': [], // 编辑回复扩展
         'thread.hidePosts': [], // 删除回复扩展
-        'thread.canBeReward': [], //打赏扩展
         'thread.editOwnThreadOrPost': [], // 编辑自己的主题、回复
         'thread.hideOwnThreadOrPost': [], // 删除自己的主题、回复
         'thread.freeViewPosts.1': [],
-        'thread.freeViewPosts.2': [],
-        'thread.freeViewPosts.3': [],
-        'thread.freeViewPosts.4': [],
-        'thread.freeViewPosts.5': [],
       },
       activeTab: {
         // 设置权限当前项
@@ -89,31 +71,16 @@ export default {
       // 扩展全选
       expandItem: [
         "createThread",
-        "insertImage",
-        "insertVideo",
-        "insertAudio",
-        "insertDoc",
-        "insertGoods",
-        "insertPay",
-        "insertReward",
-        "insertRedPacket",
-        "insertPosition",
         'viewThreads',
         'thread.reply',
         'thread.edit',
         'thread.hide',
         'thread.essence',
         'thread.viewPosts',
-        'thread.editPosts',
         'thread.hidePosts',
-        'thread.canBeReward',
         'thread.editOwnThreadOrPost',
         'thread.hideOwnThreadOrPost',
         'thread.freeViewPosts.1',
-        'thread.freeViewPosts.2',
-        'thread.freeViewPosts.3',
-        'thread.freeViewPosts.4',
-        'thread.freeViewPosts.5'
       ],
       mapCategoryId: new Map(),
       keyValue: 0
@@ -209,7 +176,6 @@ export default {
       // this.dyedate = data.days;
       // this.purchasePrice = data.fee;
       this.defaultuser = data.default;
-      this.isCommission = data.isCommission;
       this.isSubordinate = data.isSubordinate;
       // this.value = data.isPaid;
 
@@ -231,8 +197,6 @@ export default {
       this.captchaDisabled = data.qcloud.qcloud_captcha === false;
       this.realNameDisabled = data.qcloud.qcloud_faceid === false;
       this.bindPhoneDisabled = data.qcloud.qcloud_sms === false;
-      this.wechatPayment = data.paycenter.wxpay_close === false;
-      this.isReward = data.set_site.site_can_reward === 1;
       this.allowtobuy = siteData.site_pay_group_close;
       // if (!this.allowtobuy) {
       //   this.value = false;
@@ -317,7 +281,7 @@ export default {
 
     patchGroupPermission() {
       let checked = this.checked;
-      if (this.isCommission || this.isSubordinate) {
+      if (this.isSubordinate) {
         if (checked.indexOf("other.canInviteUserScale") === -1) {
           checked.push("other.canInviteUserScale");
         }
@@ -363,7 +327,6 @@ export default {
               // days: this.dyedate,
               scale: this.scale,
               is_subordinate: this.isSubordinate,
-              is_commission: this.isCommission
             }
           }
         }
@@ -381,9 +344,7 @@ export default {
     handlePromotionChange(value) {
       this.isSubordinate = value;
     },
-    handleScaleChange(value) {
-      this.isCommission = value;
-    },
+
     checkNum() {
       if (!this.scale) {
         return true;
@@ -455,60 +416,6 @@ export default {
           return false;
         }
       }
-      if (this.checked.includes('switch.insertImage')) {
-        if (this.selectList.insertImage.length === 0) {
-          this.$message.error("请选择插入图片权限");
-          return false;
-        }
-      }
-      if (this.checked.includes('switch.insertVideo')) {
-        if (this.selectList.insertVideo.length === 0) {
-          this.$message.error("请选择插入视频权限");
-          return false;
-        }
-      }
-      if (this.checked.includes('switch.insertAudio')) {
-        if (this.selectList.insertAudio.length === 0) {
-          this.$message.error("请选择插入语音权限");
-          return false;
-        }
-      }
-      if (this.checked.includes('switch.insertDoc')) {
-        if (this.selectList.insertDoc.length === 0) {
-          this.$message.error("请选择插入附件权限");
-          return false;
-        }
-      }
-      if (this.checked.includes('switch.insertGoods')) {
-        if (this.selectList.insertGoods.length === 0) {
-          this.$message.error("请选择插入商品权限");
-          return false;
-        }
-      }
-      if (this.checked.includes('switch.insertPay')) {
-        if (this.selectList.insertPay.length === 0) {
-          this.$message.error("请选择插入付费权限");
-          return false;
-        }
-      }
-      if (this.checked.includes('switch.insertReward')) {
-        if (this.selectList.insertReward.length === 0) {
-          this.$message.error("请选择插入悬赏权限");
-          return false;
-        }
-      }
-      if (this.checked.includes('switch.insertRedPacket')) {
-        if (this.selectList.insertRedPacket.length === 0) {
-          this.$message.error("请选择插入红包权限");
-          return false;
-        }
-      }
-      if (this.checked.includes('switch.insertPosition')) {
-        if (this.selectList.insertPosition.length === 0) {
-          this.$message.error("请选择插入位置权限");
-          return false;
-        }
-      }
 
       if (this.checked.indexOf('switch.thread.reply') !== -1) {
         if (this.selectList['thread.reply'].length === 0) {
@@ -516,12 +423,7 @@ export default {
           return false;
         }
       }
-      if (this.checked.indexOf('switch.thread.canBeReward') !== -1) {
-        if (this.selectList['thread.canBeReward'].length === 0) {
-          this.$message.error("请选择允许被打赏权限");
-          return false;
-        }
-      }
+
       if (this.checked.indexOf('switch.viewThreads') !== -1) {
         if (this.selectList.viewThreads.length === 0) {
           this.$message.error("请选择查看主题列表权限");
@@ -540,30 +442,6 @@ export default {
           return false;
         }
       }
-      if (this.checked.indexOf('switch.thread.freeViewPosts.2') !== -1) {
-        if (this.selectList['thread.freeViewPosts.2'].length === 0) {
-          this.$message.error("请选择免费查看付费视频权限");
-          return false;
-        }
-      }
-      if (this.checked.indexOf('switch.thread.freeViewPosts.3') !== -1) {
-        if (this.selectList['thread.freeViewPosts.3'].length === 0) {
-          this.$message.error("请选择免费查看付费图片权限");
-          return false;
-        }
-      }
-      if (this.checked.indexOf('switch.thread.freeViewPosts.4') !== -1) {
-        if (this.selectList['thread.freeViewPosts.4'].length === 0) {
-          this.$message.error("请选择免费查看付费语音权限");
-          return false;
-        }
-      }
-      if (this.checked.indexOf('switch.thread.freeViewPosts.5') !== -1) {
-        if (this.selectList['thread.freeViewPosts.5'].length === 0) {
-          this.$message.error("请选择免费查看付费问答权限");
-          return false;
-        }
-      }
       if (this.checked.indexOf('switch.thread.essence') !== -1) {
         if (this.selectList['thread.essence'].length === 0) {
           this.$message.error("请选择加精权限");
@@ -579,12 +457,6 @@ export default {
       if (this.checked.indexOf('switch.thread.hide') !== -1) {
         if (this.selectList['thread.hide'].length === 0) {
           this.$message.error("请选择删除主题权限");
-          return false;
-        }
-      }
-      if (this.checked.indexOf('switch.thread.editPosts') !== -1) {
-        if (this.selectList['thread.editPosts'].length === 0) {
-          this.$message.error("请选择编辑回复权限");
           return false;
         }
       }
@@ -614,31 +486,16 @@ export default {
       this.checked = [];
       this.selectList = {
         "createThread": [], // 发布帖子
-        "insertImage": [], // 插入图片
-        "insertVideo": [], // 插入视频
-        "insertAudio": [], // 插入语音
-        "insertDoc": [], // 插入附件
-        "insertGoods": [], // 插入商品
-        "insertPay": [], // 插入付费
-        "insertReward": [], // 插入悬赏
-        "insertRedPacket": [], // 插入红包
-        "insertPosition": [], // 插入位置
         'viewThreads': [],
         'thread.reply': [], // 回复主题扩展项
-        'thread.canBeReward': [], //打赏扩展
         'thread.edit': [],
         'thread.hide': [],
         'thread.essence': [],
         'thread.viewPosts': [],
-        'thread.editPosts': [],
         'thread.hidePosts': [],
         'thread.editOwnThreadOrPost': [],
         'thread.hideOwnThreadOrPost': [],
         'thread.freeViewPosts.1': [],
-        'thread.freeViewPosts.2': [],
-        'thread.freeViewPosts.3': [],
-        'thread.freeViewPosts.4': [],
-        'thread.freeViewPosts.5': []
       };
       if (val) {
         // 1 主权限全选
@@ -666,44 +523,29 @@ export default {
         "switch.viewThreads", //查看主题列表
         "switch.thread.viewPosts", //查看主题详情
         "switch.thread.freeViewPosts.1", //免费查看付费帖子
-        "switch.thread.freeViewPosts.2", //免费查看付费视频
-        "switch.thread.freeViewPosts.3", //免费查看付费图片
-        "switch.thread.freeViewPosts.4", //免费查看付费语音
-        "switch.thread.freeViewPosts.5", //免费查看付费问答
       ];
     } else {
       this.checkAllPermission = [
         "switch.createThread", // 发布帖子
-        "switch.insertImage", // 插入图片
-        "switch.insertVideo", // 插入视频
-        "switch.insertAudio", // 插入语音
-        "switch.insertDoc", // 插入附件
-        "switch.insertGoods", // 插入商品
-        "switch.insertPay", // 插入付费
-        "switch.insertReward", // 插入悬赏
-        "switch.insertRedPacket", // 插入红包
-        "switch.insertPosition", // 插入位置
+        "thread.insertImage", // 插入图片
+        "thread.insertVideo", // 插入视频
+        "thread.insertAudio", // 插入语音
+        "thread.insertDoc", // 插入附件
+        "thread.insertGoods", // 插入商品
+        "thread.insertPay", // 插入付费
+        "thread.insertReward", // 插入悬赏
+        "thread.insertRedPacket", // 插入红包
+        "thread.insertPosition", // 插入位置
+        "thread.allowAnonymous", // 发布匿名
         "dialog.create", // 发布私信
-        "attachment.create.0", //上传附件
-        "attachment.create.1", //上传图片
-        "createThreadPaid", //发布付费内容
         "switch.thread.reply", //回复主题
-        "switch.thread.canBeReward", //允许被打赏
         "switch.viewThreads", //查看主题列表
         "switch.thread.viewPosts", //查看主题详情
         "switch.thread.freeViewPosts.1", //免费查看付费帖子
-        "switch.thread.freeViewPosts.2", //免费查看付费视频
-        "switch.thread.freeViewPosts.3", //免费查看付费图片
-        "switch.thread.freeViewPosts.4", //免费查看付费语音
-        "switch.thread.freeViewPosts.5", //免费查看付费问答
         "thread.sticky", //置顶
-        "createInvite", //邀请加入
-        "user.edit.group", //编辑用户组
-        "user.edit.status", //编辑用户状态
         "switch.thread.essence", //加精
         "switch.thread.edit", //编辑主题
         "switch.thread.hide", //删除主题
-        "switch.thread.editPosts", //编辑回复
         "switch.thread.hidePosts", //删除回复
         "switch.thread.editOwnThreadOrPost", //编辑自己的主题或回复
         "switch.thread.hideOwnThreadOrPost", //删除自己的主题或回复
