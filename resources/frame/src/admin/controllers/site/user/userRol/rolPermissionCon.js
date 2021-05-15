@@ -308,7 +308,6 @@ export default {
       return this.appFetch({
         url: "permission_get_v3",
         method: "get",
-        apiType: 'v3',
         params: {
           id: this.groupId,
           include: 'permission',
@@ -335,7 +334,6 @@ export default {
         url: "permission_update_v3",
         method: "post",
         data: param,
-        apiType: 'v3',
       })
         .then(res => {
           if (res.Code === 0) {

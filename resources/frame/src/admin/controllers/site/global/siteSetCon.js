@@ -460,7 +460,6 @@ export default {
         data: {
           data: params
         },
-        apiType: 'v3'
       })
         .then(data => {
           if (data.errors) {

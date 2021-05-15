@@ -144,14 +144,13 @@ const appFetch = function(params, options) {
     apiUrl = apiUrl + params.splice;
   }
 
-  //如果是本地请求，就走接口代理,使用apiType判断接口类型
-  const preUrl = params.apiType === 'v3' ? appConfig.newApiBasePath : appConfig.apiBasePath;
-  if(process.env.NODE_ENV === 'development') {
-    params.baseURL = preUrl;
+  //如果是本地请求，就走接口代理
+  if (process.env.NODE_ENV === 'development') {
+    params.baseURL = "/api";
     params.url = apiUrl;
   } else {
     params.baseURL = "/";
-    params.url = appConfig.apiBaseUrl + preUrl + apiUrl;
+    params.url = appConfig.apiBaseUrl + apiUrl;
   }
 
   params.withCredentials = true;

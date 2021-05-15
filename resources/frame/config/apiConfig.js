@@ -105,8 +105,8 @@ module.exports = {
   clearCache: '/cache', // 缓存相关
   checkQcloud: '/checkQcloud', // 判断腾讯云云api是否配置
 
-  // v3新接口,请求时使用 apiType: 'v3' ,标记v3接口
-  settings_post_v3: '/settings.create', // 全局-站点设置
-  permission_get_v3: '/groups.resource', // 用户组权限获取
-  permission_update_v3: '/permission.update', // 用户组权限修改
+  // v3新接口
+  settings_post_v3: '/backAdmin/settings.create', // 全局-站点设置
+  permission_get_v3: '/backAdmin/groups.resource', // 用户组权限获取
+  permission_update_v3: '/backAdmin/permission.update', // 用户组权限修改
 };
