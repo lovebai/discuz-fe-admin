@@ -77,8 +77,8 @@ export default {
             include: "wechat,groups"
           }
         });
-        if (response.errors) {
-          this.$message.error(response.errors[0].code);
+        if (response.Code || response.Code !== 0) {
+          this.$message.error(response.Message);
         } else {
           this.userInfo = response.readdata._data;
           this.imageUrl = this.userInfo.avatarUrl;
@@ -172,8 +172,8 @@ export default {
         splice: `/${this.query.id}` + "/avatar",
         data: {}
       }).then(res => {
-        if (res.errors) {
-          this.$message.error(res.errors[0].code);
+        if (res.Code || res.Code !== 0) {
+          this.$message.error(res.Message);
         } else {
           this.deleBtn = false;
           this.$message.success("删除成功");
@@ -259,7 +259,7 @@ export default {
           }
         }
       }).then(res => {
-        if (res.Code !== 0) {
+        if (res.Code && res.Code !== 0) {
           this.$message.error(res.Message);
         } else {
           this.$message({ message: "提交成功", type: "success" });
