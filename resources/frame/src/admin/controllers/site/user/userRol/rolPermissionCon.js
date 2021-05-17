@@ -530,7 +530,7 @@ export default {
         "thread.insertImage", // 插入图片
         "thread.insertVideo", // 插入视频
         "thread.insertAudio", // 插入语音
-        "thread.insertDoc", // 插入附件
+        "thread.insertAttachment", // 插入附件
         "thread.insertGoods", // 插入商品
         "thread.insertPay", // 插入付费
         "thread.insertReward", // 插入悬赏

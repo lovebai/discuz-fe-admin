@@ -113,7 +113,7 @@
           <CardRow description="允许发帖插入附件的权限">
             <el-checkbox
               v-model="checked"
-              label="thread.insertDoc"
+              label="thread.insertAttachment"
               :disabled="
                 $router.history.current.query.id === '1' ||
                   $router.history.current.query.id === '7'
