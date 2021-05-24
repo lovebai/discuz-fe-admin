@@ -49,7 +49,7 @@
           style="width: 100%">
 
           <el-table-column
-            prop="user._data.username"
+            prop="username"
             label="用户名"
             width="120">
           </el-table-column>
@@ -57,23 +57,23 @@
           <el-table-column
             label="变动时间"
             width="190">
-            <template slot-scope="scope">{{ formatDate(scope.row._data.created_at) }}</template>
+            <template slot-scope="scope">{{ formatDate(scope.row.createdAt) }}</template>
           </el-table-column>
 
           <el-table-column
-            prop="_data.change_available_amount"
+            prop="changeAvailableAmount"
             label="可用金额"
             width="100">
           </el-table-column>
 
           <el-table-column
-            prop="_data.change_freeze_amount"
+            prop="changeFreezeAmount"
             label="冻结金额"
             width="100">
           </el-table-column>
 
           <el-table-column
-            prop="_data.change_desc"
+            prop="changeDesc"
             label="变动描述">
           </el-table-column>
         </el-table>

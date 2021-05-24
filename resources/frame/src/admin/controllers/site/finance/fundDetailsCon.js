@@ -184,32 +184,32 @@ export default {
     * */
     getFundingDetailsList(){
       this.appFetch({
-        url:'walletDetails',
+        url:'walletLogs_get_v3',
         method:'get',
         data:{
-          include:['user','userWallet'],
-          'page[number]':this.currentPaga,
-          'page[size]':10,
-          'filter[username]' : this.userName,
-          'filter[change_type]': this.amountType.toString(),
-          'filter[change_desc]' : this.changeDescription,
-          'filter[start_time]' : this.changeTime[0],
-          'filter[end_time]' : this.changeTime[1]
+          'page':this.currentPaga,
+          'perPage':10,
+          'filter[nickname]' : this.userName,
+          'filter[changeType]': this.amountType.toString(),
+          'filter[changeDesc]' : this.changeDescription,
+          'filter[startTime]' : this.changeTime[0],
+          'filter[endTime]' : this.changeTime[1]
         }
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
           this.tableData = [];
-          this.tableData = res.readdata;
-          this.total = res.meta.total;
-          this.pageCount = res.meta.pageCount;
-          if(res.readdata.length > 0){
+          const { Data: data } = res;
+          this.tableData = data.pageData;
+          this.total = data.totalCount;
+          this.pageCount = data.totalPage;
+          if(data.pageData.length > 0){
             let availableAmount = [];
             let freezeAmount = [];
-            for (let i in res.readdata) {
-                availableAmount.push(res.readdata[i]._data['change_available_amount']);
-                freezeAmount.push(res.readdata[i]._data['change_freeze_amount'])
+            for (let i in data.pageData) {
+              availableAmount.push(data.pageData[i].changeAvailableAmount);
+              freezeAmount.push(data.pageData[i].changeFreezeAmount)
             };
             this.usableTotalAmount = eval(availableAmount.join('+')).toFixed(2);
             this.frozenTotalAmount = eval(freezeAmount.join('+')).toFixed(2);
@@ -222,26 +222,26 @@ export default {
     // 合计
     getSummaries(param) {
       const { columns, data } = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = '合计';
-            return;
-          }
-          if (index === 1 || index === 4) {
-            sums[index] = '';
-            return;
-          }
-          if (index === 2) {
-            sums[index] = this.usableTotalAmount;
-            return;
-          }
-          if (index === 3) {
-            sums[index] = this.frozenTotalAmount;
-            return;
-          }
-        });
-        return sums;
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = '合计';
+          return;
+        }
+        if (index === 1 || index === 4) {
+          sums[index] = '';
+          return;
+        }
+        if (index === 2) {
+          sums[index] = this.usableTotalAmount;
+          return;
+        }
+        if (index === 3) {
+          sums[index] = this.frozenTotalAmount;
+          return;
+        }
+      });
+      return sums;
     },
     getCreated(state){
       if(state){
