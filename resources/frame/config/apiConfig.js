@@ -109,4 +109,17 @@ module.exports = {
   settings_post_v3: '/backAdmin/settings.create', // 全局-站点设置
   permission_get_v3: '/backAdmin/groups.resource', // 用户组权限获取
   permission_update_v3: '/backAdmin/permission.update', // 用户组权限修改
+
+  //全局
+  settings_get_v3: '/backAdmin/settings',
+  signinfields_get_v3: '/backAdmin/signinfields', // 注册扩展信息字段配置
+  settings_logo_post_v3: '/backAdmin/settings/logo',
+  delete_logo_post_v3: '/backAdmin/settings/delete.logo',
+
+  // 用户
+  users_update_post_v3: '/backAdmin/users/update.user',  // 用户资料修改
+  groups_list_get_v3: '/backAdmin/groups.list', // 用户组列表
+  groups_create_post_v3: '/backAdmin/groups.create', // 创建用户组
+  groups_batchupdate_post_v3: '/backAdmin/groups.batchupdate', // 用户组修改（批
+  groups_batchdelete_post_v3: '/backAdmin/groups.batchdelete', // 删除用户组 (批)
 };

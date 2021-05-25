@@ -47,11 +47,12 @@ export default {
   methods:{
     extendedFields() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_get_v3',
         method: 'get',
         data: {},
       }).then(res => {
-        this.informationList(res.data);
+        console.log(res, '扩展信息');
+        this.informationList(res.Data);
       }) 
     },
 
@@ -59,18 +60,18 @@ export default {
       this.groupsList = [];
       for (let i = 0; i < datalist.length; i++) {
         let data = {
-          name: datalist[i].attributes.name,   // 字段名称
-          id: datalist[i].attributes.id,           // 字段id
+          name: datalist[i].name,   // 字段名称
+          id: datalist[i].id,           // 字段id
           content: '',
-          description: datalist[i].attributes.type,  // 字段类型
-          sort: datalist[i].attributes.sort,           // 字段排序
-          introduce: datalist[i].attributes.fields_desc,  // 字段介绍
-          enable: datalist[i].attributes.status === 1 ? true : false,      // 是否启用
-          required: datalist[i].attributes.required === 1 ? true : false,   // 是否必填
+          description: datalist[i].type,  // 字段类型
+          sort: datalist[i].sort,           // 字段排序
+          introduce: datalist[i].fields_desc,  // 字段介绍
+          enable: datalist[i].status === 1 ? true : false,      // 是否启用
+          required: datalist[i].required === 1 ? true : false,   // 是否必填
         }
         let fieldsExt = ''
-        if (datalist[i].attributes.fields_ext) {
-          fieldsExt = JSON.parse(datalist[i].attributes.fields_ext);
+        if (datalist[i].fields_ext) {
+          fieldsExt = JSON.parse(datalist[i].fields_ext);
         }
         if (fieldsExt.options) {
           const num = fieldsExt.options;

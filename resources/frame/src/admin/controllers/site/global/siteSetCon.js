@@ -83,6 +83,14 @@ export default {
 
   methods: {
     loadStatus() {
+      // this.appFetch({
+      //   url: "settings_get_v3",
+      //   method: "get",
+      //   data: {}
+      // })
+      // .then(res => {
+      //   console.log(res, '站点信息');
+      // })
       //初始化设置
       this.appFetch({
         url: "forum",
@@ -93,7 +101,6 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
-            console.log(data)
             // 微信支付关闭时置灰付费模式
             if (data.readdata._data.paycenter.wxpay_close == false) {
               this.disabled = true;
@@ -224,8 +231,8 @@ export default {
       }
       this.numberimg[index].imageUrl = "";
       this.appFetch({
-        url: "logo",
-        method: "delete",
+        url: "delete_logo_post_v3",
+        method: "post",
         data: {
           type: type
         }
@@ -343,15 +350,16 @@ export default {
       logoFormData.append("logo", e.file);
       logoFormData.append("type", type);
       this.appFetch({
-        url: "logo",
+        url: "settings_logo_post_v3",
         method: "post",
         data: logoFormData
       })
         .then(data => {
+          console.log(data);
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
-            this.numberimg[index].imageUrl = data.readdata._data.default.logo;
+            this.numberimg[index].imageUrl = data.Data.value;
             this.getScaleImgSize(this.numberimg[index].imageUrl, {
               width: 140,
               height: 140
