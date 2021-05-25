@@ -109,4 +109,14 @@ module.exports = {
   settings_post_v3: '/backAdmin/settings.create', // 全局-站点设置
   permission_get_v3: '/backAdmin/groups.resource', // 用户组权限获取
   permission_update_v3: '/backAdmin/permission.update', // 用户组权限修改
+
+  siteinfo_get_v3: 'backAdmin/siteinfo', // 首页-站点信息
+  firstChart_get_v3: 'backAdmin/statistic/firstChart', // 首页-数据看板
+
+  walletLogs_get_v3: 'backAdmin/users.wallet.logs', // 财务-资金明细
+  orderLogs_get_v3: 'backAdmin/users.order.logs', // 财务-订单记录
+  cashLogs_get_v3: 'backAdmin/users.cash.logs', // 财务-提现管理
+
+  categories_get_v3: '/backAdmin/categories', // 内容-分类列表
+
 };
