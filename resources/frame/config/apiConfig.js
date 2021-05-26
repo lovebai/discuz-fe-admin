@@ -118,5 +118,9 @@ module.exports = {
   cashLogs_get_v3: 'backAdmin/users.cash.logs', // 财务-提现管理
 
   categories_get_v3: '/backAdmin/categories', // 内容-分类列表
+  categories_create_v3: '/backAdmin/categories.create', // 内容-创建内容分类(批量)
+  categories_update_v3: '/backAdmin/categories.update', // 内容-修改内容分类(批量)
+  categories_delete_v3: '/backAdmin/categories.delete', // 内容-删除内容分类(批量)
+
 
 };
