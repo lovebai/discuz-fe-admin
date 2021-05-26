@@ -110,17 +110,26 @@ module.exports = {
   permission_get_v3: '/backAdmin/groups.resource', // 用户组权限获取
   permission_update_v3: '/backAdmin/permission.update', // 用户组权限修改
 
-  siteinfo_get_v3: 'backAdmin/siteinfo', // 首页-站点信息
-  firstChart_get_v3: 'backAdmin/statistic/firstChart', // 首页-数据看板
+  // 首页
+  siteinfo_get_v3: '/backAdmin/siteinfo', // 站点信息
+  firstChart_get_v3: '/backAdmin/statistic/firstChart', // 数据看板
 
-  walletLogs_get_v3: 'backAdmin/users.wallet.logs', // 财务-资金明细
-  orderLogs_get_v3: 'backAdmin/users.order.logs', // 财务-订单记录
-  cashLogs_get_v3: 'backAdmin/users.cash.logs', // 财务-提现管理
+  // 财务
+  walletLogs_get_v3: '/backAdmin/users.wallet.logs', // 资金明细
+  orderLogs_get_v3: '/backAdmin/users.order.logs', // 订单记录
+  cashLogs_get_v3: '/backAdmin/users.cash.logs', // 提现管理
 
-  categories_get_v3: '/backAdmin/categories', // 内容-分类列表
-  categories_create_v3: '/backAdmin/categories.create', // 内容-创建内容分类(批量)
-  categories_update_v3: '/backAdmin/categories.update', // 内容-修改内容分类(批量)
-  categories_delete_v3: '/backAdmin/categories.delete', // 内容-删除内容分类(批量)
+  // 内容
+  categories_get_v3: '/backAdmin/categories', // 分类列表
+  categories_create_v3: '/backAdmin/categories.create', // 创建内容分类(批量)
+  categories_update_v3: '/backAdmin/categories.update', // 修改内容分类(批量)
+  categories_delete_v3: '/backAdmin/categories.delete', // 删除内容分类(批量)
 
+  reports_get_v3: '/backAdmin/reports', // 举报反馈列表
+  reports_update_v3: '/backAdmin/reports/batch', // 批量修改举报反馈
+  reports_delete_v3: '/backAdmin/reports/delete', // 批量删除举报反馈
+
+  recycle_thread_get_v3: '/backAdmin/check.thread.list', // 主题回收站
+  recycle_posts_get_v3: '/backAdmin/check.posts.list', // 回复回收站
 
 };

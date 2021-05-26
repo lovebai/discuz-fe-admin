@@ -117,27 +117,28 @@ export default {
     getReportList(pageNumber){
       let searchData = this.searchData;
       this.appFetch({
-        url: 'reports',
+        url: 'reports_get_v3',
         method: 'get',
         data: {
-          "filter[username]": searchData.userName,
+          // "filter[username]": searchData.userName,
           "filter[status]": 1,
-          "filter[type]": searchData.reportType,
-          "filter[start_time]": searchData.reportTime[0],
-          "filter[end_time]":  searchData.reportTime[1],
-          "page[number]": pageNumber,
-          "page[limit]": this.pageData.pageSize
+          // "filter[type]": searchData.reportType,
+          // "filter[start_time]": searchData.reportTime[0],
+          // "filter[end_time]":  searchData.reportTime[1],
+          "page": pageNumber,
+          "perPage": this.pageData.pageSize
         }
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.reportList = res.readdata;
-          this.pageData.pageTotal = res.meta.total;
-          this.pageData.pageCount = res.meta.pageCount;
+          const { Data: data } = res;
+          this.reportList = data.pageData;
+          this.pageData.pageTotal = data.totalPage;
+          this.pageData.pageCount = data.totalPage;
           this.reportListAll = [];
           this.reportList.forEach(item => {
-            this.reportListAll.push(item._data.id);
+            this.reportListAll.push(item.report.id);
           })
         }
       })
@@ -171,9 +172,11 @@ export default {
         userID = this.checkedReport.toString();
       }
       this.appFetch({
-        url: 'reportsBatch',
-        splice: '/' + userID,
-        method: 'delete'
+        url: 'reports_delete_v3',
+        method: 'post',
+        data: {
+          "ids": userID,
+        }
       }).then(res => {
         console.log('删除',res);
       })
