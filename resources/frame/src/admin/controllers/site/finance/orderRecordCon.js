@@ -81,10 +81,8 @@ export default {
       switch (status){
         case 0:
           return "待付款";
-          break;
         case 1:
           return "已付款";
-          break;
         default:
           return "未知状态";
       }
@@ -122,28 +120,29 @@ export default {
     * */
     getOrderList(){
       this.appFetch({
-        url:'orderList',
+        url:'orderLogs_get_v3',
         method:'get',
         data:{
-          include:['user','thread','thread.firstPost','payee'],
-          'page[number]':this.currentPaga,
-          'page[size]':10,
-          'filter[order_sn]':this.orderNumber,
+          'page':this.currentPaga,
+          'perPage':10,
+          'filter[orderSn]':this.orderNumber,
           'filter[product]':this.commodity,
-          'filter[username]':this.operationUser,
-          'filter[start_time]':this.orderTime[0],
-          'filter[end_time]':this.orderTime[1],
+          'filter[nickname]':this.operationUser,
+          'filter[startTime]':this.orderTime[0],
+          'filter[endTime]':this.orderTime[1],
           'filter[status]':this.value,
-          'filter[payee_username]':this.incomeSide
+          'filter[payeeNickname]':this.incomeSide
         }
       }).then(res=>{
+        console.log(res, 'orderLogs_get_v3')
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          const { Data: data } = res;
           this.tableData = [];
-          this.tableData = res.readdata;
-          this.pageCount = res.meta.pageCount;
-          this.total = res.meta.total;
+          this.tableData = data.pageData;
+          this.pageCount = data.totalPage;
+          this.total = data.totalCount;
         }
       }).catch(err=>{
       })

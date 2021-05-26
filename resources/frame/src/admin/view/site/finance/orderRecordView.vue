@@ -75,17 +75,17 @@
     <!-- 订单记录列表 -->
     <div class="order-record-table">
       <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="_data.order_sn" label="订单号" min-width="110">
+        <el-table-column prop="orderSn" label="订单号" min-width="110">
         </el-table-column>
 
-        <el-table-column prop="user._data.username" label="发起方">
+        <el-table-column prop="nickname" label="发起方">
         </el-table-column>
 
-        <el-table-column prop="payee._data.username" label="收入方">
+        <el-table-column prop="payeeNickname" label="收入方">
         </el-table-column>
 
         <el-table-column
-          prop="thread.firstPost._data.title"
+          prop="thread.title"
           show-overflow-tooltip
           label="商品名称"
           min-width="150"
@@ -93,68 +93,68 @@
           <template slot-scope="scope">
             <span
               :class="scope.row.thread ? 'cursor-pointer' : ''"
-              v-if="scope.row.thread && (scope.row._data.type === 2 || scope.row._data.type === 3 || scope.row._data.type === 5 || scope.row._data.type === 6 || scope.row._data.type === 7 || scope.row._data.type === 20 || scope.row._data.type === 21)" @click="
+              v-if="scope.row.thread && (scope.row.type === 2 || scope.row.type === 3 || scope.row.type === 5 || scope.row.type === 6 || scope.row.type === 7 || scope.row.type === 20 || scope.row.type === 21)" @click="
                 viewClick(scope.row.thread ? scope.row.thread._data.id : '')">
-              {{ scope.row.thread._data.title }}
+              {{ scope.row.thread.title }}
             </span>
-            <span v-else-if="scope.row._data.type === 1" @click="viewClick('')">
+            <span v-else-if="scope.row.type === 1" @click="viewClick('')">
               注册付费
             </span>
-            <span v-else-if="scope.row._data.type === 4" @click="viewClick('')">
+            <span v-else-if="scope.row.type === 4" @click="viewClick('')">
               {{ scope.row.group ? scope.row.group._data.name : '' }}用户组
             </span>
           </template>
         </el-table-column>
 
         <el-table-column
-          prop="thread.firstPost._data.content"
+          prop="thread.content"
           show-overflow-tooltip
           label="类型"
           min-width="80"
         >
           <template slot-scope="scope">
-            <span v-if="scope.row._data.type === 1">
+            <span v-if="scope.row.type === 1">
               注册
             </span>
-            <span v-else-if="scope.row._data.type === 2">
+            <span v-else-if="scope.row.type === 2">
               打赏
             </span>
-            <span v-else-if="scope.row._data.type === 3">
+            <span v-else-if="scope.row.type === 3">
               付费主题
             </span>
-            <span v-else-if="scope.row._data.type === 4">
+            <span v-else-if="scope.row.type === 4">
               付费用户组
             </span>
-            <span v-else-if="scope.row._data.type === 5">
+            <span v-else-if="scope.row.type === 5">
               问答提问支付
             </span>
-            <span v-else-if="scope.row._data.type === 6">
+            <span v-else-if="scope.row.type === 6">
               问答围观付费
             </span>
-            <span v-else-if="scope.row._data.type === 7">
+            <span v-else-if="scope.row.type === 7">
               付费附件
             </span>
-            <span v-else-if="scope.row._data.type === 20">
+            <span v-else-if="scope.row.type === 20">
               文字帖红包
             </span>
-            <span v-else-if="scope.row._data.type === 21">
+            <span v-else-if="scope.row.type === 21">
               长文帖红包
             </span>
           </template>
         </el-table-column>
 
-        <el-table-column prop="_data.amount" label="金额" width="100">
+        <el-table-column prop="amount" label="金额" width="100">
         </el-table-column>
 
-        <el-table-column prop="_data.created_at" label="订单时间">
+        <el-table-column prop="createdAt" label="订单时间">
           <template slot-scope="scope">{{
-            formatDate(scope.row._data.created_at)
+            formatDate(scope.row.createdAt)
           }}</template>
         </el-table-column>
 
         <el-table-column label="状态" width="100">
           <template slot-scope="scope">{{
-            cashStatus(scope.row._data.status)
+            cashStatus(scope.row.status)
           }}</template>
         </el-table-column>
       </el-table>
