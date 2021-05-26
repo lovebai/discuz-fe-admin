@@ -315,8 +315,8 @@
           <CardRow description="免费查看内容分类下的付费帖子">
             <el-checkbox
               v-model="checked"
-              label="switch.thread.freeViewPosts.1"
-              @change="changeChecked($event,'thread.freeViewPosts.1')"
+              label="switch.thread.freeViewPosts"
+              @change="changeChecked($event,'thread.freeViewPosts')"
               :disabled="$router.history.current.query.id === '1'"
               >免费查看付费帖子</el-checkbox
             >
@@ -324,9 +324,9 @@
           <el-cascader
             :key="keyValue"
             placeholder="请选择"
-            v-model="selectList['thread.freeViewPosts.1']"
+            v-model="selectList['thread.freeViewPosts']"
             :options="categoriesList"
-            :disabled="checked.indexOf('switch.thread.freeViewPosts.1') === -1"
+            :disabled="checked.indexOf('switch.thread.freeViewPosts') === -1"
             :props="{
               value: 'id',
               label: 'name',
@@ -336,8 +336,8 @@
               expandTrigger: 'hover'
             }"
             collapse-tags
-            @change="changeCategory($event, 'thread.freeViewPosts.1')"
-            @remove-tag="clearItem($event, 'thread.freeViewPosts.1')"
+            @change="changeCategory($event, 'thread.freeViewPosts')"
+            @remove-tag="clearItem($event, 'thread.freeViewPosts')"
           ></el-cascader>
         </Card>
       </div>

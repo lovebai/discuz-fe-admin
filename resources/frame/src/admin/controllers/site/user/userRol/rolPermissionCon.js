@@ -27,7 +27,7 @@ export default {
         'thread.hidePosts': [], // 删除回复扩展
         'thread.editOwnThreadOrPost': [], // 编辑自己的主题、回复
         'thread.hideOwnThreadOrPost': [], // 删除自己的主题、回复
-        'thread.freeViewPosts.1': [],
+        'thread.freeViewPosts': [],
       },
       activeTab: {
         // 设置权限当前项
@@ -80,7 +80,7 @@ export default {
         'thread.hidePosts',
         'thread.editOwnThreadOrPost',
         'thread.hideOwnThreadOrPost',
-        'thread.freeViewPosts.1',
+        'thread.freeViewPosts',
       ],
       mapCategoryId: new Map(),
       keyValue: 0
@@ -436,8 +436,8 @@ export default {
           return false;
         }
       }
-      if (this.checked.indexOf('switch.thread.freeViewPosts.1') !== -1) {
-        if (this.selectList['thread.freeViewPosts.1'].length === 0) {
+      if (this.checked.indexOf('switch.thread.freeViewPosts') !== -1) {
+        if (this.selectList['thread.freeViewPosts'].length === 0) {
           this.$message.error("请选择免费查看付费帖子权限");
           return false;
         }
@@ -495,7 +495,7 @@ export default {
         'thread.hidePosts': [],
         'thread.editOwnThreadOrPost': [],
         'thread.hideOwnThreadOrPost': [],
-        'thread.freeViewPosts.1': [],
+        'thread.freeViewPosts': [],
       };
       if (val) {
         // 1 主权限全选
@@ -522,7 +522,7 @@ export default {
       this.checkAllPermission = [
         "switch.viewThreads", //查看主题列表
         "switch.thread.viewPosts", //查看主题详情
-        "switch.thread.freeViewPosts.1", //免费查看付费帖子
+        "switch.thread.freeViewPosts", //免费查看付费帖子
       ];
     } else {
       this.checkAllPermission = [
@@ -541,7 +541,7 @@ export default {
         "switch.thread.reply", //回复主题
         "switch.viewThreads", //查看主题列表
         "switch.thread.viewPosts", //查看主题详情
-        "switch.thread.freeViewPosts.1", //免费查看付费帖子
+        "switch.thread.freeViewPosts", //免费查看付费帖子
         "thread.sticky", //置顶
         "switch.thread.essence", //加精
         "switch.thread.edit", //编辑主题
