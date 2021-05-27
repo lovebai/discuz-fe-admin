@@ -116,11 +116,11 @@ export default {
       url: 'reports_get_v3',
       method: 'get',
       data: {
-        // "filter[userName]": searchData.userName,
+        "filter[username]": searchData.userName,
         "filter[status]": 0,
-        // "filter[type]": searchData.reportType,
-        // "filter[startTime]": searchData.reportTime[0],
-        // "filter[endTime]":  searchData.reportTime[1],
+        "filter[type]": searchData.reportType,
+        "filter[startTime]": searchData.reportTime[0],
+        "filter[endTime]":  searchData.reportTime[1],
         "page": pageNumber,
         "perPage": this.pageData.pageSize
       }
