@@ -265,27 +265,31 @@ export default {
     },
 
     singleOperationSubmit(val,categoryId,themeId,index){
-      let data = {
-        "type": "posts",
-        "attributes": {
+      let data = [
+         {
+          id: Number(themeId)
+         }
+      ];
+        // "type": "posts",
+        // "attributes": {
           // "isApproved": 0,
           // 'isDeleted':false
-        }
-      };
+      //   }
+      // };
       switch (val){
         case 1:
-          data.attributes.isApproved = 1;
-          data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].isApproved = 1;
+          // data.attributes.message = this.submitForm[index].attributes.message;
           this.patchPosts(data,themeId);
           break;
         case 2:
-          data.attributes.isDeleted = true;
-          data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].isDeleted = true;
+          // data.attributes.message = this.submitForm[index].attributes.message;
           this.patchPosts(data,themeId);
           break;
         case 3:
-          data.attributes.isApproved = 2;
-          data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].isApproved = 2;
+          // data.attributes.message = this.submitForm[index].attributes.message;
           this.patchPosts(data,themeId);
           break;
         default:
@@ -323,14 +327,14 @@ export default {
     * */
     getPostsList(pageNumber){
       this.appFetch({
-        url:'posts',
+        url:'check_posts_list_post_v3',
         method:'get',
         data:{
-          include: ['user','thread','thread.category','thread.firstPost','images'],
+          // include: ['user','thread','thread.category','thread.firstPost','images'],
+          'page':pageNumber,
+          'perPage':this.pageSelect,
           'filter[isDeleted]':'no',
-          'filter[username]':this.searchUserName,
-          'page[number]':pageNumber,
-          'page[size]':this.pageSelect,
+          'filter[uickname]':this.searchUserName,
           'filter[q]':this.keyWords,
           'filter[isApproved]':this.searchReviewSelect,
           'filter[createdAtBegin]':this.relativeTime[1],
@@ -341,14 +345,15 @@ export default {
           'sort':'-updatedAt'
         }
       }).then(res=>{
+        console.log(res);
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
           this.themeList = [];
           this.submitForm = [];
-          this.themeList = res.readdata;
-          this.total = res.meta.postCount;
-          this.pageCount = res.meta.pageCount;
+          this.themeList = res.Data.pageData;
+          this.total = res.Data.totalCount;
+          this.pageCount = res.Data.totalPage;
 
           this.themeList.forEach((item, index) => {
             this.submitForm.push({
@@ -356,7 +361,7 @@ export default {
               Select: '无',
               radio: '',
               type: 'posts',
-              id: item._data.id,
+              id: item.id,
               attributes: {
                 isApproved: 0,
                 isDeleted: false,
@@ -440,13 +445,14 @@ export default {
     },
     patchPosts(data,id){
       this.appFetch({
-        url:'posts',
-        method:'patch',
-        splice:'/' + id,
+        url:'check_sub_post_v3',
+        method:'post',
         data:{
+          type: 2,
           data
         }
       }).then(res=>{
+        console.log(res);
         this.subLoading = false;
         this.btnLoading = 0;
         if (res.errors){

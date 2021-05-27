@@ -244,17 +244,15 @@ export default {
         method: "post",
         data: {
           id: this.query.id,
-          data: {
-            newPassword: this.newPassword,
-            mobile: mobile,
-            groupId: this.userRole,
-            status: this.userInfo.status,
-            refuseMessage: this.reasonsForDisable,
-            expiredAt: this.expired_at,
-            username: this.userName,
-            // password: this.oldPassword,
-            // newPassword: this.confirmPassword
-          }
+          newPassword: this.newPassword,
+          mobile: mobile,
+          groupId: this.userRole,
+          status: this.userInfo.status,
+          refuseMessage: this.reasonsForDisable,
+          expiredAt: this.expired_at,
+          username: this.userName,
+          // password: this.oldPassword,
+          // newPassword: this.confirmPassword
         }
       }).then(res => {
         if (res.Code || (res.Code && res.Code !== 0)) {

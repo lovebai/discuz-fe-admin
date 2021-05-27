@@ -113,11 +113,21 @@ module.exports = {
   //全局
   settings_get_v3: '/backAdmin/settings',
   signinfields_get_v3: '/backAdmin/signinfields', // 注册扩展信息字段配置
-  settings_logo_post_v3: '/backAdmin/settings/logo',
-  delete_logo_post_v3: '/backAdmin/settings/delete.logo',
+  settings_logo_post_v3: '/backAdmin/settings/logo', // 上传站点logo
+  delete_logo_post_v3: '/backAdmin/settings/delete.logo', // 删除站点logo
+
+  // 内容
+  topics_list_get_v3: '/backAdmin/topics.list',  // 话题管理列表
+  topic_delete_post_v3: '/backAdmin/topics.batch.delete', // 删除话题
+  topics_update_post_v3: '/backAdmin/topics.batch.update', // 话题修改
+  thread_list_get_v3: '/backAdmin/thread.list', // 主题列表接口
+  check_sub_post_v3: '/backAdmin/check.sub', // 内容审核 主题审核
+  check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
+  threads_batch_post_v3: '/backAdmin/threads.batch',  // 修改主题
 
   // 用户
   users_update_post_v3: '/backAdmin/users/update.user',  // 用户资料修改
+  users_avatar_post_v3: '/backAdmin/users/avatar', // 上传用户头像
   groups_list_get_v3: '/backAdmin/groups.list', // 用户组列表
   groups_create_post_v3: '/backAdmin/groups.create', // 创建用户组
   groups_batchupdate_post_v3: '/backAdmin/groups.batchupdate', // 用户组修改（批
