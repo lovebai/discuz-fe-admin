@@ -193,40 +193,43 @@ export default {
     * */
     getPostsList(pageNumber){
       this.appFetch({
-        url:'posts',
+        url:'posts_get_v3',
         method:'get',
         data:{
-          include: ['user','replyUser','thread','thread.category','thread.firstPost','deletedUser','lastDeletedLog','images'],
+          // include: ['user','replyUser','thread','thread.category','thread.firstPost','deletedUser','lastDeletedLog','images'],
+          'filter[isApproved]': 1,
           'filter[isDeleted]':'yes',
-          'filter[username]':this.searchUserName,
-          'page[number]':pageNumber,
-          'page[size]':10,
+          'filter[nickname]':this.searchUserName,
+          'page':pageNumber,
+          'perPage':10,
           'filter[q]':this.keyWords,
           // 'filter[categoryId]':this.categoriesListSelect,
           'filter[categoryId]':this.categoriesListSelect[this.categoriesListSelect.length - 1],
-          'filter[deletedUsername]':this.operator,
+          'filter[deletedNickname]':this.operator,
           'filter[createdAtBegin]':this.releaseTime[0],
           'filter[createdAtEnd]':this.releaseTime[1],
           'filter[deletedAtBegin]':this.deleteTime[0],
-          'filter[deletedAtEnd]':this.deleteTime[1],
+          'filter[deletedEnd]':this.deleteTime[1],
           'sort':'-deletedAt'
         }
       }).then(res=>{
+        console.log(res, 'posts_get_v3')
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          const {Data: data} = res;
           this.themeList = [];
           this.submitForm = [];
-          this.themeList = res.readdata;
-          this.total = res.meta.postCount;
-          this.pageCount = res.meta.pageCount;
+          this.themeList = data.pageData;
+          this.total = data.totalCount;
+          this.pageCount = data.totalPage;
 
           this.themeList.forEach((item, index) => {
             this.submitForm.push({
               Select: '无',
               radio: '',
               type: 'posts',
-              id: item._data.id,
+              id: item.id,
               attributes: {
                 isDeleted: true,
                 message: '',

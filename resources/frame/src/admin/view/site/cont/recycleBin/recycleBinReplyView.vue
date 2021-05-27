@@ -80,14 +80,14 @@
       <div class="recycle-bin-reply-table">
         <ContArrange
           v-for="(items,index) in  themeList"
-          :replyBy="!items.user?'该用户被删除':items.user._data.username"
-          :themeName="items.thread._data.type === 1?items.thread._data.title:items.thread.firstPost._data.content"
-          :titleIcon="titleIcon(items.thread._data)"
-          :finalPost="formatDate(items._data.createdAt)"
+          :replyBy="!items.nickname?'该用户被删除':items.nickname"
+          :themeName="items.title"
+          :titleIcon="titleIcon(items)"
+          :finalPost="formatDate(items.updatedAt)"
           :deleTime="formatDate(items._data.deletedAt)"
           :ip="items._data.ip"
           :userId="!items.user?'该用户被删除':items.user._data.id"
-          :key="items._data.id"
+          :key="items.id"
         >
           <div class="recycle-bin-reply-table__side" slot="side">
             <el-radio-group @change="radioChange($event,index)" v-model="submitForm[index].radio">
@@ -103,7 +103,7 @@
 
           <div class="recycle-bin-reply-table__main" slot="main">
             <!--<a :href="'/topic/index?id=' + items._data.id" style="color: #333333;" target="_blank" v-html="items._data.contentHtml"></a>-->
-            <a class="recycle-bin-reply-table__main__cont-text" :href="'/topic/index?id=' + items.thread._data.id" target="_blank" v-html="items._data.contentHtml"></a>
+            <a class="recycle-bin-reply-table__main__cont-text" :href="'/topic/index?id=' + items.id" target="_blank" v-html="items.content"></a>
             <div class="recycle-bin-reply-table__main__cont-imgs">
               <p class="recycle-bin-reply-table__main__cont-imgs-p" v-for="(item,index) in items.images" :key="index">
                 <img  v-lazy="item._data.thumbUrl" @click="imgShowClick(items.images,index)" :alt="item._data.fileName">
