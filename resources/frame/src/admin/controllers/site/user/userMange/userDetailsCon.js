@@ -240,23 +240,19 @@ export default {
       // }
       this.userExtensionModification();
       this.appFetch({
-        url: "users",
-        method: "patch",
-        splice: `/${this.query.id}`,
+        url: "users_update_post_v3",
+        method: "post",
         data: {
-          data: {
-            attributes: {
-              newPassword: this.newPassword,
-              mobile: mobile,
-              groupId: this.userRole,
-              status: this.userInfo.status,
-              refuse_message: this.reasonsForDisable,
-              expired_at: this.expired_at,
-              username: this.userName,
-              password: this.oldPassword,
-              password_confirmation: this.confirmPassword
-            }
-          }
+          id: this.query.id,
+          newPassword: this.newPassword,
+          mobile: mobile,
+          groupId: this.userRole,
+          status: this.userInfo.status,
+          refuseMessage: this.reasonsForDisable,
+          expiredAt: this.expired_at,
+          username: this.userName,
+          // password: this.oldPassword,
+          // newPassword: this.confirmPassword
         }
       }).then(res => {
         if (res.Code || (res.Code && res.Code !== 0)) {

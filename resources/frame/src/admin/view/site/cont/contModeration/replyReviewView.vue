@@ -67,7 +67,7 @@
       <div class="cont-review-table">
         <ContArrange
           v-for="(items,index) in  themeList"
-          :replyBy="!items.user?'该用户被删除':items.user._data.username"
+          :replyBy="!items.username?'该用户被删除':items.username"
           :themeName="items.thread._data.isLongArticle?items.thread._data.title:items.thread.firstPost._data.content"
           :titleIcon="titleIcon(items.thread._data)"
           :finalPost="formatDate(items._data.updatedAt)"

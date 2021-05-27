@@ -119,6 +119,12 @@ module.exports = {
   orderLogs_get_v3: '/backAdmin/users.order.logs', // 订单记录
   cashLogs_get_v3: '/backAdmin/users.cash.logs', // 提现管理
 
+  //全局
+  settings_get_v3: '/backAdmin/settings',
+  signinfields_get_v3: '/backAdmin/signinfields', // 注册扩展信息字段配置
+  settings_logo_post_v3: '/backAdmin/settings/logo', // 上传站点logo
+  delete_logo_post_v3: '/backAdmin/settings/delete.logo', // 删除站点logo
+
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
   categories_create_v3: '/backAdmin/categories.create', // 创建内容分类(批量)
@@ -129,7 +135,20 @@ module.exports = {
   reports_update_v3: '/backAdmin/reports/batch', // 批量修改举报反馈
   reports_delete_v3: '/backAdmin/reports/delete', // 批量删除举报反馈
 
-  recycle_thread_get_v3: '/backAdmin/check.thread.list', // 主题回收站
-  recycle_posts_get_v3: '/backAdmin/check.posts.list', // 回复回收站
+  thread_get_v3: '/backAdmin/check.thread.list', // 主题回收站
+  posts_get_v3: '/backAdmin/check.posts.list', // 回复回收站
+  check_sub_post_v3: '/backAdmin/check.sub', // 内容审核 主题审核
+  threads_batch_post_v3: '/backAdmin/threads.batch',  // 修改主题
 
+  topics_list_get_v3: '/backAdmin/topics.list',  // 话题管理列表
+  topic_delete_post_v3: '/backAdmin/topics.batch.delete', // 删除话题
+  topics_update_post_v3: '/backAdmin/topics.batch.update', // 话题修改
+
+  // 用户
+  users_update_post_v3: '/backAdmin/users/update.user',  // 用户资料修改
+  users_avatar_post_v3: '/backAdmin/users/avatar', // 上传用户头像
+  groups_list_get_v3: '/backAdmin/groups.list', // 用户组列表
+  groups_create_post_v3: '/backAdmin/groups.create', // 创建用户组
+  groups_batchupdate_post_v3: '/backAdmin/groups.batchupdate', // 用户组修改（批
+  groups_batchdelete_post_v3: '/backAdmin/groups.batchdelete', // 删除用户组 (批)
 };

@@ -40,13 +40,13 @@ export default {
     },*/
 
     radioChange(val,index){
-      this.radioName = val._data.name;
+      this.radioName = val.name;
       this.radioIndex = index;
-      this.groupId = val._data.id;
+      this.groupId = val.id;
     },
 
     checkSelectable(row){
-      switch (row._data.id){
+      switch (row.id){
         case '1':
           return false;
           break;
@@ -66,14 +66,14 @@ export default {
 
     addList(){
       if (this.alternateLength >= this.tableData.length){
-        this.tableData.push({
-          _data:{
+        this.tableData.push(
+          {
             "name": "",
             "type": "",
             "color": "",
             "icon": ""
           }
-        });
+        );
       }
       this.addStatus = true;
     },
@@ -90,10 +90,8 @@ export default {
       if (this.addStatus){
         let singleData = {
           "type": "groups",
-          "attributes": {
-            "name": "",
-            'default':''
-          }
+          "name": "",
+          'default':''
         };    //单个
 
         let batchData = [];   //批量
@@ -105,7 +103,7 @@ export default {
           /*batchData.push({
             "type": "groups",
             "attributes": {
-              "name": this.tableData[i]._data.name,
+              "name": this.tableData[i].name,
               "type": "",
               "color": "",
               "icon": ""
@@ -115,11 +113,11 @@ export default {
           /*
           * 单个添加用户组写法
           * */
-          singleData.attributes.name = this.tableData[i]._data.name;
+          singleData.name = this.tableData[i].name;
         }
 
         if (this.radioIndex + 1 === this.tableData.length){
-          singleData.attributes.default = 1;
+          singleData.default = 1;
         }
 
         this.postGroups(singleData);
@@ -127,17 +125,15 @@ export default {
         let data = [];
         this.tableData.forEach((item)=>{
           data.push({
-            "attributes": {
-              "name": item._data.name,
-              'id': item._data.id,
-              'isDisplay': item._data.isDisplay,
-              'default': item._data.id == this.radio,
-            },
+            "name": item.name,
+            'id': item.id,
+            'isDisplay': item.isDisplay,
+            'default': item.id == this.radio,
           })
         });
         this.batchPatchGroup(data);
       }
-      this.PermissionPurchaseAllowed();
+      // this.PermissionPurchaseAllowed();
     },
 
     singleDelete(index,id){
@@ -155,8 +151,9 @@ export default {
         id:[]
       };
       this.multipleSelection.forEach((item)=>{
-        data.id.push(item._data.id)
+        data.id.push(item.id)
       });
+
       this.batchDeleteGroup(data)
     },
 
@@ -165,22 +162,23 @@ export default {
     * */
     getGroups(){
       this.appFetch({
-        url:'groups',
+        url:'groups_list_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.tableData = res.readdata;
+          // this.tableData = res.readdata;
+          this.tableData = res.Data[0];
           // console.log(this.tableData);
-          this.alternateLength = res.readdata.length;
+          this.alternateLength = res.Data[0].length;
           this.tableData.forEach((item) => {
-            this.groupName = item._data.isDisplay;
+            this.groupName = item.isDisplay;
             // console.log(this.groupName)
-            if (item._data.default == 1) {
-              this.radio = item._data.id;
-              this.alternateRadio = item._data.id;
+            if (item.default == 1) {
+              this.radio = item.id;
+              this.alternateRadio = item.id;
             }
           })
         }
@@ -189,11 +187,9 @@ export default {
     },
     postGroups(data){
       this.appFetch({
-        url:"groups",
+        url:"groups_create_post_v3",
         method:"post",
-        data:{
-          data
-        }
+        data: data
       }).then(res=>{
         this.btnLoading = false;
         if (res.errors){
@@ -215,10 +211,11 @@ export default {
     },
     singleDeleteGroup(id){
       this.appFetch({
-        url:'groups',
-        method:'delete',
-        splice:'/' + id,
-        data:{}
+        url:'groups_batchdelete_post_v3',
+        method:'post',
+        data:{
+          ids: id
+        }
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
@@ -233,11 +230,12 @@ export default {
       })
     },
     batchDeleteGroup(data){
+      const idString = data.id.toString();
       this.appFetch({
-        url:'groups',
-        method:'delete',
-        data:{
-          data
+        url:'groups_batchdelete_post_v3',
+        method:'post',
+        data: {
+          ids: idString
         }
       }).then(res=>{
         this.delLoading = false;
@@ -253,37 +251,38 @@ export default {
       }).catch(err=>{
       })
     },
-    singlePatchGroup(id,name){
-      this.appFetch({
-        url:'groups',
-        method:'patch',
-        splice:'/' + id,
-        data:{
-          data:{
-            "attributes": {
-              'name':name,
-              'default':1
-            }
-          }
-        }
-      }).then(res=>{
-        this.btnLoading = false;
-        if (res.errors){
-          this.$message.error(res.errors[0].code);
-        }else {
-          this.$message({
-            message: '提交成功！',
-            type: 'success'
-          });
-          this.getGroups();
-        }
-      }).catch(err=>{
-      })
-    },
+    // singlePatchGroup(id,name){
+    //   console.log('提交');
+    //   this.appFetch({
+    //     url:'groups',
+    //     method:'patch',
+    //     splice:'/' + id,
+    //     data:{
+    //       data:{
+    //         "attributes": {
+    //           'name':name,
+    //           'default':1
+    //         }
+    //       }
+    //     }
+    //   }).then(res=>{
+    //     this.btnLoading = false;
+    //     if (res.errors){
+    //       this.$message.error(res.errors[0].code);
+    //     }else {
+    //       this.$message({
+    //         message: '提交成功！',
+    //         type: 'success'
+    //       });
+    //       this.getGroups();
+    //     }
+    //   }).catch(err=>{
+    //   })
+    // },
     batchPatchGroup(data){
       this.appFetch({
-        url:'groups',
-        method:'patch',
+        url:'groups_batchupdate_post_v3',
+        method:'post',
         data:{
           data
         }
