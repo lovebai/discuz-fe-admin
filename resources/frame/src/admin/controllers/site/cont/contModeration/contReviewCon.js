@@ -252,35 +252,39 @@ export default {
     },
 
     singleOperationSubmit(val,categoryId,themeId,index){
-      let data = {
-        "type": "threads",
-        "attributes": {
-          // "isApproved": 0,
-          // 'isDeleted':false
-        },
-        "relationships": {
-          "category": {
-            "data": {
-              "type": "categories",
-              "id": categoryId
-            }
-          }
+      console.log('通过', categoryId,themeId);
+      let data = [
+        {
+          id: Number(themeId)
         }
-      };
+      ]
+        // "type": "threads",
+        // "attributes": {
+        //   // "isApproved": 0,
+        //   // 'isDeleted':false
+        // },
+        // "relationships": {
+        //   "category": {
+        //     "data": {
+        //       "type": "categories",
+        //       "id": categoryId
+        //     }
+        //   }
+        // }
       switch (val){
         case 1:
-          data.attributes.isApproved = 1;
-          data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].isApproved = 1;
+          // data.attributes.message = this.submitForm[index].attributes.message;
           this.patchThreads(data,themeId);
           break;
         case 2:
-          data.attributes.isDeleted = true;
-          data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].isDeleted = true;
+          // data.attributes.message = this.submitForm[index].attributes.message;
           this.patchThreads(data,themeId);
           break;
         case 3:
-          data.attributes.isApproved = 2;
-          data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].isApproved = 2;
+          // data.attributes.message = this.submitForm[index].attributes.message;
           this.patchThreads(data,themeId);
           break;
         default:
@@ -442,13 +446,14 @@ export default {
     },
     patchThreads(data,id){
       this.appFetch({
-        url:'threads',
-        method:'patch',
-        splice:'/' + id,
+        url:'check_sub_post_v3',
+        method:'post',
         data:{
+          type: 1,
           data
         }
       }).then(res=>{
+        console.log(res);
         this.subLoading = false;
         this.btnLoading = 0;
         if (res.errors){

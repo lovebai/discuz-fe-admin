@@ -167,12 +167,14 @@ export default {
       }
       this.imageUrl = "";
       this.appFetch({
-        url: "deleteAvatar",
-        method: "delete",
-        splice: `/${this.query.id}` + "/avatar",
-        data: {}
+        url: "delete_avatar_post_v3",
+        method: "post",
+        // splice: `/${this.query.id}` + "/avatar",
+        data: {
+          aid: this.query.id
+        }
       }).then(res => {
-        if (res.Code || (resCode && res.Code !== 0)) {
+        if (res.Code !== 0) {
           this.$message.error(res.Message);
         } else {
           this.deleBtn = false;
@@ -210,19 +212,22 @@ export default {
       return isJPG && isLt10M;
     },
     uploaderLogo(file) {
+      console.log(file);
       let formData = new FormData();
+      formData.append("aid", this.query.id);
       formData.append("avatar", file.file);
       this.appFetch({
-        url: "upload",
+        url: "users_avatar_post_v3",
         method: "post",
-        splice: `${this.query.id}` + "/avatar",
+        // splice: `${this.query.id}` + "/avatar",
         data: formData
       }).then(res => {
+        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
           this.$message.success("上传成功");
-          this.imageUrl = res.readdata._data.avatarUrl;
+          this.imageUrl = res.Data.avatarUrl;
           this.deleBtn = true;
         }
       });
@@ -240,29 +245,26 @@ export default {
       // }
       this.userExtensionModification();
       this.appFetch({
-        url: "users",
-        method: "patch",
-        splice: `/${this.query.id}`,
+        url: "users_update_post_v3",
+        method: "post",
         data: {
-          data: {
-            attributes: {
-              newPassword: this.newPassword,
-              mobile: mobile,
-              groupId: this.userRole,
-              status: this.userInfo.status,
-              refuse_message: this.reasonsForDisable,
-              expired_at: this.expired_at,
-              username: this.userName,
-              password: this.oldPassword,
-              password_confirmation: this.confirmPassword
-            }
-          }
+          id: this.query.id,
+          newPassword: this.newPassword,
+          mobile: mobile,
+          groupId: this.userRole,
+          status: this.userInfo.status,
+          refuseMessage: this.reasonsForDisable,
+          expiredAt: this.expired_at,
+          username: this.userName,
+          // password: this.oldPassword,
+          // newPassword: this.confirmPassword
         }
       }).then(res => {
         if (res.Code || (res.Code && res.Code !== 0)) {
           this.$message.error(res.Message);
         } else {
           this.$message({ message: "提交成功", type: "success" });
+          this.getUserDetail();
         }
       });
     },

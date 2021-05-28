@@ -109,4 +109,33 @@ module.exports = {
   settings_post_v3: '/backAdmin/settings.create', // 全局-站点设置
   permission_get_v3: '/backAdmin/groups.resource', // 用户组权限获取
   permission_update_v3: '/backAdmin/permission.update', // 用户组权限修改
+
+  //全局
+  settings_get_v3: '/backAdmin/settings',
+  signinfields_get_v3: '/backAdmin/signinfields', // 注册扩展信息字段配置
+  settings_logo_post_v3: '/backAdmin/settings/logo', // 上传站点logo
+  delete_logo_post_v3: '/backAdmin/settings/delete.logo', // 删除站点logo
+  signinfields_post_v3: '/backAdmin/signinfields', // 编辑注冊扩展列表
+
+  // 内容
+  topics_list_get_v3: '/backAdmin/topics.list',  // 话题管理列表
+  topic_delete_post_v3: '/backAdmin/topics.batch.delete', // 删除话题
+  topics_update_post_v3: '/backAdmin/topics.batch.update', // 话题修改
+  thread_list_get_v3: '/backAdmin/thread.list', // 主题列表接口
+  check_sub_post_v3: '/backAdmin/check.sub', // 内容审核 主题审核
+  check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
+  threads_batch_post_v3: '/backAdmin/threads.batch',  // 修改主题
+
+  // 用户
+  users_update_post_v3: '/backAdmin/users/update.user',  // 用户资料修改
+  users_avatar_post_v3: '/backAdmin/users/avatar', // 上传用户头像
+  delete_avatar_post_v3: '/backAdmin/delete/users/avatar', // 删除用户头像
+  export_users_post_v3: '/backAdmin/export/users', // 用户信息导出
+  groups_list_get_v3: '/backAdmin/groups.list', // 用户组列表
+  groups_create_post_v3: '/backAdmin/groups.create', // 创建用户组
+  groups_batchupdate_post_v3: '/backAdmin/groups.batchupdate', // 用户组修改（批）
+  groups_batchdelete_post_v3: '/backAdmin/groups.batchdelete', // 删除用户组 (批)
+  user_wallet_post_v3: '/backAdmin/user.wallet',  // 用户钱包列表
+  update_wallet_post_v3: '/backAdmin/update.user.wallet', // 更改用户钱包
+  user_list_get_v3: '/backAdmin/users', // 用户筛选
 };

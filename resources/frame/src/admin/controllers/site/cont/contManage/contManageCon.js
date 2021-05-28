@@ -249,7 +249,8 @@ export default {
     submitClick() {
       this.subLoading = true;
 
-      let themeData = [];         //操作主题数据
+      let themeData = [];      //操作主题数据
+      let themeId = [];
       let attributes = {};        //操作选项
       let relationships = {
         'category': {
@@ -259,54 +260,59 @@ export default {
         }
       };  //主题分类关系
       let selectStatus = false;
-
+       console.log(this.checkedTheme, '选中数组');
       if (this.operatingSelect === 'class') {
         this.checkedTheme.forEach((item, index) => {
-          themeData.push(
-            {
-              'type': 'threads',
-              'id': item,
-              'attributes': attributes,
-              'relationships': relationships
-            }
-          )
+          themeId.push(item);
+          // themeData.push(
+          //   {
+          //     'type': 'threads',
+          //     'id': item,
+          //     'attributes': attributes,
+          //     'relationships': relationships
+          //   }
+          // )
         });
       } else {
         this.checkedTheme.forEach((item, index) => {
-          themeData.push(
-            {
-              'type': 'threads',
-              'id': item,
-              'attributes': attributes,
-            }
-          )
+          themeId.push(item);
+          // themeData.push(
+          //   {
+          //     'type': 'threads',
+          //     'id': item,
+          //     'attributes': attributes,
+          //   }
+          // )
         });
       }
+      attributes.ids = themeId.toString();
       switch (this.operatingSelect) {
         case 'class':
           if (this.categoryId) {
+            attributes.categoryId = this.categoryId;
             // relationships.category.data.id = this.categoryId;
-            relationships.category.data.id = this.categoryId[this.categoryId.length -1];
+            // relationships.category.data.id = this.categoryId[this.categoryId.length -1];
+
           } else {
             selectStatus = true;
           }
           break;
         case 'sticky':
-          attributes.isSticky = this.toppingRadio === 1 ? true : false;
+          attributes.isSticky = this.toppingRadio === 1 ? 1 : 0;
           break;
         case 'delete':
-          attributes.isDeleted = true;
+          attributes.isDeleted = 1;
           break;
         case 'marrow':
-          attributes.isEssence = this.essenceRadio === 1 ? true : false;
+          attributes.isEssence = this.essenceRadio === 1 ? 1 : 0;
           break;
         case 'site':
-          attributes.isSite = this.siteRadio === 1 ? true : false;
+          attributes.isSite = this.siteRadio === 1 ? 1 : 0;
           break;
         default:
           selectStatus = true;
           this.subLoading = false;
-          if (themeData.length > 0){
+          if (themeId.length > 0){
             this.$message({
               showClose: true,
               message: '操作选项错误，请重新选择或刷新页面(F5)',
@@ -323,7 +329,7 @@ export default {
         });
       }*/
 
-      if (themeData.length < 1) {
+      if (themeId.length < 1) {
         this.$message({
           showClose: true,
           message: '操作主题列表为空，请选择主题',
@@ -332,10 +338,9 @@ export default {
         this.subLoading = false;
       } else if (!selectStatus) {
         this.appFetch({
-          url: 'threads',
-          splice: '/batch',
-          method: 'patch',
-          data: { data: themeData }
+          url: 'threads_batch_post_v3',
+          method: 'post',
+          data: attributes
         }).then(res => {
           this.subLoading = false;
           if (res.errors) {

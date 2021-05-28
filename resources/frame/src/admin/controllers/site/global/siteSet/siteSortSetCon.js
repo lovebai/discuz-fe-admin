@@ -236,16 +236,16 @@ export default {
       const data=[]
       this.appFetch({
         methods:'get',
-        url:'topics',
+        url:'topics_list_get_v3',
         params:{
           "filter[content]":queryString
         }
       }).then(res=>{
-        res.data.forEach(item=>{
+        res.Data.pageData.forEach(item=>{
           data.push({
-            id:item.attributes.id,
-            value:item.attributes.content,
-            name:item.attributes.content
+            id:item.topicId,
+            value:item.content,
+            name:item.content
           })
         })
       })
