@@ -77,6 +77,12 @@ export default {
     }
   },
   methods:{
+    handleTimeChange () {
+      if (this.applicationTime != null) {
+        this.applicationTime[0] = this.applicationTime[0] + '-00-00-00';
+        this.applicationTime[1] = this.applicationTime[1] + '-24-00-00';
+      }
+    },
     /**
      * 状态码转换为中文
      */
@@ -108,7 +114,7 @@ export default {
     accountNumber(num) {
       if (num.cashType === 1) {
         if (num.wechat) {
-          return num.wechat._data.mp_openid || num.wechat._data.min_openid;
+          return num.wechat.mpOpenid || num.wechat.minOpenid;
         } else {
           return '';
         }
@@ -183,12 +189,6 @@ export default {
      * 提现申请搜索
      */
     searchClick(){
-      if (this.applicationTime == null){
-        this.applicationTime = ['','']
-      } else if(this.applicationTime[0] !== '' && this.applicationTime[1] !== ''){
-        this.applicationTime[0] = this.applicationTime[0] + '-00-00-00';
-        this.applicationTime[1] = this.applicationTime[1] + '-24-00-00';
-      }
       this.currentPaga = 1;
       this.getReflectList();
     },

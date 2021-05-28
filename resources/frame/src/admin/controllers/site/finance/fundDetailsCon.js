@@ -248,16 +248,16 @@ export default {
     }
   },
   methods:{
-    /*
-    * 搜索
-    * */
-    searchClick(){
-      if (this.changeTime == null){
-        this.changeTime = ['','']
-      } else if(this.changeTime[0] !== '' && this.changeTime[1] !== ''){
+    handleTimeChange () {
+      if (this.changeTime != null) {
         this.changeTime[0] = this.changeTime[0] + '-00-00-00';
         this.changeTime[1] = this.changeTime[1] + '-24-00-00';
       }
+    },
+    /*
+    * 搜索
+    * */
+    searchClick() {
       this.currentPaga = 1;
       this.getFundingDetailsList();
     },

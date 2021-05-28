@@ -87,6 +87,12 @@ export default {
     }
   },
   methods:{
+    handleTimeChange () {
+      if (this.orderTime != null){
+        this.orderTime[0] = this.orderTime[0] + '-00-00-00';
+        this.orderTime[1] = this.orderTime[1] + '-24-00-00';
+      }
+    },
     /*
     * 跳转到话题详情
     * */
@@ -126,13 +132,7 @@ export default {
     /*
     * 搜索
     * */
-    searchClick(){
-      if (this.orderTime == null){
-        this.orderTime = ['','']
-      } else if(this.orderTime[0] !== '' && this.orderTime[1] !== ''){
-        this.orderTime[0] = this.orderTime[0] + '-00-00-00';
-        this.orderTime[1] = this.orderTime[1] + '-24-00-00';
-      }
+    searchClick() {
       this.currentPaga = 1;
       this.getOrderList();
     },

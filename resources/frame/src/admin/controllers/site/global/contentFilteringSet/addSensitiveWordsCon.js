@@ -79,15 +79,12 @@ export default {
       }
       let wordsArr = this.textarea.split('\n')
         this.appFetch({
-        url:'batchSubmit',
-        method:'post',
-        standard:false,
-        data:{
-            "data": {
-              "type": "stop-words",
-              "words": wordsArr,
-              "overwrite":this.radio?true:false
-            }
+          url:'stopwords_batch_v3',
+          method:'post',
+          standard:false,
+          data:{
+            "words": wordsArr,
+            "overwrite":this.radio?true:false
           }
         }).then(res=>{
           if (res.errors){
