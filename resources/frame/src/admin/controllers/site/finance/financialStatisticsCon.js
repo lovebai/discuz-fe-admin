@@ -246,7 +246,6 @@ export default {
 				method: 'get',
 				data: data
 			}).then(res => {
-				console.log(res, 'financeChart_get_v3')
 				if (res.Data.length === 0) {
 					this.noData = true
 				} else {

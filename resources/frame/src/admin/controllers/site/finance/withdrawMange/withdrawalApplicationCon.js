@@ -224,7 +224,6 @@ export default {
           'filter[endTime]':this.applicationTime[1]
         }
       }).then(res=>{
-        console.log(res, 'cashLogs_get_v3')
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {

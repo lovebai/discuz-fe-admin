@@ -30,55 +30,41 @@ export default {
     * */
     postWithdrawalSettings(){
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           data:[
             {
-              "attributes":{
-                "key":"cash_interval_time",
-                "value":this.withdrawalInterval,
-                "tag": "cash"
-              }
+              "key":"cash_interval_time",
+              "value":this.withdrawalInterval,
+              "tag": "cash"
             },
             {
-              "attributes":{
-                "key":"cash_rate",
-                "value":this.withdrawalFee,
-                "tag": "cash"
-              }
+              "key":"cash_rate",
+              "value":this.withdrawalFee,
+              "tag": "cash"
             },
             {
-              "attributes":{
-                "key":"cash_min_sum",
-                "value":this.minAmount,
-                "tag": "cash"
-              }
+              "key":"cash_min_sum",
+              "value":this.minAmount,
+              "tag": "cash"
             },
             {
-              "attributes":{
-                "key":"cash_max_sum",
-                "value":this.maxAmount,
-                "tag": "cash"
-              }
+              "key":"cash_max_sum",
+              "value":this.maxAmount,
+              "tag": "cash"
             },
             {
-              "attributes":{
-                "key":"cash_sum_limit",
-                "value":this.amountCap,
-                "tag": "cash"
-              }
+              "key":"cash_sum_limit",
+              "value":this.amountCap,
+              "tag": "cash"
             }
           ]
         }
       }).then(res=>{
         this.subLoading = false;
         if (res.errors){
-          res.errors.forEach((item,index)=>{
-            setTimeout(()=>{
-              this.$message.error(item.detail[0])
-            },(index+1) * 500);
-          });
+          this.$message.error(res.errors[0].code)
         }else {
           this.$message({
             message: '提交成功',

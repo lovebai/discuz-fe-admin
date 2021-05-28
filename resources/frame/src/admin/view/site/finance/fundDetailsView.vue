@@ -72,12 +72,6 @@
             width="100">
           </el-table-column>
 
-          <el-table-column label="变动状态">
-            <template slot-scope="scope">{{
-              cashStatus(scope.row.changeType)
-            }}</template>
-          </el-table-column>
-
           <el-table-column
             prop="changeDesc"
             label="变动描述">

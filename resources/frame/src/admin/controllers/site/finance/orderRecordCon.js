@@ -170,7 +170,6 @@ export default {
           'filter[payeeNickname]':this.incomeSide
         }
       }).then(res=>{
-        console.log(res, 'orderLogs_get_v3')
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
