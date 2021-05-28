@@ -91,8 +91,8 @@ export default {
     async getUserList() {
       try {
         const response = await this.appFetch({
-          method: 'get',
-          url: 'groups'
+          url: 'groups',
+          method: 'get'
         });
         if (response.errors) {
           this.$message.error(response.errors[0].code);

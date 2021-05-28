@@ -65,13 +65,13 @@ export default {
           content: '',
           description: datalist[i].type,  // 字段类型
           sort: datalist[i].sort,           // 字段排序
-          introduce: datalist[i].fields_desc,  // 字段介绍
+          introduce: datalist[i].fieldsDesc,  // 字段介绍
           enable: datalist[i].status === 1 ? true : false,      // 是否启用
           required: datalist[i].required === 1 ? true : false,   // 是否必填
         }
         let fieldsExt = ''
-        if (datalist[i].fields_ext) {
-          fieldsExt = JSON.parse(datalist[i].fields_ext);
+        if (datalist[i].fieldsExt) {
+          fieldsExt = JSON.parse(datalist[i].fieldsExt);
         }
         if (fieldsExt.options) {
           const num = fieldsExt.options;
@@ -220,18 +220,15 @@ export default {
       this.dataList = [];
       for (let i = 0; i < this.groupsList.length; i++) {
         let  data = {
-          "type": 'admin_sign_in',
-          "attributes": {
-            "name": this.groupsList[i].name,
-            "type": this.groupsList[i].description,
-            "fields_desc": this.groupsList[i].introduce,
-            "sort": this.groupsList[i].sort,
-            "status": this.groupsList[i].enable ? 1 : -1,
-            "required": this.groupsList[i].required ? 1 : 0,
-          },
+          "name": this.groupsList[i].name,
+          "type": this.groupsList[i].description,
+          "fieldsDesc": this.groupsList[i].introduce,
+          "sort": this.groupsList[i].sort,
+          "status": this.groupsList[i].enable ? 1 : -1,
+          "required": this.groupsList[i].required ? 1 : 0,
         }
         if (this.groupsList[i].id) {
-          data.attributes.id = this.groupsList[i].id;
+          data.id = this.groupsList[i].id;
         }
         if (this.groupsList[i].content) {
           let lines = this.groupsList[i].content.split(/\n/);
@@ -241,11 +238,11 @@ export default {
             }
           }
           let fieldsExtData = {"options": this.arr};
-          data.attributes.fields_ext = JSON.stringify(fieldsExtData);
+          data.fieldsExt = JSON.stringify(fieldsExtData);
           this.dataList.push(data);
         } else {
           // let fieldsExtData = {"necessary": this.groupsList[i].required};
-          data.attributes.fields_ext = '',
+          data.fieldsExt = '',
           this.dataList.push(data);
         }
         this.arr = [];
@@ -282,15 +279,14 @@ export default {
     },
     // 添加数据请求
     addRegistration(data) {
+      console.log(data);
       if (!this.testDataRun()) {
         return;
       }
       this.appFetch({
-        url: "signInFields",
+        url: "signinfields_post_v3",
         method: "post",
-        data: {
-          data,
-        }
+        data: data,
       }).then((res) => {
         if (res.errors){
           this.$message.error(res.errors[0].code);

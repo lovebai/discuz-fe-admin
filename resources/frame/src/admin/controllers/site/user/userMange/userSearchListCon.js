@@ -62,26 +62,27 @@ export default {
         } = this.query;
         const response = await this.appFetch({
           method: "get",
-          url: 'users',
+          url: 'user_list_get_v3',
           data: {
+            "perPage": this.pageLimit,
+            "page": this.pageNum,
             "filter[username]": username,
             "filter[id]": userUID,
-            "filter[group_id][]": userRole,
+            "filter[groupId][]": userRole,
             "filter[mobile]": userPhone,
             "filter[status]": userStatus,
             "filter[wechat]": userWeChat,
-            "page[limit]": this.pageLimit,
-            "page[number]": this.pageNum,
             "filter[isReal]": isReal
           }
         });
+        console.log(response);
         if (response.errors) {
           throw new Error(response.errors[0].code);
         } else {
-          this.total = response.meta.total;
+          this.total = response.Data.totalCount;
           // this.pageNum = response.meta.pageCount;
           // this.total = response.meta ? response.meta.total : 0;
-          this.tableData = response.readdata;
+          this.tableData = response.Data.pageData;
         }
       } catch (err) {
 
@@ -98,8 +99,9 @@ export default {
       try {
         let usersIdList = [];
         this.multipleSelection.forEach((v) => {
-          usersIdList.push(v._data.id)
+          usersIdList.push(v.userId)
         });
+        console.log(usersIdList, '用户信息');
         const {
           username,
           userUID,
@@ -124,10 +126,10 @@ export default {
           },
           responseType: 'arraybuffer'
         });
-
         const blob = new Blob([response], { type: 'application/x-xls' });
         const url = window.URL || window.webkitURL || window.moxURL;
         const downloadHref = url.createObjectURL(blob);
+        console.log(downloadHref, blob);
         let a = document.createElement('a');
         a.href = downloadHref;
         a.download = 'export.xlsx';

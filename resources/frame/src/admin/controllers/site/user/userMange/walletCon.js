@@ -45,10 +45,14 @@ export default {
         }
         const response = await this.appFetch({
           method: 'get',
-          url: 'wallet',
-          splice: `${this.query.id ? this.query.id : ''}`
+          url: 'user_wallet_post_v3',
+          // splice: `${this.query.id ? this.query.id : ''}`
+          data: {
+            uid: Number(this.query.id)
+          }
         })
-        this.walletInfo = response.readdata;
+        this.walletInfo = response.Data;
+        console.log(this.walletInfo, '钱包信息');
       }catch(err){
       }
     },
@@ -64,30 +68,30 @@ export default {
         }
         if(this.operateType){
           var datas = {
-            user_id: Number(this.query.id),
-            operate_type: this.operateType,
-            operate_amount: parseFloat(this.operateAmount),
-            operate_reason: this.textarea,
-            wallet_status: this.walletInfo._data.wallet_status
+            userId: Number(this.query.id),
+            operateType: this.operateType,
+            operateAmount: parseFloat(this.operateAmount),
+            operateReason: this.textarea,
+            walletStatus: this.walletInfo.walletStatus
           }
         }else{
-          var datas ={
-            user_id: Number(this.query.id),
-            wallet_status: this.walletInfo._data.wallet_status
+          var datas = {
+            userId: Number(this.query.id),
+            walletStatus: this.walletInfo.walletStatus
           }
-         
         }
         await this.appFetch({
-          method: 'patch',
-          url: 'wallet',
-          splice: this.query.id,
+          url: 'update_wallet_post_v3',
+          method: 'post',
+          // splice: this.query.id,
           data: datas
         }).then(data=>{
+          console.log(data);
           if (data.errors){
             this.$message.error(data.errors[0].code);
           }else{
-          this.$message({ message: '提交成功', type: 'success' });
-          this.getWalletDet();
+            this.$message({ message: '提交成功', type: 'success' });
+            this.getWalletDet();
           }
         })
 
