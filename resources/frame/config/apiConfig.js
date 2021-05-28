@@ -118,6 +118,10 @@ module.exports = {
   walletLogs_get_v3: '/backAdmin/users.wallet.logs', // 资金明细
   orderLogs_get_v3: '/backAdmin/users.order.logs', // 订单记录
   cashLogs_get_v3: '/backAdmin/users.cash.logs', // 提现管理
+  cashReview_post_v3: '/backAdmin/wallet.cash.review', // 审核拒绝/标记打款
+  finance_get_v3: '/backAdmin/statistic.finance', // 获取资金概况
+  financeChart_get_v3: 'backAdmin/statistic.financeChart', // 获取盈利图表数据
+
 
   //全局
   settings_get_v3: '/backAdmin/settings',

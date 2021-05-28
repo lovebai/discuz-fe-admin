@@ -93,15 +93,27 @@
           <template slot-scope="scope">
             <span
               :class="scope.row.thread ? 'cursor-pointer' : ''"
-              v-if="scope.row.thread && (scope.row.type === 2 || scope.row.type === 3 || scope.row.type === 5 || scope.row.type === 6 || scope.row.type === 7 || scope.row.type === 20 || scope.row.type === 21)" @click="
-                viewClick(scope.row.thread ? scope.row.thread._data.id : '')">
+              v-if="
+                scope.row.thread && (
+                  scope.row.type === 2 ||
+                  scope.row.type === 3 ||
+                  scope.row.type === 5 ||
+                  scope.row.type === 6 ||
+                  scope.row.type === 7 ||
+                  scope.row.type === 8 ||
+                  scope.row.type === 9 ||
+                  scope.row.type === 10 ||
+                  scope.row.type === 11
+                )"
+                @click="viewClick(scope.row.thread ? scope.row.thread.threadId : '')"
+            >
               {{ scope.row.thread.title }}
             </span>
             <span v-else-if="scope.row.type === 1" @click="viewClick('')">
               注册付费
             </span>
             <span v-else-if="scope.row.type === 4" @click="viewClick('')">
-              {{ scope.row.group ? scope.row.group._data.name : '' }}用户组
+              {{ scope.row.group ? scope.row.group.name : '' }}用户组
             </span>
           </template>
         </el-table-column>
@@ -114,31 +126,37 @@
         >
           <template slot-scope="scope">
             <span v-if="scope.row.type === 1">
-              注册
+              注册(站点付费加入)
             </span>
             <span v-else-if="scope.row.type === 2">
               打赏
             </span>
             <span v-else-if="scope.row.type === 3">
-              付费主题
+              购买主题
             </span>
             <span v-else-if="scope.row.type === 4">
-              付费用户组
+              购买权限组
             </span>
             <span v-else-if="scope.row.type === 5">
-              问答提问支付
+              付费提问
             </span>
             <span v-else-if="scope.row.type === 6">
               问答围观付费
             </span>
             <span v-else-if="scope.row.type === 7">
-              付费附件
+              购买附件
             </span>
-            <span v-else-if="scope.row.type === 20">
-              文字帖红包
+            <span v-else-if="scope.row.type === 8">
+              站点付费(续费)
             </span>
-            <span v-else-if="scope.row.type === 21">
-              长文帖红包
+            <span v-else-if="scope.row.type === 9">
+              红包
+            </span>
+            <span v-else-if="scope.row.type === 10">
+              悬赏
+            </span>
+            <span v-else-if="scope.row.type === 11">
+              合并订单(红包+悬赏合并支付)
             </span>
           </template>
         </el-table-column>

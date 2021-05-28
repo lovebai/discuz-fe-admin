@@ -28,7 +28,7 @@
 
         <div class="withdrawal-application__search-condition">
           <span class="withdrawal-application__search-condition__title">状态：</span>
-          <el-select v-model="statusSelect" placeholder="请选择">
+          <el-select v-model="statusSelect" placeholder="请选择" clearable>
             <el-option
               v-for="item in statusOptions"
               :key="item.value"
@@ -80,7 +80,6 @@
           </el-table-column>
 
           <el-table-column
-            prop="_data.created_at"
             label="申请时间"
             min-width="160">
             <template slot-scope="scope">{{formatDate(scope.row.createdAt)}}</template>

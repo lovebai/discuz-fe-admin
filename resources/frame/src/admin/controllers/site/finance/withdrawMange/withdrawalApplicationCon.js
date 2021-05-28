@@ -66,7 +66,7 @@ export default {
           label: '打款失败'
         }
       ],                          //搜索-状态
-      statusSelect: '1',          //状态选中
+      statusSelect: '',          //状态选中
       visible:false,
 
       total:0,                    //总数
@@ -242,12 +242,12 @@ export default {
     * */
     postReview(data){
       this.appFetch({
-        url:'review',
+        url:'cashReview_post_v3',
         method:'post',
         standard: false,
         data:{
           'ids':data.id,
-          'cash_status':data.status,
+          'cashStatus':data.status,
           'remark':data.remark
         }
       }).then(res=>{

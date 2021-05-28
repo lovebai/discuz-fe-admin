@@ -49,7 +49,7 @@
           style="width: 100%">
 
           <el-table-column
-            prop="username"
+            prop="nickname"
             label="用户名"
             width="120">
           </el-table-column>
@@ -70,6 +70,12 @@
             prop="changeFreezeAmount"
             label="冻结金额"
             width="100">
+          </el-table-column>
+
+          <el-table-column label="变动状态">
+            <template slot-scope="scope">{{
+              cashStatus(scope.row.changeType)
+            }}</template>
           </el-table-column>
 
           <el-table-column

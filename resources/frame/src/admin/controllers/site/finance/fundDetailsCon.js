@@ -71,14 +71,9 @@ export default {
           label: '注册收入'
         },
         {
-          value: 34,
-          label: '注册分成收入'
-        },
-        {
           value: 31,
           label: '打赏收入'
         },
-
         {
           value: 32,
           label: '人工收入'
@@ -88,12 +83,20 @@ export default {
           label: '分成打赏收入'
         },
         {
+          value: 34,
+          label: '注册分成收入'
+        },
+        {
           value: 35,
           label: '问答答题收入'
         },
         {
           value: 36,
           label: '问答围观收入'
+        },
+        {
+          value: 41,
+          label: '打赏支出'
         },
         {
           value: 50,
@@ -106,10 +109,6 @@ export default {
         {
           value: 52,
           label: '付费附件支出'
-        },
-        {
-          value: 41,
-          label: '打赏支出'
         },
         {
           value: 60,
@@ -143,7 +142,106 @@ export default {
           value: 82,
           label: '问答围观支出'
         },
-
+        {
+          value: 100,
+          label: '文字帖红包支出'
+        },
+        {
+          value: 101,
+          label: '文字帖红包冻结'
+        },
+        {
+          value: 102,
+          label: '文字帖红包收入'
+        },
+        {
+          value: 103,
+          label: '文字帖冻结返还'
+        },
+        {
+          value: 104,
+          label: '文字帖订单异常返现'
+        },
+        {
+          value: 110,
+          label: '长文帖红包支出'
+        },
+        {
+          value: 111,
+          label: '长文帖红包冻结'
+        },
+        {
+          value: 112,
+          label: '长文帖红包收入'
+        },
+        {
+          value: 113,
+          label: '长文帖冻结返还'
+        },
+        {
+          value: 114,
+          label: '长文帖订单异常返现'
+        },
+        {
+          value: 120,
+          label: '悬赏问答收入'
+        },
+        {
+          value: 121,
+          label: '悬赏帖过期-悬赏帖剩余悬赏金额返回'
+        },
+        {
+          value: 124,
+          label: '问答帖订单异常返现'
+        },
+        {
+          value: 150,
+          label: '红包冻结'
+        },
+        {
+          value: 151,
+          label: '红包收入'
+        },
+        {
+          value: 152,
+          label: '红包退款'
+        },
+        {
+          value: 153,
+          label: '红包支出'
+        },
+        {
+          value: 154,
+          label: '红包订单异常退款'
+        },
+        {
+          value: 160,
+          label: '赏问答冻结'
+        },
+        {
+          value: 161,
+          label: '悬赏问答收入'
+        },
+        {
+          value: 162,
+          label: '悬赏问答退款'
+        },
+        {
+          value: 163,
+          label: '悬赏订单异常退款'
+        },
+        {
+          value: 170,
+          label: '合并订单冻结'
+        },
+        {
+          value: 171,
+          label: '合并订单退款'
+        },
+        {
+          value: 172,
+          label: '合并订单异常退款'
+        }
       ],  // 类型数组
       usableTotalAmount: 0, // 可用金额统计
       frozenTotalAmount: 0, // 冻结金额统计
@@ -162,6 +260,113 @@ export default {
       }
       this.currentPaga = 1;
       this.getFundingDetailsList();
+    },
+      /*
+    * 订单状态转换
+    * */
+    cashStatus(changeType){
+      switch (changeType){
+        case 8:
+          return '问答冻结';
+        case 9:
+          return '问答返还解冻';
+        case 10:
+          return '提现冻结';
+        case 11:
+          return '提现成功';
+        case 12:
+          return '提现解冻';
+        case 30:
+          return '注册收入';
+        case 31:
+          return '打赏收入';
+        case 32:
+          return '人工收入';
+        case 33:
+          return '分成打赏收入';
+        case 34:
+          return "注册分成收入";
+        case 35:
+          return "问答答题收入";
+        case 36:
+          return "问答围观收入";
+        case 41:
+          return "打赏支出";
+        case 50:
+          return "人工支出";
+        case 51:
+          return "加入用户组支出";
+        case 52:
+          return "付费附件支出";
+        case 60:
+          return "付费主题收入";
+        case 61:
+          return "付费主题支出";
+        case 62:
+          return "分成付费主题收入";
+        case 63:
+          return "付费附件收入";
+        case 64:
+          return "付费附件分成收入";
+        case 71:
+          return "站点续费支出";
+        case 81:
+          return "问答提问支出";
+        case 82:
+          return "问答围观支出";
+        case 100:
+          return "文字帖红包支出";
+        case 101:
+          return "文字帖红包冻结";
+        case 102:
+          return "文字帖红包收入";
+        case 103:
+          return "文字帖冻结返还";
+        case 104:
+          return "文字帖订单异常返现";
+        case 110:
+          return "长文帖红包支出";
+        case 111:
+          return "长文帖红包冻结";
+        case 112:
+          return "长文帖红包收入";
+        case 113:
+          return "长文帖冻结返还";
+        case 114:
+          return "长文帖订单异常返现";
+        case 120:
+          return "悬赏问答收入";
+        case 121:
+          return "悬赏帖过期-悬赏帖剩余悬赏金额返回";
+        case 124:
+          return "问答帖订单异常返现";
+        case 150:
+          return "红包冻结";
+        case 151:
+          return "红包收入";
+        case 152:
+          return "红包退款";
+        case 153:
+          return "红包支出";
+        case 154:
+          return "红包订单异常退款";
+        case 160:
+          return "赏问答冻结";
+        case 161:
+          return "悬赏问答收入";
+        case 162:
+          return "悬赏问答退款";
+        case 163:
+          return "悬赏订单异常退款";
+        case 170:
+          return "合并订单冻结";
+        case 171:
+          return "合并订单退款";
+        case 172:
+          return "合并订单异常退款";
+        default:
+          return "未知状态";
+      }
     },
     /*
     * 切换分页

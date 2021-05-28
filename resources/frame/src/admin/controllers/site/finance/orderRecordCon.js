@@ -57,7 +57,31 @@ export default {
         {
           value: '1',
           label: '已付款'
-        }
+        },
+        {
+          value: '2',
+          label: '取消订单'
+        },
+        {
+          value: '3',
+          label: '支付失败'
+        },
+        {
+          value: '4',
+          label: '订单过期'
+        },
+        {
+          value: '5',
+          label: '部分退款'
+        },
+        {
+          value: '10',
+          label: '全额退款'
+        },
+        {
+          value: '11',
+          label: '在异常订单处理中不进行处理的订单'
+        },
       ],                     //搜索-订单状态选项
       value: '',             //搜索-订单状态值
     }
@@ -83,6 +107,18 @@ export default {
           return "待付款";
         case 1:
           return "已付款";
+        case 2:
+          return "取消订单";
+        case 3:
+          return "支付失败";
+        case 4:
+          return "订单过期";
+        case 5:
+          return "部分退款";
+        case 10:
+          return "全额退款";
+        case 11:
+          return "在异常订单处理中不进行处理的订单";
         default:
           return "未知状态";
       }
