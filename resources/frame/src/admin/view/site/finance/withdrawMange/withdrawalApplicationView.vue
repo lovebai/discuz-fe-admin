@@ -101,7 +101,6 @@
                 <el-popover
                   width="100"
                   placement="top"
-                  v-if="scope.row.cashType === 1"
                   :ref="`popover-${scope.$index}`">
                   <p>确定通过该提现吗？</p>
                   <div style="text-align: right; margin: 10PX 0 0 0 ">
@@ -110,12 +109,8 @@
                     </el-button>
                     <el-button type="primary" size="mini" @click="reviewClick(scope.row.id);scope._self.$refs[`popover-${scope.$index}`].doClose()" >通过</el-button>
                   </div>
-                  <el-button v-if="scope.row.cashType === 1" type="text" size="small" slot="reference">审核</el-button>
+                  <el-button type="text" size="small" slot="reference">审核</el-button>
                 </el-popover>
-                <div v-else>
-                  <p class="toexaminebtn" @click="noReviewClick(scope.row.id)">审核拒绝</p>
-                  <p class="toexaminebtn" @click="reviewClicks(scope.row.id)">标记打款</p>
-                </div>
               </div>
               <p v-else>{{auditstatus(scope.row.cashStatus)}}</p>
             </template>

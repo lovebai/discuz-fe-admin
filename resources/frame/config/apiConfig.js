@@ -133,6 +133,8 @@ module.exports = {
   stopwords_get_v3: '/backAdmin/stopwords.list', // 查询敏感词(列表) 
   stopwords_delete_v3: '/backAdmin/stopwords.delete', // 删除敏感词(单个/批量)
 
+  forum_get_v3: '/backAdmin/forum',
+
 
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
@@ -144,9 +146,9 @@ module.exports = {
   reports_update_v3: '/backAdmin/reports/batch', // 批量修改举报反馈
   reports_delete_v3: '/backAdmin/reports/delete', // 批量删除举报反馈
 
-  thread_get_v3: '/backAdmin/check.thread.list', // 主题回收站
-  posts_get_v3: '/backAdmin/check.posts.list', // 回复回收站
-  check_sub_post_v3: '/backAdmin/check.sub', // 内容审核 主题审核
+  thread_get_v3: '/backAdmin/manage.thread.list', // 主题
+  posts_get_v3: '/backAdmin/manage.posts.list', // 回复
+  submit_review_post_v3: '/backAdmin/manage.submit.review', // 内容审核 主题审核
   threads_batch_post_v3: '/backAdmin/threads.batch',  // 修改主题
 
   topics_list_get_v3: '/backAdmin/topics.list',  // 话题管理列表

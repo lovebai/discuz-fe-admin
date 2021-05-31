@@ -82,19 +82,19 @@ export default {
     * */
     getForum(){
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          let formData = res.data.attributes.set_cash;
-          this.withdrawalInterval = formData.cash_interval_time;
-          this.withdrawalFee = formData.cash_rate;
-          this.minAmount = formData.cash_min_sum;
-          this.maxAmount = formData.cash_max_sum;
-          this.amountCap = formData.cash_sum_limit;
+          let formData = res.Data.setCash;
+          this.withdrawalInterval = formData.cashIntervalTime;
+          this.withdrawalFee = formData.cashRate;
+          this.minAmount = formData.cashMinSum;
+          this.maxAmount = formData.cashMaxSum;
+          this.amountCap = formData.cashSumLimit;
         }
       }).catch(err=>{
         this.$message.error('初始化失败！请重新刷新页面（F5）');

@@ -243,7 +243,6 @@ export default {
       this.appFetch({
         url:'cashReview_post_v3',
         method:'post',
-        standard: false,
         data:{
           'ids':data.id,
           'cashStatus':data.status,
@@ -253,13 +252,13 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          if (res.data.result[data.id] === 'success') {
+          if (res.Data[data.id] === 'success') {
             this.getReflectList();
             this.$message({
               message: '提交成功！',
               type: 'success'
             });
-          } else if (res.data.result[data.id] === 'failure') {
+          } else if (res.Data[data.id] === 'failure') {
             this.$message.error('提交错误！请重新提交');
           } else {
             this.$message.error('未知错误，请刷新页面后重新提交');
