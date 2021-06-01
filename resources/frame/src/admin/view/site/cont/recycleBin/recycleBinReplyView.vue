@@ -81,16 +81,16 @@
         <ContArrange
           v-for="(items,index) in  themeList"
           :replyBy="!items.nickname?'该用户被删除':items.nickname"
-          :themeName="items.title"
+          :themeName="items.content"
           :titleIcon="titleIcon(items)"
           :finalPost="formatDate(items.updatedAt)"
-          :deleTime="formatDate(items._data.deletedAt)"
-          :ip="items._data.ip"
-          :userId="!items.user?'该用户被删除':items.user._data.id"
-          :key="items.id"
+          :deleTime="formatDate(items.deletedUserArr.deletedAt)"
+          :ip="items.ip"
+          :userId="!items.userId?'该用户被删除':items.userId"
+          :key="items.threadId"
         >
           <div class="recycle-bin-reply-table__side" slot="side">
-            <el-radio-group @change="radioChange($event,index)" v-model="submitForm[index].radio">
+            <el-radio-group v-model="submitForm[index].radio">
               <el-radio label="还原"></el-radio>
               <el-radio label="删除"></el-radio>
             </el-radio-group>
@@ -103,10 +103,10 @@
 
           <div class="recycle-bin-reply-table__main" slot="main">
             <!--<a :href="'/topic/index?id=' + items._data.id" style="color: #333333;" target="_blank" v-html="items._data.contentHtml"></a>-->
-            <a class="recycle-bin-reply-table__main__cont-text" :href="'/topic/index?id=' + items.id" target="_blank" v-html="items.content"></a>
+            <a class="recycle-bin-reply-table__main__cont-text" :href="'/topic/index?id=' + items.threadId" target="_blank" v-html="items.content"></a>
             <div class="recycle-bin-reply-table__main__cont-imgs">
-              <p class="recycle-bin-reply-table__main__cont-imgs-p" v-for="(item,index) in items.images" :key="index">
-                <img  v-lazy="item._data.thumbUrl" @click="imgShowClick(items.images,index)" :alt="item._data.fileName">
+              <p class="recycle-bin-reply-table__main__cont-imgs-p" v-for="(item,index) in items.cotent.indexes" :key="index">
+                <img  v-lazy="item.thumbUrl" @click="imgShowClick(items.images,index)" :alt="item.fileName">
               </p>
             </div>
           </div>
@@ -114,12 +114,12 @@
           <div class="recycle-bin-reply-table__footer" slot="footer">
             <div class="recycle-bin-reply-table__footer-operator">
               <span>操作者：</span>
-              <span>{{!items.deletedUser?'操作者被禁止或删除':items.deletedUser._data.username}}</span>
+              <span>{{!items.deletedUserArr?'操作者被禁止或删除':items.deletedUserArr.deletedNickname}}</span>
             </div>
 
-            <div class="recycle-bin-reply-table__footer-reason" v-if="items.lastDeletedLog._data.message.length > 0">
+            <div class="recycle-bin-reply-table__footer-reason" v-if="items.lastDeletedLog.message.length > 0">
               <span>原因：</span>
-              <span>{{!items.deletedUser?'操作者被禁止或删除':items.lastDeletedLog._data.message}}</span>
+              <span>{{!items.deletedUser?'操作者被禁止或删除':items.lastDeletedLog.message}}</span>
             </div>
 
           </div>

@@ -133,8 +133,8 @@ export default {
           this.$message.error(res.errors[0].code);
         } else {
           const { Data: data } = res;
-          this.reportList = data.pageData;
-          this.pageData.pageTotal = data.totalPage;
+          this.reportList = data.pageData || [];
+          this.pageData.pageTotal = data.totalCount;
           this.pageData.pageCount = data.totalPage;
           this.reportListAll = [];
           this.reportList.forEach(item => {

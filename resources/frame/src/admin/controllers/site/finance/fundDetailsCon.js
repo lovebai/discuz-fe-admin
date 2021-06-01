@@ -258,6 +258,7 @@ export default {
     * 搜索
     * */
     searchClick() {
+      this.changeTime = this.changeTime == null ? ['',''] : this.changeTime;
       this.currentPaga = 1;
       this.getFundingDetailsList();
     },
@@ -299,7 +300,7 @@ export default {
         }else {
           this.tableData = [];
           const { Data: data } = res;
-          this.tableData = data.pageData;
+          this.tableData = data.pageData || [];
           this.total = data.totalCount;
           this.pageCount = data.totalPage;
           if(data.pageData.length > 0){

@@ -108,20 +108,9 @@ export default {
       this.showViewer = false
     },
 
-    radioChange(val,index){
-      switch (val){
-        case '还原':
-          this.submitForm[index].attributes.isDeleted = false;
-          this.submitForm[index].hardDelete = false;
-          break;
-        case '删除':
-          this.submitForm[index].hardDelete = true;
-          break;
-        default:
-      }
-    },
-
     searchClick(){
+      this.releaseTime = this.releaseTime == null ? ['',''] : this.releaseTime;
+      this.deleteTime = this.deleteTime == null ? ['',''] : this.deleteTime;
       this.currentPaga = 1;
       this.getPostsList(1);
     },
@@ -137,21 +126,27 @@ export default {
       this.subLoading = true;
       this.deleteStatusList = [];
       let isDeleted = [];
-
+      const submitData = [];
       this.submitForm.forEach((item,index)=>{
-        if (item.hardDelete){
-          this.deleteStatusList.push(item.id);
-        }
-        if (!item.attributes.isDeleted){
-          isDeleted.push(item.id)
+        // if (item.hardDelete){
+        //   this.deleteStatusList.push(item.id);
+        // }
+        // if (!item.attributes.isDeleted){
+        //   isDeleted.push(item.id)
+        // }
+        if (item.radio === '还原') {
+          submitData.push({
+            isDeleted: false,
+            id: item.id
+          })
         }
       });
 
       if (this.deleteStatusList.length > 0){
         this.deletePostsBatch(this.deleteStatusList.join(','));
       }
-      if (isDeleted.length > 0){
-        this.patchPostsBatch(this.submitForm);
+      if (submitData.length > 0){
+        this.patchPostsBatch(submitData);
       }
 
     },
@@ -161,10 +156,14 @@ export default {
       let deleteStr = '';
       switch (val){
         case 1:
+          const submitData = [];
           this.submitForm.forEach((item,index)=>{
-            this.submitForm[index].attributes.isDeleted = false;
+            submitData.push({
+              isDeleted: false,
+              id: item.id
+            })
           });
-          this.patchPostsBatch(this.submitForm);
+          this.patchPostsBatch(submitData);
           break;
         case 2:
           this.submitForm.forEach((item,index)=>{
@@ -196,44 +195,35 @@ export default {
         url:'posts_get_v3',
         method:'get',
         data:{
-          // include: ['user','replyUser','thread','thread.category','thread.firstPost','deletedUser','lastDeletedLog','images'],
-          'filter[isApproved]': 1,
-          'filter[isDeleted]':'yes',
-          'filter[nickname]':this.searchUserName,
+          'isApproved': 1,
+          'isDeleted':'yes',
+          'nickname':this.searchUserName,
           'page':pageNumber,
           'perPage':10,
-          'filter[q]':this.keyWords,
-          // 'filter[categoryId]':this.categoriesListSelect,
-          'filter[categoryId]':this.categoriesListSelect[this.categoriesListSelect.length - 1],
-          'filter[deletedNickname]':this.operator,
-          'filter[createdAtBegin]':this.releaseTime[0],
-          'filter[createdAtEnd]':this.releaseTime[1],
-          'filter[deletedAtBegin]':this.deleteTime[0],
-          'filter[deletedEnd]':this.deleteTime[1],
-          'sort':'-deletedAt'
+          'q':this.keyWords,
+          'categoryId':this.categoriesListSelect[this.categoriesListSelect.length - 1],
+          'deletedNickname':this.operator,
+          'createdAtBegin':this.releaseTime[0],
+          'createdAtEnd':this.releaseTime[1],
+          'deletedAtBegin':this.deleteTime[0],
+          'deletedEnd':this.deleteTime[1],
+          'sort':'-deleted_at'
         }
       }).then(res=>{
-        console.log(res, 'posts_get_v3')
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
           const {Data: data} = res;
           this.themeList = [];
           this.submitForm = [];
-          this.themeList = data.pageData;
+          this.themeList = data.pageData || [];
           this.total = data.totalCount;
           this.pageCount = data.totalPage;
 
           this.themeList.forEach((item, index) => {
             this.submitForm.push({
-              Select: '无',
               radio: '',
-              type: 'posts',
-              id: item.id,
-              attributes: {
-                isDeleted: true,
-                message: '',
-              }
+              id: item.postId
             })
           });
         }
@@ -242,7 +232,7 @@ export default {
     },
     getCategories(){
       this.appFetch({
-        url:'categories',
+        url:'categories_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
@@ -256,24 +246,25 @@ export default {
           //     id: item.id
           //   })
           // })
-          res.data.forEach((item, index) => {
-            if (item.attributes.children.length) {
+          const {Data: data} = res;
+          data.forEach(item => {
+            if (item.children.length > 0) {
               const child = []
-              item.attributes.children.forEach(c => {
+              item.children.forEach(c => {
                 child.push({
                   label: c.name,
-                  value: c.search_ids
+                  value: c.searchIds
                 })
               })
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids,
+                label: item.name,
+                value: item.searchIds,
                 children: child
               })
             } else {
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids
+                label: item.name,
+                value: item.searchIds
               })
             }
           })
@@ -283,9 +274,10 @@ export default {
     },
     patchPostsBatch(data){
       this.appFetch({
-        url:'postsBatch',
-        method:'patch',
+        url:'submit_review_post_v3',
+        method:'post',
         data:{
+          type: 2,
           data
         }
       }).then(res=>{

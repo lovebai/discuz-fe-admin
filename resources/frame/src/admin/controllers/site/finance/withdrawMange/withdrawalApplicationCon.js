@@ -189,6 +189,7 @@ export default {
      * 提现申请搜索
      */
     searchClick(){
+      this.applicationTime = this.applicationTime == null ? ['',''] : this.applicationTime;
       this.currentPaga = 1;
       this.getReflectList();
     },
@@ -229,7 +230,7 @@ export default {
         }else {
           this.tableData = [];
           const { Data: data } = res;
-          this.tableData = data.pageData;
+          this.tableData = data.pageData || [];
           this.total = data.totalCount;
           this.pageCount = data.totalPage;
         }

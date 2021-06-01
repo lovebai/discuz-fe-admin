@@ -225,6 +225,9 @@ export default {
     * 盈利统计数据请求传给图表
     * */
 		earningsStatistics() {
+			this.financialTime = this.financialTime == null ? ['',''] : this.financialTime;
+			this.valueMouth = this.valueMouth == null ? ['',''] : this.valueMouth;
+
 			var dataStatistics = {    //盈利统计按日、周统计
 				'filter[type]': this.istrue + 1,
 				'filter[createdAtBegin]': this.financialTime[0],
@@ -271,6 +274,9 @@ export default {
     * 订单数据请求
     * */
 		orderStatistics() {
+			this.orderTime = this.orderTime == null ? ['',''] : this.orderTime;
+			this.valueOrder = this.valueOrder == null ? ['',''] : this.valueOrder;
+
 			var dataDay = {
 				'filter[type]': this.istrueOder + 1,
 				'filter[createdAtBegin]': this.orderTime[0],

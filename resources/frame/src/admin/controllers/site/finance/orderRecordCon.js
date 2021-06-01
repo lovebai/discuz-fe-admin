@@ -133,6 +133,7 @@ export default {
     * 搜索
     * */
     searchClick() {
+      this.orderTime = this.orderTime == null ? ['',''] : this.orderTime;
       this.currentPaga = 1;
       this.getOrderList();
     },
@@ -175,7 +176,7 @@ export default {
         }else {
           const { Data: data } = res;
           this.tableData = [];
-          this.tableData = data.pageData;
+          this.tableData = data.pageData || [];
           this.pageCount = data.totalPage;
           this.total = data.totalCount;
         }

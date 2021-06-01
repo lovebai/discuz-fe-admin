@@ -55,7 +55,7 @@ export default {
       releaseTime: ['',''],       //发布时间范围
       deleteTime: ['',''],        //删除时间范围
 
-      radioList:'',               //主题左侧单选
+      // radioList:'',               //主题左侧单选
       deleteStatusList:[],        //硬删除列表
 
       appleAll:false,             //应用其他页面
@@ -102,21 +102,9 @@ export default {
       this.showViewer = false
     },
 
-    radioChange(val,index){
-      switch (val){
-        case '还原':
-          this.submitForm[index].attributes.isDeleted = false;
-          this.submitForm[index].hardDelete = false;
-          break;
-        case '删除':
-          this.submitForm[index].hardDelete = true;
-          break;
-        default:
-          //左侧操作错误，请刷新页面
-      }
-    },
-
     searchClick(){
+      this.releaseTime = this.releaseTime == null ? ['',''] : this.releaseTime;
+      this.deleteTime = this.deleteTime == null ? ['',''] : this.deleteTime;
       this.currentPaga = 1;
       this.getThemeList(1);
     },
@@ -133,29 +121,27 @@ export default {
 
       this.deleteStatusList = [];
       let isDeleted = [];
-
+      const submitData = [];
       this.submitForm.forEach((item,index)=>{
-        if (item.hardDelete){
-          this.deleteStatusList.push(item.id);
-        }
-        if (!item.attributes.isDeleted){
-          isDeleted.push(item.id)
+        // if (item.hardDelete){
+        //   this.deleteStatusList.push(item.id);
+        // }
+        // if (!item.isDeleted){
+        //   isDeleted.push(item.id)
+        // }
+        if (item.radio === '还原') {
+          submitData.push({
+            isDeleted: false,
+            id: item.id
+          })
         }
       });
 
-      // this.deleteStatusList.forEach((item,index)=>{
-      //   if (index < this.deleteStatusList.length-1){
-      //     deleteStr = deleteStr + item + ','
-      //   }else {
-      //     deleteStr = deleteStr + item
-      //   }
-      // });
-
-      if (this.deleteStatusList.length > 0){
+      if (this.deleteStatusList.length > 0) {
         this.deleteThreadsBatch(this.deleteStatusList.join(','));
       }
-      if (isDeleted.length > 0){
-        this.patchThreadsBatch(this.submitForm);
+      if (submitData.length > 0){
+        this.patchThreadsBatch(submitData)
       }
 
     },
@@ -165,10 +151,14 @@ export default {
       let deleteStr = '';
       switch (val){
         case 1:
-          this.submitForm.forEach((item,index)=>{
-            this.submitForm[index].attributes.isDeleted = false;
+          const submitData = [];
+          this.submitForm.forEach(item => {
+            submitData.push({
+              isDeleted: false,
+              id: item.id
+            })
           });
-          this.patchThreadsBatch(this.submitForm);
+          this.patchThreadsBatch(submitData);
           break;
         case 2:
           this.submitForm.forEach((item,index)=>{
@@ -197,55 +187,37 @@ export default {
     * 接口请求
     * */
     getThemeList(pageNumber){
-      this.releaseTime = this.releaseTime == null?['','']:this.releaseTime;
-      this.radioList = this.radioList == null?['','']:this.radioList;
-
       this.appFetch({
         url:'thread_get_v3',
         method:'get',
         data:{
-          'filter[isApproved]': 1,
-          'filter[isDeleted]':'yes',
-          'filter[nickname]':this.searchUserName,
+          'isApproved': 1,
+          'isDeleted':'yes',
+          'nickname':this.searchUserName,
           'page':pageNumber,
           'perPage':10,
-          'filter[q]':this.keyWords,
-          // 'filter[categoryId]':this.categoriesListSelect,
-          'filter[categoryId]':this.categoriesListSelect[this.categoriesListSelect.length - 1],
-          'filter[deletedNickname]':this.operator,
-          'filter[createdAtBegin]':this.releaseTime[0],
-          'filter[createdAtEnd]':this.releaseTime[1],
-          'filter[deletedAtBegin]':this.deleteTime[0],
-          'filter[deletedEnd]':this.deleteTime[1],
-          'sort':'-deletedAt'
+          'q':this.keyWords,
+          'categoryId':this.categoriesListSelect[this.categoriesListSelect.length - 1],
+          'deletedNickname':this.operator,
+          'createdAtBegin':this.releaseTime[0],
+          'createdAtEnd':this.releaseTime[1],
+          'deletedAtBegin':this.deleteTime[0],
+          'deletedEnd':this.deleteTime[1],
+          'sort':'-deleted_at'
         }
       }).then(res=>{
-        console.log(res, 'thread_get_v3')
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
           const {Data: data} = res;
-          this.themeList = data.pageData;
+          this.themeList = data.pageData || [];
           this.total = data.totalCount;
           this.pageCount = data.totalPage;
           this.submitForm = [];
           this.themeList.forEach((item, index) => {
             this.submitForm.push({
               radio: '',
-              hardDelete: false,
-              type: 'threads',
-              id: item._data.id,
-              attributes: {
-                isDeleted: true
-              },
-              relationships: {
-                category: {
-                  data: {
-                    type: "categories",
-                    id: item.category._data.id
-                  }
-                }
-              }
+              id: item.threadId
             })
           });
         }
@@ -255,38 +227,32 @@ export default {
     },
     getCategories(){
       this.appFetch({
-        url:'categories',
+        url:'categories_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          // this.categoriesList = [];
-          // res.data.forEach((item, index) => {
-          //   this.categoriesList.push({
-          //     name: item.attributes.name,
-          //     id: item.id
-          //   })
-          // })
-          res.data.forEach((item, index) => {
-            if (item.attributes.children.length) {
+          const {Data: data} = res;
+          data.forEach(item => {
+            if (item.children.length > 0) {
               const child = []
-              item.attributes.children.forEach(c => {
+              item.children.forEach(c => {
                 child.push({
                   label: c.name,
-                  value: c.search_ids
+                  value: c.searchIds
                 })
               })
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids,
+                label: item.name,
+                value: item.searchIds,
                 children: child
               })
             } else {
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids
+                label: item.name,
+                value: item.searchIds
               })
             }
           })
@@ -297,9 +263,10 @@ export default {
     },
     patchThreadsBatch(data){
       this.appFetch({
-        url:'threadsBatch',
-        method:'patch',
+        url:'submit_review_post_v3',
+        method:'post',
         data:{
+          type: 1,
           data
         }
       }).then(res=>{
@@ -307,7 +274,7 @@ export default {
         this.btnLoading = 0;
         if (res.errors){
           this.$message.error(res.errors[0].code);
-        }else {
+        } else {
           if (res.meta && res.data) {
             this.$message.error('操作失败！');
           } else {
@@ -324,8 +291,8 @@ export default {
     },
     deleteThreadsBatch(data){
       this.appFetch({
-        url:'threadsBatch',
-        method:'delete',
+        url:'submit_review_post_v3',
+        method:'post',
         splice:'/'+ data
       }).then(res=>{
         this.subLoading = false;
