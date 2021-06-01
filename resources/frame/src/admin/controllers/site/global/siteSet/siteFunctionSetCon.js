@@ -24,7 +24,7 @@ export default {
             // 购买权限
             // this.purchase = forumData.setSite.sitePayGroupClose === '1';
             // 打赏权限
-            this.reward = forumData.setSite.siteCanReward === 1;
+            this.reward = forumData.setSite.siteCanReward; 
           }
         })
         .catch(error => {});
@@ -38,7 +38,7 @@ export default {
           data: [
             {
               key: "site_can_reward",
-              value: this.reward ? 1 : 0,
+              value: this.reward,
               tag: "default"
             },
             // {
