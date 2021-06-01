@@ -128,6 +128,7 @@ module.exports = {
   signinfields_get_v3: '/backAdmin/signinfields', // 注册扩展信息字段配置
   settings_logo_post_v3: '/backAdmin/settings/logo', // 上传站点logo
   delete_logo_post_v3: '/backAdmin/settings/delete.logo', // 删除站点logo
+  signinfields_post_v3: '/backAdmin/signinfields', // 编辑注冊扩展列表
 
   stopwords_batch_v3: '/backAdmin/stopwords.batch', // 创建/修改敏感词接口(批量)
   stopwords_get_v3: '/backAdmin/stopwords.list', // 查询敏感词(列表) 
@@ -158,8 +159,13 @@ module.exports = {
   // 用户
   users_update_post_v3: '/backAdmin/users/update.user',  // 用户资料修改
   users_avatar_post_v3: '/backAdmin/users/avatar', // 上传用户头像
+  delete_avatar_post_v3: '/backAdmin/delete/users/avatar', // 删除用户头像
+  export_users_post_v3: '/backAdmin/export/users', // 用户信息导出
   groups_list_get_v3: '/backAdmin/groups.list', // 用户组列表
   groups_create_post_v3: '/backAdmin/groups.create', // 创建用户组
-  groups_batchupdate_post_v3: '/backAdmin/groups.batchupdate', // 用户组修改（批
+  groups_batchupdate_post_v3: '/backAdmin/groups.batchupdate', // 用户组修改（批）
   groups_batchdelete_post_v3: '/backAdmin/groups.batchdelete', // 删除用户组 (批)
+  user_wallet_post_v3: '/backAdmin/user.wallet',  // 用户钱包列表
+  update_wallet_post_v3: '/backAdmin/update.user.wallet', // 更改用户钱包
+  user_list_get_v3: '/backAdmin/users', // 用户筛选
 };
