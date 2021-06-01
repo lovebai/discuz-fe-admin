@@ -44,53 +44,41 @@ export default {
     submitConfiguration(){
 
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-               "attributes":{
-                "key":"app_id",
-                "value":this.appId,
-                "tag": this.type
-               }
+              "key":"app_id",
+              "value":this.appId,
+              "tag": this.type
             },
             {
-               "attributes":{
-                "key":"mch_id",
-                "value":this.mchId,
-                "tag": this.type
-               }
+              "key":"mch_id",
+              "value":this.mchId,
+              "tag": this.type
             },
             {
-               "attributes":{
-                "key":"api_key",
-                "value":this.apiKey,
-                "tag": this.type
-               }
+              "key":"api_key",
+              "value":this.apiKey,
+              "tag": this.type
             },
             {
-               "attributes":{
-                "key":"app_secret",
-                "value":this.appSecret,
-                "tag": this.type
-               }
+              "key":"app_secret",
+              "value":this.appSecret,
+              "tag": this.type
             },
             {
-               "attributes":{
-                "key":"wxpay_ios",
-                "value":this.iOSPay,
-                "tag": this.type
-               }
+              "key":"wxpay_ios",
+              "value":this.iOSPay,
+              "tag": this.type
             },
             {
-              "attributes":{
-               "key":"wxpay_mchpay_close",
-               "value":this.value,
-               "tag": this.type
-              }
-           },
-           ]
+              "key":"wxpay_mchpay_close",
+              "value":this.value,
+              "tag": this.type
+            },
+          ]
         }
       }).then(data=>{
         // this.$router.push({

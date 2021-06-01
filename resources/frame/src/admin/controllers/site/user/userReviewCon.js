@@ -132,19 +132,19 @@ export default {
 
     getUserList(pageNumber){
       this.appFetch({
-        url:'users',
+        url:'user_list_get_v3',
         method:'get',
         data:{
-          'filter[status]':'mod',
-          'page[number]':pageNumber,
-          'page[size]':10,
+          'filter[status]':2,
+          'perPage':pageNumber,
+          'page':10,
         }
       }).then(res=>{
         console.log(res);
-        this.total = res.meta.total;
-        this.pageCount = res.meta.pageCount;
+        this.total = res.Data.totalCount;
+        this.pageCount = res.Data.totalPage;
         this.visibleExtends = [];
-        res.readdata.forEach((item, index) => {
+        res.Data.pageData.forEach((item, index) => {
           this.visibleExtends.push({
             dialogTableVisible: false,
           })
@@ -164,16 +164,12 @@ export default {
     },
     editUser(id,status,message){
       this.appFetch({
-        url:'users',
-        method:'PATCH',
-        splice:'/'+id,
-        data:{
-          data:{
-            "attributes": {
-              'status':status,
-              'refuse_message':message
-            }
-          }
+        url:'users_update_post_v3',
+        method:'post',
+        data: {
+          'id': id,
+          'status':status,
+          'refuse_message':message
         }
       }).then(res=>{
         this.btnLoading = false;

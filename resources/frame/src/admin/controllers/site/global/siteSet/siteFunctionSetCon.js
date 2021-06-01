@@ -31,16 +31,14 @@ export default {
     // 提交功能状态更改
     handlePublishingSubmit(){
       this.appFetch({
-        url: "settings",
+        url: "settings_post_v3",
         method: "post",
         data: {
           data: [
             {
-              attributes: {
-                key: "site_can_reward",
-                value: this.reward ? 1 : 0,
-                tag: "default"
-              }
+              key: "site_can_reward",
+              value: this.reward ? 1 : 0,
+              tag: "default"
             },
             // {
             //   attributes: {

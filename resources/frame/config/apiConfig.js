@@ -121,10 +121,12 @@ module.exports = {
   topics_list_get_v3: '/backAdmin/topics.list',  // 话题管理列表
   topic_delete_post_v3: '/backAdmin/topics.batch.delete', // 删除话题
   topics_update_post_v3: '/backAdmin/topics.batch.update', // 话题修改
-  thread_list_get_v3: '/backAdmin/thread.list', // 主题列表接口
+  thread_list_get_v3: '/backAdmin/manage.thread.list', // 主题列表接口
+  posts_list_get_v3: '/backAdmin/manage.posts.list',
   check_sub_post_v3: '/backAdmin/check.sub', // 内容审核 主题审核
   check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
   threads_batch_post_v3: '/backAdmin/threads.batch',  // 修改主题
+  categories_list_get_v3: '/backAdmin/categories', // 分类列表
 
   // 用户
   users_update_post_v3: '/backAdmin/users/update.user',  // 用户资料修改

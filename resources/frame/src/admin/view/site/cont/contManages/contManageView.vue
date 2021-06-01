@@ -113,19 +113,19 @@
 
         <ContArrange
           v-for="(items,index) in  themeList"
-          :author="!items.user?'该用户被删除':items.user._data.username"
-          :theme="items.category._data.name"
-          :prply="items._data.postCount - 1"
-          :browse="items._data.viewCount"
-          :last="!items.lastPostedUser?'该用户被删除':items.lastPostedUser._data.username"
-          :releaseTime="formatDate(items._data.createdAt)"
-          :userId="!items.user?'该用户被删除':items.user._data.id"
-          :key="items._data.id"
+          :author="!items.user?'该用户被删除':items.user.nickname"
+          :theme="1"
+          :prply="1"
+          :browse="items.viewCount"
+          :last="!items.lastPostedUser ? '该用户被删除': items.lastPostedUser._data.username"
+          :releaseTime="formatDate(items.createdAt)"
+          :userId="!items.user ? '该用户被删除':items.user.userId"
+          :key="items.threadId"
         >
           <div class="cont-manage-theme__table-side" slot="side">
             <el-checkbox
               v-model="checkedTheme"
-              :label="items._data.id"
+              :label="items.threadId"
               @change="handleCheckedCitiesChange()"
             ></el-checkbox>
           </div>
@@ -133,46 +133,46 @@
           <a
             slot="longText"
             class="cont-manage-theme__table-long-text"
-            v-if="items._data.type === 1"
-            :href="'/topic/index?id=' + items._data.id"
+            v-if="items.title"
+            :href="'/topic/index?id=' + items.threadId"
             target="_blank"
           >
-            {{items._data.title}}
+            {{items.title}}
             <span
               class="iconfont"
-              :class="parseInt(items._data.price) > 0?'iconmoney':'iconchangwen'"
+              :class="parseInt(items.price) > 0?'iconmoney':'iconchangwen'"
             ></span>
           </a>
 
           <div class="cont-manage-theme__table-main" slot="main">
             <a
               class="cont-manage-theme__table-main__cont-text"
-              :href="'/topic/index?id=' + items._data.id"
+              :href="'/topic/index?id=' + items.threadId"
               target="_blank"
-              :style="{'display':(items.threadVideo ? 'inline':'block')}"
-              v-html="items.firstPost._data.contentHtml"
+              :style="{'display':(items.indexes && items.indexes[0].tomId === '103' ? 'inline':'block')}"
+              v-html="items.content.text"
             ></a>
-            <span class="iconfont iconvideo" v-if="items.threadVideo"></span>
-            <div class="cont-manage-theme__table-main__cont-imgs" v-if="!items._data.title">
+            <span class="iconfont iconvideo" v-if="items.indexes && items.indexes[0].tomId === '103'"></span>
+            <div class="cont-manage-theme__table-main__cont-imgs" v-if="items.indexes && items.indexes[0].tomId === '101'">
               <p
                 class="cont-manage-theme__table-main__cont-imgs-p"
-                v-for="(item,index) in items.firstPost.images"
+                v-for="(item,index) in items.indexes[0].body"
                 :key="index"
               >
                 <img
-                  v-lazy="item._data.thumbUrl"
-                  @click="imgShowClick(items.firstPost.images,index)"
-                  :alt="item._data.fileName"
+                  v-lazy="item.thumbUrl"
+                  @click="imgShowClick(items.indexes[0].body,index)"
+                  :alt="item.fileName"
                 />
               </p>
             </div>
             <div
               class="cont-manage-theme__table-main__cont-annex"
-              v-show="items.firstPost.attachments.length > 0"
+              v-show="items.indexes && items.indexes[0].tomId === '108'"
             >
               <span>附件：</span>
-              <p v-for="(item,index) in items.firstPost.attachments" :key="index">
-                <a :href="item._data.url" target="_blank">{{item._data.fileName}}</a>
+              <p v-for="(item,index) in items.indexes && items.indexes[0].body" :key="index">
+                <a :href="item.url" target="_blank">{{item.fileName}}</a>
               </p>
             </div>
           </div>

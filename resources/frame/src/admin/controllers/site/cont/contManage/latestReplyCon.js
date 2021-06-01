@@ -180,32 +180,43 @@ export default {
     getPostsList(pageNumber){
       let searchData = this.searchData;
       this.appFetch({
-        url:'posts',
+        url:'posts_list_get_v3',
         method:'get',
         data:{
-          include: ['user','thread','thread.category','thread.firstPost','images'],
-          'filter[isDeleted]':'no',
-          'filter[isApproved]':'1',
-          'filter[username]':searchData.themeAuthor,
-          'page[number]':pageNumber,
-          'page[size]':searchData.pageSelect,
-          'filter[q]':searchData.themeKeyWords,
-          'filter[createdAtBegin]':searchData.dataValue[0],
-          'filter[createdAtEnd]':searchData.dataValue[1],
-          'sort':'-createdAt'
+          // include: ['user','thread','thread.category','thread.firstPost','images'],
+          page: pageNumber,
+          perPage: searchData.pageSelect,
+          isDeleted: 'no',
+          isApproved: 1,
+          q: searchData.themeKeyWords,
+          nickname: searchData.themeAuthor,
+          createdAtBegin: searchData.dataValue[0],
+          createdAtEnd: searchData.dataValue[1],
+          // categoryId: 
+          // highlight: 
+          sort: 'created_at',
+          // 'filter[isDeleted]':'no',
+          // 'filter[isApproved]':'1',
+          // 'filter[username]':searchData.themeAuthor,
+          // 'page[number]':pageNumber,
+          // 'page[size]':searchData.pageSelect,
+          // 'filter[q]':searchData.themeKeyWords,
+          // 'filter[createdAtBegin]':searchData.dataValue[0],
+          // 'filter[createdAtEnd]':searchData.dataValue[1],
+          // 'sort':'-createdAt'
         }
       }).then(res=>{
-        // console.log(res);
+        console.log(res);
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.themeList = res.readdata;
-          this.total = res.meta.postCount;
-          this.pageCount = res.meta.pageCount;
+          this.themeList = res.Data.pageData;
+          this.total = res.Data.totalCount;
+          this.pageCount = res.Data.totalPage;
 
           this.themeListAll = [];
           this.themeList.forEach((item, index) => {
-            this.themeListAll.push(item._data.id);
+            this.themeListAll.push(item.postId);
           });
         }
       }).catch(err=>{

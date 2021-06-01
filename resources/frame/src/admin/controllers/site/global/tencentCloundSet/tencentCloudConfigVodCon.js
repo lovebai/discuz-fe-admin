@@ -50,79 +50,59 @@ export default {
         return;
       }
       this.appFetch({
-        url: "settings",
+        url: "settings_post_v3",
         method: "post",
         data: {
           data: [
             {
-              attributes: {
-                key: "qcloud_vod_sub_app_id",
-                value: this.subApplication,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_sub_app_id",
+              value: this.subApplication,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_transcode",
-                value: this.vodTranscode,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_transcode",
+              value: this.vodTranscode,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_watermark",
-                value: this.vodWatermark,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_watermark",
+              value: this.vodWatermark,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_cover_template",
-                value: this.screenshot,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_cover_template",
+              value: this.screenshot,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_ext",
-                value: this.vodExt,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_ext",
+              value: this.vodExt,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_size",
-                value: this.vodSize,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_size",
+              value: this.vodSize,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_taskflow_gif",
-                value: this.vodTaskflowGif,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_taskflow_gif",
+              value: this.vodTaskflowGif,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_url_key",
-                value: this.vodUrlKey,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_url_key",
+              value: this.vodUrlKey,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_url_expire",
-                value: this.vodUrlExpire,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_url_expire",
+              value: this.vodUrlExpire,
+              tag: "qcloud"
             },
             {
-              attributes: {
-                key: "qcloud_vod_token",
-                value: this.vodToken,
-                tag: "qcloud"
-              }
+              key: "qcloud_vod_token",
+              value: this.vodToken,
+              tag: "qcloud"
             }
           ]
         }

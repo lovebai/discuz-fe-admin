@@ -789,32 +789,25 @@ export default {
     async  Submission(){
       try{
         await this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-              "attributes":{
-                "key":'qcloud_app_id',
-                "value":this.appId,
-                "tag": "qcloud"
-              }
+              "key":'qcloud_app_id',
+              "value":this.appId,
+              "tag": "qcloud"
             },
             {
-              "attributes":{
-                "key":'qcloud_secret_id',
-                "value":this.secretId,
-                "tag": "qcloud",
-              }
-              },
-              {
-                "attributes":{
-                  "key":'qcloud_secret_key',
-                  "value":this.secretKey,
-                  "tag": "qcloud",
-                }
-              }
-
+              "key":'qcloud_secret_id',
+              "value":this.secretId,
+              "tag": "qcloud",
+            },
+            {
+              "key":'qcloud_secret_key',
+              "value":this.secretKey,
+              "tag": "qcloud",
+            }
           ]
         }
       }).then(res=>{

@@ -420,44 +420,61 @@ export default {
     * */
     getThemeList(pageNumber) {
       let searchData = this.searchData;
+      console.log(searchData.pageSelect, pageNumber);
 
       this.appFetch({
-        url: 'threads',
+        url: 'thread_list_get_v3',
         method: 'get',
         data: {
-          include: ['user', 'firstPost', 'lastPostedUser', 'category', 'firstPost.images', 'threadVideo', 'firstPost.attachments'],
-          'filter[isDeleted]': 'no',
-          'filter[isApproved]': '1',
-          'filter[username]': searchData.themeAuthor,
-          'filter[threadID]': searchData.threadID,
+          page: pageNumber,
+          perPage: searchData.pageSelect,
+          threadType: searchData.essentialTheme,
+          viewCountGt: searchData.viewedTimesMin,
+          viewCountLt: searchData.viewedTimesMax,
+          postCountGt: searchData.numberOfRepliesMin,
+          postCountLt: searchData.numberOfRepliesMax,
+          isApproved: 1,
+          threadId: searchData.threadID,
+          q: searchData.themeKeyWords,
+          isDeleted: 'no',
+          // nickname: 
+          createdAtBegin: searchData.dataValue[0],
+          createdAtEnd: searchData.dataValue[1],
+          categoryId: searchData.categoryId[searchData.categoryId.length - 1],
+          sort: 'created_at',
+          // 'filter[isDeleted]': 'no',
+          // 'filter[isApproved]': '1',
+          // 'filter[username]': searchData.themeAuthor,
+          // 'filter[threadID]': searchData.threadID,
           // 'filter[categoryId]': searchData.categoryId,
-          'filter[categoryId]': searchData.categoryId[searchData.categoryId.length - 1],
-          'page[number]': pageNumber,
-          'page[size]': searchData.pageSelect,
-          'filter[q]': searchData.themeKeyWords,
-          'filter[createdAtBegin]': searchData.dataValue[0],
-          'filter[createdAtEnd]': searchData.dataValue[1],
-          'filter[viewCountGt]': searchData.viewedTimesMin,
-          'filter[viewCountLt]': searchData.viewedTimesMax,
-          'filter[postCountGt]': searchData.numberOfRepliesMin,
-          'filter[postCountLt]': searchData.numberOfRepliesMax,
-          'filter[isEssence]': searchData.essentialTheme,
-          'filter[isSticky]': searchData.topType,
-          'filter[topicId]': searchData.topicId,
-          'filter[isSite]': searchData.isSite,
-          'sort': '-createdAt'
+          // 'filter[categoryId]': searchData.categoryId[searchData.categoryId.length - 1],
+          // 'page[number]': pageNumber,
+          // 'page[size]': searchData.pageSelect,
+          // 'filter[q]': searchData.themeKeyWords,
+          // 'filter[createdAtBegin]': searchData.dataValue[0],
+          // 'filter[createdAtEnd]': searchData.dataValue[1],
+          // 'filter[viewCountGt]': searchData.viewedTimesMin,
+          // 'filter[viewCountLt]': searchData.viewedTimesMax,
+          // 'filter[postCountGt]': searchData.numberOfRepliesMin,
+          // 'filter[postCountLt]': searchData.numberOfRepliesMax,
+          // 'filter[isEssence]': searchData.essentialTheme,
+          // 'filter[isSticky]': searchData.topType,
+          // 'filter[topicId]': searchData.topicId,
+          // 'filter[isSite]': searchData.isSite,
+          // 'sort': '-createdAt'
         }
       }).then(res => {
+        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.themeList = res.readdata;
-          this.total = res.meta.threadCount;
-          this.pageCount = res.meta.pageCount;
+          this.themeList = res.Data.pageData;
+          this.total = res.Data.totalCount;
+          this.pageCount = res.Data.totalPage;
 
           this.themeListAll = [];
           this.themeList.forEach((item, index) => {
-            this.themeListAll.push(item._data.id);
+            this.themeListAll.push(item.threadId);
           });
         }
       }).catch(err => {
@@ -465,10 +482,11 @@ export default {
     },
     getCategories() {
       this.appFetch({
-        url: 'categories',
+        url: 'categories_list_get_v3',
         method: 'get',
         data: {}
       }).then(res => {
+        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
@@ -478,33 +496,33 @@ export default {
           //     id: item.id
           //   })
           // })
-          res.data.forEach(item => {
-            if (item.attributes.children.length) {
+          res.Data.forEach(item => {
+            if (item.children.length) {
               const child = []
               item.attributes.children.forEach(c => {
                 child.push({
                   label: c.name,
-                  value: c.search_ids
+                  value: c.searchIds
                 })
               })
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids,
+                label: item.name,
+                value: item.searchIds,
                 children: child
               })
               this.moveCateList.push({
-                label: item.attributes.name,
-                value: item.id,
+                label: item.name,
+                value: item.pid,
                 children: child
               })
             } else {
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids
+                label: item.name,
+                value: item.searchIds
               })
               this.moveCateList.push({
-                label: item.attributes.name,
-                value: item.id
+                label: item.name,
+                value: item.pid
               })
             }
           })

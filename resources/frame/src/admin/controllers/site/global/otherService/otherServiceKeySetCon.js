@@ -38,16 +38,14 @@ export default {
         return;
       }
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-               "attributes":{
-                "key":"qq_lbs_key",
-                "value":this.key,
-                "tag": 'lbs'
-               }
+              "key":"qq_lbs_key",
+              "value":this.key,
+              "tag": 'lbs'
             },
            ]
         }

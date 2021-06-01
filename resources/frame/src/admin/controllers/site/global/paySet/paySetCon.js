@@ -71,19 +71,16 @@ export default {
     changeSettings(typeVal,statusVal,TagVal,Tips){
       //登录设置状态修改
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-             "attributes":{
               "key":typeVal,
               "value":statusVal,
               "tag": TagVal
-             }
             }
            ]
-
         }
       }).then(data=>{
         if (data.errors){

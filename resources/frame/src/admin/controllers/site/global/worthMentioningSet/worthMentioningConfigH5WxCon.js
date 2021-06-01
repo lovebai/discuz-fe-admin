@@ -66,25 +66,19 @@ export default {
 
       data = [
         {
-          "attributes": {
             "key": this.prefix + "app_id",
             "value": this.appId,
             "tag": this.type
-          }
         },
         {
-          "attributes": {
             "key": this.prefix + "app_secret",
             "value": this.appSecret,
             "tag": this.type
-          }
         },
         {
-          "attributes": {
             "key": this.prefix + "video",
             "value": this.closeVideo,
             "tag": 'wx_miniprogram'
-          }
         },
 
       ];
@@ -92,31 +86,25 @@ export default {
       if (this.type === 'wx_offiaccount'){
         data.push(
           {
-            "attributes": {
-              "key": "oplatform_url",
-              "value": this.serverUrl,
-              "tag": 'wx_oplatform'
-            }
+            "key": "oplatform_url",
+            "value": this.serverUrl,
+            "tag": 'wx_oplatform'
           },
           {
-            "attributes": {
-              "key": "oplatform_app_token",
-              "value": this.appToken,
-              "tag": 'wx_oplatform'
-            }
+            "key": "oplatform_app_token",
+            "value": this.appToken,
+            "tag": 'wx_oplatform'
           },
           {
-            "attributes": {
-              "key": "oplatform_app_aes_key",
-              "value": this.encodingAESKey,
-              "tag": 'wx_oplatform'
-            }
+            "key": "oplatform_app_aes_key",
+            "value": this.encodingAESKey,
+            "tag": 'wx_oplatform'
           }
         )
       }
 
       this.appFetch({
-        url: 'settings',
+        url: 'settings_post_v3',
         method: 'post',
         data: {
           "data": data

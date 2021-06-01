@@ -58,32 +58,25 @@ export default {
         return
       }
       this.appFetch({
-        url: 'settings',
+        url: 'settings_post_v3',
         method: 'post',
         data: {
           "data": [
             {
-              "attributes": {
-                "key": 'support_img_ext',
-                "value": this.picture,
-                "tag": "default"
-              }
+              "key": 'support_img_ext',
+              "value": this.picture,
+              "tag": "default"
             },
             {
-              "attributes": {
-                "key": 'support_file_ext',
-                "value": this.fileExtension,
-                "tag": "default",
-              }
+              "key": 'support_file_ext',
+              "value": this.fileExtension,
+              "tag": "default",
             },
             {
-              "attributes": {
-                "key": 'support_max_size',
-                "value": this.maximumSize,
-                "tag": "default",
-              }
+              "key": 'support_max_size',
+              "value": this.maximumSize,
+              "tag": "default",
             },
-
           ]
         }
       }).then(data => {

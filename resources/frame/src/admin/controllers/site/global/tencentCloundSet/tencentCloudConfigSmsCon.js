@@ -35,38 +35,30 @@ export default {
     },
     Submission(){
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-              "attributes":{
-                "key":'qcloud_sms_app_id',
-                "value":this.sdkAppId,
-                "tag": "qcloud"
-              }
+              "key":'qcloud_sms_app_id',
+              "value":this.sdkAppId,
+              "tag": "qcloud"
             },
             {
-              "attributes":{
-                "key":'qcloud_sms_app_key',
-                "value":this.appKey,
-                "tag": "qcloud",
-              }
-              },
-              {
-                "attributes":{
-                  "key":'qcloud_sms_template_id',
-                  "value":this.smsId,
-                  "tag": "qcloud",
-                }
-              },{
-                "attributes":{
-                  "key":'qcloud_sms_sign',
-                  "value":this.smsSignature,
-                  "tag": "qcloud",
-                }
-              }
-
+              "key":'qcloud_sms_app_key',
+              "value":this.appKey,
+              "tag": "qcloud",
+            },
+            {
+              "key":'qcloud_sms_template_id',
+              "value":this.smsId,
+              "tag": "qcloud",
+            },
+            {
+              "key":'qcloud_sms_sign',
+              "value":this.smsSignature,
+              "tag": "qcloud"
+            }
           ]
         }
       }).then(res=>{

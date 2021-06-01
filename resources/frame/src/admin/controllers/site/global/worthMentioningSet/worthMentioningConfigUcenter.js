@@ -35,30 +35,24 @@ export default {
     },
     submitConfiguration(){
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-              "attributes":{
-               "key":"ucenter_appid",
-               "value":this.valueAppid,
-               "tag": 'ucenter'
-              }
+              "key":"ucenter_appid",
+              "value":this.valueAppid,
+              "tag": 'ucenter'
            },
             {
-               "attributes":{
-                "key":"ucenter_url",
-                "value":this.valueUrl,
-                "tag": 'ucenter'
-               }
+              "key":"ucenter_url",
+              "value":this.valueUrl,
+              "tag": 'ucenter'
             },
             {
-              "attributes":{
-               "key":"ucenter_key",
-               "value":this.valueKey,
-               "tag": 'ucenter'
-              }
+              "key":"ucenter_key",
+              "value":this.valueKey,
+              "tag": 'ucenter'
             },
           ]
         }

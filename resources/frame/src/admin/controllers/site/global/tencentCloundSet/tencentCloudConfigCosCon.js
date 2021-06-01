@@ -19,44 +19,34 @@ export default {
   methods:{
     submission(){
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-              "attributes":{
-                "key":'qcloud_cos_bucket_name',
-                "value":this.cosName,
-                "tag": "qcloud"
-              }
+              "key":'qcloud_cos_bucket_name',
+              "value":this.cosName,
+              "tag": "qcloud"
             },
             {
-              "attributes":{
-                "key":'qcloud_cos_bucket_area',
-                "value":this.cosArea,
-                "tag": "qcloud",
-              }
+              "key":'qcloud_cos_bucket_area',
+              "value":this.cosArea,
+              "tag": "qcloud",
             },
             {
-              "attributes":{
-                "key":'qcloud_cos_cdn_url',
-                "value":this.cosDomainName,
-                "tag": "qcloud",
-              }
+              "key":'qcloud_cos_cdn_url',
+              "value":this.cosDomainName,
+              "tag": "qcloud",
             },
             {
-              "attributes":{
-                "key":'qcloud_cos_sign_url',
-                "value":this.cosSignUrl,
-                "tag": "qcloud",
-              }
+              "key":'qcloud_cos_sign_url',
+              "value":this.cosSignUrl,
+              "tag": "qcloud",
             },
             {
-              "attributes":{
-                "key":'qcloud_cos_doc_preview',
-                "value":this.cosDocPreview,
-                "tag": "qcloud",
-              }
+              "key":'qcloud_cos_doc_preview',
+              "value":this.cosDocPreview,
+              "tag": "qcloud",
             }
           ]
         }

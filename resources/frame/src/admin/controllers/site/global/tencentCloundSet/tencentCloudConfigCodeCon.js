@@ -50,44 +50,34 @@ export default {
     },
     setting() {
       this.appFetch({
-        url: 'settings',
+        url: 'settings_post_v3',
         method: 'post',
         data: {
           "data": [
             {
-              "attributes": {
-                "key": 'qcloud_captcha',
-                "value": 1,
-                "tag": "qcloud"
-              }
+              "key": 'qcloud_captcha',
+              "value": 1,
+              "tag": "qcloud"
             },
             {
-              "attributes": {
-                "key": 'qcloud_captcha_app_id',
-                "value": this.appId,
-                "tag": "qcloud"
-              }
+              "key": 'qcloud_captcha_app_id',
+              "value": this.appId,
+              "tag": "qcloud"
             },
             {
-              "attributes": {
-                "key": 'qcloud_captcha_secret_key',
-                "value": this.secretId,
-                "tag": "qcloud",
-              }
+              "key": 'qcloud_captcha_secret_key',
+              "value": this.secretId,
+              "tag": "qcloud",
             },
             {
-              "attributes": {
-                "key": 'qcloud_captcha_ticket',
-                "value": this.captcha_ticket,
-                "tag": "qcloud",
-              }
+              "key": 'qcloud_captcha_ticket',
+              "value": this.captcha_ticket,
+              "tag": "qcloud",
             },
             {
-              "attributes": {
-                "key": 'qcloud_captcha_randstr',
-                "value": this.captcha_rand_str,
-                "tag": "qcloud",
-              }
+              "key": 'qcloud_captcha_randstr',
+              "value": this.captcha_rand_str,
+              "tag": "qcloud",
             },
           ]
         }

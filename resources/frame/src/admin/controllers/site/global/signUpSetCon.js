@@ -97,16 +97,14 @@ export default {
     },
     extendConfing() {
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data" :[
             {
-              "attributes":{
-                "key":'open_ext_fields',
-                "value": this.extensionOn ? 1 : 0,
-                "tag": 'default'
-              }
+              "key":'open_ext_fields',
+              "value": this.extensionOn ? 1 : 0,
+              "tag": 'default'
             }
           ],
         }
@@ -135,86 +133,64 @@ export default {
       //   return
       // }
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-             "attributes":{
               "key":'register_close',
               "value":this.is_register_close,
               "tag": 'default'
-             }
             },
             {
-              "attributes":{
-                "key":'is_need_transition',
-                "value":this.is_need_transition,
-                "tag": 'default'
-              }
+              "key":'is_need_transition',
+              "value":this.is_need_transition,
+              "tag": 'default'
             },
             {
-              "attributes":{
-                "key":'register_validate',
-                "value":this.register_validate,
-                "tag": 'default'
-              }
+              "key":'register_validate',
+              "value":this.register_validate,
+              "tag": 'default'
             },
             {
-              "attributes":{
-                "key":'register_captcha',
-                "value":this.register_captcha,
-                "tag": 'default'
-              }
+              "key":'register_captcha',
+              "value":this.register_captcha,
+              "tag": 'default'
             },
             {
-              attributes: {
-                key: "privacy",
-                value: this.privacy,
-                tag: "agreement"
-              }
+              key: "privacy",
+              value: this.privacy,
+              tag: "agreement"
             },
             {
-              attributes: {
-                key: "register",
-                value: this.register,
-                tag: "agreement"
-              }
+              key: "register",
+              value: this.register,
+              tag: "agreement"
             },
             {
-              attributes: {
-                key: "register_content",
-                value: this.register_content ? this.register_content : "",
-                tag: "agreement"
-              }
+              key: "register_content",
+              value: this.register_content ? this.register_content : "",
+              tag: "agreement"
             },
             {
-              attributes: {
-                key: "privacy_content",
-                value: this.privacy_content ? this.privacy_content : "",
-                tag: "agreement"
-              }
+              key: "privacy_content",
+              value: this.privacy_content ? this.privacy_content : "",
+              tag: "agreement"
             },
             {
-              "attributes":{
-                "key":'password_length',
-                "value":this.pwdLength,
-                "tag": 'default'
-               }
+              "key":'password_length',
+              "value":this.pwdLength,
+              "tag": 'default'
             },
             {
-              "attributes":{
-                "key":'password_strength',
-                "value":passwordStrength,
-                "tag": 'default'
-               }
+              "key":'password_strength',
+              "value":passwordStrength,
+              "tag": 'default'
             },
             {
-              "attributes":{
-                "key":'open_ext_fields',
-                "value": this.extensionOn ? 1 : 0,
-                "tag": 'default'
-               }
+              "key":'open_ext_fields',
+              "value": this.extensionOn ? 1 : 0,
+              "tag": 'default'
             },
            ]
         }
