@@ -399,7 +399,6 @@ export default {
           //内容分类
           "cont-class": {
             comLoad: function (resolve) {
-              // require(["../view/site/cont/contClassView"], resolve);
               require(["../view/site/cont/contClassPayView"], resolve);
             },
             metaInfo: {

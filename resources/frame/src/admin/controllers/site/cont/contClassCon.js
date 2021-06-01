@@ -63,7 +63,6 @@ export default {
     },
 
     addClick() {
-      console.log('12344');
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
@@ -112,28 +111,22 @@ export default {
         let data = [];
         this.categoriesList.forEach((item)=>{
           data.push({
-            'type':"categories",
             'id':item.id,
-            "attributes": {
-              "name": item.name,
-              "description": item.description,
-              "parentid":item.parentid,
-              "sort": item.sort
-            }
+            "name": item.name,
+            "description": item.description,
+            "parentId":item.parentid,
+            "sort": item.sort
           });
           item.children && item.children.forEach(item_child=>{
             if (!item_child.id){
               return
             }
             data.push({
-              'type':"categories",
               'id':item_child.id,
-              "attributes": {
-                "name": item_child.name,
-                "description": item_child.description,
-                "sort": item_child.sort,
-                "parentid": item_child.parentid
-              }
+              "name": item_child.name,
+              "description": item_child.description,
+              "sort": item_child.sort,
+              "parentId": item_child.parentid
             })
           });
         });
@@ -174,7 +167,6 @@ export default {
           });
         }
       }else{
-        // console.log(this.categoriesList.indexOf(row));
         this.categoriesList.splice(this.categoriesList.indexOf(row),1);
       }
     },
@@ -205,23 +197,39 @@ export default {
     * */
     getCategories(){
       this.appFetch({
-        url:'categories',
+        url:'categories_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.categoriesListLength = res.data.length;
+          const {Data: data} = res
+          this.categoriesListLength = data.length;
           this.categoriesList = [];
-          res.data.forEach((item, index) => {
+          data.forEach((item, index) => {
+            let children = [];
+            item.children.forEach(citem => {
+              children.push({
+                canCreateThread: citem.canCreateThread,
+                description: citem.description,
+                icon: citem.icon,
+                name: citem.name,
+                parentid: citem.parentid,
+                id: citem.pid,
+                property: citem.property,
+                searchIds: citem.searchIds,
+                sort: citem.sort,
+                threadCount: citem.threadCount
+              })
+            })
             this.categoriesList.push({
-              name: item.attributes.name,
-              id: item.id,
-              description: item.attributes.description,
-              sort: item.attributes.sort,
-              parentid: item.attributes.parentid,
-              children:item.attributes.children || [],
+              name: item.name,
+              id: item.pid,
+              description: item.description,
+              sort: item.sort,
+              parentid: item.parentid,
+              children: children,
               isShow:true, // 本地显示需要，显示父类操作
               idx:index, // 本地删除需要，记录父类下标
             })
@@ -233,9 +241,11 @@ export default {
     },
     deleteCategories(id){
       return this.appFetch({
-        url:'categoriesDelete',
-        method:'delete',
-        splice:'/'+id
+        url:'categories_delete_v3',
+        method:'post',
+        data:{
+          "id": id
+        }
       }).then(res=>{
         this.subLoading = false;
         if (res.errors){
@@ -255,9 +265,11 @@ export default {
     },
     batchDeleteCategories(id){
       return this.appFetch({
-        url:'categoriesBatchDelete',
-        method:'delete',
-        splice:'/'+id
+        url:'categories_delete_v3',
+        method:'post',
+        data:{
+          "id": id
+        }
       }).then(res=>{
         this.delLoading = false;
         if (res.meta){
@@ -279,18 +291,15 @@ export default {
       let datas = [];
       data.forEach((item)=>{
         datas.push({
-          "type": "categories",
-          "attributes": {
-            "name": item.name,
-            "description": item.description,
-            "sort": item.sort,
-            "parentid":item.parentid
-          }
-        },)
+          "name": item.name,
+          "description": item.description,
+          "sort": item.sort,
+          "parentId":item.parentid
+        })
       });
 
       return  this.appFetch({
-                url:'createBatchCategories',     //批量创建分类
+                url:'categories_create_v3',     //批量创建分类
                 method:'post',
                 data:{
                   "data": datas
@@ -314,8 +323,8 @@ export default {
     },
     batchUpdateCategories(data) {
       return this.appFetch({
-        url: 'categoriesBatchUpdate',      //批量修改分类
-        method: 'patch',
+        url: 'categories_update_v3',      //批量修改分类
+        method: 'post',
         data: {
           data
         }
