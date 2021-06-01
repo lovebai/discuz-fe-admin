@@ -49,12 +49,12 @@ module.exports = {
 
   // 'getCircle': '/circle/getCircle',  //获取circle信息
 
-  pay: "/trade/pay/order", //支付订单\
+  // pay: "/trade/pay/order", //支付订单\
   // verifyPayPwd: "/users/pay-password/reset", //验证支付密码
 
   threadsBatch: "/threads/batch", //修改主题接口(批量)
   upload: "/users/", //上传头像(原接口是'/users/{id}/avatar')
-  invite: "/invite", //创建邀请码
+  // invite: "/invite", //创建邀请码
   groups: "/groups", //获取所有操作类型、获取所有用户角色
   // groupPermission: "/permission", //修改用户组权限
   // setPermission: "/permission/group", //设置权限的用户组
@@ -73,14 +73,14 @@ module.exports = {
   /*后台*/
   // siteinfo: "/siteinfo", //首页-系统信息
   // settings: "/settings", //设置接口
-  forum: "/forum", //获取前台配置接口
+  // forum: "/forum", //获取前台配置接口
   // batchSubmit: "/stop-words/batch", //创建敏感词接口[批量]
   // serachWords: "/stop-words", //查询敏感词接口[列表]
   // exportWords: "/stop-words/export", //导出敏感词
-  logo: "/settings/logo", //上传站点logo
+  // logo: "/settings/logo", //上传站点logo
   // siteinfo: "/siteinfo", //站点基本信息
   // deleteWords: "/stop-words/", //删除敏感词
-  deleteAvatar: "/users", //删除用户头像
+  // deleteAvatar: "/users", //删除用户头像
   exportUser: "/export/users?", //用户信息导出
   // statistic: "/statistic/finance", //获取资金概况
   // statisticChart: "/statistic/financeChart", //获取盈利图表数据
