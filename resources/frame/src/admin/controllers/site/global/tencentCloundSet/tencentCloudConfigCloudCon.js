@@ -23,18 +23,17 @@ export default {
     },
     tencentCloudList(){
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
-        data:{
-
-        }
+        data:{}
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.appId = res.readdata._data.qcloud.qcloud_app_id
-          this.secretId = res.readdata._data.qcloud.qcloud_secret_id
-          this.secretKey = res.readdata._data.qcloud.qcloud_secret_key
+          const {Data: forumData} = res;
+          this.appId = forumData.qcloud.qcloudAppId;
+          this.secretId = forumData.qcloud.qcloudSecretId;
+          this.secretKey = forumData.qcloud.qcloudSecretKey;
         }
       })
     },

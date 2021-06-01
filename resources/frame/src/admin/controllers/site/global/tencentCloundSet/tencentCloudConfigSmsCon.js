@@ -19,17 +19,18 @@ export default {
   methods:{
     tencentCloudSms(){
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.sdkAppId = res.readdata._data.qcloud.qcloud_sms_app_id;
-          this.appKey = res.readdata._data.qcloud.qcloud_sms_app_key;
-          this.smsId = res.readdata._data.qcloud.qcloud_sms_template_id;
-          this.smsSignature = res.readdata._data.qcloud.qcloud_sms_sign;
+          const {Data: forumData} = res;
+          this.sdkAppId = forumData.qcloud.qcloudSmsAppId;
+          this.appKey = forumData.qcloud.qcloudSmsAppKey;
+          this.smsId = forumData.qcloud.qcloudSmsTemplateId;
+          this.smsSignature = forumData.qcloud.qcloudSmsSign;
         }
       })
     },

@@ -72,7 +72,7 @@ module.exports = {
 
   /*后台*/
   // siteinfo: "/siteinfo", //首页-系统信息
-  settings: "/settings", //设置接口
+  // settings: "/settings", //设置接口
   forum: "/forum", //获取前台配置接口
   // batchSubmit: "/stop-words/batch", //创建敏感词接口[批量]
   // serachWords: "/stop-words", //查询敏感词接口[列表]

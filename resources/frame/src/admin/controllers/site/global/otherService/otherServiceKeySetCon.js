@@ -18,14 +18,15 @@ export default {
     loadStatus(){
       //初始化
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{}
       }).then(data=>{
         if (data.errors){
           this.$message.error(data.errors[0].code);
         }else {
-          this.key = data.data.attributes.lbs.qq_lbs_key;
+          const {Data: forumData} = data;
+          this.key = forumData.lbs.qqLbsKey;
         }
       })
     },

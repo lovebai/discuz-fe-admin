@@ -29,7 +29,7 @@ export default {
   methods:{
     signUpSet(){
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{
           'filter[tag]': 'agreement'
@@ -37,23 +37,22 @@ export default {
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
-        }else {
-          const agreement = res.readdata._data.agreement;
-          console.log(res);
-          // this.pwdLength = res.readdata._data.setreg.password_length
-          this.is_register_close = res.readdata._data.set_reg.register_close;
-          this.is_need_transition = res.readdata._data.set_reg.is_need_transition;
-          this.register_validate = res.readdata._data.set_reg.register_validate;
-          this.pwdLength = res.readdata._data.set_reg.password_length;
-          this.checkList = res.readdata._data.set_reg.password_strength;
-          this.register_captcha = res.readdata._data.set_reg.register_captcha;
+        } else {
+          const {Data: forumData} = res;
+          const agreement = forumData.agreement;
+          this.is_register_close = forumData.setReg.registerClose;
+          this.is_need_transition = forumData.setReg.isNeedTransition;
+          this.register_validate = forumData.setReg.registerValidate;
+          this.pwdLength = forumData.setReg.passwordLength;
+          this.checkList = forumData.setReg.passwordStrength;
+          this.register_captcha = forumData.setReg.registerCaptcha;
           this.privacy = agreement.privacy ? "1" : "0";
           this.register = agreement.register ? "1" : "0";
-          this.register_content = agreement.register_content;
-          this.privacy_content = agreement.privacy_content;
-          this.extensionOn = res.readdata._data.set_site.open_ext_fields === '1' ? true : false;
+          this.register_content = agreement.registerContent;
+          this.privacy_content = agreement.privacyContent;
+          this.extensionOn = forumData.setSite.openExtFields === '1' ? true : false;
 
-          if(res.readdata._data.qcloud.qcloud_captcha == true){
+          if(forumData.qcloud.qcloudCaptcha == true){
             this.disabled = false
           }
         }

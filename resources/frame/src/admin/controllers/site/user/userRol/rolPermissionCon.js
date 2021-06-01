@@ -263,7 +263,7 @@ export default {
      * 接口请求
      * */
     getSiteInfo() {
-      return this.appFetch({ url: "forum", method: "get" });
+      return this.appFetch({ url: 'forum_get_v3', method: "get" });
     },
     getCategories() {
       return this.appFetch({ url: "categories", method: "get" });

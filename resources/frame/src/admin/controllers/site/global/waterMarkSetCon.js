@@ -63,25 +63,26 @@ export default {
   methods: {
     waterMarkSet() {
       this.appFetch({
-        url: "forum",
+        url: 'forum_get_v3',
         method: "get",
         data: {}
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.switchBtn = res.readdata._data.watermark.watermark;
-          this.imageUrl = res.readdata._data.watermark.watermark_image;
+          const {Data: forumData} = res;
+          this.switchBtn = forumData.watermark.watermark;
+          this.imageUrl = forumData.watermark.watermarkImage;
           if(this.imageUrl !== '' && this.imageUrl != null){
             this.deleteBtn = true;
           }
-          if( res.readdata._data.watermark.position !== '' && res.readdata._data.watermark.position != null && res.readdata._data.watermark.position !== 0 ){
-            this.posiCurrent = res.readdata._data.watermark.position - 1;
-            this.waterMarkPosi = res.readdata._data.watermark.position;
+          if( forumData.watermark.position !== '' && forumData.watermark.position != null && forumData.watermark.position !== 0 ){
+            this.posiCurrent = forumData.watermark.position - 1;
+            this.waterMarkPosi = forumData.watermark.position;
           }
 
-          this.verticalSpacing = res.readdata._data.watermark.vertical_spacing;
-          this.horizontalSpacing = res.readdata._data.watermark.horizontal_spacing;
+          this.verticalSpacing = forumData.watermark.verticalSpacing;
+          this.horizontalSpacing = forumData.watermark.horizontalSpacing;
         }
       });
     },

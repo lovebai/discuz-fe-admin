@@ -20,15 +20,16 @@ export default {
   methods: {
     tencentCloudCode() {
       this.appFetch({
-        url: 'forum',
+        url: 'forum_get_v3',
         method: 'get',
         data: {}
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.appId = res.readdata._data.qcloud.qcloud_captcha_app_id;
-          this.secretId = res.readdata._data.qcloud.qcloud_captcha_secret_key;
+          const {Data: forumData} = res;
+          this.appId = forumData.qcloud.qcloudCaptchaAppId;
+          this.secretId = forumData.qcloud.qcloudCaptchaSecretKey;
         }
       })
     },

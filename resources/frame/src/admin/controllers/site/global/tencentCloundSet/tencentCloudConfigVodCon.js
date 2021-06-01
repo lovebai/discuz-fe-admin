@@ -24,23 +24,24 @@ export default {
   methods: {
     tencentCloudSms() {
       this.appFetch({
-        url: "forum",
+        url: 'forum_get_v3',
         method: "get",
         data: {}
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.vodTranscode = res.readdata._data.qcloud.qcloud_vod_transcode;
-          this.vodWatermark = res.readdata._data.qcloud.qcloud_vod_watermark;
-          this.vodExt = res.readdata._data.qcloud.qcloud_vod_ext;
-          this.vodSize = res.readdata._data.qcloud.qcloud_vod_size;
-          this.subApplication = res.readdata._data.qcloud.qcloud_vod_sub_app_id;
-          this.screenshot = res.readdata._data.qcloud.qcloud_vod_cover_template;
-          this.vodTaskflowGif = res.readdata._data.qcloud.qcloud_vod_taskflow_gif;
-          this.vodUrlKey = res.readdata._data.qcloud.qcloud_vod_url_key;
-          this.vodUrlExpire = res.readdata._data.qcloud.qcloud_vod_url_expire;
-          this.vodToken = res.readdata._data.qcloud.qcloud_vod_token;
+          const {Data: forumData} = res;
+          this.vodTranscode = forumData.qcloud.qcloudVodTranscode;
+          this.vodWatermark = forumData.qcloud.qcloudVodWatermark;
+          this.vodExt = forumData.qcloud.qcloudVodExt;
+          this.vodSize = forumData.qcloud.qcloudVodSize;
+          this.subApplication = forumData.qcloud.qcloudVodSubAppId;
+          this.screenshot = forumData.qcloud.qcloudVodCoverTemplate;
+          this.vodTaskflowGif = forumData.qcloud.qcloudVodTaskflowGif;
+          this.vodUrlKey = forumData.qcloud.qcloudVodUrlKey;
+          this.vodUrlExpire = forumData.qcloud.qcloudVodUrlExpire;
+          this.vodToken = forumData.qcloud.qcloudVodToken;
         }
       });
     },

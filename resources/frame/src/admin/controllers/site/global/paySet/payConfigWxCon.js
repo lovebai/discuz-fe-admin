@@ -24,19 +24,20 @@ export default {
     loadStatus(){
       //初始化
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{}
       }).then(data=>{
         if (data.errors){
           this.$message.error(data.errors[0].code);
         }else {
-          this.appId = data.readdata._data.paycenter.app_id;
-          this.mchId = data.readdata._data.paycenter.mch_id;
-          this.apiKey = data.readdata._data.paycenter.api_key;
-          this.appSecret = data.readdata._data.paycenter.app_secret;
-          this.iOSPay = data.readdata._data.paycenter.wxpay_ios;
-          this.value = data.readdata._data.paycenter.wxpay_mchpay_close;
+          const {Data: forumData} = data;
+          this.appId = forumData.paycenter.appId;
+          this.mchId = forumData.paycenter.mchId;
+          this.apiKey = forumData.paycenter.apiKey;
+          this.appSecret = forumData.paycenter.appSecret;
+          this.iOSPay = forumData.paycenter.wxpayIos;
+          this.value = forumData.paycenter.wxpayMchpayClose;
         }
       }).catch(error=>{
       })

@@ -19,17 +19,17 @@ export default {
     loadStatus(){
       //初始化
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{}
       }).then(data=>{
-        console.log(data);
         if (data.errors){
           this.$message.error(data.errors[0].code);
-        }else {
-          this.valueKey = data.readdata._data.ucenter.ucenter_key;
-          this.valueUrl = data.readdata._data.ucenter.ucenter_url;
-          this.valueAppid = data.readdata._data.ucenter.ucenter_appid;
+        } else {
+          const {Data: forumData} = data;
+          this.valueKey = forumData.ucenter.ucenterKey;
+          this.valueUrl = forumData.ucenter.ucenterUrl;
+          this.valueAppid = forumData.ucenter.ucenterAppid;
         }
       })
     },
