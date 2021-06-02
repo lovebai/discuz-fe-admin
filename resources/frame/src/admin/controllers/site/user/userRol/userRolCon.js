@@ -47,16 +47,16 @@ export default {
 
     checkSelectable(row){
       switch (row.id){
-        case '1':
+        case 1:
           return false;
           break;
-        case '6':
+        case 6:
           return false;
           break;
-        case '7':
+        case 7:
           return false;
           break;
-        case '10':
+        case 10:
           return false;
           break;
         default:

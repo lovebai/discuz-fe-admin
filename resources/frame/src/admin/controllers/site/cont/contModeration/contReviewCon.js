@@ -8,6 +8,7 @@ import Page from '../../../../view/site/common/page/page';
 import tableNoList from '../../../../view/site/common/table/tableNoList';
 import webDb from 'webDbHelper';
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
+import commonHelper from '../../../../../helpers/commonHelper';
 
 
 export default {
@@ -164,7 +165,7 @@ export default {
     },
 
     reasonForOperationChange(event,index){
-      this.submitForm[index].attributes.message = event;
+      this.submitForm[index].message = event;
     },
 
     handleCurrentChange(val) {
@@ -211,66 +212,94 @@ export default {
 
     submitClick() {
       this.subLoading = true;
-      this.patchThreadsBatch(this.submitForm);
+      const recommend = [];
+      const cancelrecomend = [];
+      const detelethem = [];
+      this.submitForm.forEach((value,index) => {
+        if (value.radio === 0) {
+          recommend.push({
+            id: value.id,
+            isApproved: 1,
+          });
+        } else if(value.radio === 1) {
+          detelethem.push({
+            id: value.id,
+            isDeleted: true,
+          })
+        } else if (value.radio === 2) {
+          cancelrecomend.push({
+            id: value.id,
+            isApproved: 2,
+          })
+        }
+      })
+      if(recommend.length >= 1) {
+        this.patchThreadsBatch(recommend);
+      }
+      if(detelethem.length >= 1) {
+        this.patchThreadsBatch(detelethem);
+      }
+      if(cancelrecomend.length >= 1) {
+        this.patchThreadsBatch(cancelrecomend);
+      }
+      // this.patchThreadsBatch(this.submitForm);
     },
 
     radioChange(event,index){
       switch (event){
         case 0:
-          this.submitForm[index].attributes.isApproved = 1;
+          this.submitForm[index].isApproved = 1;
           break;
         case 1:
-          this.submitForm[index].attributes.isDeleted = true;
+          this.submitForm[index].isDeleted = true;
           break;
         case 2:
-          this.submitForm[index].attributes.isApproved = 2;
+          this.submitForm[index].isApproved = 2;
           break;
       }
     },
 
     allOperationsSubmit(val){
       this.btnLoading = val;
-
+      const submitArr = [];
       switch (val){
         case 1:
           this.submitForm.forEach((item,index)=>{
-              this.submitForm[index].attributes.isApproved = 1;
+            submitArr.push({
+              id: item.id,
+              isApproved: 1,
+            })
+            // this.submitForm[index].isApproved = 1;
           });
           break;
         case 2:
           this.submitForm.forEach((item,index)=>{
-            this.submitForm[index].attributes.isDeleted = true;
+            submitArr.push({
+              id: item.id,
+              isDeleted: true,
+            })
+            // this.submitForm[index].isDeleted = true;
           });
           break;
         case 3:
           this.submitForm.forEach((item,index)=>{
-            this.submitForm[index].attributes.isApproved = 2;
+            submitArr.push({
+              id: item.id,
+              isApproved: 2,
+            })
+            // this.submitForm[index].isApproved = 2;
           });
           break;
       }
-      this.patchThreadsBatch(this.submitForm);
+      this.patchThreadsBatch(submitArr);
     },
 
     singleOperationSubmit(val,categoryId,themeId,index){
-      console.log('通过', categoryId,themeId);
       let data = [
         {
           id: Number(themeId)
         }
       ]
-        // "type": "threads",
-        // "attributes": {
-        //   // "isApproved": 0,
-        //   // 'isDeleted':false
-        // },
-        // "relationships": {
-        //   "category": {
-        //     "data": {
-        //       "type": "categories",
-        //       "id": categoryId
-        //     }
-        //   }
-        // }
       switch (val){
         case 1:
           data[0].isApproved = 1;
@@ -321,22 +350,20 @@ export default {
     * */
     getThemeList(pageNumber){
       this.appFetch({
-        url:'threads',
+        url: 'thread_list_get_v3',
         method:'get',
         data:{
-          include:['user', 'firstPost', 'lastPostedUser', 'category','firstPost.images','firstPost.attachments', 'threadVideo'],
-          'filter[isDeleted]':'no',
-          'filter[username]':this.searchUserName,
-          'page[number]':pageNumber,
-          'page[size]':this.pageSelect,
-          'filter[q]':this.keyWords,
-          'filter[isApproved]':this.searchReviewSelect,
-          'filter[createdAtBegin]':this.relativeTime[1],
-          'filter[createdAtEnd]':this.relativeTime[0],
-          // 'filter[categoryId]':this.categoriesListSelect,
-          'filter[categoryId]':this.categoriesListSelect[this.categoriesListSelect.length - 1],
-          'filter[highlight]':this.showSensitiveWords?'yes':'no',
-          'sort':'-updatedAt'
+          page: pageNumber,
+          perPage: this.pageSelect,
+          isApproved: this.searchReviewSelect,
+          nickname: this.searchUserName,
+          isDeleted: 'no',
+          q: this.keyWords,
+          createdAtBegin: this.relativeTime[1],
+          createdAtEnd: this.relativeTime[0],
+          categoryId: this.categoriesListSelect[this.categoriesListSelect.length - 1],
+          highlight: this.showSensitiveWords ? 'yes': 'no',
+          sort: 'updated_at'
         }
       }).then(res=>{
         if (res.errors){
@@ -345,29 +372,19 @@ export default {
           // console.log(res,'审核的数据');
           this.themeList = [];
           this.submitForm = [];
-          this.themeList = res.readdata;
-          this.total = res.meta.threadCount;
-          this.pageCount = res.meta.pageCount;
+          this.themeList = res.Data.pageData;
+          this.total = res.Data.totalCount;
+          this.pageCount = res.Data.totalPage;
 
           this.themeList.forEach((item, index) => {
             this.submitForm.push({
               Select: '无',
               radio: '',
-              type: 'threads',
-              id: item._data.id,
-              attributes: {
-                isApproved: 0,
-                isDeleted: false,
-                message: '',
-              },
-              relationships: {
-                category: {
-                  data: {
-                    type: "categories",
-                    id: item.category._data.id
-                  }
-                }
-              }
+              type: 1,
+              id: item.threadId,
+              isApproved: 0,
+              isDeleted: false,
+              message: '',
             })
           });
         }
@@ -377,7 +394,7 @@ export default {
     },
     getCategories(){
       this.appFetch({
-        url:'categories',
+        url:'categories_list_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
@@ -391,24 +408,24 @@ export default {
           //     id: item.id
           //   })
           // })
-          res.data.forEach((item, index) => {
-            if (item.attributes.children.length) {
+          res.Data.forEach((item, index) => {
+            if (item.children.length) {
               const child = []
-              item.attributes.children.forEach(c => {
+              item.children.forEach(c => {
                 child.push({
                   label: c.name,
-                  value: c.search_ids
+                  value: c.searchIds
                 })
               })
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids,
+                label: item.name,
+                value: item.searchIds,
                 children: child
               })
             } else {
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids
+                label: item.name,
+                value: item.searchIds
               })
             }
           })
@@ -419,9 +436,10 @@ export default {
     },
     patchThreadsBatch(data){
       this.appFetch({
-        url:'threadsBatch',
-        method:'patch',
+        url:'check_sub_post_v3',
+        method:'post',
         data:{
+          type: 1,
           data
         }
       }).then(res=>{
@@ -453,22 +471,16 @@ export default {
           data
         }
       }).then(res=>{
-        console.log(res);
         this.subLoading = false;
         this.btnLoading = 0;
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          if (res.meta && res.data) {
-            this.checkedTheme = [];
-            this.$message.error('操作失败！');
-          } else {
-            this.getThemeList(Number(webDb.getLItem('currentPag')) || 1);
-            this.$message({
-              message: '操作成功',
-              type: 'success'
-            });
-          }
+          this.getThemeList(Number(webDb.getLItem('currentPag')) || 1);
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          });
         }
       }).catch(err=>{
       })
@@ -480,8 +492,30 @@ export default {
       } else {
         this.getThemeList(Number(webDb.getLItem('currentPag'))||1);
       }
-    }
+    },
+    
+    contentIndexes(data, val) {
+      return commonHelper.dataTypeJudgment(data, val);
+    },
 
+    imagesIndexes(data) {
+      let images = [];
+      const values = Object.values(data.indexes || {});
+      if (values.length > 0 && values[0].tomId === '101') {
+        images = values[0].body;
+      }
+      return images;
+    },
+
+    videoIndexes(data) {
+      const values = Object.values(data.indexes || {});
+      return values[0].body.isApproved
+    },
+
+    typeIndexes(data) {
+      const values = Object.values(data.indexes || {});
+      return values[0].tomId
+    }
   },
 
   created(){

@@ -286,20 +286,16 @@ const getNewToken = function (router) {
 
 
   return appFetch({
-    url:'access',
+    url:'refresh_token_post_v3',
     method:'post',
     data:{
-      "data": {
-        "attributes": {
-          'grant_type':'refresh_token',
-          'refresh_token':browserDb.getLItem('refreshToken')
-        }
-      }
+      'refreshToken':browserDb.getLItem('refreshToken')
     }
   }).then(res=>{
-    let token = res.data.attributes.access_token;
+    console.log(res, 'token');
+    let token = res.Data.accessToken;
     // let tokenId = res.data.id;
-    let refreshToken = res.data.attributes.refresh_token;
+    let refreshToken = res.Data.refreshToken;
     browserDb.setLItem('Authorization', token);
     // browserDb.setLItem('tokenId', tokenId);
     browserDb.setLItem('refreshToken',refreshToken);

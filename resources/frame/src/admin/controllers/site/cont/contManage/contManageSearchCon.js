@@ -131,16 +131,16 @@ export default {
     * */
     getCategories(){
       this.appFetch({
-        url:'categories',
+        url:'categories_list_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
         if (res.error){
           this.$message.error(res.errors[0].code);
         }else {
-          res.data.forEach((item, index) => {
+          res.Data.forEach((item, index) => {
             this.categoriesList.push({
-              name: item.attributes.name,
+              name: item.name,
               id: item.id
             })
           });

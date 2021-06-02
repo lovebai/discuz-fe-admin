@@ -76,17 +76,17 @@ export default {
     },
     extendFun() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_get_v3',
         method: 'get',
         data: {},
       }).then(res => {
         let arr = [];
-        res.readdata.forEach(element => {
-          if (element._data.status === 1) {
+        res.Data.forEach(element => {
+          if (element.status === 1) {
             arr.push(element);
           }
         });
-        if (res.readdata.length > 0 && arr.length > 0) {
+        if (res.Data.length > 0 && arr.length > 0) {
           this.extendsBtn = false;
         } else {
           this.extensionOn = false;

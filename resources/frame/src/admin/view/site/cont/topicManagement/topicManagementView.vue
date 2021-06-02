@@ -91,7 +91,7 @@
 
         <ContArrange
           v-for="(items,index) in  themeList"
-          :establish="!items.userId?'该用户被删除':items.username"
+          :establish="!items.username ? '该用户被删除' : items.username"
           :theme="formatDate(items.createdAt)"
           :numbertopic="items.threadCount"
           :heatNumber="items.viewCount"

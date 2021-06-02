@@ -112,15 +112,15 @@
         </div>
 
         <ContArrange
-          v-for="(items,index) in  themeList"
+          v-for="(items, index) in  themeList"
           :author="!items.user?'该用户被删除':items.user.nickname"
-          :theme="1"
+          :theme="items.categoryName"
           :prply="1"
           :browse="items.viewCount"
           :last="!items.lastPostedUser ? '该用户被删除': items.lastPostedUser._data.username"
           :releaseTime="formatDate(items.createdAt)"
           :userId="!items.user ? '该用户被删除':items.user.userId"
-          :key="items.threadId"
+          :key="index"
         >
           <div class="cont-manage-theme__table-side" slot="side">
             <el-checkbox
@@ -149,29 +149,29 @@
               class="cont-manage-theme__table-main__cont-text"
               :href="'/topic/index?id=' + items.threadId"
               target="_blank"
-              :style="{'display':(items.indexes && items.indexes[0].tomId === '103' ? 'inline':'block')}"
+              :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
               v-html="items.content.text"
             ></a>
-            <span class="iconfont iconvideo" v-if="items.indexes && items.indexes[0].tomId === '103'"></span>
-            <div class="cont-manage-theme__table-main__cont-imgs" v-if="items.indexes && items.indexes[0].tomId === '101'">
+            <span class="iconfont iconvideo" v-if="contentIndexes(items.content, 'videos')"></span>
+            <div class="cont-manage-theme__table-main__cont-imgs" v-if="contentIndexes(items.content, 'images')">
               <p
                 class="cont-manage-theme__table-main__cont-imgs-p"
-                v-for="(item,index) in items.indexes[0].body"
+                v-for="(item,index) in contentIndexes(items.content, 'images')"
                 :key="index"
               >
                 <img
                   v-lazy="item.thumbUrl"
-                  @click="imgShowClick(items.indexes[0].body,index)"
+                  @click="imgShowClick(contentIndexes(items.content, 'images'),index)"
                   :alt="item.fileName"
                 />
               </p>
             </div>
             <div
               class="cont-manage-theme__table-main__cont-annex"
-              v-show="items.indexes && items.indexes[0].tomId === '108'"
+              v-show="contentIndexes(items.content, 'attachments')"
             >
               <span>附件：</span>
-              <p v-for="(item,index) in items.indexes && items.indexes[0].body" :key="index">
+              <p v-for="(item,index) in contentIndexes(items.content, 'attachments')" :key="index">
                 <a :href="item.url" target="_blank">{{item.fileName}}</a>
               </p>
             </div>

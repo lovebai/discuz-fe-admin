@@ -43,9 +43,10 @@
             v-for="(items,index) in  themeList"
             :replyBy="!items.nickname ? '该用户被删除': items.nickname"
             :themeName="items.content ? items.content : items.cotent.text"
+            :titleIcon="titleIcon(items)"
             :finalPost="formatDate(items.updatedAt)"
-            :userId="!items.userId ?'该用户被删除':items.userId"
-            :key="items.postId"
+            :userId="!items.userId ?'该用户被删除': items.userId"
+            :key="index"
           >
             <div class="latest-reply-theme__table-side" slot="side">
               <el-checkbox v-model="checkedTheme" :label="items.postId" @change="handleCheckedCitiesChange()"></el-checkbox>
@@ -59,8 +60,8 @@
             <div class="latest-reply-theme__table-main" slot="main">
               <a class="latest-reply-theme__table-main__cont-text" :href="'/topic/index?id=' + items.threadId" target="_blank" v-html="items.content"></a>
               <div class="latest-reply-theme__table-main__cont-imgs" v-if="items.cotent && items.cotent.indexes && items.cotent.indexes.length > 0">
-                <p class="latest-reply-theme__table-main__cont-imgs-p"  v-for="(item,index) in items.cotent.indexes[0].body" :key="index">
-                  <img  v-lazy="item.thumbUrl" @click="imgShowClick(tems.cotent.indexes[0].body, index)" :alt="item.fileName">
+                <p class="latest-reply-theme__table-main__cont-imgs-p"  v-for="(item,indexs) in contentIndexes(items.content, 'images')" :key="indexs">
+                  <img  v-lazy="item.thumbUrl" @click="imgShowClick(contentIndexes(items.content, 'images'), indexs)" :alt="item.fileName">
                 </p>
               </div>
             </div>
@@ -85,7 +86,7 @@
                   type="primary"
                   size="mini"
                   @click="
-                    singleOperationSubmit(1,items.threadId);
+                    singleOperationSubmit(1,items.postId, items.threadId);
                     closeDelet(`popover-${index}`)"
                   >确定</el-button
                 >

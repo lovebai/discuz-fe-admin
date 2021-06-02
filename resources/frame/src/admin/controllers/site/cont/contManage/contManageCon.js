@@ -10,6 +10,7 @@ import webDb from 'webDbHelper';
 import { mapState, mapMutations } from 'vuex';
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 import fa from "element-ui/src/locale/lang/fa";
+import commonHelper from '../../../../../helpers/commonHelper';
 
 export default {
   data: function () {
@@ -260,7 +261,6 @@ export default {
         }
       };  //主题分类关系
       let selectStatus = false;
-       console.log(this.checkedTheme, '选中数组');
       if (this.operatingSelect === 'class') {
         this.checkedTheme.forEach((item, index) => {
           themeId.push(item);
@@ -442,29 +442,8 @@ export default {
           createdAtEnd: searchData.dataValue[1],
           categoryId: searchData.categoryId[searchData.categoryId.length - 1],
           sort: 'created_at',
-          // 'filter[isDeleted]': 'no',
-          // 'filter[isApproved]': '1',
-          // 'filter[username]': searchData.themeAuthor,
-          // 'filter[threadID]': searchData.threadID,
-          // 'filter[categoryId]': searchData.categoryId,
-          // 'filter[categoryId]': searchData.categoryId[searchData.categoryId.length - 1],
-          // 'page[number]': pageNumber,
-          // 'page[size]': searchData.pageSelect,
-          // 'filter[q]': searchData.themeKeyWords,
-          // 'filter[createdAtBegin]': searchData.dataValue[0],
-          // 'filter[createdAtEnd]': searchData.dataValue[1],
-          // 'filter[viewCountGt]': searchData.viewedTimesMin,
-          // 'filter[viewCountLt]': searchData.viewedTimesMax,
-          // 'filter[postCountGt]': searchData.numberOfRepliesMin,
-          // 'filter[postCountLt]': searchData.numberOfRepliesMax,
-          // 'filter[isEssence]': searchData.essentialTheme,
-          // 'filter[isSticky]': searchData.topType,
-          // 'filter[topicId]': searchData.topicId,
-          // 'filter[isSite]': searchData.isSite,
-          // 'sort': '-createdAt'
         }
       }).then(res => {
-        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
@@ -486,7 +465,6 @@ export default {
         method: 'get',
         data: {}
       }).then(res => {
-        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
@@ -529,6 +507,10 @@ export default {
         }
       }).catch(err => {
       })
+    },
+
+    contentIndexes(data, val) {
+      return commonHelper.dataTypeJudgment(data, val);
     },
   },
 

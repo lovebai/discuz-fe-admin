@@ -75,7 +75,6 @@ export default {
             "filter[isReal]": isReal
           }
         });
-        console.log(response);
         if (response.errors) {
           throw new Error(response.errors[0].code);
         } else {
@@ -101,7 +100,6 @@ export default {
         this.multipleSelection.forEach((v) => {
           usersIdList.push(v.userId)
         });
-        console.log(usersIdList, '用户信息');
         const {
           username,
           userUID,
@@ -129,7 +127,6 @@ export default {
         const blob = new Blob([response], { type: 'application/x-xls' });
         const url = window.URL || window.webkitURL || window.moxURL;
         const downloadHref = url.createObjectURL(blob);
-        console.log(downloadHref, blob);
         let a = document.createElement('a');
         a.href = downloadHref;
         a.download = 'export.xlsx';
@@ -188,18 +185,15 @@ export default {
           let dataList = [];
           this.multipleSelection.forEach((v) => {
             dataList.push({
-              "attributes": {
-                "id": v._data.id,
-                "groupId": v.groups[0] ? v.groups[0]._data.id : '',
-                "status": 1,
-                "refuse_message": value.value
-              }
+              "id": v.userId,
+              "status": 1,
+              "rejectReason": value.value
             })
           });
           // 进行后台请求
           this.appFetch({
-            method: 'PATCH',
-            url: 'users',
+            url: 'users_examine_post_v3',
+            method: 'post',
             data: {
               "data": dataList
             }
@@ -270,24 +264,25 @@ export default {
           return
         }
         // 获取当前行的对象值
-        const data = scope.row._data;
+        const data = scope.row;
         // 进行后台请求
         this.appFetch({
-          method: "PATCH",
-          url: 'users',
-          splice: `/${data.id}`,
+          url: 'users_examine_post_v3',
+          method: "post",
+          // splice: `/${data.id}`,
           data: {
-            "data": {
-              "attributes": {
+            "data": [
+              {
+                id: data.userId,
                 "status": 1,
-                "refuse_message": value.value
+                'rejectReason': value.value
               }
-            }
+            ]
           }
         }).then(() => {
           this.handleGetUserList();
           //将禁用置灰
-          this.tableData[scope.$index]._data.status = 1;
+          this.tableData[scope.$index].status = 1;
         });
         // } catch(err){
         // }

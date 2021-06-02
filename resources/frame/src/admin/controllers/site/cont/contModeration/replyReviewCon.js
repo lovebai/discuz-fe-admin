@@ -176,7 +176,7 @@ export default {
     },
 
     reasonForOperationChange(event,index){
-      this.submitForm[index].attributes.message = event;
+      this.submitForm[index].message = event;
     },
 
     handleCurrentChange(val) {
@@ -223,45 +223,86 @@ export default {
     },
 
     submitClick() {
+      // this.subLoading = true;
+      // this.patchPostsBatch(this.submitForm);
       this.subLoading = true;
-      this.patchPostsBatch(this.submitForm);
+      const recommend = [];
+      const cancelrecomend = [];
+      const detelethem = [];
+      this.submitForm.forEach((value,index) => {
+        if (value.radio === 0) {
+          recommend.push({
+            id: value.id,
+            isApproved: 1,
+          });
+        } else if(value.radio === 1) {
+          detelethem.push({
+            id: value.id,
+            isDeleted: true,
+          })
+        } else if (value.radio === 2) {
+          cancelrecomend.push({
+            id: value.id,
+            isApproved: 2,
+          })
+        }
+      })
+      if(recommend.length >= 1) {
+        this.patchPostsBatch(recommend);
+      }
+      if(detelethem.length >= 1) {
+        this.patchPostsBatch(detelethem);
+      }
+      if(cancelrecomend.length >= 1) {
+        this.patchPostsBatch(cancelrecomend);
+      }
     },
 
     radioChange(event,index){
       switch (event){
         case 0:
-          this.submitForm[index].attributes.isApproved = 1;
+          this.submitForm[index].isApproved = 1;
           break;
         case 1:
-          this.submitForm[index].attributes.isDeleted = true;
+          this.submitForm[index].isDeleted = true;
           break;
         case 2:
-          this.submitForm[index].attributes.isApproved = 2;
+          this.submitForm[index].isApproved = 2;
           break;
       }
     },
 
     allOperationsSubmit(val){
       this.btnLoading = val;
-
+      const submitArr = [];
       switch (val){
         case 1:
           this.submitForm.forEach((item,index)=>{
-            this.submitForm[index].attributes.isApproved = 1;
+            submitArr.push({
+              id: item.id,
+              isApproved: 1,
+            })
           });
           break;
         case 2:
           this.submitForm.forEach((item,index)=>{
-            this.submitForm[index].attributes.isDeleted = true;
+            submitArr.push({
+              id: item.id,
+              isDeleted: true,
+            })
           });
           break;
         case 3:
           this.submitForm.forEach((item,index)=>{
-            this.submitForm[index].attributes.isApproved = 2;
+            submitArr.push({
+              id: item.id,
+              isApproved: 2,
+            })
+            // this.submitForm[index].isApproved = 2;
           });
           break;
       }
-      this.patchPostsBatch(this.submitForm);
+      this.patchPostsBatch(submitArr);
     },
 
     singleOperationSubmit(val,categoryId,themeId,index){
@@ -270,12 +311,6 @@ export default {
           id: Number(themeId)
          }
       ];
-        // "type": "posts",
-        // "attributes": {
-          // "isApproved": 0,
-          // 'isDeleted':false
-      //   }
-      // };
       switch (val){
         case 1:
           data[0].isApproved = 1;
@@ -327,25 +362,23 @@ export default {
     * */
     getPostsList(pageNumber){
       this.appFetch({
-        url:'posts_get_v3',
+        url:'posts_list_get_v3',
         method:'get',
         data:{
           // include: ['user','thread','thread.category','thread.firstPost','images'],
           'page':pageNumber,
           'perPage':this.pageSelect,
-          'filter[isDeleted]':'no',
-          'filter[uickname]':this.searchUserName,
-          'filter[q]':this.keyWords,
-          'filter[isApproved]':this.searchReviewSelect,
-          'filter[createdAtBegin]':this.relativeTime[1],
-          'filter[createdAtEnd]':this.relativeTime[0],
-          // 'filter[categoryId]':this.categoriesListSelect,
-          'filter[categoryId]':this.categoriesListSelect[this.categoriesListSelect.length - 1],
-          'filter[highlight]':this.showSensitiveWords?'yes':'no',
-          'sort':'-updatedAt'
+          isDeleted: 'no',
+          uickname: this.searchUserName,
+          q: this.keyWords,
+          isApproved: this.searchReviewSelect,
+          createdAtBegin: this.relativeTime[1],
+          createdAtEnd: this.relativeTime[0],
+          categoryId: this.categoriesListSelect[this.categoriesListSelect.length - 1],
+          highlight: this.showSensitiveWords?'yes':'no',
+          sort:'-updatedAt',
         }
       }).then(res=>{
-        console.log(res);
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
@@ -360,13 +393,11 @@ export default {
               // message:'',
               Select: '无',
               radio: '',
-              type: 'posts',
-              id: item.id,
-              attributes: {
-                isApproved: 0,
-                isDeleted: false,
-                message: ''
-              }
+              type: 2,
+              id: item.postId,
+              isApproved: 0,
+              isDeleted: false,
+              message: '',
             })
           });
         }
@@ -376,7 +407,7 @@ export default {
     },
     getCategories(){
       this.appFetch({
-        url:'categories',
+        url:'categories_get_v3',
         method:'get',
         data:{}
       }).then(res=>{
@@ -390,24 +421,24 @@ export default {
           //     id: item.id
           //   })
           // })
-          res.data.forEach((item, index) => {
-            if (item.attributes.children.length) {
+          res.Data.forEach((item, index) => {
+            if (item.children.length) {
               const child = []
-              item.attributes.children.forEach(c => {
+              item.children.forEach(c => {
                 child.push({
                   label: c.name,
-                  value: c.search_ids
+                  value: c.searchIds
                 })
               })
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids,
+                label: item.name,
+                value: item.searchIds,
                 children: child
               })
             } else {
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids
+                label: item.name,
+                value: item.searchIds
               })
             }
           })
@@ -418,9 +449,10 @@ export default {
     },
     patchPostsBatch(data){
       this.appFetch({
-        url:'postsBatch',
-        method:'patch',
+        url:'check_sub_post_v3',
+        method:'post',
         data:{
+          type: 2,
           data
         }
       }).then(res=>{
@@ -429,15 +461,15 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          if (res.meta && res.data) {
-            this.$message.error('操作失败！');
-          } else {
-            this.getPostsList(Number(webDb.getLItem('currentPag')) || 1);
-            this.$message({
-              message: '操作成功',
-              type: 'success'
-            });
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
           }
+          this.getPostsList(Number(webDb.getLItem('currentPag')) || 1);
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          });
         }
       }).catch(err=>{
 
@@ -452,7 +484,6 @@ export default {
           data
         }
       }).then(res=>{
-        console.log(res);
         this.subLoading = false;
         this.btnLoading = 0;
         if (res.errors){
@@ -466,7 +497,11 @@ export default {
         }
       }).catch(err=>{
       })
-    }
+    },
+
+    contentIndexes(data, val) {
+      return commonHelper.dataTypeJudgment(data, val);
+    },
 
   },
   created(){

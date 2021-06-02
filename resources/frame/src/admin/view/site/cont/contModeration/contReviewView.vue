@@ -75,27 +75,27 @@
     <div class="cont-review-table">
       <ContArrange
         v-for="(items,index) in  themeList"
-        :author="!items.user?'该用户被删除':items.user._data.username"
-        :theme="items.category._data.name"
-        :prply="items._data.postCount - 1"
-        :browse="items._data.viewCount"
-        :last="!items.lastPostedUser?'该用户被删除':items.lastPostedUser._data.username"
-        :finalPost="formatDate(items._data.updatedAt)"
-        :userId="!items.user?'该用户被删除':items.user._data.id"
-        :key="items._data.id"
+        :author="!items.user ? '该用户被删除' :items.user.nickname"
+        :theme="items.categoryName"
+        :prply="1"
+        :browse="items.viewCount"
+        :last="!items.lastPostedUser ? '该用户被删除' : items.lastPostedUser._data.username"
+        :finalPost="formatDate(items.updatedAt)"
+        :userId="!items.user ? '该用户被删除' : items.userId"
+        :key="items.threadId"
       >
         <div class="cont-review-table__side" slot="side">
           <el-radio-group v-model="submitForm[index].radio" @change="radioChange($event,index)">
             <el-radio
               :label="0"
-              :disabled="items.threadVideo && items.threadVideo._data.status == 0 || items.threadVideo && items.threadVideo._data.status == 2"
+              :disabled="contentIndexes(items.content, 'video')"
             >通过</el-radio>
 
             <el-radio :label="1">删除</el-radio>
             <el-radio
               :label="2"
-              v-if="items._data.isApproved !== 2"
-              :disabled="items._data.isApproved === 2"
+              v-if="items.isApproved !== 2"
+              :disabled="items.isApproved === 2"
             >忽略</el-radio>
           </el-radio-group>
         </div>
@@ -103,60 +103,60 @@
         <a
           slot="longText"
           class="cont-review-table__long-text"
-          v-if="items._data.type === 1"
-          :href="'/topic/index?id=' + items._data.id"
+          v-if="items.title === 1"
+          :href="'/topic/index?id=' + items.threadId"
         >
-          {{items._data.title}}
+          {{items.title}}
           <span
             class="iconfont"
-            :class="parseInt(items._data.price) > 0?'iconmoney':'iconchangwen'"
+            :class="parseInt(items.price) > 0 ? 'iconmoney':'iconchangwen'"
           ></span>
         </a>
 
         <div class="cont-review-table__main" slot="main">
           <a
             class="cont-review-table__main__cont-text"
-            :href="'/topic/index?id=' + items._data.id"
+            :href="'/topic/index?id=' + items.threadId"
             target="_blank"
-            :style="{'display':(items.threadVideo ? 'inline':'block')}"
-            v-html="items.firstPost && items.firstPost._data.contentHtml"
+            :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
+            v-html="items.content.text"
           ></a>
-          <span class="iconfont iconvideo" v-if="items.threadVideo"></span>
-          <div class="cont-review-table__main__cont-imgs" v-if="!items._data.title">
+          <span class="iconfont iconvideo" v-if="contentIndexes(items.content, 'videos')"></span>
+          <div class="cont-review-table__main__cont-imgs" v-if="!items.title">
             <p
               class="cont-review-table__main__cont-imgs-p"
-              v-for="(item,index) in items.firstPost && items.firstPost.images"
+              v-for="(item,index) in contentIndexes(items.content, 'images')"
               :key="index"
             >
               <img
-                v-lazy="item._data.thumbUrl"
-                @click="imgShowClick(items.firstPost && items.firstPost.images,index)"
-                :alt="item._data.fileName"
+                v-lazy="item.thumbUrl"
+                @click="imgShowClick(contentIndexes(items.content, 'images'),index)"
+                :alt="item.fileName"
               />
             </p>
           </div>
           <div
             class="cont-review-table__main__cont-annex"
-            v-show="items.firstPost && items.firstPost.attachments.length > 0"
+            v-show="contentIndexes(items.content, 'attachments')"
           >
             <span>附件：</span>
-            <p v-for="(item,index) in items.firstPost && items.firstPost.attachments" :key="index">
-              <a :href="item._data.url" target="_blank">{{item._data.fileName}}</a>
+            <p v-for="(item,index) in contentIndexes(items.content, 'attachments')" :key="index">
+              <a :href="item.url" target="_blank">{{item.fileName}}</a>
             </p>
           </div>
         </div>
 
         <div class="cont-review-table__footer" slot="footer">
-          <div class="cont-review-table__footer__lf" v-if="items.threadVideo">
+          <div class="cont-review-table__footer__lf" v-if="contentIndexes(items.content, 'videos')">
             <el-button
               type="text"
-              :class="{'graybtn': (items.threadVideo._data.status == 0 || items.threadVideo._data.status == 2)}"
-              v-if="items.threadVideo._data.status == 0 || items.threadVideo._data.status == 2"
+              :class="{'graybtn': contentIndexes(items.content, 'video')}"
+              v-if="contentIndexes(items.content, 'videos')"
             >通过</el-button>
             <el-button
               type="text"
               v-else
-              @click="singleOperationSubmit(1,items.category._data.id,items._data.id,index)"
+              @click="singleOperationSubmit(1,items.categoryId, items.threadId, index)"
             >通过</el-button>
             <i></i>
             <el-popover
@@ -177,7 +177,7 @@
                   type="primary"
                   size="mini"
                   @click="
-                    singleOperationSubmit(2,items.category._data.id,items._data.id,index);
+                    singleOperationSubmit(2,items.categoryId, items.threadId,index);
                     closeDelet(`popover-${index}`)"
                   >确定</el-button
                 >
@@ -190,14 +190,14 @@
             <i></i>
             <el-button
               type="text"
-              v-if="items._data.isApproved !== 2"
-              @click="singleOperationSubmit(3,items.category._data.id,items._data.id,index)"
+              v-if="items.isApproved !== 2"
+              @click="singleOperationSubmit(3,items.categoryId, items.threadId,index)"
             >忽略</el-button>
           </div>
           <div class="cont-review-table__footer__lf" v-else>
             <el-button
               type="text"
-              @click="singleOperationSubmit(1,items.category._data.id,items._data.id,index)"
+              @click="singleOperationSubmit(1,items.categoryId, items.threadId,index)"
             >通过</el-button>
             <i></i>
             <el-popover
@@ -218,7 +218,7 @@
                   type="primary"
                   size="mini"
                   @click="
-                    singleOperationSubmit(2,items.category._data.id,items._data.id,index);
+                    singleOperationSubmit(2,items.categoryId, items.threadId,index);
                     closeDelet(`popover-${index}`)"
                   >确定</el-button
                 >
@@ -231,14 +231,14 @@
             <i></i>
             <el-button
               type="text"
-              v-if="items._data.isApproved !== 2"
-              @click="singleOperationSubmit(3,items.category._data.id,items._data.id,index)"
+              v-if="items.isApproved !== 2"
+              @click="singleOperationSubmit(3,items.categoryId, items.threadId,index)"
             >忽略</el-button>
           </div>
 
           <div class="cont-review-table__footer__rt">
             <span>操作理由：</span>
-            <el-input size="medium" clearable v-model="submitForm[index].attributes.message"></el-input>
+            <el-input size="medium" clearable v-model="submitForm[index].message"></el-input>
             <el-select
               size="medium"
               @change="reasonForOperationChange($event,index)"
@@ -258,15 +258,15 @@
             <el-button
               type="text"
               class="transcoding_status"
-              v-if="items.threadVideo && items.threadVideo._data.status == 0"
+              v-if="contentIndexes(items.content, 'videoStatus')"
             >转码中</el-button>
             <el-button
               type="text"
               class="transcoding_status"
-              v-if="items.threadVideo && items.threadVideo._data.status == 2"
+              v-if="contentIndexes(items.content, 'videoStatusTwo')"
             >转码失败</el-button>
-            <el-button type="text" @click="viewClick(items._data.id)">查看</el-button>
-            <el-button type="text" @click="editClick(items._data.id,items._data.type)">编辑</el-button>
+            <el-button type="text" @click="viewClick(items.threadId)">查看</el-button>
+            <el-button type="text" @click="editClick(items.threadId, '编辑')">编辑</el-button>
           </div>
         </div>
       </ContArrange>

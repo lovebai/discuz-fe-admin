@@ -36,7 +36,7 @@ export default {
         }, {
           name: '实名认证',
           type: 'qcloud_faceid',
-          description: '请先配置云API，开通腾讯云的人脸核身服务，并确保有对应资源包，<a href="https://discuz.chat/manual-admin/2.html#_2-7-5-%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81" target="_blank">查看文档</a>',
+          description: '请先配置云API，开通腾讯云，并确保有对应资源包，<a href="https://discuz.chat/manual-admin/2.html#_2-7-5-%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81" target="_blank">查看文档</a>',
           status: '',
           icon: 'iconshimingrenzheng',
           setFlag: false
