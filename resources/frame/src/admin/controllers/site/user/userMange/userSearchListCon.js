@@ -136,32 +136,32 @@ export default {
       }
     },
 
-    async deleteBatch() {
-      if (this.multipleSelection.length <= 0) {
-        return;
-      }
-      try {
-        let userIdList = [];
-        this.multipleSelection.forEach((v) => {
-          userIdList.push(v._data.id)
-        });
+    // async deleteBatch() {
+    //   if (this.multipleSelection.length <= 0) {
+    //     return;
+    //   }
+    //   try {
+    //     let userIdList = [];
+    //     this.multipleSelection.forEach((v) => {
+    //       userIdList.push(v._data.id)
+    //     });
 
-        await this.appFetch({
-          method: 'delete',
-          url: 'users',
-          data: {
-            "data": {
-              "attributes": {
-                "id": userIdList
-              }
-            }
-          }
-        });
+    //     await this.appFetch({
+    //       method: 'delete',
+    //       url: 'users',
+    //       data: {
+    //         "data": {
+    //           "attributes": {
+    //             "id": userIdList
+    //           }
+    //         }
+    //       }
+    //     });
 
-        this.handleGetUserList();
-      } catch (err) {
-      }
-    },
+    //     this.handleGetUserList();
+    //   } catch (err) {
+    //   }
+    // },
 		/**
 		 * 批量禁用
 		 * 日期 2020-02-11
