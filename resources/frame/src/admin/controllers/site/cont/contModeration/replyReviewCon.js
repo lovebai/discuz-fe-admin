@@ -449,7 +449,7 @@ export default {
     },
     patchPostsBatch(data){
       this.appFetch({
-        url:'check_sub_post_v3',
+        url:'submit_review_post_v3',
         method:'post',
         data:{
           type: 2,
@@ -477,7 +477,7 @@ export default {
     },
     patchPosts(data,id){
       this.appFetch({
-        url:'check_sub_post_v3',
+        url:'submit_review_post_v3',
         method:'post',
         data:{
           type: 2,

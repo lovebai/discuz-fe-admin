@@ -97,7 +97,7 @@ export default {
         if (response.errors) {
           this.$message.error(response.errors[0].code);
         } else {
-          const data = response.Data[0];
+          const data = response.Data;
           this.options = data.map((v) => {
             return {
               value: v.id,

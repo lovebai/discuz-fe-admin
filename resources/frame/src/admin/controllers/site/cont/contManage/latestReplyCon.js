@@ -212,7 +212,7 @@ export default {
     },
     deletedPostsBatch(data){
       this.appFetch({
-        url:'check_sub_post_v3',
+        url:'submit_review_post_v3',
         method:'post',
         data:{
           type: 2,
@@ -237,7 +237,7 @@ export default {
     },
     deletedPosts(id){
       this.appFetch({
-        url:'check_sub_post_v3',
+        url:'submit_review_post_v3',
         method:'post',
         // splice:'/'+id,
         data:{

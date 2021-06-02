@@ -436,7 +436,7 @@ export default {
     },
     patchThreadsBatch(data){
       this.appFetch({
-        url:'check_sub_post_v3',
+        url:'submit_review_post_v3',
         method:'post',
         data:{
           type: 1,
@@ -464,7 +464,7 @@ export default {
     },
     patchThreads(data,id){
       this.appFetch({
-        url:'check_sub_post_v3',
+        url:'submit_review_post_v3',
         method:'post',
         data:{
           type: 1,

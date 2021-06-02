@@ -89,11 +89,12 @@ module.exports = {
   notification: "/notification/tpl/", //修改系统消息模版[通知设置]
   // noticeConfigure: "/notification/tpl/", //通知配置列表,
   noticeDetail:"/notification/tpl/detail", // 通知
+
   // sequence:"/sequence", // 智能排序数据
   // randomUsers:"/random/users", // 推荐用户
   // randomTopics:"/random/topics", // 推荐话题
-  adminactionlog: "/adminactionlog", // 操作日志
-  switchskin: "/switchskin", // 皮肤切换
+  // adminactionlog: "/adminactionlog", // 操作日志
+  // switchskin: "/switchskin", // 皮肤切换
 
   // wxPcUrl: "/oauth/wechat/web/user", //获取微信pcUrl
   // wxLoginStatus: "/oauth/wechat/web/user/serach", //获取微信扫码用户状态
@@ -167,7 +168,6 @@ module.exports = {
 
   thread_list_get_v3: '/backAdmin/manage.thread.list', // 主题列表接口
   posts_list_get_v3: '/backAdmin/manage.posts.list',
-  check_sub_post_v3: '/backAdmin/check.sub', // 内容审核 主题审核
   check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
   categories_list_get_v3: '/backAdmin/categories', // 分类列表
 
