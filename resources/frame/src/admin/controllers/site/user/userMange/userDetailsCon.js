@@ -276,7 +276,7 @@ export default {
           method: "get",
           url: "groups_list_get_v3"
         });
-        const data = response.Data[0];
+        const data = response.Data;
         this.options = data.map(v => {
           return {
             value: v.id,

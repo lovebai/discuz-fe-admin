@@ -170,9 +170,9 @@ export default {
           this.$message.error(res.errors[0].code);
         }else {
           // this.tableData = res.readdata;
-          this.tableData = res.Data[0];
+          this.tableData = res.Data;
           // console.log(this.tableData);
-          this.alternateLength = res.Data[0].length;
+          this.alternateLength = res.Data.length;
           this.tableData.forEach((item) => {
             this.groupName = item.isDisplay;
             // console.log(this.groupName)

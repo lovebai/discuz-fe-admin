@@ -23,7 +23,7 @@ module.exports = {
 
   // emojis: "/emoji", //表情接口
   // attachment: "/attachments", //上传附件、图片
-  threads: "/threads", //主题
+  // threads: "/threads", //主题
   // shareThreads: "/threads/share",
   // notice: "/notification", //通知列表(回复,点赞,打赏)
   // wallet: "/wallet/user/", //查看用户钱包
@@ -61,7 +61,7 @@ module.exports = {
   // deleteNotification: "/notification", //删除通知里的回复我的
   // wechatDelete: "/users/", //修改资料里的解绑微信
   // wechatBind: "/oauth/wechat/user", //去绑定微信
-  postBatch: "/posts/batch", //删除回复接口[批量]
+  // postBatch: "/posts/batch", //删除回复接口[批量]
   // threadVideo: "/thread/video", // 创建主题视频接口
 
   // access: "/refresh-token", //刷新token
@@ -92,8 +92,8 @@ module.exports = {
   sequence:"/sequence", // 智能排序数据
   randomUsers:"/random/users", // 推荐用户
   randomTopics:"/random/topics", // 推荐话题
-  adminactionlog: "/adminactionlog", // 操作日志
-  switchskin: "/switchskin", // 皮肤切换
+  // adminactionlog: "/adminactionlog", // 操作日志
+  // switchskin: "/switchskin", // 皮肤切换
 
   // wxPcUrl: "/oauth/wechat/web/user", //获取微信pcUrl
   // wxLoginStatus: "/oauth/wechat/web/user/serach", //获取微信扫码用户状态
@@ -164,7 +164,6 @@ module.exports = {
   topics_update_post_v3: '/backAdmin/topics.batch.update', // 话题修改
   thread_list_get_v3: '/backAdmin/manage.thread.list', // 主题列表接口
   posts_list_get_v3: '/backAdmin/manage.posts.list',
-  check_sub_post_v3: '/backAdmin/check.sub', // 内容审核 主题审核
   check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
   categories_list_get_v3: '/backAdmin/categories', // 分类列表
 
