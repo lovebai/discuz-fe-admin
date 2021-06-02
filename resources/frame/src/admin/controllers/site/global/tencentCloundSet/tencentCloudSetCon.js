@@ -92,49 +92,50 @@ export default {
     },
     tencentCloudStatus() {
       this.appFetch({
-        url: 'forum',
+        url: 'forum_get_v3',
         method: 'get',
         data: {}
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          if (res.readdata._data.qcloud.qcloud_close) {
+          const {Data: forumData} = res;
+          if (forumData.qcloud.qcloudClose) {
             this.tableData[0].status = true
           } else {
             this.tableData[0].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_cms_image) {
+          if (forumData.qcloud.qcloudCmsImage) {
             this.tableData[1].status = true
           } else {
             this.tableData[1].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_cms_text) {
+          if (forumData.qcloud.qcloudCmsText) {
             this.tableData[2].status = true
           } else {
             this.tableData[2].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_sms) {
+          if (forumData.qcloud.qcloudSms) {
             this.tableData[3].status = true
           } else {
             this.tableData[3].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_faceid) {
+          if (forumData.qcloud.qcloudFaceid) {
             this.tableData[4].status = true
           } else {
             this.tableData[4].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_cos) {
+          if (forumData.qcloud.qcloudCos) {
             this.tableData[5].status = true
           } else {
             this.tableData[5].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_vod) {
+          if (forumData.qcloud.qcloudVod) {
             this.tableData[6].status = true
           } else {
             this.tableData[6].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_captcha) {
+          if (forumData.qcloud.qcloudCaptcha) {
             this.tableData[7].status = true
           } else {
             this.tableData[7].status = false

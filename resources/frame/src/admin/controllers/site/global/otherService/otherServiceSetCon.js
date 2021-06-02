@@ -21,7 +21,7 @@ export default {
   methods:{
     loadStatus(){
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{
         }
@@ -29,8 +29,9 @@ export default {
         if (data.errors){
           this.$message.error(data.errors[0].code);
         }else {
-          const lbsData = data.data.attributes.lbs;
-          this.key = data.data.attributes.lbs.qq_lbs_key;
+          const {Data: forumData} = data;
+          const lbsData = forumData.lbs;
+          this.key = forumData.lbs.qqLbsKey;
           if (lbsData.lbs) {
             this.settingStatus[0].status = true;
           } else {

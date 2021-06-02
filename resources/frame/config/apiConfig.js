@@ -73,7 +73,7 @@ module.exports = {
   /*后台*/
   // siteinfo: "/siteinfo", //首页-系统信息
   // settings: "/settings", //设置接口
-  forum: "/forum", //获取前台配置接口
+  // forum: "/forum", //获取前台配置接口
   // batchSubmit: "/stop-words/batch", //创建敏感词接口[批量]
   // serachWords: "/stop-words", //查询敏感词接口[列表]
   // exportWords: "/stop-words/export", //导出敏感词
@@ -102,7 +102,7 @@ module.exports = {
 
   // reports: '/reports', //举报列表
   // reportsBatch: '/reports/batch', //删除举报
-  clearCache: '/cache', // 缓存相关
+  // clearCache: '/cache', // 缓存相关
   checkQcloud: '/checkQcloud', // 判断腾讯云云api是否配置
 
   // v3新接口
@@ -113,6 +113,8 @@ module.exports = {
   // 首页
   siteinfo_get_v3: '/backAdmin/siteinfo', // 站点信息
   firstChart_get_v3: '/backAdmin/statistic/firstChart', // 数据看板
+  cache_delete_get_v3:'/backAdmin/cache.delete', // 清除缓存
+  checkQcloud_get_v3: '/backAdmin/checkQcloud', // 判断腾讯云云api是否配置
 
   // 财务
   walletLogs_get_v3: '/backAdmin/users.wallet.logs', // 资金明细
@@ -135,7 +137,12 @@ module.exports = {
   stopwords_delete_v3: '/backAdmin/stopwords.delete', // 删除敏感词(单个/批量)
 
   forum_get_v3: '/backAdmin/forum',
+  notices_get_v3: '/backAdmin/notification/tpl', //通知模板列表
 
+  sequence_get_v3: '/backAdmin/sequence', //获取智能排序
+  sequence_post_v3: '/backAdmin/sequence', //修改智能排序
+  recommend_topics_get_v3: '/backAdmin/recommend.topics', //推荐话题
+  recommend_users_post_v3: '/backAdmin/recommend.users', //推荐用户
 
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
@@ -159,7 +166,6 @@ module.exports = {
   posts_list_get_v3: '/backAdmin/manage.posts.list',
   check_sub_post_v3: '/backAdmin/check.sub', // 内容审核 主题审核
   check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
-  threads_batch_post_v3: '/backAdmin/threads.batch',  // 修改主题
   categories_list_get_v3: '/backAdmin/categories', // 分类列表
 
   // 用户

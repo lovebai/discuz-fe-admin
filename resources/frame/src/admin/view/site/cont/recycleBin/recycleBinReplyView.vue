@@ -81,7 +81,7 @@
         <ContArrange
           v-for="(items,index) in  themeList"
           :replyBy="!items.nickname?'该用户被删除':items.nickname"
-          :themeName="items.content"
+          :themeName="items.title"
           :titleIcon="titleIcon(items)"
           :finalPost="formatDate(items.updatedAt)"
           :deleTime="formatDate(items.deletedUserArr.deletedAt)"

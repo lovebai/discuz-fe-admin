@@ -146,14 +146,15 @@ export default {
     // 4 开关状态
     getSortBtnStatus(){
       this.appFetch({
-        url: "forum",
+        url: 'forum_get_v3',
         method: "get",
         data: {}
       }).then(data => {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
-            this.siteOpenSort=data.readdata._data.set_site.site_open_sort===1;
+            const {Data: forumData} = data;
+            this.siteOpenSort = forumData.setSite.siteOpenSort===1;
           }
       }).catch(error => {
       });

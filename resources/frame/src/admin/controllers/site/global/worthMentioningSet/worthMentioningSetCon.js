@@ -32,7 +32,7 @@ export default {
     loadStatus(){
       //初始化登录设置状态
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{
         }
@@ -40,17 +40,11 @@ export default {
         if (data.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.forums = data.readdata._data;
-          console.log(data,'这是初始化');
-          if (data.errors){
-            return this.$message.error(res.errors[0].code);
-          }
-          this.forums = data.readdata._data;
-          console.log(data,'这是初始化');
-          this.settingStatus[0].status = (data.readdata._data.passport.offiaccount_close != '0');
-          this.settingStatus[1].status = (data.readdata._data.passport.miniprogram_close != '0');
+          const {Data: forumData} = data;
+          this.forums = forumData;
+          this.settingStatus[0].status = (forumData.passport.offiaccountOpen != '0');
+          this.settingStatus[1].status = (forumData.passport.miniprogramOpen != '0');
         }
-        // this.$message({'修改成功'});
       }).catch(error=>{
       })
     },
@@ -70,16 +64,15 @@ export default {
     },
     //修改配置状态
     loginSetting(index,type,status){
-      console.log(type, status, '9999999')
       if(status == '1') {
         if(type == 'offiaccount_close'){
-          if(!this.forums.passport.offiaccount_app_id || !this.forums.passport.offiaccount_app_secret){
+          if(!this.forums.passport.offiaccountAppId || !this.forums.passport.offiaccountAppSecret){
             this.$message.error('请先填写配置再开启');
             return;
           }
         }
         if(type == 'miniprogram_close'){
-          if(!this.forums.passport.miniprogram_app_id || !this.forums.passport.miniprogram_app_secret){
+          if(!this.forums.passport.miniprogramAppId || !this.forums.passport.miniprogramAppSecret){
             this.$message.error('请先填写配置再开启');
             return;
           }
@@ -87,7 +80,7 @@ export default {
       }
 
       if (type === 'ucenter_close') {
-        if (!this.forums.ucenter.ucenter_appid || !this.forums.ucenter.ucenter_key || !this.forums.ucenter.ucenter_url){
+        if (!this.forums.ucenter.ucenterAppid || !this.forums.ucenter.ucenterKey || !this.forums.ucenter.ucenterUrl){
           this.$message.error('请先填写配置再开启');
           return;
         }
@@ -101,7 +94,7 @@ export default {
         this.changeSettings('ucenter', status == '1' ? true : false, 'ucenter');
       } else {
         if(status == '1') {
-          if(!this.forums.passport.offiaccount_close){
+          if(!this.forums.passport.offiaccountOpen){
             this.$message.error('请先开启公众号配置');
             return;
           }

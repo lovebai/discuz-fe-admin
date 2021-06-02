@@ -16,16 +16,17 @@ export default {
   methods: {
     annexSet() {
       this.appFetch({
-        url: 'forum',
+        url: 'forum_get_v3',
         method: 'get',
         data: {}
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.picture = res.readdata._data.set_attach.support_img_ext;
-          this.fileExtension = res.readdata._data.set_attach.support_file_ext;
-          this.maximumSize = res.readdata._data.set_attach.support_max_size;
+          const {Data: forumData} = res;
+          this.picture = forumData.setAttach.supportImgExt;
+          this.fileExtension = forumData.setAttach.supportFileExt;
+          this.maximumSize = forumData.setAttach.supportMaxSize;
         }
       })
     },
