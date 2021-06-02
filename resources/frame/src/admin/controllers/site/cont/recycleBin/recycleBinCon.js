@@ -118,17 +118,9 @@ export default {
 
     submitClick() {
       this.subLoading = true;
-
       this.deleteStatusList = [];
-      let isDeleted = [];
       const submitData = [];
       this.submitForm.forEach((item,index)=>{
-        // if (item.hardDelete){
-        //   this.deleteStatusList.push(item.id);
-        // }
-        // if (!item.isDeleted){
-        //   isDeleted.push(item.id)
-        // }
         if (item.radio === '删除') {
           submitData.push({
             isDeleted: true,
@@ -142,10 +134,6 @@ export default {
           })
         }
       });
-
-      // if (this.deleteStatusList.length > 0) {
-      //   this.deleteThreadsBatch(this.deleteStatusList.join(','));
-      // }
       if (submitData.length > 0){
         this.patchThreadsBatch(submitData)
       }
@@ -154,7 +142,6 @@ export default {
 
     allOperationsSubmit(val){
       this.btnLoading = val;
-      let deleteStr = '';
       let submitData = [];
       switch (val){
         case 1:
@@ -294,31 +281,6 @@ export default {
 
       })
     },
-    deleteThreadsBatch(data){
-      this.appFetch({
-        url:'submit_review_post_v3',
-        method:'post',
-        splice:'/'+ data
-      }).then(res=>{
-        this.subLoading = false;
-        this.btnLoading = 0;
-        if (res.meta){
-          res.meta.forEach((item,index)=>{
-            setTimeout(()=>{
-              this.$message.error(item.code)
-            },(index+1) * 500);
-          });
-        }else {
-          this.getThemeList(Number(webDb.getLItem('currentPag')) || 1);
-          this.$message({
-            message: '操作成功',
-            type: 'success'
-          });
-        }
-      }).catch(err=>{
-      })
-    },
-
     getCreated(state){
       if(state){
         this.getThemeList(1);
