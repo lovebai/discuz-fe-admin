@@ -114,6 +114,7 @@ module.exports = {
   siteinfo_get_v3: '/backAdmin/siteinfo', // 站点信息
   firstChart_get_v3: '/backAdmin/statistic/firstChart', // 数据看板
   cache_delete_get_v3:'/backAdmin/cache.delete', // 清除缓存
+  checkQcloud_get_v3: '/backAdmin/checkQcloud', // 判断腾讯云云api是否配置
 
   // 财务
   walletLogs_get_v3: '/backAdmin/users.wallet.logs', // 资金明细
@@ -136,7 +137,12 @@ module.exports = {
   stopwords_delete_v3: '/backAdmin/stopwords.delete', // 删除敏感词(单个/批量)
 
   forum_get_v3: '/backAdmin/forum',
+  notices_get_v3: '/backAdmin/notification/tpl', //通知模板列表
 
+  sequence_get_v3: '/backAdmin/sequence', //获取智能排序
+  sequence_post_v3: '/backAdmin/sequence', //修改智能排序
+  recommend_topics_get_v3: '/backAdmin/recommend.topics', //推荐话题
+  recommend_users_post_v3: '/backAdmin/recommend.users', //推荐用户
 
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
