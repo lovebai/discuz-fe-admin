@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-  register: "/register", //用户名注册
+  // register: "/register", //用户名注册
   login: "/login", //用户名登录
   users: "/users", //用户信息
   // sendSms: "/sms/send", //发送验证码
@@ -87,7 +87,7 @@ module.exports = {
   // statisticPanel: "/statistic/firstChart", //首页数据看板数据
   noticeList: "/notification/tpl", //通知设置列表
   notification: "/notification/tpl/", //修改系统消息模版[通知设置]
-  noticeConfigure: "/notification/tpl/", //通知配置列表,
+  // noticeConfigure: "/notification/tpl/", //通知配置列表,
   noticeDetail:"/notification/tpl/detail", // 通知
   sequence:"/sequence", // 智能排序数据
   randomUsers:"/random/users", // 推荐用户
@@ -102,7 +102,7 @@ module.exports = {
 
   // reports: '/reports', //举报列表
   // reportsBatch: '/reports/batch', //删除举报
-  clearCache: '/cache', // 缓存相关
+  // clearCache: '/cache', // 缓存相关
   checkQcloud: '/checkQcloud', // 判断腾讯云云api是否配置
 
   // v3新接口
@@ -113,6 +113,7 @@ module.exports = {
   // 首页
   siteinfo_get_v3: '/backAdmin/siteinfo', // 站点信息
   firstChart_get_v3: '/backAdmin/statistic/firstChart', // 数据看板
+  cache_delete_get_v3:'/backAdmin/cache.delete', // 清除缓存
 
   // 财务
   walletLogs_get_v3: '/backAdmin/users.wallet.logs', // 资金明细

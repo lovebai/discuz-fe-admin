@@ -334,8 +334,8 @@ export default {
     // 清空缓存
     clearCache() {
       this.appFetch({
-        url: "clearCache",
-        method: "delete",
+        url: "cache_delete_get_v3",
+        method: "get",
         data: {}
       }).then(data => {
         if (data.errors) {

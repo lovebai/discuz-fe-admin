@@ -134,6 +134,12 @@ export default {
         // if (!item.attributes.isDeleted){
         //   isDeleted.push(item.id)
         // }
+        if (item.radio === '删除') {
+          submitData.push({
+            isDeleted: true,
+            id: item.id
+          })
+        }
         if (item.radio === '还原') {
           submitData.push({
             isDeleted: false,
@@ -142,9 +148,9 @@ export default {
         }
       });
 
-      if (this.deleteStatusList.length > 0){
-        this.deletePostsBatch(this.deleteStatusList.join(','));
-      }
+      // if (this.deleteStatusList.length > 0){
+      //   this.deletePostsBatch(this.deleteStatusList.join(','));
+      // }
       if (submitData.length > 0){
         this.patchPostsBatch(submitData);
       }
@@ -154,9 +160,9 @@ export default {
     allOperationsSubmit(val){
       this.btnLoading = val;
       let deleteStr = '';
+      let submitData = [];
       switch (val){
         case 1:
-          const submitData = [];
           this.submitForm.forEach((item,index)=>{
             submitData.push({
               isDeleted: false,
@@ -166,14 +172,21 @@ export default {
           this.patchPostsBatch(submitData);
           break;
         case 2:
+          // this.submitForm.forEach((item,index)=>{
+          //   if (index < this.submitForm.length-1){
+          //     deleteStr = deleteStr + item.id + ','
+          //   }else {
+          //     deleteStr = deleteStr + item.id
+          //   }
+          // });
+          // this.deletePostsBatch(deleteStr);
           this.submitForm.forEach((item,index)=>{
-            if (index < this.submitForm.length-1){
-              deleteStr = deleteStr + item.id + ','
-            }else {
-              deleteStr = deleteStr + item.id
-            }
+            submitData.push({
+              isDeleted: true,
+              id: item.id
+            })
           });
-          this.deletePostsBatch(deleteStr);
+          this.patchPostsBatch(submitData);
           break;
         default:
       }
@@ -238,14 +251,7 @@ export default {
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
-        }else {
-          // this.categoriesList = [];
-          // res.data.forEach((item, index) => {
-          //   this.categoriesList.push({
-          //     name: item.attributes.name,
-          //     id: item.id
-          //   })
-          // })
+        } else {
           const {Data: data} = res;
           data.forEach(item => {
             if (item.children.length > 0) {
@@ -300,34 +306,34 @@ export default {
 
       })
     },
-    patchPosts(data,id){
-      this.appFetch({
-        url:'threads',
-        method:'patch',
-        splice:'/' + id,
-        data:{
-          data
-        }
-      }).then(res=>{
-        this.subLoading = false;
-        this.btnLoading = 0;
-        if (res.errors){
-          this.$message.error(res.errors[0].code);
-        }else {
-          if (res.meta && res.data) {
-            this.checkedTheme = [];
-            this.$message.error('操作失败！');
-          } else {
-            this.getPostsList(Number(webDb.getLItem('currentPag')) || 1);
-            this.$message({
-              message: '操作成功',
-              type: 'success'
-            });
-          }
-        }
-      }).catch(err=>{
-      })
-    },
+    // patchPosts(data,id){
+    //   this.appFetch({
+    //     url:'threads',
+    //     method:'patch',
+    //     splice:'/' + id,
+    //     data:{
+    //       data
+    //     }
+    //   }).then(res=>{
+    //     this.subLoading = false;
+    //     this.btnLoading = 0;
+    //     if (res.errors){
+    //       this.$message.error(res.errors[0].code);
+    //     }else {
+    //       if (res.meta && res.data) {
+    //         this.checkedTheme = [];
+    //         this.$message.error('操作失败！');
+    //       } else {
+    //         this.getPostsList(Number(webDb.getLItem('currentPag')) || 1);
+    //         this.$message({
+    //           message: '操作成功',
+    //           type: 'success'
+    //         });
+    //       }
+    //     }
+    //   }).catch(err=>{
+    //   })
+    // },
 
     deletePostsBatch(data){
       this.appFetch({

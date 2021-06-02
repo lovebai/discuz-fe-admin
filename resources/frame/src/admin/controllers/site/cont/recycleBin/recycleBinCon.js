@@ -129,6 +129,12 @@ export default {
         // if (!item.isDeleted){
         //   isDeleted.push(item.id)
         // }
+        if (item.radio === '删除') {
+          submitData.push({
+            isDeleted: true,
+            id: item.id
+          })
+        }
         if (item.radio === '还原') {
           submitData.push({
             isDeleted: false,
@@ -137,9 +143,9 @@ export default {
         }
       });
 
-      if (this.deleteStatusList.length > 0) {
-        this.deleteThreadsBatch(this.deleteStatusList.join(','));
-      }
+      // if (this.deleteStatusList.length > 0) {
+      //   this.deleteThreadsBatch(this.deleteStatusList.join(','));
+      // }
       if (submitData.length > 0){
         this.patchThreadsBatch(submitData)
       }
@@ -149,9 +155,9 @@ export default {
     allOperationsSubmit(val){
       this.btnLoading = val;
       let deleteStr = '';
+      let submitData = [];
       switch (val){
         case 1:
-          const submitData = [];
           this.submitForm.forEach(item => {
             submitData.push({
               isDeleted: false,
@@ -161,14 +167,13 @@ export default {
           this.patchThreadsBatch(submitData);
           break;
         case 2:
-          this.submitForm.forEach((item,index)=>{
-            if (index < this.submitForm.length-1){
-              deleteStr = deleteStr + item.id + ','
-            }else {
-              deleteStr = deleteStr + item.id
-            }
+          this.submitForm.forEach(item => {
+            submitData.push({
+              isDeleted: true,
+              id: item.id
+            })
           });
-          this.deleteThreadsBatch(deleteStr);
+          this.patchThreadsBatch(submitData);
           break;
         default:
           //全部还原或全部删除操作错误,请刷新页面
