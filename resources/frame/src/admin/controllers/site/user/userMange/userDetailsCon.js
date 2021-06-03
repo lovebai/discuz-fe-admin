@@ -71,16 +71,16 @@ export default {
         var userId = browserDb.getLItem("tokenId");
         const response = await this.appFetch({
           method: "get",
-          url: "users",
-          splice: `/${this.query.id}`,
+          url: "user_get_v3",
+          // splice: `/${this.query.id}`,
           data: {
-            include: "wechat,groups"
+            pid: this.query.id
           }
         });
         if (response.Code || (response.Code && response.Code !== 0)) {
           this.$message.error(response.Message);
         } else {
-          this.userInfo = response.readdata._data;
+          this.userInfo = response.Data;
           this.imageUrl = this.userInfo.avatarUrl;
           this.userName = this.userInfo.username;
           this.expired_at = this.userInfo.expiredAt && this.$dayjs(this.userInfo.expiredAt).format("YYYY-MM-DD HH:mm:ss");
@@ -88,12 +88,12 @@ export default {
             this.deleBtn = true;
           }
           this.reasonsForDisable = this.userInfo.banReason;
-          this.userRole = response.readdata.groups.map(v => {
-            return v._data.id;
+          this.userRole = response.Data.groups.map(v => {
+            return v.pid;
           });
-          if (response.readdata.wechat) {
-            this.wechatNickName = response.readdata.wechat._data.nickname;
-            this.sex = response.readdata.wechat._data.sex;
+          if (response.isBindWechat) {
+            this.wechatNickName = response.Data.nickname;
+            this.sex = response.Data.sex;
           }
           if (userId == this.userInfo.id) {
             // this.disabled = false;
@@ -114,12 +114,12 @@ export default {
     // 扩展信息查询
     expandInformation() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_get_v3',
         method: 'get',
         data: {},
       }).then(res => {
-        res.readdata.forEach(item => {
-          if (item._data.status == 1) {
+        res.Data.forEach(item => {
+          if (item.status == 1) {
             this.expandDatas.push(item);
           }
         })
@@ -131,17 +131,19 @@ export default {
     userExpandInformation() {
       let userId = this.query.id;
       this.appFetch({
-        url: 'userSigninfields',
+        url: 'user_signinfields_get_v3',
         method: 'get',
-        splice: `/${userId}`,
+        data: {
+          uid: userId
+        }
       }).then((res) => {
-        if (res.readdata && res.readdata._data.length > 0) {
-          res.readdata._data.forEach((item, index) => {
-            if (item.type > 1 && item.fields_ext) {
-              item.fields_ext = JSON.parse(item.fields_ext);
+        if (res.Data && res.Data.length > 0) {
+          res.Data.forEach((item, index) => {
+            if (item.type > 1 && item.fieldsExt) {
+              item.fieldsExt = JSON.parse(item.fieldsExt);
               this.expandUsers.push(item);
             } else {
-              if (item.fields_ext !== '') {
+              if (item.fieldsExt !== '') {
                 this.expandUsers.push(item);
               }
             }
@@ -212,7 +214,6 @@ export default {
       return isJPG && isLt10M;
     },
     uploaderLogo(file) {
-      console.log(file);
       let formData = new FormData();
       formData.append("aid", this.query.id);
       formData.append("avatar", file.file);
@@ -222,7 +223,6 @@ export default {
         // splice: `${this.query.id}` + "/avatar",
         data: formData
       }).then(res => {
-        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
@@ -260,8 +260,8 @@ export default {
           // newPassword: this.confirmPassword
         }
       }).then(res => {
-        if (res.Code || (res.Code && res.Code !== 0)) {
-          this.$message.error(res.Message);
+        if (res.errors) {
+          this.$message.error(res.errors[0].code);
         } else {
           this.$message({ message: "提交成功", type: "success" });
           this.getUserDetail();
@@ -274,13 +274,13 @@ export default {
       try {
         const response = await this.appFetch({
           method: "get",
-          url: "groups"
+          url: "groups_list_get_v3"
         });
-        const data = response.data;
+        const data = response.Data;
         this.options = data.map(v => {
           return {
             value: v.id,
-            label: v.attributes.name
+            label: v.name
           };
         });
       } catch (err) {
@@ -318,12 +318,12 @@ export default {
           "type": "user_sign_in",
           "attributes": {
             "aid": item.aid,
-            "fields_desc": item.fields_desc,
+            "fields_desc": item.fieldsDesc,
             "id": item.id,
             "remark": "",
             "status": item.status,
             "type": item.type,
-            "user_id": item.user_id,      
+            "user_id": item.userId,      
           }
         };
         if (item.type > 1 && item.fields_ext) {

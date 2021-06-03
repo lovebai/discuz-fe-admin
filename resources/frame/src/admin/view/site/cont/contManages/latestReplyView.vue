@@ -41,15 +41,15 @@
 
           <ContArrange
             v-for="(items,index) in  themeList"
-            :replyBy="!items.user?'该用户被删除':items.user._data.username"
-            :themeName="items.thread._data.type === 1?items.thread._data.title:items.thread.firstPost._data.content"
-            :titleIcon="titleIcon(items.thread._data)"
-            :finalPost="formatDate(items._data.updatedAt)"
-            :userId="!items.user?'该用户被删除':items.user._data.id"
-            :key="items._data.id"
+            :replyBy="!items.nickname ? '该用户被删除': items.nickname"
+            :themeName="items.content ? items.content : items.cotent.text"
+            :titleIcon="titleIcon(items)"
+            :finalPost="formatDate(items.updatedAt)"
+            :userId="!items.userId ?'该用户被删除': items.userId"
+            :key="index"
           >
             <div class="latest-reply-theme__table-side" slot="side">
-              <el-checkbox v-model="checkedTheme" :label="items._data.id" @change="handleCheckedCitiesChange()"></el-checkbox>
+              <el-checkbox v-model="checkedTheme" :label="items.postId" @change="handleCheckedCitiesChange()"></el-checkbox>
             </div>
 
             <!-- <a slot="longText" class="latest-reply-theme__table-long-text" v-if="items.thread._data.isLongArticle" :href="'/details/' + items._data.id" target="_blank">
@@ -58,10 +58,10 @@
             </a> -->
 
             <div class="latest-reply-theme__table-main" slot="main">
-              <a class="latest-reply-theme__table-main__cont-text" :href="'/topic/index?id=' + items.thread._data.id" target="_blank" v-html="items._data.contentHtml"></a>
-              <div class="latest-reply-theme__table-main__cont-imgs">
-                <p class="latest-reply-theme__table-main__cont-imgs-p"  v-for="(item,index) in items.images" :key="index">
-                  <img  v-lazy="item._data.thumbUrl" @click="imgShowClick(items.images,index)" :alt="item._data.fileName">
+              <a class="latest-reply-theme__table-main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content"></a>
+              <div class="latest-reply-theme__table-main__cont-imgs" v-if="items.cotent && items.cotent.indexes && items.cotent.indexes.length > 0">
+                <p class="latest-reply-theme__table-main__cont-imgs-p"  v-for="(item,indexs) in contentIndexes(items.content, 'images')" :key="indexs">
+                  <img  v-lazy="item.thumbUrl" @click="imgShowClick(contentIndexes(items.content, 'images'), indexs)" :alt="item.fileName">
                 </p>
               </div>
             </div>
@@ -86,7 +86,7 @@
                   type="primary"
                   size="mini"
                   @click="
-                    singleOperationSubmit(1,items._data.id);
+                    singleOperationSubmit(1,items.postId, items.threadId);
                     closeDelet(`popover-${index}`)"
                   >确定</el-button
                 >

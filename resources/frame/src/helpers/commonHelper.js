@@ -443,7 +443,54 @@ appCommonH.setPageTitle = function (type,data,title) {
   return document.title = title;
 };
 
-
+appCommonH.dataTypeJudgment = function (data, val) {
+  const newData = { text: data.text || '' };
+  const values = Object.values(data.indexes || {});
+  let displayVal = '';
+  values.forEach((item) => {
+    const { tomId } = item;
+    // 统一做一次字符串转换
+    const conversionTomID = tomId ? '' + tomId : 'NULL';
+    if (conversionTomID === '101') { // 图片
+      newData.imageData = item.body;
+    } else if (conversionTomID === '102') { // 音频
+      newData.audioData = item.body;
+    } else if (conversionTomID === '103') { // 视频
+      newData.videoData = item.body;
+    } else if (conversionTomID === '104') { // 商品
+      newData.goodsData = item.body;
+    } else if (conversionTomID === '105') { // 问答
+      newData.qaData = item.body;
+    } else if (conversionTomID === '106') { // 红包
+      newData.redPacketData = item.body;
+    } else if (conversionTomID === '107') { // 悬赏
+      newData.rewardData = item.body;
+    } else if (conversionTomID === '108') { // 附件
+      newData.fileData = item.body;
+    }
+  });
+  if (val === 'video' && newData.videoData && newData.videoData.status === 0 || val === 'video' && newData.videoData && newData.videoData.status === 2) {
+    displayVal = true;
+  } else if (val === 'video') {
+    displayVal = false;
+  }
+  if (val === 'videos' && newData.videoData) {
+    displayVal = true;
+  }
+  if (val === 'videoStatus' && newData.videoData && newData.videoData.status === 0) {
+    displayVal = true;
+  }
+  if (val === 'videoStatusTwo' && newData.videoData && newData.videoData.status === 2) {
+    displayVal = true;
+  }
+  if (val === 'images' && newData.imageData && newData.imageData.length > 0) {
+    displayVal = newData.imageData;
+  }
+  if (val === 'attachments' && newData.fileData && newData.fileData.length > 0) {
+    displayVal = newData.fileData;
+  }
+  return displayVal;
+}
 
 if(!Vue.prototype.appCommonH) {
 	Vue.prototype.appCommonH = appCommonH;

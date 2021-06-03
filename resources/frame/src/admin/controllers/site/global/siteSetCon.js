@@ -12,7 +12,7 @@ export default {
       // fileList:[],
       loading: true,
       fullscreenLoading: false,
-      siteTheme: 1,
+      // siteTheme: 1,
       siteName: "",
       siteIntroduction: "",
       siteKeywords: "",
@@ -83,17 +83,9 @@ export default {
 
   methods: {
     loadStatus() {
-      // this.appFetch({
-      //   url: "settings_get_v3",
-      //   method: "get",
-      //   data: {}
-      // })
-      // .then(res => {
-      //   console.log(res, '站点信息');
-      // })
       //初始化设置
       this.appFetch({
-        url: "forum",
+        url: 'forum_get_v3',
         method: "get",
         data: {}
       })
@@ -101,61 +93,61 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
+            const {Data: forumData} = data;
             // 微信支付关闭时置灰付费模式
-            if (data.readdata._data.paycenter.wxpay_close == false) {
+            if (forumData.paycenter.wxpayClose == false) {
               this.disabled = true;
             } else {
               this.disabled = false;
             }
             // logo size
-            this.siteTheme = data.readdata._data.set_site.site_skin;
-            this.numberimg[0].textrule = this.siteTheme === 1
-              ? "尺寸：438px*88px"
-              : "尺寸：300px*100px";
-            this.siteName = data.readdata._data.set_site.site_name;
+            // this.siteTheme = forumData.setSite.site_skin;
+            // this.numberimg[0].textrule = this.siteTheme === 1
+            //   ? "尺寸：438px*88px"
+            //   : "尺寸：300px*100px";
+            this.siteName = forumData.setSite.siteName;
             this.siteIntroduction =
-              data.readdata._data.set_site.site_introduction;
-            this.siteKeywords = data.readdata._data.set_site.site_keywords;
-            this.siteTitle = data.readdata._data.set_site.site_title;
-            this.siteMode = data.readdata._data.set_site.site_mode;
-            this.numberimg[0].imageUrl = data.readdata._data.set_site.site_logo;
+              forumData.setSite.siteIntroduction;
+            this.siteKeywords = forumData.setSite.siteKeywords;
+            this.siteTitle = forumData.setSite.siteTitle;
+            this.siteMode = forumData.setSite.siteMode;
+            this.numberimg[0].imageUrl = forumData.setSite.siteLogo;
             this.numberimg[1].imageUrl =
-              data.readdata._data.set_site.site_header_logo;
+              forumData.setSite.siteHeaderLogo;
             this.numberimg[2].imageUrl =
-              data.readdata._data.set_site.site_background_image;
+              forumData.setSite.siteBackgroundImage;
             // icon
             this.numberimg[3].imageUrl =
-              data.readdata._data.set_site.site_favicon;
+              forumData.setSite.siteFavicon;
             if (this.siteMode == "pay") {
               this.radio = "2";
             } else {
               this.radio = "1";
             }
-            this.sitePrice = data.readdata._data.set_site.site_price;
-            this.siteExpire = data.readdata._data.set_site.site_expire;
+            this.sitePrice = forumData.setSite.sitePrice;
+            this.siteExpire = forumData.setSite.siteExpire;
             this.siteAuthorScale =
-              data.readdata._data.set_site.site_author_scale;
+              forumData.setSite.siteAuthorScale;
             this.siteMasterScale =
-              data.readdata._data.set_site.site_master_scale;
-            // this.siteLogoFile = data.readdata._data.siteLogoFile;
-            this.siteRecord = data.readdata._data.set_site.site_record;
-            this.recodeNumber = data.readdata._data.set_site.site_record_code;
-            this.siteStat = data.readdata._data.set_site.site_stat;
+              forumData.setSite.siteMasterScale;
+            // this.siteLogoFile = forumData.siteLogoFile;
+            this.siteRecord = forumData.setSite.siteRecord;
+            this.recodeNumber = forumData.setSite.siteRecordCode;
+            this.siteStat = forumData.setSite.siteStat;
 
             if (
-              data.readdata._data.set_site.site_author &&
-              data.readdata._data.set_site.site_author.id
+              forumData.setSite.siteAuthor &&
+              forumData.setSite.siteAuthor.id
             ) {
-              this.siteMasterId = data.readdata._data.set_site.site_author.id;
+              this.siteMasterId = forumData.setSite.siteAuthor.id;
             }
 
-            // if (data.readdata._data.logo) {
-            //   this.fileList.push({url: data.readdata._data.logo});
+            // if (forumData.logo) {
+            //   this.fileList.push({url: forumData.logo});
             // }
 
             // 旧关闭站点
-            console.log(data.readdata._data.set_site);
-            this.siteClose = data.readdata._data.set_site.site_close;
+            this.siteClose = forumData.setSite.siteClose;
             if (this.siteClose === true) {
               this.radio2 = "1";
             } else {
@@ -163,7 +155,7 @@ export default {
             }
             // 新的关闭站点
             // console.log(data);
-            // this.closeList = data.readdata._data.set_site.site_manage || [];
+            // this.closeList = forumData.setSite.site_manage || [];
             // this.closeSelectList = this.closeList.reduce((result, item) => {
             //   if (item.value) {
             //     result.push(item.key);
@@ -171,9 +163,9 @@ export default {
             //   return result;
             // }, []);
 
-            this.siteCloseMsg = data.readdata._data.set_site.site_close_msg;
+            this.siteCloseMsg = forumData.setSite.siteCloseMsg;
             // 微信支付关闭时置灰付费模式
-            if (data.readdata._data.paycenter.wxpay_close == false) {
+            if (forumData.paycenter.wxpayClose == false) {
               this.disabled = true;
             } else {
               this.disabled = false;
@@ -303,7 +295,6 @@ export default {
         };
         img.src = url;
         img.onerror = reject;
-        console.log(url);
       });
     },
 
@@ -355,7 +346,6 @@ export default {
         data: logoFormData
       })
         .then(data => {
-          console.log(data);
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {

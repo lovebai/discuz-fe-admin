@@ -51,7 +51,6 @@ export default {
         method: 'get',
         data: {},
       }).then(res => {
-        console.log(res, '扩展信息');
         this.informationList(res.Data);
       }) 
     },
@@ -120,16 +119,14 @@ export default {
     handleSelectionChange(list) {
       this.arrsLiist = [];
       list.forEach((item, index) => {
-        let  data = {
-          "attributes": {
-            "status": 0
-          },
+        let data = {
+          "status": 0
         }
         if (item.newly) {
           let arrData = [];
           arrData.push(item);
         } else {
-          data.attributes.id = item.id;
+          data.id = item.id;
           this.arrsLiist.push(data);
         }
       })
@@ -137,7 +134,7 @@ export default {
     
     deleteList() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_post_v3',
         method: 'post',
         data: {
           data: this.arrsLiist,
@@ -157,15 +154,11 @@ export default {
     
     deleteField(single) {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_post_v3',
         method: 'post',
         data: {
-          "data": {
-            "attributes": {
-              "id": single.row.id,
-              "status": 0
-            }
-          }
+          "id": single.row.id,
+          "status": 0
         }
       }).then(res => {
         if (res.errors){
@@ -279,7 +272,6 @@ export default {
     },
     // 添加数据请求
     addRegistration(data) {
-      console.log(data);
       if (!this.testDataRun()) {
         return;
       }

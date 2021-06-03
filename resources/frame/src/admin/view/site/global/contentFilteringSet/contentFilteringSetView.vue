@@ -29,8 +29,13 @@
               label="过滤词"
             >
               <template slot-scope="scope">
-                {{ !scope.row._data.addInputFlag ? scope.row._data.find : ''}}
-                <el-input splaceholder="请输入过滤词" clearable v-model="scope.row._data.find" v-show="scope.row._data.addInputFlag">
+                {{ !scope.row.addInputFlag ? scope.row.find : ''}}
+                <el-input
+                  splaceholder="请输入过滤词"
+                  clearable
+                  v-model="scope.row.find"
+                  v-show="scope.row.addInputFlag"
+                >
                 </el-input> 
               </template>
 
@@ -40,7 +45,7 @@
               label="主题和回复处理方式"
             >
               <template slot-scope="scope">
-                <el-select v-model="scope.row._data.ugc" placeholder="请选择" @change="selectChange(scope)">
+                <el-select v-model="scope.row.ugc" placeholder="请选择" @change="selectChange(scope)">
                   <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -55,7 +60,7 @@
               prop="address"
               label="用户名处理方式">
               <template slot-scope="scope">
-                <el-select v-model="scope.row._data.username" placeholder="请选择" @change="selectChange(scope)">
+                <el-select v-model="scope.row.username" placeholder="请选择" @change="selectChange(scope)">
                   <el-option
                     v-for="item in optionsUser"
                     :key="item.value"
@@ -71,7 +76,7 @@
               prop="address"
               label="签名处理方式">
               <template slot-scope="scope">
-                <el-select v-model="scope.row._data.signature" placeholder="请选择" @change="selectChange(scope)">
+                <el-select v-model="scope.row.signature" placeholder="请选择" @change="selectChange(scope)">
                   <el-option
                     v-for="item in optionsUser"
                     :key="item.value"
@@ -86,7 +91,7 @@
               prop="address"
               label="短消息处理方式">
               <template slot-scope="scope">
-                <el-select v-model="scope.row._data.dialog" placeholder="请选择" @change="selectChange(scope)">
+                <el-select v-model="scope.row.dialog" placeholder="请选择" @change="selectChange(scope)">
                   <el-option
                     v-for="item in optionsUser"
                     :key="item.value"
@@ -101,7 +106,7 @@
               prop="address"
               label="过滤词替换">
               <template slot-scope="scope">
-                <el-input v-model="scope.row._data.replacement" placeholder="请输入替换内容" :disabled="scope.row._data.ugc !== '{REPLACE}' && scope.row._data.username !== '{REPLACE}'" clearable v-show="replace"></el-input>
+                <el-input v-model="scope.row.replacement" placeholder="请输入替换内容" :disabled="scope.row.ugc !== '{REPLACE}' && scope.row.username !== '{REPLACE}'" clearable v-show="replace"></el-input>
               </template>
             </el-table-column>
 

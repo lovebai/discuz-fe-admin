@@ -334,8 +334,8 @@ export default {
     // 清空缓存
     clearCache() {
       this.appFetch({
-        url: "clearCache",
-        method: "delete",
+        url: "cache_delete_get_v3",
+        method: "get",
         data: {}
       }).then(data => {
         if (data.errors) {
@@ -619,7 +619,6 @@ export default {
         default:
           this.$message.error("没有当前页面，跳转404页面");
           // this.$router.push({path:'/admin/home'});
-          console.log("没有当前页面，跳转404页面");
       }
     },
 
@@ -669,7 +668,6 @@ export default {
           this.sideList = this.navList[4].submenu;
           break;
         default:
-          console.log("获取菜单出错");
           this.$message.error("获取菜单出错");
       }
 
@@ -739,7 +737,6 @@ export default {
           default:
             // this.$router.push({path:'/admin/home'});
             this.sideSubmenu = [];
-            console.log("当下没有侧边栏子菜单");
             this.$message.error("当下没有侧边栏子菜单");
         }
       }
@@ -757,7 +754,7 @@ export default {
     // 判断腾讯云云api是否配置
     checkQcloud() {
       this.appFetch({
-        url: "checkQcloud",
+        url: 'checkQcloud_get_v3',
         method: "get",
         data: {}
       }).then(data => {
@@ -771,7 +768,7 @@ export default {
 
     tencentCloudList(){
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{
 
@@ -780,41 +777,35 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.appId = res.readdata._data.qcloud.qcloud_app_id
-          this.secretId = res.readdata._data.qcloud.qcloud_secret_id
-          this.secretKey = res.readdata._data.qcloud.qcloud_secret_key
+          const {Data: forumData} = res;
+          this.appId = forumData.qcloud.qcloudAppId
+          this.secretId = forumData.qcloud.qcloudSecretId
+          this.secretKey = forumData.qcloud.qcloudSecretKey
         }
       })
     },
     async  Submission(){
       try{
         await this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-              "attributes":{
-                "key":'qcloud_app_id',
-                "value":this.appId,
-                "tag": "qcloud"
-              }
+              "key":'qcloud_app_id',
+              "value":this.appId,
+              "tag": "qcloud"
             },
             {
-              "attributes":{
-                "key":'qcloud_secret_id',
-                "value":this.secretId,
-                "tag": "qcloud",
-              }
-              },
-              {
-                "attributes":{
-                  "key":'qcloud_secret_key',
-                  "value":this.secretKey,
-                  "tag": "qcloud",
-                }
-              }
-
+              "key":'qcloud_secret_id',
+              "value":this.secretId,
+              "tag": "qcloud",
+            },
+            {
+              "key":'qcloud_secret_key',
+              "value":this.secretKey,
+              "tag": "qcloud",
+            }
           ]
         }
       }).then(res=>{

@@ -66,10 +66,8 @@ export default {
         } else {
           this.multipleSelection.forEach((item)=>{
             userList.push({
-              "attributes": {
-                "id":item._data.id,
-                "status": '0',
-              }
+              "id": item.id,
+              "status": 0,
             })
           });
           this.patchEditUser(userList);
@@ -88,11 +86,9 @@ export default {
           }).then((value) => {
             this.multipleSelection.forEach((item) => {
               userList.push({
-                "attributes": {
-                  "id": item._data.id,
-                  "status": '1',
-                  "refuse_message": value.value
-                }
+                "id": item.id,
+                "status": 3,
+                "rejectReason": value.value
               })
             });
             this.patchEditUser(userList);
@@ -107,7 +103,10 @@ export default {
           this.btnLoading = false;
         } else {
           this.multipleSelection.forEach((item) => {
-            userList.push(item._data.id)
+            userList.push({
+              id: item.id,
+              status: 4,
+            })
           });
           this.patchDeleteUser(userList);
           this.visible = false;
@@ -132,31 +131,30 @@ export default {
 
     getUserList(pageNumber){
       this.appFetch({
-        url:'users',
+        url:'user_list_get_v3',
         method:'get',
         data:{
-          'filter[status]':'mod',
-          'page[number]':pageNumber,
-          'page[size]':10,
+          'filter[status]': 2,
+          'perPage':10,
+          'page':pageNumber,
         }
       }).then(res=>{
-        console.log(res);
-        this.total = res.meta.total;
-        this.pageCount = res.meta.pageCount;
+        this.total = res.Data.totalCount;
+        this.pageCount = res.Data.totalPage;
         this.visibleExtends = [];
-        res.readdata.forEach((item, index) => {
+        res.Data.pageData.forEach((item, index) => {
           this.visibleExtends.push({
             dialogTableVisible: false,
           })
           if (item.extFields.length > 0) {
             item.extFields.forEach((extend, list) => {
-              if (extend._data.type > 1 && extend._data.fields_ext) {
-                extend._data.fields_ext = JSON.parse(extend._data.fields_ext);
+              if (extend.type > 1 && extend.fieldsExt) {
+                extend.fieldsExt = JSON.parse(extend.fieldsExt);
               }
             })
           }
         })
-        this.tableData = res.readdata;
+        this.tableData = res.Data.pageData;
       })
     },
     dialogTableVisibleFun(code) {
@@ -164,16 +162,16 @@ export default {
     },
     editUser(id,status,message){
       this.appFetch({
-        url:'users',
-        method:'PATCH',
-        splice:'/'+id,
-        data:{
-          data:{
-            "attributes": {
+        url:'users_examine_post_v3',
+        method:'post',
+        data: {
+          data: [
+            {
+              'id': id,
               'status':status,
-              'refuse_message':message
+              'rejectReason':message
             }
-          }
+          ]
         }
       }).then(res=>{
         this.btnLoading = false;
@@ -192,10 +190,10 @@ export default {
 
     patchEditUser(dataList){
       this.appFetch({
-        method: 'PATCH',
-        url: 'users',
+        url: 'users_examine_post_v3',
+        method: 'post',
         data: {
-          "data": dataList
+          data: dataList
         }
       }).then(res=>{
         this.btnLoading = false;
@@ -214,16 +212,10 @@ export default {
 
     patchDeleteUser(dataList){       //批量忽略接口
       this.appFetch({
-        url:'users',
-        method:'PATCH',
-        splice:'/'+dataList,
+        url:'users_examine_post_v3',
+        method:'post',
         data:{
-          data:{
-            "attributes": {
-              "id": dataList,
-              'status':'4',
-            }
-          }
+          data:dataList
         }
       }).then(res=>{
         if (res.errors){
@@ -240,15 +232,16 @@ export default {
     },
     deleteUser(id){              //单个忽略接口
       this.appFetch({
-        url:'users',
-        method:'PATCH',
-        splice:'/'+id,
+        url:'users_examine_post_v3',
+        method:'post',
+        // splice:'/'+id,
         data:{
-          data:{
-            "attributes": {
-              'status':'4',
+          data:[
+            {
+              id: id,
+              status: 4,
             }
-          }
+          ]
         }
       }).then(res=>{
         if (res.errors){
@@ -275,13 +268,13 @@ export default {
     // 扩展信息查询
     auditQuery() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_get_v3',
         method: 'get',
         data: {},
       }).then(res => {
         this.extendedAudit = [];
-        res.readdata.forEach(item => {
-          if (item._data.status == 1) {
+        res.Data.forEach(item => {
+          if (item.status == 1) {
             this.extendedAudit.push(item);
           }
         })

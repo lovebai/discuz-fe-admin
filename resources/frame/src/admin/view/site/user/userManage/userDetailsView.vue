@@ -177,7 +177,7 @@
       :header="items.name + '：'"
       :class="(items.type === 4 || items.type === 5) ? 'upload-demo-img' : ''"
       :key="index">
-      <p class="user-details-box-extend" v-if="items.type === 0 || items.type === 1">{{items.fields_ext}}</p>
+      <p class="user-details-box-extend" v-if="items.type === 0 || items.type === 1">{{items.fieldsExt}}</p>
       <div v-if="items.type === 3 || items.type === 2">
         <span>{{extendUsers(items)}}</span>
       </div>
@@ -186,7 +186,7 @@
           class="upload-demo"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
-          :file-list="items.fields_ext"
+          :file-list="items.fieldsExt"
           list-type="picture">
         </el-upload>
       </div>
@@ -196,7 +196,7 @@
           ref="upload"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
-          :file-list="items.fields_ext"
+          :file-list="items.fieldsExt"
           :auto-upload="false">
         </el-upload>
       </div>

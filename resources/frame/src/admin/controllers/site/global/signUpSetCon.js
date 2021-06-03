@@ -29,7 +29,7 @@ export default {
   methods:{
     signUpSet(){
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
         data:{
           'filter[tag]': 'agreement'
@@ -37,23 +37,22 @@ export default {
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
-        }else {
-          const agreement = res.readdata._data.agreement;
-          console.log(res);
-          // this.pwdLength = res.readdata._data.setreg.password_length
-          this.is_register_close = res.readdata._data.set_reg.register_close;
-          this.is_need_transition = res.readdata._data.set_reg.is_need_transition;
-          this.register_validate = res.readdata._data.set_reg.register_validate;
-          this.pwdLength = res.readdata._data.set_reg.password_length;
-          this.checkList = res.readdata._data.set_reg.password_strength;
-          this.register_captcha = res.readdata._data.set_reg.register_captcha;
+        } else {
+          const {Data: forumData} = res;
+          const agreement = forumData.agreement;
+          this.is_register_close = forumData.setReg.registerClose;
+          this.is_need_transition = forumData.setReg.isNeedTransition;
+          this.register_validate = forumData.setReg.registerValidate;
+          this.pwdLength = forumData.setReg.passwordLength;
+          this.checkList = forumData.setReg.passwordStrength;
+          this.register_captcha = forumData.setReg.registerCaptcha;
           this.privacy = agreement.privacy ? "1" : "0";
           this.register = agreement.register ? "1" : "0";
-          this.register_content = agreement.register_content;
-          this.privacy_content = agreement.privacy_content;
-          this.extensionOn = res.readdata._data.set_site.open_ext_fields === '1' ? true : false;
+          this.register_content = agreement.registerContent;
+          this.privacy_content = agreement.privacyContent;
+          this.extensionOn = forumData.setSite.openExtFields === '1' ? true : false;
 
-          if(res.readdata._data.qcloud.qcloud_captcha == true){
+          if(forumData.qcloud.qcloudCaptcha == true){
             this.disabled = false
           }
         }
@@ -76,17 +75,17 @@ export default {
     },
     extendFun() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_get_v3',
         method: 'get',
         data: {},
       }).then(res => {
         let arr = [];
-        res.readdata.forEach(element => {
-          if (element._data.status === 1) {
+        res.Data.forEach(element => {
+          if (element.status === 1) {
             arr.push(element);
           }
         });
-        if (res.readdata.length > 0 && arr.length > 0) {
+        if (res.Data.length > 0 && arr.length > 0) {
           this.extendsBtn = false;
         } else {
           this.extensionOn = false;
@@ -97,16 +96,14 @@ export default {
     },
     extendConfing() {
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data" :[
             {
-              "attributes":{
-                "key":'open_ext_fields',
-                "value": this.extensionOn ? 1 : 0,
-                "tag": 'default'
-              }
+              "key":'open_ext_fields',
+              "value": this.extensionOn ? 1 : 0,
+              "tag": 'default'
             }
           ],
         }
@@ -135,86 +132,64 @@ export default {
       //   return
       // }
       this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-             "attributes":{
               "key":'register_close',
               "value":this.is_register_close,
               "tag": 'default'
-             }
             },
             {
-              "attributes":{
-                "key":'is_need_transition',
-                "value":this.is_need_transition,
-                "tag": 'default'
-              }
+              "key":'is_need_transition',
+              "value":this.is_need_transition,
+              "tag": 'default'
             },
             {
-              "attributes":{
-                "key":'register_validate',
-                "value":this.register_validate,
-                "tag": 'default'
-              }
+              "key":'register_validate',
+              "value":this.register_validate,
+              "tag": 'default'
             },
             {
-              "attributes":{
-                "key":'register_captcha',
-                "value":this.register_captcha,
-                "tag": 'default'
-              }
+              "key":'register_captcha',
+              "value":this.register_captcha,
+              "tag": 'default'
             },
             {
-              attributes: {
-                key: "privacy",
-                value: this.privacy,
-                tag: "agreement"
-              }
+              key: "privacy",
+              value: this.privacy,
+              tag: "agreement"
             },
             {
-              attributes: {
-                key: "register",
-                value: this.register,
-                tag: "agreement"
-              }
+              key: "register",
+              value: this.register,
+              tag: "agreement"
             },
             {
-              attributes: {
-                key: "register_content",
-                value: this.register_content ? this.register_content : "",
-                tag: "agreement"
-              }
+              key: "register_content",
+              value: this.register_content ? this.register_content : "",
+              tag: "agreement"
             },
             {
-              attributes: {
-                key: "privacy_content",
-                value: this.privacy_content ? this.privacy_content : "",
-                tag: "agreement"
-              }
+              key: "privacy_content",
+              value: this.privacy_content ? this.privacy_content : "",
+              tag: "agreement"
             },
             {
-              "attributes":{
-                "key":'password_length',
-                "value":this.pwdLength,
-                "tag": 'default'
-               }
+              "key":'password_length',
+              "value":this.pwdLength,
+              "tag": 'default'
             },
             {
-              "attributes":{
-                "key":'password_strength',
-                "value":passwordStrength,
-                "tag": 'default'
-               }
+              "key":'password_strength',
+              "value":passwordStrength,
+              "tag": 'default'
             },
             {
-              "attributes":{
-                "key":'open_ext_fields',
-                "value": this.extensionOn ? 1 : 0,
-                "tag": 'default'
-               }
+              "key":'open_ext_fields',
+              "value": this.extensionOn ? 1 : 0,
+              "tag": 'default'
             },
            ]
         }
@@ -233,7 +208,6 @@ export default {
 
     },
     configurat() {
-      console.log('配置信息');
       this.$router.push({
         path: "/admin/registration-btn",
       });

@@ -130,7 +130,6 @@ export default {
     },
 
     handleCurrentChange(val) {
-      console.log(val);
       document.getElementsByClassName('index-main-con__main')[0].scrollTop = 0;
       this.isIndeterminate = false;
       this.currentPag = val;
@@ -190,7 +189,6 @@ export default {
           'filter[viewCountEnd]':searchData.numberOfHotMax,
         }
       }).then(res => {
-        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
@@ -210,7 +208,6 @@ export default {
      * 删除话题
      */
     deteleTopic(id) {
-      console.log(id);
       const detealId = id.toString();
       this.appFetch({
         url: 'topic_delete_post_v3',
@@ -265,7 +262,6 @@ export default {
         }
       })
       .then((res) => {
-        console.log(res);
         if(this.recommentNumber=== 1) {
           this.$message.success("推荐成功");
         } else {
@@ -330,7 +326,6 @@ export default {
       this.recommend = [];
       this.cancelrecomend = [];
       this.detelethem = [];
-      console.log(this.themeOperation);
       this.themeOperation.forEach((value,index) => {
         if (value.type === 1) {
           this.recommend.push(value.themid);

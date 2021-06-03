@@ -91,17 +91,17 @@ export default {
     async getUserList() {
       try {
         const response = await this.appFetch({
-          url: 'groups',
+          url: 'groups_list_get_v3',
           method: 'get'
         });
         if (response.errors) {
           this.$message.error(response.errors[0].code);
         } else {
-          const data = response.data;
+          const data = response.Data;
           this.options = data.map((v) => {
             return {
               value: v.id,
-              label: v.attributes.name
+              label: v.name
             }
           })
         }

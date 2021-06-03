@@ -16,16 +16,17 @@ export default {
   methods: {
     annexSet() {
       this.appFetch({
-        url: 'forum',
+        url: 'forum_get_v3',
         method: 'get',
         data: {}
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.picture = res.readdata._data.set_attach.support_img_ext;
-          this.fileExtension = res.readdata._data.set_attach.support_file_ext;
-          this.maximumSize = res.readdata._data.set_attach.support_max_size;
+          const {Data: forumData} = res;
+          this.picture = forumData.setAttach.supportImgExt;
+          this.fileExtension = forumData.setAttach.supportFileExt;
+          this.maximumSize = forumData.setAttach.supportMaxSize;
         }
       })
     },
@@ -58,32 +59,25 @@ export default {
         return
       }
       this.appFetch({
-        url: 'settings',
+        url: 'settings_post_v3',
         method: 'post',
         data: {
           "data": [
             {
-              "attributes": {
-                "key": 'support_img_ext',
-                "value": this.picture,
-                "tag": "default"
-              }
+              "key": 'support_img_ext',
+              "value": this.picture,
+              "tag": "default"
             },
             {
-              "attributes": {
-                "key": 'support_file_ext',
-                "value": this.fileExtension,
-                "tag": "default",
-              }
+              "key": 'support_file_ext',
+              "value": this.fileExtension,
+              "tag": "default",
             },
             {
-              "attributes": {
-                "key": 'support_max_size',
-                "value": this.maximumSize,
-                "tag": "default",
-              }
+              "key": 'support_max_size',
+              "value": this.maximumSize,
+              "tag": "default",
             },
-
           ]
         }
       }).then(data => {

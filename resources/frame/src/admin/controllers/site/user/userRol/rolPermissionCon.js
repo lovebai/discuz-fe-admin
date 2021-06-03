@@ -145,18 +145,18 @@ export default {
       if (res.errors) return this.$message.error(res.errors[0].code);
 
       this.categoriesList = [{ id: "", name: "全局", children: [] }]
-      res.readdata.forEach(item => {
-        this.mapCategoryId.set(parseInt(item._data.id), item._data.parentid);
+      res.Data.forEach(item => {
+        this.mapCategoryId.set(parseInt(item.pid), item.parentid);
         const category = {
-          id: item._data.id,
-          name: item._data.name,
+          id: item.pid,
+          name: item.name,
           children: []
         }
-        if (item._data.children) {
-          item._data.children.forEach(subItem => {
-            this.mapCategoryId.set(subItem.id, subItem.parentid);
+        if (item.children) {
+          item.children.forEach(subItem => {
+            this.mapCategoryId.set(subItem.pid, subItem.parentid);
             category.children.push({
-              id: subItem.id,
+              id: subItem.pid,
               name: subItem.name
             })
           })
@@ -165,7 +165,6 @@ export default {
       });
     },
     handleGroupResource(res) {
-      // console.log('v3权限 :>> ', res);
       if (res.Code !== 0) {
         return this.$message.error(`${res.Code} ${res.Message}`)
       }
@@ -191,13 +190,13 @@ export default {
     signUpSet(res) {
       if (res.errors) return this.$message.error(res.errors[0].code);
 
-      const data = res.readdata._data;
-      const siteData = res.readdata._data.set_site;
-      this.videoDisabled = data.qcloud.qcloud_vod === false;
-      this.captchaDisabled = data.qcloud.qcloud_captcha === false;
-      this.realNameDisabled = data.qcloud.qcloud_faceid === false;
-      this.bindPhoneDisabled = data.qcloud.qcloud_sms === false;
-      this.allowtobuy = siteData.site_pay_group_close;
+      const data = res.Data;
+      const siteData = res.Data.setSite;
+      this.videoDisabled = data.qcloud.qcloudVod === false;
+      this.captchaDisabled = data.qcloud.qcloudCaptcha === false;
+      this.realNameDisabled = data.qcloud.qcloudFaceid === false;
+      this.bindPhoneDisabled = data.qcloud.qcloudSms === false;
+      this.allowtobuy = siteData.sitePayGroupClose;
       // if (!this.allowtobuy) {
       //   this.value = false;
       // }
@@ -205,7 +204,6 @@ export default {
     // 扩展项回显
     setSelectValue(data) {
       const checkedData = data;
-      console.log('checkedData', checkedData);
       const selectList = this.selectList;
       checkedData.forEach((value, index) => {
 
@@ -263,10 +261,10 @@ export default {
      * 接口请求
      * */
     getSiteInfo() {
-      return this.appFetch({ url: "forum", method: "get" });
+      return this.appFetch({ url: 'forum_get_v3', method: "get" });
     },
     getCategories() {
-      return this.appFetch({ url: "categories", method: "get" });
+      return this.appFetch({ url: "categories_list_get_v3", method: "get" });
     },
     getGroupResource() {
       return this.appFetch({
@@ -315,20 +313,18 @@ export default {
 
     patchGroupScale() {
       this.appFetch({
-        url: "groups",
-        method: "PATCH",
-        splice: "/" + this.groupId,
+        url: "groups_batchupdate_post_v3",
+        method: "post",
+        // splice: "/" + this.groupId,
         data: {
-          data: {
-            attributes: {
+          data: [
+            {
+              id: this.groupId,
               name: this.$route.query.name,
-              // is_paid: this.value ? 1 : 0,
-              // fee: this.purchasePrice,
-              // days: this.dyedate,
               scale: this.scale,
-              is_subordinate: this.isSubordinate,
+              isSubordinate: this.isSubordinate,
             }
-          }
+          ]
         }
       })
         .then(res => {

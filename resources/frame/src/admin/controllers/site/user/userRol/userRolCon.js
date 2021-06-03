@@ -47,18 +47,14 @@ export default {
 
     checkSelectable(row){
       switch (row.id){
-        case '1':
+        case 1:
           return false;
-          break;
-        case '6':
+        case 6:
           return false;
-          break;
-        case '7':
+        case 7:
           return false;
-          break;
-        case '10':
+        case 10:
           return false;
-          break;
         default:
           return true;
       }
@@ -169,13 +165,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          // this.tableData = res.readdata;
-          this.tableData = res.Data[0];
-          // console.log(this.tableData);
-          this.alternateLength = res.Data[0].length;
+          this.tableData = res.Data;
+          this.alternateLength = res.Data.length;
           this.tableData.forEach((item) => {
             this.groupName = item.isDisplay;
-            // console.log(this.groupName)
             if (item.default == 1) {
               this.radio = item.id;
               this.alternateRadio = item.id;

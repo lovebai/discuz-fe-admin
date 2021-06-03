@@ -52,7 +52,6 @@ export default {
           }
         })
         this.walletInfo = response.Data;
-        console.log(this.walletInfo, '钱包信息');
       }catch(err){
       }
     },
@@ -86,7 +85,6 @@ export default {
           // splice: this.query.id,
           data: datas
         }).then(data=>{
-          console.log(data);
           if (data.errors){
             this.$message.error(data.errors[0].code);
           }else{

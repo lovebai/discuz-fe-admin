@@ -10,6 +10,7 @@ import webDb from 'webDbHelper';
 import { mapState, mapMutations } from 'vuex';
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 import fa from "element-ui/src/locale/lang/fa";
+import commonHelper from '../../../../../helpers/commonHelper';
 
 export default {
   data: function () {
@@ -98,7 +99,7 @@ export default {
         }]
       },
       searchData: {
-        topicTypeId: '0',         //主题类型
+        topicTypeId: '',         //主题类型
         // categoryId: 0,            //主题分类ID
         categoryId: [0],          //主题分类ID
         pageSelect: '10',         //每页显示数
@@ -260,7 +261,6 @@ export default {
         }
       };  //主题分类关系
       let selectStatus = false;
-       console.log(this.checkedTheme, '选中数组');
       if (this.operatingSelect === 'class') {
         this.checkedTheme.forEach((item, index) => {
           themeId.push(item);
@@ -422,42 +422,37 @@ export default {
       let searchData = this.searchData;
 
       this.appFetch({
-        url: 'threads',
+        url: 'thread_get_v3',
         method: 'get',
         data: {
-          include: ['user', 'firstPost', 'lastPostedUser', 'category', 'firstPost.images', 'threadVideo', 'firstPost.attachments'],
-          'filter[isDeleted]': 'no',
-          'filter[isApproved]': '1',
-          'filter[username]': searchData.themeAuthor,
-          'filter[threadID]': searchData.threadID,
-          // 'filter[categoryId]': searchData.categoryId,
-          'filter[categoryId]': searchData.categoryId[searchData.categoryId.length - 1],
-          'page[number]': pageNumber,
-          'page[size]': searchData.pageSelect,
-          'filter[q]': searchData.themeKeyWords,
-          'filter[createdAtBegin]': searchData.dataValue[0],
-          'filter[createdAtEnd]': searchData.dataValue[1],
-          'filter[viewCountGt]': searchData.viewedTimesMin,
-          'filter[viewCountLt]': searchData.viewedTimesMax,
-          'filter[postCountGt]': searchData.numberOfRepliesMin,
-          'filter[postCountLt]': searchData.numberOfRepliesMax,
-          'filter[isEssence]': searchData.essentialTheme,
-          'filter[isSticky]': searchData.topType,
-          'filter[topicId]': searchData.topicId,
-          'filter[isSite]': searchData.isSite,
-          'sort': '-createdAt'
+          page: pageNumber,
+          perPage: searchData.pageSelect,
+          nickname: searchData.themeAuthor,
+          threadType: searchData.topicTypeId,
+          viewCountGt: searchData.viewedTimesMin,
+          viewCountLt: searchData.viewedTimesMax,
+          postCountGt: searchData.numberOfRepliesMin,
+          postCountLt: searchData.numberOfRepliesMax,
+          isApproved: 1,
+          threadId: searchData.threadID,
+          q: searchData.themeKeyWords,
+          isDeleted: 'no',
+          createdAtBegin: searchData.dataValue[0],
+          createdAtEnd: searchData.dataValue[1],
+          categoryId: searchData.categoryId[searchData.categoryId.length - 1],
+          sort: '-created_at',
         }
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.themeList = res.readdata;
-          this.total = res.meta.threadCount;
-          this.pageCount = res.meta.pageCount;
+          this.themeList = res.Data.pageData;
+          this.total = res.Data.totalCount;
+          this.pageCount = res.Data.totalPage;
 
           this.themeListAll = [];
           this.themeList.forEach((item, index) => {
-            this.themeListAll.push(item._data.id);
+            this.themeListAll.push(item.threadId);
           });
         }
       }).catch(err => {
@@ -465,7 +460,7 @@ export default {
     },
     getCategories() {
       this.appFetch({
-        url: 'categories',
+        url: 'categories_get_v3',
         method: 'get',
         data: {}
       }).then(res => {
@@ -478,39 +473,43 @@ export default {
           //     id: item.id
           //   })
           // })
-          res.data.forEach(item => {
-            if (item.attributes.children.length) {
+          res.Data.forEach(item => {
+            if (item.children.length) {
               const child = []
               item.attributes.children.forEach(c => {
                 child.push({
                   label: c.name,
-                  value: c.search_ids
+                  value: c.searchIds
                 })
               })
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids,
+                label: item.name,
+                value: item.searchIds,
                 children: child
               })
               this.moveCateList.push({
-                label: item.attributes.name,
-                value: item.id,
+                label: item.name,
+                value: item.pid,
                 children: child
               })
             } else {
               this.categoriesList.push({
-                label: item.attributes.name,
-                value: item.attributes.search_ids
+                label: item.name,
+                value: item.searchIds
               })
               this.moveCateList.push({
-                label: item.attributes.name,
-                value: item.id
+                label: item.name,
+                value: item.pid
               })
             }
           })
         }
       }).catch(err => {
       })
+    },
+
+    contentIndexes(data, val) {
+      return commonHelper.dataTypeJudgment(data, val);
     },
   },
 
@@ -531,16 +530,16 @@ export default {
   },
 
   created() {
-    if (this.$route.query && this.$route.query.id) {
+    if (this.$route.query && this.$route.query.name) {
       this.searchData.topicId = this.$route.query.id;
-
-      this.appFetch({
-        url: 'topics',
-        method: 'get',
-        splice:'/' + this.$route.query.id
-      }).then(res => {
-        this.topic = res.readdata._data;
-      });
+      this.topic =  this.$route.query.name;
+      // this.appFetch({
+      //   url: 'topics',
+      //   method: 'get',
+      //   splice:'/' + this.$route.query.id
+      // }).then(res => {
+      //   this.topic = res.readdata._data;
+      // });
     }
 
     this.currentPag = Number(webDb.getLItem('currentPag')) || 1;

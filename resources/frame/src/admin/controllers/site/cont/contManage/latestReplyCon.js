@@ -7,7 +7,7 @@ import tableNoList from '../../../../view/site/common/table/tableNoList'
 import Page from '../../../../view/site/common/page/page';
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 import webDb from 'webDbHelper';
-import commonHelper from '../../../../../helpers/commonHelper'
+import commonHelper from '../../../../../helpers/commonHelper';
 
 
 export default {
@@ -86,7 +86,6 @@ export default {
     },
 
     handleCheckedCitiesChange(index, id, status) {
-
       let checkedCount = this.checkedTheme.length;
       this.checkAll = checkedCount === this.themeListAll.length;
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.themeListAll.length;
@@ -115,9 +114,7 @@ export default {
         data.push(
           {
             "id": item,
-            "attributes": {
-              "isDeleted": true
-            }
+            "isDeleted": true
           },
         )
       });
@@ -153,19 +150,18 @@ export default {
       this.showViewer = false
     },
 
-    singleOperationSubmit(val,firstPostId,threadId){
+    singleOperationSubmit(val, postId,threadId){
       switch (val){
         case 1:
-          this.deletedPosts(firstPostId);
+          this.deletedPosts(postId);
           break;
         case 2:
           let routeData = this.$router.resolve({
-            path: `/reply-to-topic/${threadId}/${firstPostId}`,query:{edit:'reply'}
+            path: `/reply-to-topic/${threadId}/${postId}`,query:{edit:'reply'}
           });
           window.open(routeData.href, '_blank');
           break;
         default:
-          console.log("系统错误，请刷新页面");
           this.$message.error("系统错误，请刷新页面");
       }
     },
@@ -180,32 +176,33 @@ export default {
     getPostsList(pageNumber){
       let searchData = this.searchData;
       this.appFetch({
-        url:'posts',
+        url:'posts_get_v3',
         method:'get',
         data:{
-          include: ['user','thread','thread.category','thread.firstPost','images'],
-          'filter[isDeleted]':'no',
-          'filter[isApproved]':'1',
-          'filter[username]':searchData.themeAuthor,
-          'page[number]':pageNumber,
-          'page[size]':searchData.pageSelect,
-          'filter[q]':searchData.themeKeyWords,
-          'filter[createdAtBegin]':searchData.dataValue[0],
-          'filter[createdAtEnd]':searchData.dataValue[1],
-          'sort':'-createdAt'
+          // include: ['user','thread','thread.category','thread.firstPost','images'],
+          page: pageNumber,
+          perPage: searchData.pageSelect,
+          isDeleted: 'no',
+          isApproved: 1,
+          q: searchData.themeKeyWords,
+          nickname: searchData.themeAuthor,
+          createdAtBegin: searchData.dataValue[0],
+          createdAtEnd: searchData.dataValue[1],
+          // categoryId: 
+          // highlight: 
+          sort: '-created_at',
         }
       }).then(res=>{
-        // console.log(res);
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.themeList = res.readdata;
-          this.total = res.meta.postCount;
-          this.pageCount = res.meta.pageCount;
+          this.themeList = res.Data.pageData;
+          this.total = res.Data.totalCount;
+          this.pageCount = res.Data.totalPage;
 
           this.themeListAll = [];
           this.themeList.forEach((item, index) => {
-            this.themeListAll.push(item._data.id);
+            this.themeListAll.push(item.postId);
           });
         }
       }).catch(err=>{
@@ -214,19 +211,16 @@ export default {
     },
     deletedPostsBatch(data){
       this.appFetch({
-        url:'postsBatch',
-        method:'PATCH',
+        url:'submit_review_post_v3',
+        method:'post',
         data:{
-          data:data
+          type: 2,
+          data
         }
       }).then(res=>{
         this.subLoading = false;
-        if (res.meta){
-          res.meta.forEach((item,index)=>{
-            setTimeout(()=>{
-              this.$message.error(item.code)
-            },(index+1) * 500);
-          });
+        if (res.errors){
+          this.$message.error(res.errors[0].code);
         }else {
           this.getPostsList(Number(webDb.getLItem('currentPag')) || 1);
           this.$message({
@@ -242,15 +236,17 @@ export default {
     },
     deletedPosts(id){
       this.appFetch({
-        url:'posts',
-        method:'patch',
-        splice:'/'+id,
+        url:'submit_review_post_v3',
+        method:'post',
+        // splice:'/'+id,
         data:{
-          data:{
-            "attributes": {
-              "isDeleted": true
+          type: 2,
+          data:[
+            {
+              id: id,
+              isDeleted: true,
             }
-          }
+          ]
         }
       }).then(res=>{
         if (res.errors){
@@ -263,7 +259,11 @@ export default {
           });
         }
       })
-    }
+    },
+
+    contentIndexes(data, val) {
+      return commonHelper.dataTypeJudgment(data, val);
+    },
 
   },
   created(){

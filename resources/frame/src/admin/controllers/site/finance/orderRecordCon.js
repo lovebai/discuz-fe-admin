@@ -57,19 +57,49 @@ export default {
         {
           value: '1',
           label: '已付款'
-        }
+        },
+        {
+          value: '2',
+          label: '取消订单'
+        },
+        {
+          value: '3',
+          label: '支付失败'
+        },
+        {
+          value: '4',
+          label: '订单过期'
+        },
+        {
+          value: '5',
+          label: '部分退款'
+        },
+        {
+          value: '10',
+          label: '全额退款'
+        },
+        {
+          value: '11',
+          label: '在异常订单处理中不进行处理的订单'
+        },
       ],                     //搜索-订单状态选项
       value: '',             //搜索-订单状态值
     }
   },
   methods:{
+    handleTimeChange () {
+      if (this.orderTime != null){
+        this.orderTime[0] = this.orderTime[0] + '-00-00-00';
+        this.orderTime[1] = this.orderTime[1] + '-24-00-00';
+      }
+    },
     /*
     * 跳转到话题详情
     * */
     viewClick(id){
       if (id){
         let routeData = this.$router.resolve({
-          path: "/topic/index?id=" + id,
+          path: "/thread/" + id,
         });
         window.open(routeData.href, '_blank');
       }
@@ -81,10 +111,20 @@ export default {
       switch (status){
         case 0:
           return "待付款";
-          break;
         case 1:
           return "已付款";
-          break;
+        case 2:
+          return "取消订单";
+        case 3:
+          return "支付失败";
+        case 4:
+          return "订单过期";
+        case 5:
+          return "部分退款";
+        case 10:
+          return "全额退款";
+        case 11:
+          return "在异常订单处理中不进行处理的订单";
         default:
           return "未知状态";
       }
@@ -92,13 +132,8 @@ export default {
     /*
     * 搜索
     * */
-    searchClick(){
-      if (this.orderTime == null){
-        this.orderTime = ['','']
-      } else if(this.orderTime[0] !== '' && this.orderTime[1] !== ''){
-        this.orderTime[0] = this.orderTime[0] + '-00-00-00';
-        this.orderTime[1] = this.orderTime[1] + '-24-00-00';
-      }
+    searchClick() {
+      this.orderTime = this.orderTime == null ? ['',''] : this.orderTime;
       this.currentPaga = 1;
       this.getOrderList();
     },
@@ -122,28 +157,28 @@ export default {
     * */
     getOrderList(){
       this.appFetch({
-        url:'orderList',
+        url:'orderLogs_get_v3',
         method:'get',
         data:{
-          include:['user','thread','thread.firstPost','payee'],
-          'page[number]':this.currentPaga,
-          'page[size]':10,
-          'filter[order_sn]':this.orderNumber,
+          'page':this.currentPaga,
+          'perPage':10,
+          'filter[orderSn]':this.orderNumber,
           'filter[product]':this.commodity,
-          'filter[username]':this.operationUser,
-          'filter[start_time]':this.orderTime[0],
-          'filter[end_time]':this.orderTime[1],
+          'filter[nickname]':this.operationUser,
+          'filter[startTime]':this.orderTime[0],
+          'filter[endTime]':this.orderTime[1],
           'filter[status]':this.value,
-          'filter[payee_username]':this.incomeSide
+          'filter[payeeNickname]':this.incomeSide
         }
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          const { Data: data } = res;
           this.tableData = [];
-          this.tableData = res.readdata;
-          this.pageCount = res.meta.pageCount;
-          this.total = res.meta.total;
+          this.tableData = data.pageData || [];
+          this.pageCount = data.totalPage;
+          this.total = data.totalCount;
         }
       }).catch(err=>{
       })
