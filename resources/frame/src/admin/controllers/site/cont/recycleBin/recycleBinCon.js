@@ -8,7 +8,7 @@ import Page from '../../../../view/site/common/page/page';
 import tableNoList from '../../../../view/site/common/table/tableNoList';
 import webDb from 'webDbHelper';
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
-
+import commonHelper from '../../../../../helpers/commonHelper';
 
 export default {
   data:function () {
@@ -174,7 +174,9 @@ export default {
       return this.$dayjs(data).format('YYYY-MM-DD HH:mm')
     },
 
-
+    contentIndexes(data, val) {
+      return commonHelper.dataTypeJudgment(data, val);
+    },
     /*
     * 接口请求
     * */
