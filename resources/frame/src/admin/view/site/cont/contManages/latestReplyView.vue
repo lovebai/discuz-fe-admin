@@ -58,7 +58,7 @@
             </a> -->
 
             <div class="latest-reply-theme__table-main" slot="main">
-              <a class="latest-reply-theme__table-main__cont-text" :href="'/topic/index?id=' + items.threadId" target="_blank" v-html="items.content"></a>
+              <a class="latest-reply-theme__table-main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content"></a>
               <div class="latest-reply-theme__table-main__cont-imgs" v-if="items.cotent && items.cotent.indexes && items.cotent.indexes.length > 0">
                 <p class="latest-reply-theme__table-main__cont-imgs-p"  v-for="(item,indexs) in contentIndexes(items.content, 'images')" :key="indexs">
                   <img  v-lazy="item.thumbUrl" @click="imgShowClick(contentIndexes(items.content, 'images'), indexs)" :alt="item.fileName">

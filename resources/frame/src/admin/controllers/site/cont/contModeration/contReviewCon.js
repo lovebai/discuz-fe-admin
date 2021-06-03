@@ -326,7 +326,7 @@ export default {
       //编辑：/reply-to-topic  隐藏传入内容，带id
       //回帖：replyId
       let routeData = this.$router.resolve({
-        path: "/topic/index?id=" + id,
+        path: "/thread/" + id,
       });
       window.open(routeData.href, '_blank');
     },
@@ -350,7 +350,7 @@ export default {
     * */
     getThemeList(pageNumber){
       this.appFetch({
-        url: 'thread_list_get_v3',
+        url: 'thread_get_v3',
         method:'get',
         data:{
           page: pageNumber,
@@ -369,7 +369,6 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          // console.log(res,'审核的数据');
           this.themeList = [];
           this.submitForm = [];
           this.themeList = res.Data.pageData;
@@ -394,7 +393,7 @@ export default {
     },
     getCategories(){
       this.appFetch({
-        url:'categories_list_get_v3',
+        url:'categories_get_v3',
         method:'get',
         data:{}
       }).then(res=>{

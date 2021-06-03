@@ -147,7 +147,6 @@ export default {
             // }
 
             // 旧关闭站点
-            console.log(forumData.setSite);
             this.siteClose = forumData.setSite.siteClose;
             if (this.siteClose === true) {
               this.radio2 = "1";
@@ -296,7 +295,6 @@ export default {
         };
         img.src = url;
         img.onerror = reject;
-        console.log(url);
       });
     },
 
@@ -348,7 +346,6 @@ export default {
         data: logoFormData
       })
         .then(data => {
-          console.log(data);
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {

@@ -619,7 +619,6 @@ export default {
         default:
           this.$message.error("没有当前页面，跳转404页面");
           // this.$router.push({path:'/admin/home'});
-          console.log("没有当前页面，跳转404页面");
       }
     },
 
@@ -669,7 +668,6 @@ export default {
           this.sideList = this.navList[4].submenu;
           break;
         default:
-          console.log("获取菜单出错");
           this.$message.error("获取菜单出错");
       }
 
@@ -739,7 +737,6 @@ export default {
           default:
             // this.$router.push({path:'/admin/home'});
             this.sideSubmenu = [];
-            console.log("当下没有侧边栏子菜单");
             this.$message.error("当下没有侧边栏子菜单");
         }
       }

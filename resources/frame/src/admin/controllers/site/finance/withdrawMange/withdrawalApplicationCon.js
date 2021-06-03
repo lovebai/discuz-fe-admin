@@ -123,7 +123,6 @@ export default {
       }
     },
     toexamine(num) {
-      console.log(num);
       if (num.cashStatus == 1 && num.cashType === 1) {
         return true;
       }

@@ -422,7 +422,7 @@ export default {
       let searchData = this.searchData;
 
       this.appFetch({
-        url: 'thread_list_get_v3',
+        url: 'thread_get_v3',
         method: 'get',
         data: {
           page: pageNumber,
@@ -443,7 +443,6 @@ export default {
           sort: '-created_at',
         }
       }).then(res => {
-        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
@@ -461,7 +460,7 @@ export default {
     },
     getCategories() {
       this.appFetch({
-        url: 'categories_list_get_v3',
+        url: 'categories_get_v3',
         method: 'get',
         data: {}
       }).then(res => {

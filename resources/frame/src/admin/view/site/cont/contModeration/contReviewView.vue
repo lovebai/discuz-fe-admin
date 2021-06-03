@@ -104,7 +104,7 @@
           slot="longText"
           class="cont-review-table__long-text"
           v-if="items.title === 1"
-          :href="'/topic/index?id=' + items.threadId"
+          :href="'/thread/' + items.threadId"
         >
           {{items.title}}
           <span
@@ -116,7 +116,7 @@
         <div class="cont-review-table__main" slot="main">
           <a
             class="cont-review-table__main__cont-text"
-            :href="'/topic/index?id=' + items.threadId"
+            :href="'/thread/' + items.threadId"
             target="_blank"
             :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
             v-html="items.content.text"

@@ -134,7 +134,7 @@
             slot="longText"
             class="cont-manage-theme__table-long-text"
             v-if="items.title"
-            :href="'/topic/index?id=' + items.threadId"
+            :href="'/thread/' + items.threadId"
             target="_blank"
           >
             {{items.title}}
@@ -147,7 +147,7 @@
           <div class="cont-manage-theme__table-main" slot="main">
             <a
               class="cont-manage-theme__table-main__cont-text"
-              :href="'/topic/index?id=' + items.threadId"
+              :href="'/thread/' + items.threadId"
               target="_blank"
               :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
               v-html="items.content.text"

@@ -338,7 +338,7 @@ export default {
       //回帖：replyId
 
       let routeData = this.$router.resolve({
-        path: "/topic/index?id=" + id,   //id当前是回帖id
+        path: "/thread/" + id,   //id当前是回帖id
       });
       window.open(routeData.href, '_blank');
     },
@@ -362,7 +362,7 @@ export default {
     * */
     getPostsList(pageNumber){
       this.appFetch({
-        url:'posts_list_get_v3',
+        url:'posts_get_v3',
         method:'get',
         data:{
           // include: ['user','thread','thread.category','thread.firstPost','images'],

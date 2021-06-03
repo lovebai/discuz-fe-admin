@@ -40,7 +40,7 @@ module.exports = {
   // cash: "/wallet/cash", //提现
   // collection: "/favorites", //我的收藏
   // 'changePassword':'api/users/',     //修改密码
-  noticeList: "/notificationUnread", //通知列表未读信息
+  // noticeList: "/notificationUnread", //通知列表未读信息
   // 'searchUser':'/users',             //用户搜索
   // searchThreads: "/threads", //搜索
   // notice: "/notification",
@@ -85,10 +85,10 @@ module.exports = {
   // statistic: "/statistic/finance", //获取资金概况
   // statisticChart: "/statistic/financeChart", //获取盈利图表数据
   // statisticPanel: "/statistic/firstChart", //首页数据看板数据
-  noticeList: "/notification/tpl", //通知设置列表
-  notification: "/notification/tpl/", //修改系统消息模版[通知设置]
+  // noticeList: "/notification/tpl", //通知设置列表
+  // notification: "/notification/tpl/", //修改系统消息模版[通知设置]
   // noticeConfigure: "/notification/tpl/", //通知配置列表,
-  noticeDetail:"/notification/tpl/detail", // 通知
+  // noticeDetail:"/notification/tpl/detail", // 通知
 
   // sequence:"/sequence", // 智能排序数据
   // randomUsers:"/random/users", // 推荐用户

@@ -165,7 +165,6 @@ export default {
       });
     },
     handleGroupResource(res) {
-      // console.log('v3权限 :>> ', res);
       if (res.Code !== 0) {
         return this.$message.error(`${res.Code} ${res.Message}`)
       }
@@ -205,7 +204,6 @@ export default {
     // 扩展项回显
     setSelectValue(data) {
       const checkedData = data;
-      console.log('checkedData', checkedData);
       const selectList = this.selectList;
       checkedData.forEach((value, index) => {
 
