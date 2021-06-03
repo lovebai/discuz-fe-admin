@@ -5,7 +5,7 @@
 module.exports = {
   // register: "/register", //用户名注册
   // login: "/login", //用户名登录
-  users: "/users", //用户信息
+  // users: "/users", //用户信息
   // sendSms: "/sms/send", //发送验证码
   // smsVerify: "/sms/verify", //短信验证
   // wechat: "/oauth/wechat/user", //微信接口
@@ -40,7 +40,7 @@ module.exports = {
   // cash: "/wallet/cash", //提现
   // collection: "/favorites", //我的收藏
   // 'changePassword':'api/users/',     //修改密码
-  noticeList: "/notificationUnread", //通知列表未读信息
+  // noticeList: "/notificationUnread", //通知列表未读信息
   // 'searchUser':'/users',             //用户搜索
   // searchThreads: "/threads", //搜索
   // notice: "/notification",
@@ -85,10 +85,10 @@ module.exports = {
   // statistic: "/statistic/finance", //获取资金概况
   // statisticChart: "/statistic/financeChart", //获取盈利图表数据
   // statisticPanel: "/statistic/firstChart", //首页数据看板数据
-  noticeList: "/notification/tpl", //通知设置列表
-  notification: "/notification/tpl/", //修改系统消息模版[通知设置]
+  // noticeList: "/notification/tpl", //通知设置列表
+  // notification: "/notification/tpl/", //修改系统消息模版[通知设置]
   // noticeConfigure: "/notification/tpl/", //通知配置列表,
-  noticeDetail:"/notification/tpl/detail", // 通知
+  // noticeDetail:"/notification/tpl/detail", // 通知
 
   // sequence:"/sequence", // 智能排序数据
   // randomUsers:"/random/users", // 推荐用户
@@ -165,11 +165,6 @@ module.exports = {
   topics_list_get_v3: '/backAdmin/topics.list',  // 话题管理列表
   topic_delete_post_v3: '/backAdmin/topics.batch.delete', // 删除话题
   topics_update_post_v3: '/backAdmin/topics.batch.update', // 话题修改
-
-  thread_list_get_v3: '/backAdmin/manage.thread.list', // 主题列表接口
-  posts_list_get_v3: '/backAdmin/manage.posts.list',
-  check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
-  categories_list_get_v3: '/backAdmin/categories', // 分类列表
 
   // 用户
   users_update_post_v3: '/backAdmin/users/update.user',  // 用户资料修改

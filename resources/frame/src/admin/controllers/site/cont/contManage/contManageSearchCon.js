@@ -131,7 +131,7 @@ export default {
     * */
     getCategories(){
       this.appFetch({
-        url:'categories_list_get_v3',
+        url:'categories_get_v3',
         method:'get',
         data:{}
       }).then(res=>{

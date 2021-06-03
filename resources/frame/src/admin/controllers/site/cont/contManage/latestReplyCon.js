@@ -177,7 +177,7 @@ export default {
     getPostsList(pageNumber){
       let searchData = this.searchData;
       this.appFetch({
-        url:'posts_list_get_v3',
+        url:'posts_get_v3',
         method:'get',
         data:{
           // include: ['user','thread','thread.category','thread.firstPost','images'],
