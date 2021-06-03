@@ -88,16 +88,16 @@
           </a>
 
           <div class="recycle-bin-table__main" slot="main">
-            <a class="recycle-bin-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" :style="{'display':(items.threadVideo ? 'inline':'block')}" v-html="items.content.text"></a>
+            <a class="recycle-bin-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" :style="{'display':(contentIndexes(items.content, 'video') ? 'inline':'block')}" v-html="items.content.text"></a>
             <span class="iconfont iconvideo" v-if="items.threadVideo"></span>
             <div class="recycle-bin-table__main__cont-imgs" v-if="!items.title">
-              <p class="recycle-bin-table__main__cont-imgs-p" v-for="(item,index) in items.content.indexes" :key="item.thumbUrl">
-                <img  v-lazy="item.thumbUrl" @click="imgShowClick(items.content.indexes,index)" :alt="item.fileName">
+              <p class="recycle-bin-table__main__cont-imgs-p" v-for="(item,index) in contentIndexes(items.content, 'images')" :key="item.thumbUrl">
+                <img  v-lazy="item.thumbUrl" @click="imgShowClick(contentIndexes(items.content, 'images'), index)" :alt="item.fileName">
               </p>
             </div>
-            <div class="recycle-bin-table__main__cont-annex" v-show="items.attachments && items.attachments.length > 0">
+            <div class="recycle-bin-table__main__cont-annex" v-show="contentIndexes(items.content, 'attachments')">
               <span>附件：</span>
-              <p v-for="(item,index) in items.attachments" :key="index">
+              <p v-for="(item,index) in contentIndexes(items.content, 'attachments')" :key="index">
                 <a :href="item.url" target="_blank">{{item.fileName}}</a>
               </p>
             </div>
@@ -114,8 +114,8 @@
               <span>{{!items.deletedUserArr?'操作者被禁止或删除':items.lastDeletedLog && items.lastDeletedLog.message}}</span>
             </div>
             <div class="transcodStatus">
-              <span class="transcoding_status" v-if="items.threadVideo && items.threadVideo.status == 0">转码中</span>
-              <span class="transcoding_status" v-if="items.threadVideo && items.threadVideo.status == 2">转码失败</span>
+              <span class="transcoding_status" v-if="contentIndexes(items.content, 'videoStatus')">转码中</span>
+              <span class="transcoding_status" v-if="contentIndexes(items.content, 'videoStatusTwo')">转码失败</span>
             </div>
           </div>
 
