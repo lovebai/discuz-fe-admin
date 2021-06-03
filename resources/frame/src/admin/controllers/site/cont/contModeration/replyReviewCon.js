@@ -366,8 +366,8 @@ export default {
         method:'get',
         data:{
           // include: ['user','thread','thread.category','thread.firstPost','images'],
-          'page':pageNumber,
-          'perPage':this.pageSelect,
+          page:pageNumber,
+          perPage:this.pageSelect,
           isDeleted: 'no',
           uickname: this.searchUserName,
           q: this.keyWords,
@@ -376,7 +376,7 @@ export default {
           createdAtEnd: this.relativeTime[0],
           categoryId: this.categoriesListSelect[this.categoriesListSelect.length - 1],
           highlight: this.showSensitiveWords?'yes':'no',
-          sort:'-updatedAt',
+          sort:'-created_at',
         }
       }).then(res=>{
         if (res.errors){

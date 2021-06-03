@@ -440,7 +440,7 @@ export default {
           createdAtBegin: searchData.dataValue[0],
           createdAtEnd: searchData.dataValue[1],
           categoryId: searchData.categoryId[searchData.categoryId.length - 1],
-          sort: 'updated_at',
+          sort: '-created_at',
         }
       }).then(res => {
         console.log(res);

@@ -363,7 +363,7 @@ export default {
           createdAtEnd: this.relativeTime[0],
           categoryId: this.categoriesListSelect[this.categoriesListSelect.length - 1],
           highlight: this.showSensitiveWords ? 'yes': 'no',
-          sort: 'updated_at'
+          sort: '-created_at'
         }
       }).then(res=>{
         if (res.errors){

@@ -5,7 +5,7 @@
 module.exports = {
   // register: "/register", //用户名注册
   // login: "/login", //用户名登录
-  users: "/users", //用户信息
+  // users: "/users", //用户信息
   // sendSms: "/sms/send", //发送验证码
   // smsVerify: "/sms/verify", //短信验证
   // wechat: "/oauth/wechat/user", //微信接口
@@ -55,7 +55,7 @@ module.exports = {
   // threadsBatch: "/threads/batch", //修改主题接口(批量)
   // upload: "/users/", //上传头像(原接口是'/users/{id}/avatar')
   // invite: "/invite", //创建邀请码
-  groups: "/groups", //获取所有操作类型、获取所有用户角色
+  // groups: "/groups", //获取所有操作类型、获取所有用户角色
   // groupPermission: "/permission", //修改用户组权限
   // setPermission: "/permission/group", //设置权限的用户组
   // deleteNotification: "/notification", //删除通知里的回复我的
@@ -167,7 +167,7 @@ module.exports = {
   topics_update_post_v3: '/backAdmin/topics.batch.update', // 话题修改
 
   thread_list_get_v3: '/backAdmin/manage.thread.list', // 主题列表接口
-  posts_list_get_v3: '/backAdmin/manage.posts.list',
+  posts_list_get_v3: '/backAdmin/manage.posts.list', // 回复列表
   check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
   categories_list_get_v3: '/backAdmin/categories', // 分类列表
 
