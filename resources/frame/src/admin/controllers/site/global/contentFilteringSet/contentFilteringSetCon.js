@@ -127,7 +127,6 @@ export default {
             "page": this.pageNum
           }
         })
-        console.log(response, 'stopwords_get_v3');
         if (response.errors) {
           this.$message.error(response.errors[0].code);
         } else {

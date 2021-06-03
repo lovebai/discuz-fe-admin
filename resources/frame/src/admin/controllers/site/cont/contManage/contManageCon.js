@@ -443,7 +443,6 @@ export default {
           sort: 'updated_at',
         }
       }).then(res => {
-        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {

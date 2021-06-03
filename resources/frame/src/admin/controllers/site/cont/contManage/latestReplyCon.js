@@ -162,7 +162,6 @@ export default {
           window.open(routeData.href, '_blank');
           break;
         default:
-          console.log("系统错误，请刷新页面");
           this.$message.error("系统错误，请刷新页面");
       }
     },

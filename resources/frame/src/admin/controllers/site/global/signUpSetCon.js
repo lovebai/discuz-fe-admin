@@ -208,7 +208,6 @@ export default {
 
     },
     configurat() {
-      console.log('配置信息');
       this.$router.push({
         path: "/admin/registration-btn",
       });

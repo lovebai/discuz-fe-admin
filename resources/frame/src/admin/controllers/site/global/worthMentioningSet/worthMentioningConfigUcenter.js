@@ -57,7 +57,6 @@ export default {
           ]
         }
       }).then(data=>{
-        console.log(data);
         if (data.errors){
           this.$message.error(data.errors[0].code);
         }else {
