@@ -420,7 +420,6 @@ export default {
     * */
     getThemeList(pageNumber) {
       let searchData = this.searchData;
-      console.log(searchData.pageSelect, pageNumber);
 
       this.appFetch({
         url: 'thread_list_get_v3',
@@ -441,9 +440,10 @@ export default {
           createdAtBegin: searchData.dataValue[0],
           createdAtEnd: searchData.dataValue[1],
           categoryId: searchData.categoryId[searchData.categoryId.length - 1],
-          sort: 'created_at',
+          sort: 'updated_at',
         }
       }).then(res => {
+        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
@@ -531,16 +531,16 @@ export default {
   },
 
   created() {
-    if (this.$route.query && this.$route.query.id) {
+    if (this.$route.query && this.$route.query.name) {
       this.searchData.topicId = this.$route.query.id;
-
-      this.appFetch({
-        url: 'topics',
-        method: 'get',
-        splice:'/' + this.$route.query.id
-      }).then(res => {
-        this.topic = res.readdata._data;
-      });
+      this.topic =  this.$route.query.name;
+      // this.appFetch({
+      //   url: 'topics',
+      //   method: 'get',
+      //   splice:'/' + this.$route.query.id
+      // }).then(res => {
+      //   this.topic = res.readdata._data;
+      // });
     }
 
     this.currentPag = Number(webDb.getLItem('currentPag')) || 1;

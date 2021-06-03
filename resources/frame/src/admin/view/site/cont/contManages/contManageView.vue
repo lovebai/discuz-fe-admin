@@ -108,14 +108,14 @@
             v-model="checkAll"
             @change="handleCheckAllChange"
           ></el-checkbox>
-          <p class="cont-manage-theme__table-header__title" style=" margin-left: 30PX;">{{ topic ? `话题 #${topic.content}#` : ''}} 主题列表</p>
+          <p class="cont-manage-theme__table-header__title" style=" margin-left: 30PX;">{{ topic ? `话题 #${topic}#` : ''}} 主题列表</p>
         </div>
 
         <ContArrange
           v-for="(items, index) in  themeList"
-          :author="!items.user?'该用户被删除':items.user.nickname"
+          :author="!items.user? '该用户被删除': items.user.nickname"
           :theme="items.categoryName"
-          :prply="1"
+          :prply="items.likeReward.postCount"
           :browse="items.viewCount"
           :last="!items.lastPostedUser ? '该用户被删除': items.lastPostedUser._data.username"
           :releaseTime="formatDate(items.createdAt)"

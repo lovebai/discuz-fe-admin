@@ -97,7 +97,7 @@ module.exports = {
 
   // wxPcUrl: "/oauth/wechat/web/user", //获取微信pcUrl
   // wxLoginStatus: "/oauth/wechat/web/user/serach", //获取微信扫码用户状态
-  topics: "/topics", //话题管理列表
+  // topics: "/topics", //话题管理列表
   // deleteTopics:'/topics/batch',//删除话题
 
   // reports: '/reports', //举报列表

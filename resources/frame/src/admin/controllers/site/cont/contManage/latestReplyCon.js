@@ -191,7 +191,7 @@ export default {
           createdAtEnd: searchData.dataValue[1],
           // categoryId: 
           // highlight: 
-          sort: 'created_at',
+          sort: 'updated_at',
         }
       }).then(res=>{
         if (res.errors){

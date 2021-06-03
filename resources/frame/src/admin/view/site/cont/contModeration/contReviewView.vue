@@ -77,7 +77,7 @@
         v-for="(items,index) in  themeList"
         :author="!items.user ? '该用户被删除' :items.user.nickname"
         :theme="items.categoryName"
-        :prply="1"
+        :prply="items.likeReward.postCount"
         :browse="items.viewCount"
         :last="!items.lastPostedUser ? '该用户被删除' : items.lastPostedUser._data.username"
         :finalPost="formatDate(items.updatedAt)"

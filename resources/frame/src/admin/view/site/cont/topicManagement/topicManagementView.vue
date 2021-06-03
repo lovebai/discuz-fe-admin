@@ -115,7 +115,7 @@
             slot="longText"
             class="cont-manage-theme__table-long-text"
             style="cursor: pointer;"
-            @click="$router.push({path:'/admin/cont-manage/topic', query: {id: items.topicId}})"
+            @click="$router.push({path:'/admin/cont-manage/topic', query: {id: items.topicId, name: items.content}})"
           >
             {{`#${items.content}#`}}
           </p>
