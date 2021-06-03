@@ -757,7 +757,7 @@ export default {
     // 判断腾讯云云api是否配置
     checkQcloud() {
       this.appFetch({
-        url: "checkQcloud",
+        url: 'checkQcloud_get_v3',
         method: "get",
         data: {}
       }).then(data => {

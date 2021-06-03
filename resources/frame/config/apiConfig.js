@@ -14,7 +14,7 @@ module.exports = {
   // signInFields: "/admin/signinfields",  // 注册扩展信息字段配置
   // userSigninfields: "/user/signinfields", // 用户信息展示扩展字段信息
 
-  categories: "/categories", //分类列表
+  // categories: "/categories", //分类列表
   // categoriesDelete: "/categories", //分类单个删除
   // categoriesBatchDelete: "/categories/batch", //分类批量删除
   // createCategories: "/categories", //创建分类
@@ -89,9 +89,10 @@ module.exports = {
   notification: "/notification/tpl/", //修改系统消息模版[通知设置]
   // noticeConfigure: "/notification/tpl/", //通知配置列表,
   noticeDetail:"/notification/tpl/detail", // 通知
-  sequence:"/sequence", // 智能排序数据
-  randomUsers:"/random/users", // 推荐用户
-  randomTopics:"/random/topics", // 推荐话题
+
+  // sequence:"/sequence", // 智能排序数据
+  // randomUsers:"/random/users", // 推荐用户
+  // randomTopics:"/random/topics", // 推荐话题
   // adminactionlog: "/adminactionlog", // 操作日志
   // switchskin: "/switchskin", // 皮肤切换
 
@@ -103,7 +104,7 @@ module.exports = {
   // reports: '/reports', //举报列表
   // reportsBatch: '/reports/batch', //删除举报
   // clearCache: '/cache', // 缓存相关
-  checkQcloud: '/checkQcloud', // 判断腾讯云云api是否配置
+  // checkQcloud: '/checkQcloud', // 判断腾讯云云api是否配置
 
   // v3新接口
   settings_post_v3: '/backAdmin/settings.create', // 全局-站点设置
@@ -137,7 +138,9 @@ module.exports = {
   stopwords_delete_v3: '/backAdmin/stopwords.delete', // 删除敏感词(单个/批量)
 
   forum_get_v3: '/backAdmin/forum',
-  notices_get_v3: '/backAdmin/notification/tpl', //通知模板列表
+  notices_get_v3: '/backAdmin/notification/tpl', // 通知模板列表
+  notices_detail_get_v3: '/backAdmin/notification/tpl/detail', // 通知模板编辑列表
+  notices_update_post_v3: '/backAdmin/notification/tpl/update', // 编辑通知模板
 
   sequence_get_v3: '/backAdmin/sequence', //获取智能排序
   sequence_post_v3: '/backAdmin/sequence', //修改智能排序
@@ -162,6 +165,7 @@ module.exports = {
   topics_list_get_v3: '/backAdmin/topics.list',  // 话题管理列表
   topic_delete_post_v3: '/backAdmin/topics.batch.delete', // 删除话题
   topics_update_post_v3: '/backAdmin/topics.batch.update', // 话题修改
+
   thread_list_get_v3: '/backAdmin/manage.thread.list', // 主题列表接口
   posts_list_get_v3: '/backAdmin/manage.posts.list',
   check_posts_list_post_v3: '/backAdmin/check.posts.list', // 回复审核
