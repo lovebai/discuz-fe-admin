@@ -83,14 +83,14 @@
             </el-radio-group>
           </div>
 
-          <!-- <a slot="longText" class="cont-review-table__long-text" v-if="items.thread._data.isLongArticle" :href="'/topic/index?id=' + items._data.id" >
+          <!-- <a slot="longText" class="cont-review-table__long-text" v-if="items.thread._data.isLongArticle" :href="'/thread/' + items._data.id" >
             {{items.thread._data.title}}
             <span  class="iconfont" :class="parseInt(items.thread._data.price) > 0?'iconmoney':'iconchangwen'" ></span>
           </a> -->
 
           <div class="cont-review-table__main" slot="main">
-            <!--<a :href="'/topic/index?id=' + items._data.id" style="color: #333;" target="_blank" v-html="items._data.contentHtml"></a>-->
-            <a class="cont-review-table__main__cont-text" :href="'/topic/index?id=' + items.threadId" target="_blank" v-html="items.content"></a>
+            <!--<a :href="'/thread/' + items._data.id" style="color: #333;" target="_blank" v-html="items._data.contentHtml"></a>-->
+            <a class="cont-review-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content"></a>
             <div class="cont-review-table__main__cont-imgs">
               <p class="cont-review-table__main__cont-imgs-p" v-for="(item,index) in contentIndexes(items.cotent, 'images')" :key="index">
                 <img  v-lazy="item.thumbUrl" @click="imgShowClick(contentIndexes(items.cotent, 'images'),index)" :alt="item.fileName">

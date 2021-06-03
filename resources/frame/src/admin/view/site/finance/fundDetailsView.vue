@@ -3,8 +3,8 @@
       <!-- 搜索条件 -->
       <div class="fund-details__search-box">
         <div class="fund-details__search-condition">
-          <span class="fund-details__search-condition__title">用户名：</span>
-          <el-input v-model="userName" clearable placeholder="搜索用户名"></el-input>
+          <span class="fund-details__search-condition__title">用户昵称：</span>
+          <el-input v-model="userName" clearable placeholder="搜索用户昵称"></el-input>
         </div>
         <div class="fund-details__search-condition">
           <span class="fund-details__search-condition__title">金额类型</span>
@@ -52,7 +52,7 @@
 
           <el-table-column
             prop="nickname"
-            label="用户名"
+            label="用户昵称"
             width="120">
           </el-table-column>
 

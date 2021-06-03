@@ -338,7 +338,7 @@ export default {
       //回帖：replyId
 
       let routeData = this.$router.resolve({
-        path: "/topic/index?id=" + id,   //id当前是回帖id
+        path: "/thread/" + id,   //id当前是回帖id
       });
       window.open(routeData.href, '_blank');
     },

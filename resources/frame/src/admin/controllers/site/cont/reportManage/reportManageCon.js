@@ -86,12 +86,12 @@ export default {
       let href = '';
       if(postID === 0) {
         if(threadID === 0){
-          href = '/pagthreadIDes/profile/index?userId=' + userID;
+          href = '/user/' + userID;
         }else{
-          href = '/topic/index?id=' + threadID;
+          href = '/thread/' + threadID;
         }
       }else{
-        href = '/pages/topic/comment?threadId=' + threadID + '&commentId=' + postID;
+        href = '/thread/comment/'+ postID + '?threadId=' + threadID;
       }
       return {
         href,

@@ -326,7 +326,7 @@ export default {
       //编辑：/reply-to-topic  隐藏传入内容，带id
       //回帖：replyId
       let routeData = this.$router.resolve({
-        path: "/topic/index?id=" + id,
+        path: "/thread/" + id,
       });
       window.open(routeData.href, '_blank');
     },
