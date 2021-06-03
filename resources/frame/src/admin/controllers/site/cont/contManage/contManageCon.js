@@ -99,7 +99,7 @@ export default {
         }]
       },
       searchData: {
-        topicTypeId: '0',         //主题类型
+        topicTypeId: '',         //主题类型
         // categoryId: 0,            //主题分类ID
         categoryId: [0],          //主题分类ID
         pageSelect: '10',         //每页显示数
@@ -427,7 +427,8 @@ export default {
         data: {
           page: pageNumber,
           perPage: searchData.pageSelect,
-          threadType: searchData.essentialTheme,
+          nickname: searchData.themeAuthor,
+          threadType: searchData.topicTypeId,
           viewCountGt: searchData.viewedTimesMin,
           viewCountLt: searchData.viewedTimesMax,
           postCountGt: searchData.numberOfRepliesMin,
@@ -436,7 +437,6 @@ export default {
           threadId: searchData.threadID,
           q: searchData.themeKeyWords,
           isDeleted: 'no',
-          // nickname: 
           createdAtBegin: searchData.dataValue[0],
           createdAtEnd: searchData.dataValue[1],
           categoryId: searchData.categoryId[searchData.categoryId.length - 1],

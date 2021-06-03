@@ -314,17 +314,17 @@ export default {
       switch (val){
         case 1:
           data[0].isApproved = 1;
-          // data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].message = this.submitForm[index].message;
           this.patchPosts(data,themeId);
           break;
         case 2:
           data[0].isDeleted = true;
-          // data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].message = this.submitForm[index].message;
           this.patchPosts(data,themeId);
           break;
         case 3:
           data[0].isApproved = 2;
-          // data.attributes.message = this.submitForm[index].attributes.message;
+          data[0].message = this.submitForm[index].message;
           this.patchPosts(data,themeId);
           break;
         default:
