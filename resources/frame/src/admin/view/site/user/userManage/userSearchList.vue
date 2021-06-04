@@ -46,7 +46,7 @@
 
             <el-table-column label="是否已付费">
               <template slot-scope="scope">
-                <el-tag :type="scope.row.updatedAt === 'null' ? $dayjs().isSameOrBefore($dayjs(scope.row.updatedAt)) ? 'success' : 'info' : 'success'">{{ scope.row.updatedAt === 'null' ? $dayjs().isSameOrBefore($dayjs(scope.row.updatedAt)) ? "是" : "否" : "是"}}</el-tag>
+                <el-tag :type="scope.row.expiredAt ? $dayjs().isSameOrBefore($dayjs(scope.row.expiredAt)) ? 'success' : 'info' : 'success'">{{ scope.row.expiredAt ? $dayjs().isSameOrBefore($dayjs(scope.row.expiredAt)) ? "是" : "否" : "是"}}</el-tag>
               </template>
 
             </el-table-column>

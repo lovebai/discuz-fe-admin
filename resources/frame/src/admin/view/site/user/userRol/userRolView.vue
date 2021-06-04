@@ -23,7 +23,7 @@
             label="显示组名">
             <template slot-scope="scope">
             <el-switch
-            :disabled="scope.row.id === '7'"
+            :disabled="scope.row.id === 7"
             v-model="scope.row.isDisplay"
             active-color="#336699"
             inactive-color="#bbbbbb">
@@ -40,7 +40,7 @@
 
           <el-table-column>
             <template slot-scope="scope">
-              <el-button v-if="scope.row.id !== '1'" :disabled="addStatus && tableData.length-1 === scope.$index" type="text" @click="$router.push({path:'/admin/rol-permission',query:{id:scope.row.id,name:scope.row.name}})">设置</el-button>
+              <el-button v-if="scope.row.id !== 1" :disabled="addStatus && tableData.length-1 === scope.$index" type="text" @click="$router.push({path:'/admin/rol-permission',query:{id:scope.row.id,name:scope.row.name}})">设置</el-button>
               <el-popover
                 width="100"
                 placement="top"
@@ -67,7 +67,7 @@
                     >确定</el-button
                   >
                 </div>
-                <el-button slot="reference" v-if="scope.row.id !== '1' && scope.row.id !== '6' && scope.row.id !== '7' && scope.row.id !== '10' && scope.row.default !== 1" type="text">删除</el-button>
+                <el-button slot="reference" v-if="scope.row.id !== 1 && scope.row.id !== 6 && scope.row.id !== 7 && scope.row.id !== 10 && scope.row.default !== 1" type="text">删除</el-button>
               </el-popover>
             </template>
           </el-table-column>
@@ -75,7 +75,7 @@
           <el-table-column
             min-width="115">
             <template slot-scope="scope">
-              <el-radio v-model="radio" @change="radioChange(scope.row,scope.$index)" v-if="scope.row.id != 1 && scope.row.id !== '6' && scope.row.id !== '7'" :label="scope.row.id">设为加入站点的默认级别</el-radio>
+              <el-radio v-model="radio" @change="radioChange(scope.row,scope.$index)" v-if="scope.row.id != 1 && scope.row.id !== 6 && scope.row.id !== 7" :label="scope.row.id">设为加入站点的默认级别</el-radio>
             </template>
           </el-table-column>
 

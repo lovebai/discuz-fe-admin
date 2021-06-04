@@ -117,7 +117,7 @@
           :theme="items.categoryName"
           :prply="items.likeReward.postCount"
           :browse="items.viewCount"
-          :last="!items.lastPostedUser ? '该用户被删除': items.lastPostedUser._data.username"
+          :last="!items.lastPostedUser ? '该用户被删除': items.lastPostedUser.lastNickname"
           :releaseTime="formatDate(items.createdAt)"
           :userId="!items.user ? '该用户被删除':items.user.userId"
           :key="index"

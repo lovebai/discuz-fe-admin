@@ -45,7 +45,7 @@ export default {
             } else {
               // this.tokenId = res.data.id;
               let token = res.Data.accessToken;
-              let tokenId = 1;
+              let tokenId = res.Data.id;
               let refreshToken = res.Data.refreshToken;
               browserDb.setLItem('Authorization', token);
               browserDb.setLItem('tokenId', tokenId);
