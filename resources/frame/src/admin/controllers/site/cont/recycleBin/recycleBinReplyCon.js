@@ -85,7 +85,7 @@ export default {
       let urlList = [];
 
       list.forEach((item)=>{
-        urlList.push(item._data.url)
+        urlList.push(item.url)
       });
 
       this.url.push(urlList[imgIndex]);
