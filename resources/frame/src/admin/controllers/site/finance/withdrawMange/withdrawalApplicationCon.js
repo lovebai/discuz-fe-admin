@@ -240,6 +240,10 @@ export default {
     * 提交操作
     * */
     postReview(data){
+      if (data.status === 3 && !data.remark) {
+        this.$message.warning('理由不能为空！');
+        return;
+      }
       this.appFetch({
         url:'cashReview_post_v3',
         method:'post',
