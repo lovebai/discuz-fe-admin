@@ -24,19 +24,19 @@ export default {
           label: '全部'
         },
         {
-          value: 'normal',
+          value: 0,
           label: '正常'
         },
         {
-          value: 'ban',
+          value: 1,
           label: '禁用'
         },
         {
-          value: 'mod',
+          value: 2,
           label: '审核'
         },
         {
-          value: 'refuse',
+          value: 3,
           label: '审核拒绝'
         }
       ],

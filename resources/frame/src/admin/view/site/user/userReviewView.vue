@@ -135,7 +135,7 @@
                 <div style="text-align: right; margin: 10PX 0 0 0 ">
                   <el-button type="text" size="mini" @click="scope._self.$refs[`popover-${scope.$index}`].doClose()">取消</el-button>
 
-                  <el-button type="danger" size="mini" @click="singleOperation('del',scope.row._data.id);scope._self.$refs[`popover-${scope.$index}`].doClose()" >确定</el-button>
+                  <el-button type="danger" size="mini" @click="singleOperation('del',scope.row.id);scope._self.$refs[`popover-${scope.$index}`].doClose()" >确定</el-button>
                 </div>
                 <!-- <el-button type="text" slot="reference">删除</el-button> -->
               </el-popover>
