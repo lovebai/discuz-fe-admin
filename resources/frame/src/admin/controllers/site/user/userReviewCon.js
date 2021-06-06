@@ -162,7 +162,7 @@ export default {
     dialogTableVisibleFun(code) {
       this.visibleExtends[code.$index].dialogTableVisible = true;
     },
-    editUser(id,status,message){
+    editUser(id,status,message = ''){
       this.appFetch({
         url:'users',
         method:'PATCH',
@@ -271,7 +271,7 @@ export default {
         this.getUserList(Number(webDb.getLItem('currentPag'))||1);
       }
     },
-    
+
     // 扩展信息查询
     auditQuery() {
       this.appFetch({
@@ -285,7 +285,7 @@ export default {
             this.extendedAudit.push(item);
           }
         })
-      }) 
+      })
     },
 
     optionFun(code) {
