@@ -71,16 +71,16 @@ export default {
         var userId = browserDb.getLItem("tokenId");
         const response = await this.appFetch({
           method: "get",
-          url: "users",
-          splice: `/${this.query.id}`,
+          url: "user_get_v3",
+          // splice: `/${this.query.id}`,
           data: {
-            include: "wechat,groups"
+            pid: this.query.id
           }
         });
-        if (response.errors) {
-          this.$message.error(response.errors[0].code);
+        if (response.Code || (response.Code && response.Code !== 0)) {
+          this.$message.error(response.Message);
         } else {
-          this.userInfo = response.readdata._data;
+          this.userInfo = response.Data;
           this.imageUrl = this.userInfo.avatarUrl;
           this.userName = this.userInfo.username;
           this.expired_at = this.userInfo.expiredAt && this.$dayjs(this.userInfo.expiredAt).format("YYYY-MM-DD HH:mm:ss");
@@ -88,12 +88,12 @@ export default {
             this.deleBtn = true;
           }
           this.reasonsForDisable = this.userInfo.banReason;
-          this.userRole = response.readdata.groups.map(v => {
-            return v._data.id;
+          this.userRole = response.Data.groups.map(v => {
+            return v.pid;
           });
-          if (response.readdata.wechat) {
-            this.wechatNickName = response.readdata.wechat._data.nickname;
-            this.sex = response.readdata.wechat._data.sex;
+          if (response.isBindWechat) {
+            this.wechatNickName = response.Data.nickname;
+            this.sex = response.Data.sex;
           }
           if (userId == this.userInfo.id) {
             // this.disabled = false;
@@ -114,12 +114,12 @@ export default {
     // 扩展信息查询
     expandInformation() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_get_v3',
         method: 'get',
         data: {},
       }).then(res => {
-        res.readdata.forEach(item => {
-          if (item._data.status == 1) {
+        res.Data.forEach(item => {
+          if (item.status == 1) {
             this.expandDatas.push(item);
           }
         })
@@ -131,17 +131,19 @@ export default {
     userExpandInformation() {
       let userId = this.query.id;
       this.appFetch({
-        url: 'userSigninfields',
+        url: 'user_signinfields_get_v3',
         method: 'get',
-        splice: `/${userId}`,
+        data: {
+          uid: userId
+        }
       }).then((res) => {
-        if (res.readdata && res.readdata._data.length > 0) {
-          res.readdata._data.forEach((item, index) => {
-            if (item.type > 1 && item.fields_ext) {
-              item.fields_ext = JSON.parse(item.fields_ext);
+        if (res.Data && res.Data.length > 0) {
+          res.Data.forEach((item, index) => {
+            if (item.type > 1 && item.fieldsExt) {
+              item.fieldsExt = JSON.parse(item.fieldsExt);
               this.expandUsers.push(item);
             } else {
-              if (item.fields_ext !== '') {
+              if (item.fieldsExt !== '') {
                 this.expandUsers.push(item);
               }
             }
@@ -167,13 +169,15 @@ export default {
       }
       this.imageUrl = "";
       this.appFetch({
-        url: "deleteAvatar",
-        method: "delete",
-        splice: `/${this.query.id}` + "/avatar",
-        data: {}
+        url: "delete_avatar_post_v3",
+        method: "post",
+        // splice: `/${this.query.id}` + "/avatar",
+        data: {
+          aid: this.query.id
+        }
       }).then(res => {
-        if (res.errors) {
-          this.$message.error(res.errors[0].code);
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
         } else {
           this.deleBtn = false;
           this.$message.success("删除成功");
@@ -211,18 +215,19 @@ export default {
     },
     uploaderLogo(file) {
       let formData = new FormData();
+      formData.append("aid", this.query.id);
       formData.append("avatar", file.file);
       this.appFetch({
-        url: "upload",
+        url: "users_avatar_post_v3",
         method: "post",
-        splice: `${this.query.id}` + "/avatar",
+        // splice: `${this.query.id}` + "/avatar",
         data: formData
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
           this.$message.success("上传成功");
-          this.imageUrl = res.readdata._data.avatarUrl;
+          this.imageUrl = res.Data.avatarUrl;
           this.deleBtn = true;
         }
       });
@@ -240,35 +245,26 @@ export default {
       // }
       this.userExtensionModification();
       this.appFetch({
-        url: "users",
-        method: "patch",
-        splice: `/${this.query.id}`,
+        url: "users_update_post_v3",
+        method: "post",
         data: {
-          data: {
-            attributes: {
-              newPassword: this.newPassword,
-              mobile: mobile,
-              groupId: this.userRole,
-              status: this.userInfo.status,
-              refuse_message: this.reasonsForDisable,
-              expired_at: this.expired_at,
-              username: this.userName,
-              password: this.oldPassword,
-              password_confirmation: this.confirmPassword
-            }
-          }
+          id: this.query.id,
+          newPassword: this.newPassword,
+          mobile: mobile,
+          groupId: this.userRole,
+          status: this.userInfo.status,
+          refuseMessage: this.reasonsForDisable,
+          expiredAt: this.expired_at,
+          username: this.userName,
+          // password: this.oldPassword,
+          // newPassword: this.confirmPassword
         }
       }).then(res => {
         if (res.errors) {
-          if (res.errors[0].detail) {
-            this.$message.error(
-              res.errors[0].code + "\n" + res.errors[0].detail[0]
-            );
-          } else {
-            this.$message.error(res.errors[0].code);
-          }
+          this.$message.error(res.errors[0].code);
         } else {
           this.$message({ message: "提交成功", type: "success" });
+          this.getUserDetail();
         }
       });
     },
@@ -278,13 +274,13 @@ export default {
       try {
         const response = await this.appFetch({
           method: "get",
-          url: "groups"
+          url: "groups_list_get_v3"
         });
-        const data = response.data;
+        const data = response.Data;
         this.options = data.map(v => {
           return {
             value: v.id,
-            label: v.attributes.name
+            label: v.name
           };
         });
       } catch (err) {
@@ -322,12 +318,12 @@ export default {
           "type": "user_sign_in",
           "attributes": {
             "aid": item.aid,
-            "fields_desc": item.fields_desc,
+            "fields_desc": item.fieldsDesc,
             "id": item.id,
             "remark": "",
             "status": item.status,
             "type": item.type,
-            "user_id": item.user_id,      
+            "user_id": item.userId,      
           }
         };
         if (item.type > 1 && item.fields_ext) {

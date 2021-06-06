@@ -23,18 +23,17 @@ export default {
     },
     tencentCloudList(){
       this.appFetch({
-        url:'forum',
+        url:'forum_get_v3',
         method:'get',
-        data:{
-
-        }
+        data:{}
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          this.appId = res.readdata._data.qcloud.qcloud_app_id
-          this.secretId = res.readdata._data.qcloud.qcloud_secret_id
-          this.secretKey = res.readdata._data.qcloud.qcloud_secret_key
+          const {Data: forumData} = res;
+          this.appId = forumData.qcloud.qcloudAppId;
+          this.secretId = forumData.qcloud.qcloudSecretId;
+          this.secretKey = forumData.qcloud.qcloudSecretKey;
         }
       })
     },
@@ -43,32 +42,25 @@ export default {
       this.secretKey = this.secretKey.trim();
       try{
         await this.appFetch({
-        url:'settings',
+        url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-              "attributes":{
-                "key":'qcloud_app_id',
-                "value":this.appId,
-                "tag": "qcloud"
-              }
+              "key":'qcloud_app_id',
+              "value":this.appId,
+              "tag": "qcloud"
             },
             {
-              "attributes":{
-                "key":'qcloud_secret_id',
-                "value":this.secretId,
-                "tag": "qcloud",
-              }
-              },
-              {
-                "attributes":{
-                  "key":'qcloud_secret_key',
-                  "value":this.secretKey,
-                  "tag": "qcloud",
-                }
-              }
-
+              "key":'qcloud_secret_id',
+              "value":this.secretId,
+              "tag": "qcloud",
+            },
+            {
+              "key":'qcloud_secret_key',
+              "value":this.secretKey,
+              "tag": "qcloud",
+            }
           ]
         }
       }).then(res=>{

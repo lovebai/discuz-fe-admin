@@ -41,37 +41,37 @@ export default {
         })
         .catch(err => {});
     },
-    noticeSetting(id, actionName) {
-      //修改开启状态
-      let statusTemp = 1; // 默认开启状态
-      if (actionName == "close") {
-        statusTemp = 0;
-      } else if (actionName == "open") {
-        statusTemp = 1;
-      }
-      this.appFetch({
-        url: "notification",
-        method: "patch",
-        splice: id,
-        data: {
-          data: {
-            attributes: {
-              status: statusTemp
-            }
-          }
-        }
-      }).then(res => {
-        if (res.errors) {
-          this.$message.error(res.errors[0].code);
-        } else {
-          this.$message({
-            message: "修改成功",
-            type: "success"
-          });
-          this.getNoticeList();
-        }
-      });
-    },
+    // noticeSetting(id, actionName) {
+    //   //修改开启状态
+    //   let statusTemp = 1; // 默认开启状态
+    //   if (actionName == "close") {
+    //     statusTemp = 0;
+    //   } else if (actionName == "open") {
+    //     statusTemp = 1;
+    //   }
+    //   this.appFetch({
+    //     url: "notification",
+    //     method: "patch",
+    //     splice: id,
+    //     data: {
+    //       data: {
+    //         attributes: {
+    //           status: statusTemp
+    //         }
+    //       }
+    //     }
+    //   }).then(res => {
+    //     if (res.errors) {
+    //       this.$message.error(res.errors[0].code);
+    //     } else {
+    //       this.$message({
+    //         message: "修改成功",
+    //         type: "success"
+    //       });
+    //       this.getNoticeList();
+    //     }
+    //   });
+    // },
 
     //获取表格序号
     getIndex($index) {

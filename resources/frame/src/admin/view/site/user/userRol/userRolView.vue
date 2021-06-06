@@ -14,7 +14,7 @@
           <el-table-column
             label="级别名称">
             <template slot-scope="scope">
-              <el-input maxlength="20" v-model="scope.row._data.name"></el-input>
+              <el-input maxlength="20" v-model="scope.row.name"></el-input>
             </template>
           </el-table-column>
 
@@ -23,8 +23,8 @@
             label="显示组名">
             <template slot-scope="scope">
             <el-switch
-            :disabled="scope.row._data.id === '7'"
-            v-model="scope.row._data.isDisplay"
+            :disabled="scope.row.id === 7"
+            v-model="scope.row.isDisplay"
             active-color="#336699"
             inactive-color="#bbbbbb">
           </el-switch>
@@ -34,13 +34,13 @@
           <!-- <el-table-column
             width="100">
             <template slot-scope="scope">
-              <el-button v-if="scope.row._data.id !== '7' && scope.row._data.id !== '1'" :disabled="addStatus && tableData.length-1 === scope.$index" type="text" @click="$router.push({path:'/admin/rol-permission',query:{id:scope.row._data.id,name:scope.row._data.name,title:'其他设置',names:'other'}})">允许购买</el-button>
+              <el-button v-if="scope.row.id !== '7' && scope.row.id !== '1'" :disabled="addStatus && tableData.length-1 === scope.$index" type="text" @click="$router.push({path:'/admin/rol-permission',query:{id:scope.row.id,name:scope.row.name,title:'其他设置',names:'other'}})">允许购买</el-button>
             </template>
           </el-table-column> -->
 
           <el-table-column>
             <template slot-scope="scope">
-              <el-button v-if="scope.row._data.id !== '1'" :disabled="addStatus && tableData.length-1 === scope.$index" type="text" @click="$router.push({path:'/admin/rol-permission',query:{id:scope.row._data.id,name:scope.row._data.name}})">设置</el-button>
+              <el-button v-if="scope.row.id !== 1" :disabled="addStatus && tableData.length-1 === scope.$index" type="text" @click="$router.push({path:'/admin/rol-permission',query:{id:scope.row.id,name:scope.row.name}})">设置</el-button>
               <el-popover
                 width="100"
                 placement="top"
@@ -61,13 +61,13 @@
                     type="primary"
                     size="mini"
                     @click="
-                      singleDelete(scope.$index,scope.row._data.id);
+                      singleDelete(scope.$index,scope.row.id);
                       scope._self.$refs[`popover-${scope.$index}`].doClose();
                     "
                     >确定</el-button
                   >
                 </div>
-                <el-button slot="reference" v-if="scope.row._data.id !== '1' && scope.row._data.id !== '6' && scope.row._data.id !== '7' && scope.row._data.id !== '10' && scope.row._data.default !== 1" type="text">删除</el-button>
+                <el-button slot="reference" v-if="scope.row.id !== 1 && scope.row.id !== 6 && scope.row.id !== 7 && scope.row.id !== 10 && scope.row.default !== 1" type="text">删除</el-button>
               </el-popover>
             </template>
           </el-table-column>
@@ -75,7 +75,7 @@
           <el-table-column
             min-width="115">
             <template slot-scope="scope">
-              <el-radio v-model="radio" @change="radioChange(scope.row,scope.$index)" v-if="scope.row._data.id != 1 && scope.row._data.id !== '6' && scope.row._data.id !== '7'" :label="scope.row._data.id">设为加入站点的默认级别</el-radio>
+              <el-radio v-model="radio" @change="radioChange(scope.row,scope.$index)" v-if="scope.row.id != 1 && scope.row.id !== 6 && scope.row.id !== 7" :label="scope.row.id">设为加入站点的默认级别</el-radio>
             </template>
           </el-table-column>
 

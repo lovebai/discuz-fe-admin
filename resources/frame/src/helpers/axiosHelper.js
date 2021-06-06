@@ -144,17 +144,13 @@ const appFetch = function(params, options) {
     apiUrl = apiUrl + params.splice;
   }
 
-  //如果是本地请求，就走接口代理,使用apiType判断接口类型
-  if(process.env.NODE_ENV === 'development') {
-    params.baseURL = params.apiType === 'v3' ? '/apiv3' : '/api';
+  //如果是本地请求，就走接口代理
+  if (process.env.NODE_ENV === 'development') {
+    params.baseURL = "/api";
     params.url = apiUrl;
   } else {
     params.baseURL = "/";
-    if (params.apiType === 'v3') { // 临时兼容v3环境
-      params.url = appConfig.apiBaseUrl + params.apiType + apiUrl;
-    } else {
-      params.url = appConfig.apiBaseUrl + apiUrl;
-    }
+    params.url = appConfig.apiBaseUrl + apiUrl;
   }
 
   params.withCredentials = true;
@@ -290,20 +286,15 @@ const getNewToken = function (router) {
 
 
   return appFetch({
-    url:'access',
+    url:'refresh_token_post_v3',
     method:'post',
     data:{
-      "data": {
-        "attributes": {
-          'grant_type':'refresh_token',
-          'refresh_token':browserDb.getLItem('refreshToken')
-        }
-      }
+      'refreshToken':browserDb.getLItem('refreshToken')
     }
   }).then(res=>{
-    let token = res.data.attributes.access_token;
+    let token = res.Data.accessToken;
     // let tokenId = res.data.id;
-    let refreshToken = res.data.attributes.refresh_token;
+    let refreshToken = res.Data.refreshToken;
     browserDb.setLItem('Authorization', token);
     // browserDb.setLItem('tokenId', tokenId);
     browserDb.setLItem('refreshToken',refreshToken);

@@ -12,7 +12,7 @@ export default {
     // 加载功能权限
     loadFunctionStatus() {
       this.appFetch({
-        url: "forum",
+        url: 'forum_get_v3',
         method: "get",
         data: {}
       })
@@ -20,10 +20,11 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
+            const {Data: forumData} = data;
             // 购买权限
-            // this.purchase = data.readdata._data.set_site.site_pay_group_close === '1';
+            // this.purchase = forumData.setSite.sitePayGroupClose === '1';
             // 打赏权限
-            this.reward = data.readdata._data.set_site.site_can_reward === 1;
+            this.reward = forumData.setSite.siteCanReward; 
           }
         })
         .catch(error => {});
@@ -31,16 +32,14 @@ export default {
     // 提交功能状态更改
     handlePublishingSubmit(){
       this.appFetch({
-        url: "settings",
+        url: "settings_post_v3",
         method: "post",
         data: {
           data: [
             {
-              attributes: {
-                key: "site_can_reward",
-                value: this.reward ? 1 : 0,
-                tag: "default"
-              }
+              key: "site_can_reward",
+              value: this.reward,
+              tag: "default"
             },
             // {
             //   attributes: {

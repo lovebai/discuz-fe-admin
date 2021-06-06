@@ -36,7 +36,7 @@ export default {
         }, {
           name: '实名认证',
           type: 'qcloud_faceid',
-          description: '请先配置云API，开通腾讯云的人脸核身服务，并确保有对应资源包，<a href="https://discuz.chat/manual-admin/2.html#_2-7-5-%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81" target="_blank">查看文档</a>',
+          description: '请先配置云API，开通腾讯云，并确保有对应资源包，<a href="https://discuz.chat/manual-admin/2.html#_2-7-5-%E5%AE%9E%E5%90%8D%E8%AE%A4%E8%AF%81" target="_blank">查看文档</a>',
           status: '',
           icon: 'iconshimingrenzheng',
           setFlag: false
@@ -92,49 +92,50 @@ export default {
     },
     tencentCloudStatus() {
       this.appFetch({
-        url: 'forum',
+        url: 'forum_get_v3',
         method: 'get',
         data: {}
       }).then(res => {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          if (res.readdata._data.qcloud.qcloud_close) {
+          const {Data: forumData} = res;
+          if (forumData.qcloud.qcloudClose) {
             this.tableData[0].status = true
           } else {
             this.tableData[0].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_cms_image) {
+          if (forumData.qcloud.qcloudCmsImage) {
             this.tableData[1].status = true
           } else {
             this.tableData[1].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_cms_text) {
+          if (forumData.qcloud.qcloudCmsText) {
             this.tableData[2].status = true
           } else {
             this.tableData[2].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_sms) {
+          if (forumData.qcloud.qcloudSms) {
             this.tableData[3].status = true
           } else {
             this.tableData[3].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_faceid) {
+          if (forumData.qcloud.qcloudFaceid) {
             this.tableData[4].status = true
           } else {
             this.tableData[4].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_cos) {
+          if (forumData.qcloud.qcloudCos) {
             this.tableData[5].status = true
           } else {
             this.tableData[5].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_vod) {
+          if (forumData.qcloud.qcloudVod) {
             this.tableData[6].status = true
           } else {
             this.tableData[6].status = false
           }
-          if (res.readdata._data.qcloud.qcloud_captcha) {
+          if (forumData.qcloud.qcloudCaptcha) {
             this.tableData[7].status = true
           } else {
             this.tableData[7].status = false
@@ -186,19 +187,16 @@ export default {
     changeSettings(typeVal, statusVal) {
       //登录设置状态修改
       this.appFetch({
-        url: 'settings',
+        url: 'settings_post_v3',
         method: 'post',
         data: {
           "data": [
             {
-              "attributes": {
-                "key": typeVal,
-                "value": statusVal,
-                "tag": 'qcloud'
-              }
+              "key": typeVal,
+              "value": statusVal,
+              "tag": 'qcloud'
             }
           ]
-
         }
       }).then(data => {
         if (data.errors) {

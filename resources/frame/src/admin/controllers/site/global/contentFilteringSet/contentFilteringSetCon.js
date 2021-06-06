@@ -58,7 +58,7 @@ export default {
       radio2: "1",
       total: 0, //总条数
       pageLimit: 20, //每页多少条
-      pageNum: 0, //当前页
+      pageNum: 1, //当前页
       userLoadMoreStatus: true,
       userLoadMorePageChange: false,
       // loginStatus:'',  //default  batchSet
@@ -119,12 +119,12 @@ export default {
     async handleSearchUser(initStatus = false) {
       try {
         const response = await this.appFetch({
-          url: 'serachWords',
+          url: 'stopwords_get_v3',
           method: 'get',
           data: {
-            'filter[q]': this.serachVal,
-            "page[limit]": this.pageLimit,
-            "page[number]": this.pageNum
+            'filter[keyword]': this.serachVal,
+            "perPage": this.pageLimit,
+            "page": this.pageNum
           }
         })
         if (response.errors) {
@@ -133,14 +133,13 @@ export default {
           if (initStatus) {
             this.tableData = [];
           }
-
-          this.tableData = this.tableData.concat(response.readdata).map((v) => {
-            if (v._data.replacement === undefined) {
-              v._data.replacement = '';
+          const {Data: data} = response;
+          this.tableData = this.tableData.concat(data.pageData).map((v) => {
+            if (v.replacement === undefined) {
+              v.replacement = '';
             }
-            this.total = response.meta.total;
+            this.total = data.totalCount;
             // this.pageNum = response.meta.pageCount;
-            // this.total = response.meta ? response.meta.total : 0;
             return v;
           });
         }
@@ -158,8 +157,8 @@ export default {
 
     selectChange(scope) {
       if (scope) {
-        if (scope.row._data.ugc !== '{REPLACE}' && scope.row._data.username !== '{REPLACE}') {
-          this.tableData[scope.$index]._data.replacement = '';
+        if (scope.row.ugc !== '{REPLACE}' && scope.row.username !== '{REPLACE}') {
+          this.tableData[scope.$index].replacement = '';
         }
       }
     },
@@ -167,7 +166,7 @@ export default {
     async loginStatus() {  //批量提交接口
 
       let result = this.tableData.filter((v) => {
-        return v._data.addInputFlag;
+        return v.addInputFlag;
       })
 
       result = result.concat(this.multipleSelection);
@@ -180,7 +179,7 @@ export default {
         let words = [];
 
         for (let i = 0, len = this.tableData.length; i < len; i++) {
-          const _data = this.tableData[i]._data;
+          const _data = this.tableData[i];
           const { ugc, username, signature, dialog, find, replacement } = _data;
           if (replacement === '' && ugc === '{REPLACE}' && username === '{REPLACE}') {
             continue;
@@ -207,15 +206,12 @@ export default {
         }
 
         await this.appFetch({
-          url: 'batchSubmit',
+          url: 'stopwords_batch_v3',
           method: 'post',
           standard: false,
           data: {
-            "data": {
-              "type": "stop-words",
-              "words": words,
-              "overwrite": true
-            }
+            "words": words,
+            "overwrite": true
           }
         })
         // if (res.errors){
@@ -233,27 +229,24 @@ export default {
     },
     tableContAdd() {
       this.tableData.push({
-        _data: {
-          find: "",
-          username: "",
-          ugc: "",
-          replacement: "",
-          addInputFlag: true,
-        }
+        find: "",
+        username: "",
+        ugc: "",
+        replacement: "",
+        addInputFlag: true,
       })
       this.tableAdd = true
     },
     deleteWords() {
       this.deleteList = []
       for (var i = 0; i < this.multipleSelection.length; i++) {
-        this.deleteList.push(this.multipleSelection[i]._data.id)
+        this.deleteList.push(this.multipleSelection[i].id)
       }
       this.appFetch({
-        url: 'deleteWords',
-        method: 'delete',
-        splice: this.deleteList.join(","),
+        url: 'stopwords_delete_v3',
+        method: 'post',
         data: {
-
+          'ids': this.deleteList.join(",")
         }
       }).then(res => {
         if (res.errors) {

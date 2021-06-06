@@ -171,16 +171,14 @@ export default {
     getThemeList(pageNumber) {
       let searchData = this.searchData;
       this.appFetch({
-        url: 'topics',
+        url: 'topics_list_get_v3',
         method: 'get',
         data: {
-          include: ['user'],
-          'filter[content]':searchData.topicContent,
-          'page[number]': pageNumber,
+          'page': pageNumber,
+          'perPage': searchData.pageSelect,
           'filter[recommended]': this.value,
-          'page[size]': searchData.pageSelect,
           'filter[q]': searchData.themeKeyWords,
-          'sort': '-createdAt',
+          // 'sort': '-createdAt',
           'filter[username]':searchData.topicAuthor,
           'filter[content]':searchData.topicContent,
           'filter[createdAtBegin]':searchData.releaseTime[0],
@@ -194,13 +192,12 @@ export default {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          this.themeList = res.readdata;
-          this.total = res.meta.total;
-          this.pageCount = res.meta.pageCount;
-
+          this.themeList = res.Data.pageData;
+          this.total = res.Data.totalCount;
+          this.pageCount = res.Data.totalPage;
           this.themeListAll = [];
           this.themeList.forEach((item, index) => {
-            this.themeListAll.push(item._data.id);
+            this.themeListAll.push(item.topicId);
           });
         }
       }).catch(err => {
@@ -211,10 +208,14 @@ export default {
      * 删除话题
      */
     deteleTopic(id) {
+      const detealId = id.toString();
       this.appFetch({
-        url: 'topics',
-        method: 'delete',
-        splice: '/' + id,
+        url: 'topic_delete_post_v3',
+        method: 'post',
+        data: {
+          ids: detealId
+        }
+        // splice: '/' + id,
         }).then(res => {
           this.$message.success("删除成功");
           this.getThemeList();
@@ -225,9 +226,11 @@ export default {
     deleteClick(ids, nums) {
       const whole = ids.join(',');
       this.appFetch({
-        url: 'deleteTopics',
-        method: 'delete',
-        splice: '/' + ids,
+        url: 'topic_delete_post_v3',
+        method: 'post',
+        data: {
+          ids: whole,
+        }
         }).then(res => {
           if(nums === 1) {
             this.$message.success("删除成功");
@@ -251,20 +254,15 @@ export default {
         this.recommentNumber = 1;
       }
       this.appFetch({
-        url: `topics`,
-        splice: '/' + id,
-        method: "patch",
+        url: `topics_update_post_v3`,
+        method: "post",
         data:{
-          "data": {
-            "type": "topics",
-            "attributes": {
-              "recommended": this.recommentNumber,
-            }
-          }      
+          'ids': `${id}`,
+          "isRecommended": this.recommentNumber,     
         }
       })
       .then((res) => {
-        if(res.data.attributes.recommended === 1) {
+        if(this.recommentNumber=== 1) {
           this.$message.success("推荐成功");
         } else {
           this.$message.success("取消推荐成功");
@@ -279,17 +277,11 @@ export default {
     allRecomment(num,isds, nums) {
       const whole = isds.join(',');
       this.appFetch({
-        url: 'deleteTopics',
-        method: "patch",
-        splice: '/' + whole,
+        url: 'topics_update_post_v3',
+        method: "post",
         data:{
-          data: {
-            ids: whole,
-            type: "topics",
-            attributes: {
-              "recommended": num,
-            }
-          }      
+          "ids": whole,
+          "isRecommended": num,     
         }
       })
       .then((res) => {
@@ -334,7 +326,6 @@ export default {
       this.recommend = [];
       this.cancelrecomend = [];
       this.detelethem = [];
-      console.log(this.themeOperation);
       this.themeOperation.forEach((value,index) => {
         if (value.type === 1) {
           this.recommend.push(value.themid);

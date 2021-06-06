@@ -24,19 +24,19 @@ export default {
           label: '全部'
         },
         {
-          value: 'normal',
+          value: 0,
           label: '正常'
         },
         {
-          value: 'ban',
+          value: 1,
           label: '禁用'
         },
         {
-          value: 'mod',
+          value: 2,
           label: '审核'
         },
         {
-          value: 'refuse',
+          value: 3,
           label: '审核拒绝'
         }
       ],
@@ -91,17 +91,17 @@ export default {
     async getUserList() {
       try {
         const response = await this.appFetch({
-          method: 'get',
-          url: 'groups'
+          url: 'groups_list_get_v3',
+          method: 'get'
         });
         if (response.errors) {
           this.$message.error(response.errors[0].code);
         } else {
-          const data = response.data;
+          const data = response.Data;
           this.options = data.map((v) => {
             return {
               value: v.id,
-              label: v.attributes.name
+              label: v.name
             }
           })
         }

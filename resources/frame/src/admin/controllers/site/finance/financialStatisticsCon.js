@@ -165,13 +165,13 @@ export default {
     * */
 		statistic() {
 			this.appFetch({
-				url: 'statistic',
+				url: 'finance_get_v3',
 				method: 'get',
 				data: {
 
 				}
 			}).then(res => {
-				var oArr = Object.entries(res.readdata._data);
+				var oArr = Object.entries(res.Data);
 				for (var i = 0; i < this.financialList.length; i++) {
 					for (var j = 0; j < oArr.length; j++) {
 						if (this.financialList[i].key == oArr[j][0]) {
@@ -225,6 +225,9 @@ export default {
     * 盈利统计数据请求传给图表
     * */
 		earningsStatistics() {
+			this.financialTime = this.financialTime == null ? ['',''] : this.financialTime;
+			this.valueMouth = this.valueMouth == null ? ['',''] : this.valueMouth;
+
 			var dataStatistics = {    //盈利统计按日、周统计
 				'filter[type]': this.istrue + 1,
 				'filter[createdAtBegin]': this.financialTime[0],
@@ -242,11 +245,11 @@ export default {
 				data = dataStatisticsMouth
 			}
 			this.appFetch({
-				url: 'statisticChart',
+				url: 'financeChart_get_v3',
 				method: 'get',
 				data: data
 			}).then(res => {
-				if (res.readdata == '') {
+				if (res.Data.length === 0) {
 					this.noData = true
 				} else {
 					this.noData = false
@@ -256,12 +259,12 @@ export default {
 				var withdrawal_profit = [];
 				var master_portion = [];
 				var register_profit = [];
-				res.readdata.map(item => {
-					date.push(item._data.date)
-					total_profit.push(item._data.total_profit)
-					withdrawal_profit.push(item._data.withdrawal_profit)
-					master_portion.push(item._data.master_portion)
-					register_profit.push(item._data.register_profit)
+				res.Data.map(item => {
+					date.push(item.date)
+					total_profit.push(item.totalProfit)
+					withdrawal_profit.push(item.withdrawalProfit)
+					master_portion.push(item.masterPortion)
+					register_profit.push(item.registerProfit)
 				})
 				this.earningsEcharts(date, total_profit, withdrawal_profit, master_portion, register_profit)
 
@@ -271,6 +274,9 @@ export default {
     * 订单数据请求
     * */
 		orderStatistics() {
+			this.orderTime = this.orderTime == null ? ['',''] : this.orderTime;
+			this.valueOrder = this.valueOrder == null ? ['',''] : this.valueOrder;
+
 			var dataDay = {
 				'filter[type]': this.istrueOder + 1,
 				'filter[createdAtBegin]': this.orderTime[0],
@@ -289,11 +295,11 @@ export default {
 				data = dataMouth
 			}
 			this.appFetch({
-				url: 'statisticChart',
+				url: 'financeChart_get_v3',
 				method: 'get',
 				data: data
 			}).then(res => {
-				if (res.readdata == '') {
+				if (res.Data.length === 0) {
 					this.noDataOrder = true
 				} else {
 					this.noDataOrder = false
@@ -301,10 +307,10 @@ export default {
 				var date = [];
 				var order_count = [];
 				var order_amount = [];
-				res.readdata.map(item => {
-					date.push(item._data.date);
-					order_count.push(item._data.order_count);
-					order_amount.push(item._data.order_amount);
+				res.Data.map(item => {
+					date.push(item.date);
+					order_count.push(item.orderCount);
+					order_amount.push(item.orderAmount);
 
 				})
 				this.orderEcharts(date, order_count, order_amount)

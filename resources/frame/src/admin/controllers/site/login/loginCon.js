@@ -35,7 +35,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.postLogin().then(res=>{
-
             if (res.errors){
               if (res.errors[0].detail){
                 this.$message.error(res.errors[0].code + '\n' + res.errors[0].detail[0])
@@ -45,9 +44,9 @@ export default {
               this.loginLoading = false;
             } else {
               // this.tokenId = res.data.id;
-              let token = res.data.attributes.access_token;
-              let tokenId = res.data.id;
-              let refreshToken = res.data.attributes.refresh_token;
+              let token = res.Data.accessToken;
+              let tokenId = res.Data.id;
+              let refreshToken = res.Data.refreshToken;
               browserDb.setLItem('Authorization', token);
               browserDb.setLItem('tokenId', tokenId);
               browserDb.setLItem('refreshToken', refreshToken);
@@ -62,9 +61,9 @@ export default {
                     }
                     this.loginLoading = false;
                   } else {
-                    let groupId = res.readdata.groups[0]._data.id;
-                    browserDb.setLItem('username', res.data.attributes.username);
-                    if (groupId === "1") {
+                    let groupId = res.Data.group.pid;
+                    browserDb.setLItem('username', res.Data.username);
+                    if (groupId === 1) {
                       this.$router.push({path: '/admin'});
                       this.$message({
                         message: '登录成功！',
@@ -117,15 +116,11 @@ export default {
     * */
     postLogin(){
       return this.appFetch({
-        url:'login',
+        url:'login_post_v3',
         method:'post',
         data:{
-          "data": {
-            "attributes": {
-              "username": this.form.user,
-              "password": this.form.password
-            }
-          }
+          "username": this.form.user,
+          "password": this.form.password
         }
       }).then(res=>{
           return res
@@ -134,11 +129,11 @@ export default {
     },
     getUserInfo(id){
       return this.appFetch({
-        url:'users',
+        url:'user_get_v3',
         method:'get',
-        splice:'/' + id,
+        // splice:'/' + id,
         data:{
-          include:['groups']
+          pid: id,
         }
       }).then(res=>{
         return res

@@ -399,7 +399,6 @@ export default {
           //内容分类
           "cont-class": {
             comLoad: function (resolve) {
-              // require(["../view/site/cont/contClassView"], resolve);
               require(["../view/site/cont/contClassPayView"], resolve);
             },
             metaInfo: {
@@ -711,9 +710,9 @@ export default {
     } else {
       this.getUserInfo(tokenId)
         .then(res => {
-          groupId = res.readdata.groups[0]._data.id;
-          webDb.setLItem("username", res.data.attributes.username);
-          if (groupId === "1") {
+          groupId = res.Data.group.pid;
+          webDb.setLItem("username", res.Data.username);
+          if (groupId === 1) {
             if (to.path == "/admin/login") {
               next("/admin");
               return;
@@ -739,11 +738,12 @@ export default {
   },
   getUserInfo(id) {
     return appFetch({
-      url: "users",
+      url: "user_get_v3",
       method: "get",
-      splice: "/" + id,
+      // splice: "/" + id,
       data: {
-        include: ["groups"]
+        pid: id
+        // include: ["groups"]
       }
     })
       .then(res => {

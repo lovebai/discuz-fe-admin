@@ -47,11 +47,11 @@ export default {
   methods:{
     extendedFields() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_get_v3',
         method: 'get',
         data: {},
       }).then(res => {
-        this.informationList(res.data);
+        this.informationList(res.Data);
       }) 
     },
 
@@ -59,18 +59,18 @@ export default {
       this.groupsList = [];
       for (let i = 0; i < datalist.length; i++) {
         let data = {
-          name: datalist[i].attributes.name,   // 字段名称
-          id: datalist[i].attributes.id,           // 字段id
+          name: datalist[i].name,   // 字段名称
+          id: datalist[i].id,           // 字段id
           content: '',
-          description: datalist[i].attributes.type,  // 字段类型
-          sort: datalist[i].attributes.sort,           // 字段排序
-          introduce: datalist[i].attributes.fields_desc,  // 字段介绍
-          enable: datalist[i].attributes.status === 1 ? true : false,      // 是否启用
-          required: datalist[i].attributes.required === 1 ? true : false,   // 是否必填
+          description: datalist[i].type,  // 字段类型
+          sort: datalist[i].sort,           // 字段排序
+          introduce: datalist[i].fieldsDesc,  // 字段介绍
+          enable: datalist[i].status === 1 ? true : false,      // 是否启用
+          required: datalist[i].required === 1 ? true : false,   // 是否必填
         }
         let fieldsExt = ''
-        if (datalist[i].attributes.fields_ext) {
-          fieldsExt = JSON.parse(datalist[i].attributes.fields_ext);
+        if (datalist[i].fieldsExt) {
+          fieldsExt = JSON.parse(datalist[i].fieldsExt);
         }
         if (fieldsExt.options) {
           const num = fieldsExt.options;
@@ -119,16 +119,14 @@ export default {
     handleSelectionChange(list) {
       this.arrsLiist = [];
       list.forEach((item, index) => {
-        let  data = {
-          "attributes": {
-            "status": 0
-          },
+        let data = {
+          "status": 0
         }
         if (item.newly) {
           let arrData = [];
           arrData.push(item);
         } else {
-          data.attributes.id = item.id;
+          data.id = item.id;
           this.arrsLiist.push(data);
         }
       })
@@ -136,7 +134,7 @@ export default {
     
     deleteList() {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_post_v3',
         method: 'post',
         data: {
           data: this.arrsLiist,
@@ -156,15 +154,11 @@ export default {
     
     deleteField(single) {
       this.appFetch({
-        url: 'signInFields',
+        url: 'signinfields_post_v3',
         method: 'post',
         data: {
-          "data": {
-            "attributes": {
-              "id": single.row.id,
-              "status": 0
-            }
-          }
+          "id": single.row.id,
+          "status": 0
         }
       }).then(res => {
         if (res.errors){
@@ -219,18 +213,15 @@ export default {
       this.dataList = [];
       for (let i = 0; i < this.groupsList.length; i++) {
         let  data = {
-          "type": 'admin_sign_in',
-          "attributes": {
-            "name": this.groupsList[i].name,
-            "type": this.groupsList[i].description,
-            "fields_desc": this.groupsList[i].introduce,
-            "sort": this.groupsList[i].sort,
-            "status": this.groupsList[i].enable ? 1 : -1,
-            "required": this.groupsList[i].required ? 1 : 0,
-          },
+          "name": this.groupsList[i].name,
+          "type": this.groupsList[i].description,
+          "fieldsDesc": this.groupsList[i].introduce,
+          "sort": this.groupsList[i].sort,
+          "status": this.groupsList[i].enable ? 1 : -1,
+          "required": this.groupsList[i].required ? 1 : 0,
         }
         if (this.groupsList[i].id) {
-          data.attributes.id = this.groupsList[i].id;
+          data.id = this.groupsList[i].id;
         }
         if (this.groupsList[i].content) {
           let lines = this.groupsList[i].content.split(/\n/);
@@ -240,11 +231,11 @@ export default {
             }
           }
           let fieldsExtData = {"options": this.arr};
-          data.attributes.fields_ext = JSON.stringify(fieldsExtData);
+          data.fieldsExt = JSON.stringify(fieldsExtData);
           this.dataList.push(data);
         } else {
           // let fieldsExtData = {"necessary": this.groupsList[i].required};
-          data.attributes.fields_ext = '',
+          data.fieldsExt = '',
           this.dataList.push(data);
         }
         this.arr = [];
@@ -285,11 +276,9 @@ export default {
         return;
       }
       this.appFetch({
-        url: "signInFields",
+        url: "signinfields_post_v3",
         method: "post",
-        data: {
-          data,
-        }
+        data: data,
       }).then((res) => {
         if (res.errors){
           this.$message.error(res.errors[0].code);
