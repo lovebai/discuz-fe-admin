@@ -56,6 +56,7 @@ export default {
     },
 
     informationList(datalist) {
+      console.log(datalist);
       this.groupsList = [];
       for (let i = 0; i < datalist.length; i++) {
         let data = {
@@ -68,12 +69,12 @@ export default {
           enable: datalist[i].status === 1 ? true : false,      // 是否启用
           required: datalist[i].required === 1 ? true : false,   // 是否必填
         }
-        let fieldsExt = ''
+        let fields_ext = ''
         if (datalist[i].fieldsExt) {
-          fieldsExt = JSON.parse(datalist[i].fieldsExt);
+          fields_ext = JSON.parse(datalist[i].fieldsExt);
         }
-        if (fieldsExt.options) {
-          const num = fieldsExt.options;
+        if (fields_ext.options) {
+          const num = fields_ext.options;
           for (let j = 0; j < num.length; j++) {
             data.content += num[j].value + "\n";
           }
@@ -157,8 +158,12 @@ export default {
         url: 'signinfields_post_v3',
         method: 'post',
         data: {
-          "id": single.row.id,
-          "status": 0
+          data: [
+            {
+              "id": single.row.id,
+              "status": 0
+            }
+          ]
         }
       }).then(res => {
         if (res.errors){
@@ -211,11 +216,12 @@ export default {
     // 增加数据字段处理数据格式
     submitClick() {
       this.dataList = [];
+      console.log(this.groupsList, 'groupsList');
       for (let i = 0; i < this.groupsList.length; i++) {
         let  data = {
           "name": this.groupsList[i].name,
           "type": this.groupsList[i].description,
-          "fieldsDesc": this.groupsList[i].introduce,
+          "fields_desc": this.groupsList[i].introduce,
           "sort": this.groupsList[i].sort,
           "status": this.groupsList[i].enable ? 1 : -1,
           "required": this.groupsList[i].required ? 1 : 0,
@@ -225,17 +231,17 @@ export default {
         }
         if (this.groupsList[i].content) {
           let lines = this.groupsList[i].content.split(/\n/);
-          for (var j =0; j < lines.sort().length; j++) {
+          for (var j = 0; j < lines.sort().length; j++) {
             if (lines[j].trim() !== '') {
               this.arr.push({value: lines[j].trim(), checked: false});
             }
           }
           let fieldsExtData = {"options": this.arr};
-          data.fieldsExt = JSON.stringify(fieldsExtData);
+          data.fields_ext = JSON.stringify(fieldsExtData);
           this.dataList.push(data);
         } else {
           // let fieldsExtData = {"necessary": this.groupsList[i].required};
-          data.fieldsExt = '',
+          data.fields_ext = '',
           this.dataList.push(data);
         }
         this.arr = [];
@@ -278,7 +284,9 @@ export default {
       this.appFetch({
         url: "signinfields_post_v3",
         method: "post",
-        data: data,
+        data: {
+          data
+        }
       }).then((res) => {
         if (res.errors){
           this.$message.error(res.errors[0].code);
