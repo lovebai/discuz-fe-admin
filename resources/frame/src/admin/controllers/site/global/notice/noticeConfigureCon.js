@@ -39,6 +39,7 @@ export default {
     },
     created() {
       this.query = this.$route.query;
+      this.typeStatus = this.$route.query.typeStatus;
       this.typeName = this.$route.query.typeName;
       this.noticeConfigure();
     },
@@ -76,22 +77,22 @@ export default {
       // 初始化配置列表信息
       noticeConfigure() {
         this.appFetch({
-          url: 'noticeDetail',
+          url: 'notices_detail_get_v3',
           method: 'get',
-          splice: `?type_name=${this.typeName}`,
+          splice: `?typeName=${this.typeName}`,
           data: {}
         }).then(res => {
           // 系统通知数据
-          if (res.readdata[0]) {
-            this.systemList = res.readdata[0]._data;
-            let vars = this.systemList.template_variables;
+          if (res.Data[0]) {
+            this.systemList = res.Data[0];
+            let vars = this.systemList.templateVariables;
             if (vars) {
               this.systemDes = '请输入模板消息详细内容对应的变量。关键字个数需与已添加的模板一致。\n\n可以使用如下变量：\n';
               for (let key in vars) {
                 this.systemDes += `${key} ${vars[key]}\n`;
               }
             }
-            if (this.systemList.status) {
+            if (this.systemList.status === 1) {
               !this.noticeList.includes("0") && this.noticeList.push("0")
               this.showSystem = true
             } else {
@@ -99,19 +100,19 @@ export default {
             }
           }
           // 微信模板通知
-          if (res.readdata[1]) {
-            this.wxList = res.readdata[1]._data;
-            let vars = this.wxList.template_variables;
+          if (res.Data[1]) {
+            this.wxList = res.Data[1];
+            let vars = this.wxList.templateVariables;
             if (vars) {
               this.wxDes = '请输入模板消息详细内容对应的变量。关键字个数需与已添加的模板一致。\n\n可以使用如下变量：\n';
               for (let key in vars) {
                 this.wxDes += `${key} ${vars[key]}\n`;
               }
             }
-            this.appletsList = this.wxList.keywords_data.length > 0
-              ? this.wxList.keywords_data
+            this.appletsList = this.wxList.keywordsData.length > 0
+              ? this.wxList.keywordsData
               : ['', ''];
-              if (this.wxList.status) {
+              if (this.wxList.status === 1) {
                 !this.noticeList.includes("1") && this.noticeList.push("1")
                 this.showWx = true;
               } else {
@@ -120,19 +121,19 @@ export default {
           }
 
           // 短信通知
-          if (res.readdata[2]) {
-            this.smsList = res.readdata[2]._data;
-            this.smsKeyWord = this.smsList.keywords_data.length > 0
-              ? this.smsList.keywords_data
+          if (res.Data[2]) {
+            this.smsList = res.Data[2];
+            this.smsKeyWord = this.smsList.keywordsData.length > 0
+              ? this.smsList.keywordsData
               : [''];
-              let vars = this.smsList.template_variables;
+              let vars = this.smsList.templateVariables;
               if (vars) {
                 this.smsDes = '请输入模板消息详细内容对应的变量。关键字个数需与已添加的模板一致。\n\n可以使用如下变量：\n';
                 for (let key in vars) {
                   this.smsDes += `${key} ${vars[key]}\n`;
                 }
               }
-              if (this.smsList.status) {
+              if (this.smsList.status === 1) {
                 !this.noticeList.includes("2") && this.noticeList.push("2")
                 this.showSms = true;
               }else {
@@ -141,13 +142,13 @@ export default {
           }
 
           // 小程序通知
-          if (res.readdata[3]) {
-            this.miniProgramList = res.readdata[3]._data;
+          if (res.Data[3]) {
+            this.miniProgramList = res.Data[3];
             this.keyList = this.miniProgramList.keys;
-            this.miniKeyWord = this.miniProgramList.keywords_data.length > 0
-              ? this.miniProgramList.keywords_data
+            this.miniKeyWord = this.miniProgramList.keywordsData.length > 0
+              ? this.miniProgramList.keywordsData
               : ['', ''];
-              let vars = this.miniProgramList.template_variables;
+              let vars = this.miniProgramList.templateVariables;
               this.miniTips = '\n<a href="https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/subscribe-message/subscribeMessage.send.html" target="_blank">订阅消息参数值内容限制说明</a>填写错误将导致用户无法接收到消息通知'
               if (vars) {
                 this.miniDes = '请输入模板消息详细内容对应的变量。关键字个数需与已添加的模板一致。\n\n可以使用如下变量：\n';
@@ -155,7 +156,7 @@ export default {
                   this.miniDes += `${key} ${vars[key]}\n`;
                 }
               }
-              if (this.miniProgramList.status) {
+              if (this.miniProgramList.status === 1) {
                 !this.noticeList.includes("4") && this.noticeList.push("4")
                 this.showMini = true;
               }else {
@@ -163,6 +164,21 @@ export default {
               }
           }
         })
+      },
+      async getNoticesDetail (type, typeName) {
+        try {
+          const response = await this.appFetch({
+            url: 'notices_detail_get_v3',
+            method: 'get',
+            data: {
+              typeName,
+              type,
+            }
+          });
+          return response;
+        } catch (err) {
+  
+        }
       },
       // 提交按钮
       Submission() {
@@ -174,25 +190,21 @@ export default {
             return;
           }
           data.push({
-            'attributes':{
-              "id": this.systemList.tpl_id,
-              "status": 1,
-              "template_id": this.systemList.template_id,
-              "title": this.systemList.title,
-              "content": this.systemList.content
-            }
+            "id": this.systemList.tplId,
+            "status": 1,
+            "templateId": this.systemList.templateId,
+            "title": this.systemList.title,
+            "content": this.systemList.content
           });
         } else {
           data.push({
-            'attributes':{
-              "id": this.systemList.tpl_id,
-              "status": 0,
-            }
+            "id": this.systemList.tplId,
+            "status": 0,
           });
         }
         // 微信通知提交数据
         if (this.showWx === true){
-          if (this.wxList.first_data === '') {
+          if (this.wxList.firstData === '') {
             this.$message.error('请填写first');
             return;
           }
@@ -205,35 +217,31 @@ export default {
             return;
             }
           }
-          if (this.wxList.remark_data === '') {
+          if (this.wxList.remarkData === '') {
             this.$message.error('请填写remark');
             return;
           }
           data.push({
-            'attributes':{
-              "id": this.wxList.tpl_id,
-              "status": 1,
-              "template_id": this.wxList.template_id,
-              "first_data": this.wxList.first_data,
-              "keywords_data": this.appletsList,
-              "remark_data": this.wxList.remark_data,
-              "redirect_type": this.wxList.redirect_type,
-              "redirect_url": this.wxList.redirect_url,
-              "page_path":this.wxList.page_path,
-            }
+            "id": this.wxList.tplId,
+            "status": 1,
+            "templateId": this.wxList.templateId,
+            "firstData": this.wxList.firstData,
+            "keywordsData": this.appletsList,
+            "remarkData": this.wxList.remarkData,
+            "redirectType": this.wxList.redirectType,
+            "redirectUrl": this.wxList.redirectUrl,
+            "pagePath":this.wxList.pagePath,
           });
         } else {
           data.push({
-            'attributes':{
-              "id": this.wxList.tpl_id,
-              "status": 0,
-            }
+            "id": this.wxList.tplId,
+            "status": 0,
           });
         }
 
         // 短信通知提交数据
         if (this.showSms === true) {
-          if (this.smsList.template_id === '') {
+          if (this.smsList.templateId === '') {
             this.$message.error('请填写短信模版ID');
             return;
           }
@@ -247,26 +255,22 @@ export default {
             }
           }
           data.push({
-            'attributes':{
-              "id": this.smsList.tpl_id,
-              "status": 1,
-              "title": this.smsList.title,
-              "template_id": this.smsList.template_id,
-              "keywords_data": this.smsKeyWord,
-            }
+            "id": this.smsList.tplId,
+            "status": 1,
+            "title": this.smsList.title,
+            "templateId": this.smsList.templateId,
+            "keywordsData": this.smsKeyWord,
           });
         } else {
           data.push({
-            'attributes':{
-              "id": this.smsList.tpl_id,
-              "status": 0,
-            }
+            "id": this.smsList.tplId,
+            "status": 0,
           });
         }
 
       // 小程序订阅提交数据
       if (this.showMini === true) {
-        if (this.miniProgramList.template_id === '') {
+        if (this.miniProgramList.templateId === '') {
           this.$message.error('请填写小程序模版ID');
           return;
         }
@@ -278,34 +282,30 @@ export default {
             }
           }
         }
-         if (this.miniProgramList.page_path === '') {
+         if (this.miniProgramList.pagePath === '') {
           this.$message.error('请填写小程序路径');
           return;
         }
         data.push({
-          'attributes':{
-            "id": this.miniProgramList.tpl_id,
-            "status": 1,
-            "template_id": this.miniProgramList.template_id,
-            "title": this.miniProgramList.title,
-            "keywords_data": this.miniKeyWord,
-            "page_path": this.miniProgramList.page_path
-          }
+          "id": this.miniProgramList.tplId,
+          "status": 1,
+          "templateId": this.miniProgramList.templateId,
+          "title": this.miniProgramList.title,
+          "keywordsData": this.miniKeyWord,
+          "pagePath": this.miniProgramList.pagePath
         });
       } else {
         data.push({
-          'attributes':{
-            "id": this.miniProgramList.tpl_id,
-            "status": 0,
-          }
+          "id": this.miniProgramList.tplId,
+          "status": 0,
         });
       }
 
         this.appFetch({
-          url: 'noticeList',
-          method: 'patch',
+          url: 'notices_update_post_v3',
+          method: 'post',
           data: {
-            "data": data,
+            data,
           }
       }).then(res=>{
         if (res.errors) {

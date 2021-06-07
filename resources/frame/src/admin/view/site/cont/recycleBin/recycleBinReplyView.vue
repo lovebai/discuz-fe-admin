@@ -9,14 +9,6 @@
           </div>
           <div>
             <span class="cont-review-header__lf-title">搜索范围：</span>
-            <!-- <el-select v-model="categoriesListSelect" clearable  size="medium" placeholder="选择主题分类">
-              <el-option
-                v-for="item in categoriesList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select> -->
             <el-cascader
               v-model="categoriesListSelect"
               :options="categoriesList"
@@ -96,19 +88,8 @@
             </el-radio-group>
           </div>
 
-          <!--<a slot="longText" class="recycle-bin-reply-table__long-text" v-if="items.thread._data.isLongArticle" :href="'/thread/' + items._data.id" >
-            {{items.thread._data.title}}
-            <span  class="iconfont" :class="parseInt(items.thread._data.price) > 0?'iconmoney':'iconchangwen'" ></span>
-          </a>-->
-
           <div class="recycle-bin-reply-table__main" slot="main">
-            <!--<a :href="'/thread/' + items._data.id" style="color: #333333;" target="_blank" v-html="items._data.contentHtml"></a>-->
-            <a class="recycle-bin-reply-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content"></a>
-            <div class="recycle-bin-reply-table__main__cont-imgs">
-              <p class="recycle-bin-reply-table__main__cont-imgs-p" v-for="(item,index) in items.cotent.indexes" :key="index">
-                <img  v-lazy="item.thumbUrl" @click="imgShowClick(items.images,index)" :alt="item.fileName">
-              </p>
-            </div>
+            <a class="recycle-bin-reply-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.cotent.text"></a>
           </div>
 
           <div class="recycle-bin-reply-table__footer" slot="footer">

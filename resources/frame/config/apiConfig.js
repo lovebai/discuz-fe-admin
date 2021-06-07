@@ -3,7 +3,6 @@
  */
 
 module.exports = {
-  exportUser: "/export/users?", //用户信息导出
   // v3新接口
   settings_post_v3: '/backAdmin/settings.create', // 全局-站点设置
   permission_get_v3: '/backAdmin/groups.resource', // 用户组权限获取

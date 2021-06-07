@@ -32,7 +32,7 @@
       <p class="system-title">小程序订阅信息</p>
     <Card header="模板ID：">
       <CardRow :description="miniProgramList.mini_program_prompt ? `请填写小程序订阅消息的模版ID，此消息的触发操作为「${miniProgramList.mini_program_prompt}」，每一个触发操作最多支持3个不同模板ID的订阅消息` : '请填写模板消息的ID'">
-        <el-input type="text" maxlength="75" v-model="miniProgramList.template_id" ></el-input>
+        <el-input type="text" maxlength="75" v-model="miniProgramList.templateId" ></el-input>
       </CardRow>
     </Card>
 
@@ -49,7 +49,7 @@
     <CardRow row description="请填写正确的小程序路径，填写错误将导致用户无法接收到消息通知">
       <div class="applets">
         <span class="applets-titles">小程序路径：</span>
-        <el-input type="input" v-model="miniProgramList.page_path" class="applets-input"></el-input>
+        <el-input type="input" v-model="miniProgramList.pagePath" class="applets-input"></el-input>
       </div>
       </CardRow>
       </div>
@@ -61,7 +61,7 @@
       <p class="system-title">微信模板信息</p>
     <Card header="模板ID：">
       <CardRow description="请填写模板消息的ID">
-        <el-input type="text" maxlength="75" v-model="wxList.template_id" ></el-input>
+        <el-input type="text" maxlength="75" v-model="wxList.templateId" ></el-input>
       </CardRow>
     </Card>
 
@@ -71,7 +71,7 @@
       <CardRow row :description="wxDes">
       <div class="applets">
         <span class="applets-titles">first：</span>
-        <el-input type="input" v-model="wxList.first_data" class="applets-input"></el-input>
+        <el-input type="input" v-model="wxList.firstData" class="applets-input"></el-input>
       </div>
       <div v-for="(item, index) in appletsList" :key="index" class="applets">
         <span class="applets-title">keyword{{index + 1}}:</span>
@@ -88,25 +88,25 @@
       </div>
       <div class="applets">
         <span class="applets-titles">remark：</span>
-        <el-input type="input" v-model="wxList.remark_data" class="applets-input"></el-input>
+        <el-input type="input" v-model="wxList.remarkData" class="applets-input"></el-input>
       </div>
       <div class="applets">
         <span class="applets-title">跳转类型：</span>
         <div class="applets-radio">
-          <el-radio v-model="wxList.redirect_type" :label="0">无跳转</el-radio>
-          <el-radio v-model="wxList.redirect_type" :label="2">跳转至小程序</el-radio>
-          <el-radio v-model="wxList.redirect_type" :label="1">跳转至H5</el-radio>
+          <el-radio v-model="wxList.redirectType" :label="0">无跳转</el-radio>
+          <el-radio v-model="wxList.redirectType" :label="2">跳转至小程序</el-radio>
+          <el-radio v-model="wxList.redirectType" :label="1">跳转至H5</el-radio>
         </div>
       </div>
       </CardRow>
-    <CardRow row :description="wxList.redirect_type === 2 ?'请填写正确的小程序路径，填写错误将导致用户无法接收到消息通知。' : ''">
-      <div class="applets" v-show="wxList.redirect_type === 1">
+    <CardRow row :description="wxList.redirectType === 2 ?'请填写正确的小程序路径，填写错误将导致用户无法接收到消息通知。' : ''">
+      <div class="applets" v-show="wxList.redirectType === 1">
         <span class="applets-titles">H5网址：</span>
-        <el-input type="input" v-model="wxList.redirect_url" class="applets-input"></el-input>
+        <el-input type="input" v-model="wxList.redirectUrl" class="applets-input"></el-input>
       </div>
-      <div class="applets" v-show="wxList.redirect_type === 2">
+      <div class="applets" v-show="wxList.redirectType === 2">
         <span class="applets-titles">小程序路径：</span>
-        <el-input type="input" v-model="wxList.page_path" class="applets-input"></el-input>
+        <el-input type="input" v-model="wxList.pagePath" class="applets-input"></el-input>
       </div>
       </CardRow>
       </div>
@@ -118,7 +118,7 @@
       <p class="system-title">短信通知</p>
     <Card header="短信模板ID：">
       <CardRow description="填写在腾讯云已配置并审核通过的短信验证码的模版的ID">
-        <el-input type="text" maxlength="75" v-model="smsList.template_id"></el-input>
+        <el-input type="text" maxlength="75" v-model="smsList.templateId"></el-input>
       </CardRow>
     </Card>
 

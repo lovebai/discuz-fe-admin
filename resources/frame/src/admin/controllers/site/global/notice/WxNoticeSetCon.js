@@ -24,20 +24,21 @@ export default {
     getNoticeList() {
       //初始化通知设置列表
       this.appFetch({
-        url: "noticeList",
+        url: "notices_detail_get_v3",
         method: "get",
         data: {
           type: 1,
-          "page[number]": this.pageNum,
-          "page[size]": this.pageLimit
+          "page": this.pageNum,
+          "perPage": this.pageLimit
         }
       })
         .then(res => {
           if (res.errors) {
             this.$message.error(res.errors[0].code);
           } else {
-            this.tableData = res.readdata;
-            this.total = res.meta.total;
+            const {Data: data} = res;
+            this.tableData = data.pageData || [];
+            this.total = data.totalCount;
             // this.pageCount = res.meta.pageCount;
           }
         })
@@ -52,15 +53,11 @@ export default {
         statusTemp = 1;
       }
       this.appFetch({
-        url: "notification",
-        method: "patch",
-        splice: id,
+        url: "notices_update_post_v3",
+        method: "post",
         data: {
-          data: {
-            attributes: {
-              status: statusTemp
-            }
-          }
+          id,
+          status: statusTemp
         }
       }).then(res => {
         if (res.errors) {

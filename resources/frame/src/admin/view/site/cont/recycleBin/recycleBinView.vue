@@ -82,7 +82,7 @@
             </el-radio-group>
           </div>
 
-          <a slot="longText" class="recycle-bin-table__long-text" :href="'/thread/' + items.threadId" target="_blank">
+          <a slot="longText" v-if="items.title" class="recycle-bin-table__long-text" :href="'/thread/' + items.threadId" target="_blank">
             {{items.title}}
             <span  class="iconfont" :class="parseInt(items.price) > 0?'iconmoney':'iconchangwen'" ></span>
           </a>

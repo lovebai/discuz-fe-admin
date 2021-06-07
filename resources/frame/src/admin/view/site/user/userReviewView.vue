@@ -24,6 +24,13 @@
             label="用户名"
             width="200">
           </el-table-column>
+          
+          <el-table-column
+            prop="nickname"
+            label="用户昵称"
+            width="200"
+            >
+          </el-table-column>
 
           <!-- <el-table-column
             prop="_data.registerReason"
