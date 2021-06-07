@@ -97,30 +97,14 @@ export default {
     async exporUserInfo() {
       try {
         let usersIdList = [];
-        this.multipleSelection.forEach((v) => {
+        this.tableData.forEach((v) => {
           usersIdList.push(v.userId)
         });
-        const {
-          username,
-          userUID,
-          userRole,
-          userPhone,
-          userStatus,
-          userWeChat,
-          isReal,
-        } = this.query;
         const response = await this.appFetch({
           method: 'get',
-          url: 'exportUser',
-          splice: 'ids' + '=' + usersIdList,
+          url: 'export_users_post_v3',
           data: {
-            "filter[username]": username,
-            "filter[id]": userUID,
-            "filter[group_id][]": userRole,
-            "filter[mobile]": userPhone,
-            "filter[status]": userStatus,
-            "filter[wechat]": userWeChat,
-            "filter[isReal]": isReal
+            ids: usersIdList.toString(),
           },
           responseType: 'arraybuffer'
         });
@@ -129,7 +113,7 @@ export default {
         const downloadHref = url.createObjectURL(blob);
         let a = document.createElement('a');
         a.href = downloadHref;
-        a.download = 'export.xlsx';
+        a.download = 'user_excel.xlsx';
         a.click();
         a = null;
       } catch (err) {
