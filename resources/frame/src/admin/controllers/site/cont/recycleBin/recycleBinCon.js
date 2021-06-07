@@ -185,7 +185,6 @@ export default {
         url:'thread_get_v3',
         method:'get',
         data:{
-          'isApproved': 1,
           'isDeleted':'yes',
           'nickname':this.searchUserName,
           'page':pageNumber,
