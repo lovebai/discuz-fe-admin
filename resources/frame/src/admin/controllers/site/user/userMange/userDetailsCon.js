@@ -295,14 +295,14 @@ export default {
     },
     extendUsers(code) {
       let extendArr = '';
-      if (code.fields_ext.options) {
-        code.fields_ext.options.forEach(item => {
+      if (code.fieldsExt.options) {
+        code.fieldsExt.options.forEach(item => {
           if (item.checked) {
             extendArr += item.value + ' ';
           }
         })
       } else {
-        code.fields_ext.forEach(item => {
+        code.fieldsExt.forEach(item => {
           if (item.checked) {
             extendArr += item.value + ' ';
           }
@@ -318,19 +318,19 @@ export default {
           "type": "user_sign_in",
           "attributes": {
             "aid": item.aid,
-            "fields_desc": item.fieldsDesc,
+            "fieldsDesc": item.fieldsDesc,
             "id": item.id,
             "remark": "",
             "status": item.status,
             "type": item.type,
-            "user_id": item.userId,      
+            "userId": item.userId,      
           }
         };
-        if (item.type > 1 && item.fields_ext) {
-          data.attributes.fields_ext = JSON.stringify(item.fields_ext);
+        if (item.type > 1 && item.fieldsExt) {
+          data.attributes.fieldsExt = JSON.stringify(item.fieldsExt);
           this.exends.push(data);
         } else {
-          data.attributes.fields_ext = item.fields_ext;
+          data.attributes.fieldsExt = item.fieldsExt;
           this.exends.push(data);
         }
       })
