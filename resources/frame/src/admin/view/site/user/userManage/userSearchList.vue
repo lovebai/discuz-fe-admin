@@ -33,10 +33,19 @@
               min-width="50"
               >
             </el-table-column>
+            
+            <el-table-column
+              prop="nickname"
+              label="用户昵称"
+              min-width="50"
+            >
+            </el-table-column>
 
             <el-table-column
               prop="threadCount"
-              label="主题数">
+              label="主题数"
+              min-width="50"
+            >
             </el-table-column>
 
             <el-table-column
