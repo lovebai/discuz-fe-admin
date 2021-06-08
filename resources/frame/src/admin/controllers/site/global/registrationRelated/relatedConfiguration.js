@@ -69,12 +69,12 @@ export default {
           enable: datalist[i].status === 1 ? true : false,      // 是否启用
           required: datalist[i].required === 1 ? true : false,   // 是否必填
         }
-        let fields_ext = ''
+        let fieldsExt = ''
         if (datalist[i].fieldsExt) {
-          fields_ext = JSON.parse(datalist[i].fieldsExt);
+          fieldsExt = JSON.parse(datalist[i].fieldsExt);
         }
-        if (fields_ext.options) {
-          const num = fields_ext.options;
+        if (fieldsExt.options) {
+          const num = fieldsExt.options;
           for (let j = 0; j < num.length; j++) {
             data.content += num[j].value + "\n";
           }
@@ -221,7 +221,7 @@ export default {
         let  data = {
           "name": this.groupsList[i].name,
           "type": this.groupsList[i].description,
-          "fields_desc": this.groupsList[i].introduce,
+          "fieldsDesc": this.groupsList[i].introduce,
           "sort": this.groupsList[i].sort,
           "status": this.groupsList[i].enable ? 1 : -1,
           "required": this.groupsList[i].required ? 1 : 0,
@@ -237,11 +237,11 @@ export default {
             }
           }
           let fieldsExtData = {"options": this.arr};
-          data.fields_ext = JSON.stringify(fieldsExtData);
+          data.fieldsExt = JSON.stringify(fieldsExtData);
           this.dataList.push(data);
         } else {
           // let fieldsExtData = {"necessary": this.groupsList[i].required};
-          data.fields_ext = '',
+          data.fieldsExt = '',
           this.dataList.push(data);
         }
         this.arr = [];
