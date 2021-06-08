@@ -51,11 +51,15 @@ export default {
         {
           title: "其他设置",
           name: "other"
-        }
+        },
         // {
         //   title: '默认权限',
         //   name: 'default'
         // },
+        {
+          title: "其他设置",
+          name: "extension"
+        }
       ],
       value: "",
       purchasePrice: "",

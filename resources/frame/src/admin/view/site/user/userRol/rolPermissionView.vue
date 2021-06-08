@@ -661,6 +661,39 @@
         </CardRow>
       </Card>
     </div>
+
+    <div v-show="activeTab.name === 'extension'">
+      <Card header="付费站点推广邀请">
+        <CardRow
+          description="允许用户为付费站点推广，邀请朋友加入站点，并获得分成"
+        >
+          <el-checkbox
+            v-model="isSubordinate"
+            @change="handlePromotionChange"
+            :disabled="
+              $router.history.current.query.id === '1' ||
+                $router.history.current.query.id === '7'
+            "
+            >开启站点付费邀请</el-checkbox
+          >
+        </CardRow>
+        <CardRow
+          description="被邀请者付费加入站点后，邀请者获得的提成比例，填1表示10%,不填或填入0时，不分成"
+          class="proportion-box"
+          v-if="isSubordinate"
+        >
+          <div>
+            <span>提成比例</span>
+            <el-input
+              class
+              type="number"
+              v-model="scale"
+              @blur="checkNum"
+            ></el-input>
+          </div>
+        </CardRow>
+      </Card>
+    </div>
     <!-- 价格设置 -->
     <!-- <div v-show="activeTab.name === 'pricesetting'">
       <Card header="允许购买：">
