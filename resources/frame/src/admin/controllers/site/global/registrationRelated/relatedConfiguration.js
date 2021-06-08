@@ -56,6 +56,7 @@ export default {
     },
 
     informationList(datalist) {
+      console.log(datalist);
       this.groupsList = [];
       for (let i = 0; i < datalist.length; i++) {
         let data = {
@@ -157,8 +158,12 @@ export default {
         url: 'signinfields_post_v3',
         method: 'post',
         data: {
-          "id": single.row.id,
-          "status": 0
+          data: [
+            {
+              "id": single.row.id,
+              "status": 0
+            }
+          ]
         }
       }).then(res => {
         if (res.errors){
@@ -211,6 +216,7 @@ export default {
     // 增加数据字段处理数据格式
     submitClick() {
       this.dataList = [];
+      console.log(this.groupsList, 'groupsList');
       for (let i = 0; i < this.groupsList.length; i++) {
         let  data = {
           "name": this.groupsList[i].name,
@@ -225,7 +231,7 @@ export default {
         }
         if (this.groupsList[i].content) {
           let lines = this.groupsList[i].content.split(/\n/);
-          for (var j =0; j < lines.sort().length; j++) {
+          for (var j = 0; j < lines.sort().length; j++) {
             if (lines[j].trim() !== '') {
               this.arr.push({value: lines[j].trim(), checked: false});
             }
@@ -278,7 +284,9 @@ export default {
       this.appFetch({
         url: "signinfields_post_v3",
         method: "post",
-        data: data,
+        data: {
+          data
+        }
       }).then((res) => {
         if (res.errors){
           this.$message.error(res.errors[0].code);
