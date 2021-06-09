@@ -83,7 +83,7 @@ module.exports = {
   user_get_v3: '/backAdmin/user', // 获取用户信息
   user_signinfields_get_v3: '/backAdmin/user/signinfields', // 用户扩展信息查询
   users_examine_post_v3: '/backAdmin/users/examine', // 用户批量审核
-
+  invite_link_v3: '/backAdmin/adminInvite.link.create', // 邀请链接
   // 登录
   login_post_v3: '/backAdmin/login', // 登录
   refresh_token_post_v3: '/backAdmin/refresh.token', // 刷新token

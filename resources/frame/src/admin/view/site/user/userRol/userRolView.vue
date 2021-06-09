@@ -40,6 +40,7 @@
 
           <el-table-column>
             <template slot-scope="scope">
+              <el-button size="medium" @click="extension(scope.row.id)">邀请</el-button>
               <el-button v-if="scope.row.id !== 1" :disabled="addStatus && tableData.length-1 === scope.$index" type="text" @click="$router.push({path:'/admin/rol-permission',query:{id:scope.row.id,name:scope.row.name}})">设置</el-button>
               <el-popover
                 width="100"
