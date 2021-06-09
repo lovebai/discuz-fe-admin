@@ -311,8 +311,37 @@ export default {
         console.log(res);
       })
       .catch(err => {});
-    }
+    },
 
+    extension(id) {
+      console.log(1111, id, '推广');
+      this.appFetch({
+        url: "invite_link_v3",
+        method: 'get',
+        data: {
+          groupId: id
+        }
+      }).then(res => {
+       console.log(res);
+        if (res.errors){
+        this.$message.error(res.errors[0].code);
+        }else {
+          const oInput = document.createElement('input');
+          oInput.value = `${window.location.protocol}//${window.location.host}/forum/partner-invite?inviteCode=${res.Data.code}`;
+          oInput.id = 'copyInput';
+          document.body.appendChild(oInput);
+          oInput.select();
+          document.execCommand('Copy');
+          this.$message({
+            message: '链接已复制到剪贴板',
+            type: 'success'
+          });
+          setTimeout(() => {
+            oInput.remove();
+          }, 100);
+        }
+      });
+    }
   },
   created(){
     this.getGroups();
