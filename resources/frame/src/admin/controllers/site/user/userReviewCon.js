@@ -66,8 +66,9 @@ export default {
         } else {
           this.multipleSelection.forEach((item)=>{
             userList.push({
-              "id": item.id,
+              "id": item.userId,
               "status": 0,
+              'rejectReason': ''
             })
           });
           this.patchEditUser(userList);
@@ -86,7 +87,7 @@ export default {
           }).then((value) => {
             this.multipleSelection.forEach((item) => {
               userList.push({
-                "id": item.id,
+                "id": item.userId,
                 "status": 3,
                 "rejectReason": value.value
               })
@@ -104,8 +105,9 @@ export default {
         } else {
           this.multipleSelection.forEach((item) => {
             userList.push({
-              id: item.id,
+              id: item.userId,
               status: 4,
+              rejectReason: '',
             })
           });
           this.patchDeleteUser(userList);
