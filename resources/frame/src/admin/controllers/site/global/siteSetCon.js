@@ -230,6 +230,10 @@ export default {
         }
       })
         .then(data => {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
@@ -349,6 +353,10 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
+            if (data.Code !== 0) {
+              this.$message.error(data.Message);
+              return
+            }
             this.numberimg[index].imageUrl = data.Data.value;
             this.getScaleImgSize(this.numberimg[index].imageUrl, {
               width: 140,
@@ -469,6 +477,10 @@ export default {
               this.$message.error(data.errors[0].code);
             }
           } else {
+            if (data.Code !== 0) {
+              this.$message.error(data.Message);
+              return
+            }
             this.$message({
               message: "提交成功",
               type: "success"

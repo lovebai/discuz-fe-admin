@@ -114,8 +114,11 @@ export default {
           } else {
             this.$message.error(res.errors[0].code);
           }
-          // this.$message.error(data.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.signUpSet();
         }
       })
@@ -200,8 +203,11 @@ export default {
           } else {
             this.$message.error(data.errors[0].code);
           }
-          // this.$message.error(data.errors[0].code);
         }else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
           this.$message({message: '提交成功', type: 'success'});
         }
       })

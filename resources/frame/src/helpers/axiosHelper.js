@@ -292,6 +292,10 @@ const getNewToken = function (router) {
       'refreshToken':browserDb.getLItem('refreshToken')
     }
   }).then(res=>{
+    if (res.Code !== 0) {
+      this.$message.error(res.Message);
+      return
+    }
     let token = res.Data.accessToken;
     // let tokenId = res.data.id;
     let refreshToken = res.Data.refreshToken;

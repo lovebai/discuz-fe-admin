@@ -67,6 +67,10 @@ export default {
             this.$message.error(res.errors[0].code);
           }
         } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.$message({
             message: "修改成功",
             type: "success"

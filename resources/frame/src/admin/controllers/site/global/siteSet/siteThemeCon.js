@@ -93,6 +93,10 @@ export default {
         }
       })
       .then(res => {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         this.handleResult(res);
       })
       .catch(err => {

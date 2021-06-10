@@ -217,6 +217,10 @@ export default {
         }
         // splice: '/' + id,
         }).then(res => {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.$message.success("删除成功");
           this.getThemeList();
         })
@@ -232,6 +236,10 @@ export default {
           ids: whole,
         }
         }).then(res => {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           if(nums === 1) {
             this.$message.success("删除成功");
           }
@@ -262,6 +270,10 @@ export default {
         }
       })
       .then((res) => {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         if(this.recommentNumber=== 1) {
           this.$message.success("推荐成功");
         } else {
@@ -285,6 +297,10 @@ export default {
         }
       })
       .then((res) => {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         if(nums === 1) {
           if (num === 1) {
             this.$message.success("全部推荐成功");

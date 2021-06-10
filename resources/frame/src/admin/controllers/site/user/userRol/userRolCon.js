@@ -192,6 +192,10 @@ export default {
             this.$message.error(res.errors[0].code);
           }
         } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.$message({
             message: '提交成功！',
             type: 'success'
@@ -213,6 +217,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.$message({
             message: '删除成功！',
             type: 'success'
@@ -234,7 +242,11 @@ export default {
         this.delLoading = false;
         if (res.errors){
           this.$message.error(res.errors[0].code);
-        }else {
+        } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.$message({
             message: '删除成功！',
             type: 'success'
@@ -284,6 +296,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.$message({
             message: '提交成功！',
             type: 'success'
