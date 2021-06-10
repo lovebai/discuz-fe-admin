@@ -305,10 +305,6 @@
                type: "success"
              });
            } else {
-            if (res.Code !== 0) {
-              this.$message.error(res.Message);
-              return
-            }
              this.$message.error(res.Message);
            }
          })
