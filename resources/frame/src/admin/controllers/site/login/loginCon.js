@@ -43,6 +43,11 @@ export default {
               }
               this.loginLoading = false;
             } else {
+              if (res.Code !== 0) {
+                this.$message.error(res.Message);
+                this.loginLoading = false;
+                return
+              }
               // this.tokenId = res.data.id;
               let token = res.Data.accessToken;
               let tokenId = res.Data.id;
