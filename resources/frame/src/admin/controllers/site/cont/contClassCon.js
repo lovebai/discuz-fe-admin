@@ -251,14 +251,14 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          if (!res.meta) {
-            this.$message({
-              message: '操作成功',
-              type: 'success'
-            });
-          } else {
-            this.$message.error('操作失败！');
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
           }
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          });
         }
       }).catch(err=>{
       })
@@ -272,18 +272,14 @@ export default {
         }
       }).then(res=>{
         this.delLoading = false;
-        if (res.meta){
-          res.meta.forEach((item,index)=>{
-            setTimeout(()=>{
-              this.$message.error(item.code)
-            },(index+1) * 500);
-          });
-        }else {
-          this.$message({
-            message: '操作成功',
-            type: 'success'
-          });
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
         }
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        });
       }).catch(err=>{
       })
     },
@@ -306,18 +302,14 @@ export default {
                 }
               }).then(res=>{
                 this.subLoading = false;
-                if (res.meta){
-                  res.meta.forEach((item,index)=>{
-                    setTimeout(()=>{
-                      this.$message.error(item.message.name[0])
-                    },(index+1) * 500);
-                  });
-                }else {
-                  this.$message({
-                    message: '操作成功',
-                    type: 'success'
-                  });
+                if (res.Code !== 0) {
+                  this.$message.error(res.Message);
+                  return
                 }
+                this.$message({
+                  message: '操作成功',
+                  type: 'success'
+                });
               }).catch(err=>{
               })
     },
@@ -330,26 +322,14 @@ export default {
         }
       }).then(res => {
         this.subLoading = false;
-        if (res.meta) {
-          // TODO 优化提示
-          let errors = {
-            'permission_denied': '权限不足！',
-          }
-          res.meta.forEach((item, index) => {
-            setTimeout(() => {
-              if (typeof item.message === 'string') {
-                this.$message.error(errors[item.message] ? errors[item.message] : item.message)
-              } else {
-                this.$message.error(item.message.name[0])
-              }
-            }, (index + 1) * 500);
-          });
-        } else {
-          this.$message({
-            message: '操作成功',
-            type: 'success'
-          });
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
         }
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        });
       }).catch(err => {
         console.log(err);
       })

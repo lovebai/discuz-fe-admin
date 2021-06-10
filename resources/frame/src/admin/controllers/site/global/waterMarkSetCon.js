@@ -149,6 +149,10 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
+            if (data.Code !== 0) {
+              this.$message.error(data.Message);
+              return
+            }
             this.$message({ message: "提交成功", type: "success" });
             this.annexSet(); //提交成功后调取新数据
           }
@@ -184,6 +188,10 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
+            if (data.Code !== 0) {
+              this.$message.error(data.Message);
+              return
+            }
             this.imageUrl = data.Data.value;
             this.$message({ message: "上传成功", type: "success" });
             this.deleteBtn = true;
@@ -208,6 +216,10 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
+            if (data.Code !== 0) {
+              this.$message.error(data.Message);
+              return
+            }
             this.$message("删除成功");
             this.deleteBtn = false;
           }

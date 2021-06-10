@@ -113,9 +113,10 @@ export default {
         if (data.errors) {
           this.$message.error(data.errors[0].code);
         } else {
-          // this.$router.push({
-          //   path: '/admin/worth-mentioning-set'
-          // });
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
           this.$message({
             message: '提交成功',
             type: 'success'

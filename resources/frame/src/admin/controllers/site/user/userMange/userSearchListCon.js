@@ -263,7 +263,11 @@ export default {
               }
             ]
           }
-        }).then(() => {
+        }).then(res => {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.handleGetUserList();
           //将禁用置灰
           this.tableData[scope.$index].status = 1;

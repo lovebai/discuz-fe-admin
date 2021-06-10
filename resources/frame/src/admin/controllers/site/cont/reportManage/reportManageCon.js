@@ -219,6 +219,10 @@ export default {
         data: { data: submitData }
       }).then(res => {
         if(res){
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.subLoading = false;
           this.$message({
             message: '操作成功',
