@@ -13,7 +13,7 @@ export default {
       options: [],
       optionsList: [],
       imageUrl: "",
-      userRole: [],
+      userRole: '',
       userInfo: {},
       newPassword: "",
       wechatNickName: "",
@@ -80,6 +80,7 @@ export default {
         if (response.Code || (response.Code && response.Code !== 0)) {
           this.$message.error(response.Message);
         } else {
+          console.log('sdsdfdsf');
           this.userInfo = response.Data;
           this.imageUrl = this.userInfo.avatarUrl;
           this.userName = this.userInfo.username;
@@ -88,9 +89,8 @@ export default {
             this.deleBtn = true;
           }
           this.reasonsForDisable = this.userInfo.banReason;
-          this.userRole = response.Data.groups.map(v => {
-            return v.pid;
-          });
+          console.log('sdsdfdsf', response.Data.group);
+          this.userRole = response.Data.group.pid;
           if (response.isBindWechat) {
             this.wechatNickName = response.Data.nickname;
             this.sex = response.Data.sex;
