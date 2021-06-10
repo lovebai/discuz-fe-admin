@@ -82,14 +82,13 @@ export default {
         await this.appFetch({
           url: 'update_wallet_post_v3',
           method: 'post',
-          // splice: this.query.id,
           data: datas
         }).then(data=>{
           if (data.errors){
             this.$message.error(data.errors[0].code);
-          }else{
-            if (res.Code !== 0) {
-              this.$message.error(res.Message);
+          }else {
+            if (data.Code !== 0) {
+              this.$message.error(data.Message);
               return
             }
             this.$message({ message: '提交成功', type: 'success' });
