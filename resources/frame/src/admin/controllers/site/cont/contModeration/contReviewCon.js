@@ -369,6 +369,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.themeList = [];
           this.submitForm = [];
           this.themeList = res.Data.pageData;
@@ -400,13 +404,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          // this.categoriesList = [];
-          // res.data.forEach((item, index) => {
-          //   this.categoriesList.push({
-          //     name: item.attributes.name,
-          //     id: item.id
-          //   })
-          // })
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           res.Data.forEach((item, index) => {
             if (item.children.length) {
               const child = []

@@ -178,7 +178,6 @@ export default {
           'perPage': searchData.pageSelect,
           'filter[recommended]': this.value,
           'filter[q]': searchData.themeKeyWords,
-          // 'sort': '-createdAt',
           'filter[username]':searchData.topicAuthor,
           'filter[content]':searchData.topicContent,
           'filter[createdAtBegin]':searchData.releaseTime[0],
@@ -192,6 +191,10 @@ export default {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.themeList = res.Data.pageData;
           this.total = res.Data.totalCount;
           this.pageCount = res.Data.totalPage;
@@ -215,7 +218,6 @@ export default {
         data: {
           ids: detealId
         }
-        // splice: '/' + id,
         }).then(res => {
           if (res.Code !== 0) {
             this.$message.error(res.Message);

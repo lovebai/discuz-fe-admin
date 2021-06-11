@@ -70,6 +70,10 @@ export default {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           const {Data: forumData} = res;
           this.switchBtn = forumData.watermark.watermark;
           this.imageUrl = forumData.watermark.watermarkImage;

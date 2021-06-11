@@ -132,6 +132,10 @@ export default {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           const { Data: data } = res;
           this.reportList = data.pageData || [];
           this.pageData.pageTotal = data.totalCount;
@@ -178,9 +182,10 @@ export default {
           "ids": userID,
         }
       }).then(res => {
-        console.log('删除',res);
-      })
-      var time = setTimeout(function(){
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         that.subLoading = false;
         that.$message({
           message: '删除成功',
@@ -190,7 +195,7 @@ export default {
           that.checkAll = false;
         }
         that.getReportList(Number(webDb.getLItem('pageNumber')) || 1) 
-      },300)
+      })
     },
     getCreated(state){
       if(state){

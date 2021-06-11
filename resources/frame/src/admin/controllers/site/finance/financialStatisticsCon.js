@@ -171,6 +171,10 @@ export default {
 
 				}
 			}).then(res => {
+				if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
 				var oArr = Object.entries(res.Data);
 				for (var i = 0; i < this.financialList.length; i++) {
 					for (var j = 0; j < oArr.length; j++) {
@@ -249,6 +253,10 @@ export default {
 				method: 'get',
 				data: data
 			}).then(res => {
+				if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
 				if (res.Data.length === 0) {
 					this.noData = true
 				} else {
@@ -299,6 +307,10 @@ export default {
 				method: 'get',
 				data: data
 			}).then(res => {
+				if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
 				if (res.Data.length === 0) {
 					this.noDataOrder = true
 				} else {

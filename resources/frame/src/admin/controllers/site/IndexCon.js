@@ -347,6 +347,10 @@ export default {
             this.$message.error(data.errors[0].code);
           }
         } else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return;
+          }
           this.$message({
             message: "缓存清空完毕",
             type: "success"
@@ -757,8 +761,12 @@ export default {
         url: 'checkQcloud_get_v3',
         method: "get",
         data: {}
-      }).then(data => {
-        if (!data.readdata._data.isBuildQcloud) {
+      }).then(res => {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
+        if (!res.Data.data.attributes.isBuildQcloud) {
           this.dialogVisible = true;
           this.tencentCloudList()//初始化云API配置
         }
@@ -777,6 +785,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           const {Data: forumData} = res;
           this.appId = forumData.qcloud.qcloudAppId
           this.secretId = forumData.qcloud.qcloudSecretId

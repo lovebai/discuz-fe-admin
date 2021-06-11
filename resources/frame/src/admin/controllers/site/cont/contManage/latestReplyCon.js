@@ -179,7 +179,6 @@ export default {
         url:'posts_get_v3',
         method:'get',
         data:{
-          // include: ['user','thread','thread.category','thread.firstPost','images'],
           page: pageNumber,
           perPage: searchData.pageSelect,
           isDeleted: 'no',
@@ -188,18 +187,19 @@ export default {
           nickname: searchData.themeAuthor,
           createdAtBegin: searchData.dataValue[0],
           createdAtEnd: searchData.dataValue[1],
-          // categoryId: 
-          // highlight: 
           sort: '-created_at',
         }
       }).then(res=>{
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.themeList = res.Data.pageData;
           this.total = res.Data.totalCount;
           this.pageCount = res.Data.totalPage;
-
           this.themeListAll = [];
           this.themeList.forEach((item, index) => {
             this.themeListAll.push(item.postId);
@@ -222,6 +222,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.getPostsList(Number(webDb.getLItem('currentPag')) || 1);
           this.$message({
             message: '操作成功',
@@ -238,7 +242,6 @@ export default {
       this.appFetch({
         url:'submit_review_post_v3',
         method:'post',
-        // splice:'/'+id,
         data:{
           type: 2,
           data:[
@@ -252,6 +255,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.getPostsList(Number(webDb.getLItem('currentPag')) || 1);
           this.$message({
             message: '操作成功',

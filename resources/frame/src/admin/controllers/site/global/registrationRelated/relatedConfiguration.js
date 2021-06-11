@@ -51,6 +51,10 @@ export default {
         method: 'get',
         data: {},
       }).then(res => {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         this.informationList(res.Data);
       }) 
     },

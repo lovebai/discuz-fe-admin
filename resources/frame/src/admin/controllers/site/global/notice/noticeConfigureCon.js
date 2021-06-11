@@ -82,6 +82,10 @@ export default {
           splice: `?typeName=${this.typeName}`,
           data: {}
         }).then(res => {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           // 系统通知数据
           if (res.Data[0]) {
             this.systemList = res.Data[0];

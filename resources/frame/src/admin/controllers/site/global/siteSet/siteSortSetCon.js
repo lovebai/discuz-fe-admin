@@ -50,6 +50,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           const {Data: data} = res;
           data.forEach(item => {
             let checkedList=[];
@@ -97,6 +101,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           res.Data.forEach(item=>{
             this.groupsList.push({
               id: item.id,
@@ -114,6 +122,10 @@ export default {
         url:'sequence_get_v3',
         methods:'get'
       }).then(res=>{
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         const data = res.Data || [];
         if (data.userInfo) {
           data.userInfo.forEach(item => {
@@ -161,6 +173,10 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
+            if (data.Code !== 0) {
+              this.$message.error(data.Message);
+              return
+            }
             const {Data: forumData} = data;
             this.siteOpenSort = forumData.setSite.siteOpenSort === 1;
           }
@@ -177,6 +193,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           res.Data.forEach(item=>{
             data.push({
               id: item.userId,
@@ -197,6 +217,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           res.Data.forEach(item=>{
             data.push({
               id: item.topicId,
@@ -231,6 +255,10 @@ export default {
           "filter[username]": queryString
         }
       }).then(res=>{
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         const {pageData: userData} = res.Data;
         userData.forEach(item=>{
           data.push({
@@ -251,6 +279,10 @@ export default {
           "filter[content]": queryString
         }
       }).then(res=>{
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         res.Data.pageData.forEach(item=>{
           data.push({
             id: item.topicId,

@@ -365,7 +365,6 @@ export default {
         url:'posts_get_v3',
         method:'get',
         data:{
-          // include: ['user','thread','thread.category','thread.firstPost','images'],
           page:pageNumber,
           perPage:this.pageSelect,
           isDeleted: 'no',
@@ -382,6 +381,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.themeList = [];
           this.submitForm = [];
           this.themeList = res.Data.pageData;
@@ -390,7 +393,6 @@ export default {
 
           this.themeList.forEach((item, index) => {
             this.submitForm.push({
-              // message:'',
               Select: '无',
               radio: '',
               type: 2,
@@ -414,13 +416,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          // this.categoriesList = [];
-          // res.data.forEach((item, index) => {
-          //   this.categoriesList.push({
-          //     name: item.attributes.name,
-          //     id: item.id
-          //   })
-          // })
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           res.Data.forEach((item, index) => {
             if (item.children.length) {
               const child = []
