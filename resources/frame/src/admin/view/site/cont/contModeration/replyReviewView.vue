@@ -36,14 +36,6 @@
                 :value="item.value">
               </el-option>
             </el-select>
-            <!-- <el-select v-model="categoriesListSelect" size="medium" clearable placeholder="选择搜索分类">
-              <el-option
-                v-for="item in categoriesList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select> -->
             <el-cascader
               v-model="categoriesListSelect"
               :options="categoriesList"
@@ -68,7 +60,7 @@
         <ContArrange
           v-for="(items,index) in  themeList"
           :replyBy="!items.nickname ? '该用户被删除': items.nickname"
-          :themeName=" items.title ? items.title : items.content"
+          :themeName="items.title"
           :titleIcon="titleIcon(items)"
           :finalPost="formatDate(items.updatedAt)"
           :ip="items.ip"
@@ -83,17 +75,11 @@
             </el-radio-group>
           </div>
 
-          <!-- <a slot="longText" class="cont-review-table__long-text" v-if="items.thread._data.isLongArticle" :href="'/thread/' + items._data.id" >
-            {{items.thread._data.title}}
-            <span  class="iconfont" :class="parseInt(items.thread._data.price) > 0?'iconmoney':'iconchangwen'" ></span>
-          </a> -->
-
           <div class="cont-review-table__main" slot="main">
-            <!--<a :href="'/thread/' + items._data.id" style="color: #333;" target="_blank" v-html="items._data.contentHtml"></a>-->
-            <a class="cont-review-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content"></a>
+            <a class="cont-review-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content.text"></a>
             <div class="cont-review-table__main__cont-imgs">
-              <p class="cont-review-table__main__cont-imgs-p" v-for="(item,index) in contentIndexes(items.cotent, 'images')" :key="index">
-                <img  v-lazy="item.thumbUrl" @click="imgShowClick(contentIndexes(items.cotent, 'images'),index)" :alt="item.fileName">
+              <p class="cont-review-table__main__cont-imgs-p" v-for="(item, indexs) in items.content.indexes" :key="indexs">
+                <img  v-lazy="item.thumbUrl" @click="imgShowClick(items.content.indexes, indexs)" :alt="item.fileName">
               </p>
             </div>
           </div>
