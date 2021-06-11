@@ -80,10 +80,6 @@ export default {
       return commonHelper.titleIcon(item);
     },
 
-    contentIndexes(data, val) {
-      return commonHelper.dataTypeJudgment(data, val);
-    },
-
     imgShowClick(list,imgIndex){
       this.url = [];
       let urlList = [];

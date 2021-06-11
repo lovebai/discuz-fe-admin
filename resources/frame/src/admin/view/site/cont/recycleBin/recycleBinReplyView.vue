@@ -89,7 +89,12 @@
           </div>
 
           <div class="recycle-bin-reply-table__main" slot="main">
-            <a class="recycle-bin-reply-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.cotent.text"></a>
+            <a class="recycle-bin-reply-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content.text"></a>
+            <div class="recycle-bin-reply-table__main__cont-imgs">
+              <p class="recycle-bin-reply-table__main__cont-imgs-p" v-for="(item, indexs) in items.content.indexes" :key="indexs">
+                <img  v-lazy="item.thumbUrl" @click="imgShowClick(items.content.indexes, indexs)" :alt="item.fileName">
+              </p>
+            </div>
           </div>
 
           <div class="recycle-bin-reply-table__footer" slot="footer">

@@ -93,10 +93,9 @@
 
     <Card header="用户角色：">
       <CardRow>
-        <el-select v-model="userRole[0]" placeholder="请选择">
+        <el-select v-model="userRole" placeholder="请选择">
           <el-option
             v-for="item in options"
-            :disabled="item.value === '6' || item.value === '7'"
             :key="item.value"
             :label="item.label"
             :value="item.value"

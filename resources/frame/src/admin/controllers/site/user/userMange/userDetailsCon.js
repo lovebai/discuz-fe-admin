@@ -13,7 +13,7 @@ export default {
       options: [],
       optionsList: [],
       imageUrl: "",
-      userRole: [],
+      userRole: '',
       userInfo: {},
       newPassword: "",
       wechatNickName: "",
@@ -88,9 +88,7 @@ export default {
             this.deleBtn = true;
           }
           this.reasonsForDisable = this.userInfo.banReason;
-          this.userRole = response.Data.groups.map(v => {
-            return v.pid;
-          });
+          this.userRole = response.Data.group.pid;
           if (response.isBindWechat) {
             this.wechatNickName = response.Data.nickname;
             this.sex = response.Data.sex;

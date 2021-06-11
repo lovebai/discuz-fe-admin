@@ -42,7 +42,7 @@
           <ContArrange
             v-for="(items,index) in  themeList"
             :replyBy="!items.nickname ? '该用户被删除': items.nickname"
-            :themeName="items.content ? items.content : items.cotent.text"
+            :themeName="items.title"
             :titleIcon="titleIcon(items)"
             :finalPost="formatDate(items.updatedAt)"
             :userId="!items.userId ?'该用户被删除': items.userId"
@@ -52,16 +52,12 @@
               <el-checkbox v-model="checkedTheme" :label="items.postId" @change="handleCheckedCitiesChange()"></el-checkbox>
             </div>
 
-            <!-- <a slot="longText" class="latest-reply-theme__table-long-text" v-if="items.thread._data.isLongArticle" :href="'/details/' + items._data.id" target="_blank">
-              {{items.thread._data.title}}
-              <span  class="iconfont" :class="parseInt(items.thread._data.price) > 0?'iconmoney':'iconchangwen'" ></span>
-            </a> -->
 
             <div class="latest-reply-theme__table-main" slot="main">
-              <a class="latest-reply-theme__table-main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content"></a>
-              <div class="latest-reply-theme__table-main__cont-imgs" v-if="items.cotent && items.cotent.indexes && items.cotent.indexes.length > 0">
-                <p class="latest-reply-theme__table-main__cont-imgs-p"  v-for="(item,indexs) in contentIndexes(items.content, 'images')" :key="indexs">
-                  <img  v-lazy="item.thumbUrl" @click="imgShowClick(contentIndexes(items.content, 'images'), indexs)" :alt="item.fileName">
+              <a class="latest-reply-theme__table-main__cont-text" :href="'/thread/' + items.threadId" target="_blank" v-html="items.content.text"></a>
+              <div class="latest-reply-theme__table-main__cont-imgs" v-if="items.content && items.content.indexes && items.content.indexes.length > 0">
+                <p class="latest-reply-theme__table-main__cont-imgs-p"  v-for="(item, indexs) in items.content.indexes" :key="indexs">
+                  <img  v-lazy="item.thumbUrl" @click="imgShowClick(items.content.indexes, indexs)" :alt="item.fileName">
                 </p>
               </div>
             </div>
