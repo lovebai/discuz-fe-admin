@@ -97,15 +97,35 @@ export default {
     async exporUserInfo() {
       try {
         let usersIdList = [];
-        this.tableData.forEach((v) => {
+        this.multipleSelection.forEach((v) => {
           usersIdList.push(v.userId)
         });
+        const {
+          username,
+          userUID,
+          userRole,
+          userPhone,
+          userStatus,
+          userWeChat,
+          isReal,
+        } = this.query;
+        let paramData = {};
+        if (this.tableData.length > 0) {
+          paramData = {
+            "ids": usersIdList.toString(),
+            "filter[username]": username,
+            "filter[id]": userUID,
+            "filter[group_id]": userRole,
+            "filter[mobile]": userPhone,
+            "filter[status]": userStatus,
+            "filter[wechat]": userWeChat,
+            "filter[isReal]": isReal
+          }
+        }
         const response = await this.appFetch({
           method: 'get',
           url: 'export_users_post_v3',
-          data: {
-            ids: usersIdList.toString(),
-          },
+          data: paramData,
           responseType: 'arraybuffer'
         });
         const blob = new Blob([response], { type: 'application/x-xls' });
