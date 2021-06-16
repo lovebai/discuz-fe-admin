@@ -141,6 +141,10 @@ export default {
           'page':pageNumber,
         }
       }).then(res=>{
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         this.total = res.Data.totalCount;
         this.pageCount = res.Data.totalPage;
         this.visibleExtends = [];
@@ -290,6 +294,10 @@ export default {
         method: 'get',
         data: {},
       }).then(res => {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         this.extendedAudit = [];
         res.Data.forEach(item => {
           if (item.status == 1) {

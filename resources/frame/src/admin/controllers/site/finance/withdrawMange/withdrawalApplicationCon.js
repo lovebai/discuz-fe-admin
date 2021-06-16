@@ -227,6 +227,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.tableData = [];
           const { Data: data } = res;
           this.tableData = data.pageData || [];

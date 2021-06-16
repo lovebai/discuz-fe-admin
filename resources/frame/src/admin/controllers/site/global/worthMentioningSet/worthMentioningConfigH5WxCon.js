@@ -55,6 +55,10 @@ export default {
         if (data.errors) {
           this.$message.error(data.errors[0].code);
         } else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
           // 获取对应值渲染
           this.getPrefix(this.type, data);
         }

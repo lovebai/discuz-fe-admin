@@ -110,12 +110,14 @@ export default {
       })
         .then((res) => {
           if (res && res.errors) return this.$message.error(res.errors[0].code);
-          if (res && res.Data) {
-            const data = res.Data.overData.over || {};
-            this.dataList.forEach((item) => {
-              item.num = data[item.key];
-            });
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
           }
+          const data = res.Data.overData.over || {};
+          this.dataList.forEach((item) => {
+            item.num = data[item.key];
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -184,8 +186,11 @@ export default {
       })
         .then((res) => {
           if (res && res.errors) return this.$message.error(res.errors[0].code);
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.noData = res && res.Data == "" ? true : false;
-          if (res && res.Data) {
             const { Data: data } = res;
             let date = []; // 日期
             let threadData = []; // 每日发帖
@@ -223,7 +228,6 @@ export default {
               activeUserData,
               joinUserData
             );
-          }
         })
         .catch((err) => {
           console.log(err);

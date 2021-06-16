@@ -128,6 +128,10 @@ export default {
       if (res.errors) {
         this.$message.error(res.errors[0].code);
       } else {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         const { Data: data } = res;
         this.reportList = data.pageData || [];
         this.pageData.pageTotal = data.totalCount;
@@ -198,16 +202,17 @@ export default {
         "ids": data,
       }
     }).then(res => {
-      console.log('删除',res);
-    })
-    var time = setTimeout(function(){
+      if (res.Code !== 0) {
+        this.$message.error(res.Message);
+        return
+      }
       that.subLoading = false;
       that.$message({
         message: '删除成功',
         type: 'success'
       });
       that.getReportList(Number(webDb.getLItem('pageNumber')) || 1)
-    },300)
+    })
    },
     /*
     * 已处理请求
@@ -218,18 +223,16 @@ export default {
         method: 'post',
         data: { data: submitData }
       }).then(res => {
-        if(res){
-          if (res.Code !== 0) {
-            this.$message.error(res.Message);
-            return
-          }
-          this.subLoading = false;
-          this.$message({
-            message: '操作成功',
-            type: 'success'
-          });
-          this.getReportList(Number(webDb.getLItem('pageNumber')) || 1)
-        }  
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
+        this.subLoading = false;
+        this.$message({
+          message: '操作成功',
+          type: 'success'
+        });
+        this.getReportList(Number(webDb.getLItem('pageNumber')) || 1)
       })
     },
     /*

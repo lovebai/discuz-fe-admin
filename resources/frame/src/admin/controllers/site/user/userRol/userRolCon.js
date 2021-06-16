@@ -165,6 +165,10 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.tableData = res.Data;
           this.alternateLength = res.Data.length;
           this.tableData.forEach((item) => {
@@ -330,7 +334,6 @@ export default {
     },
 
     extension(id) {
-      console.log(1111, id, '推广');
       this.appFetch({
         url: "invite_link_v3",
         method: 'get',
@@ -338,10 +341,13 @@ export default {
           groupId: id
         }
       }).then(res => {
-       console.log(res);
         if (res.errors){
         this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           const oInput = document.createElement('input');
           oInput.value = `${window.location.protocol}//${window.location.host}/forum/partner-invite?inviteCode=${res.Data.code}`;
           oInput.id = 'copyInput';

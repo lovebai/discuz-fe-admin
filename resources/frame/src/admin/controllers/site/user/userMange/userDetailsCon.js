@@ -116,6 +116,10 @@ export default {
         method: 'get',
         data: {},
       }).then(res => {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         res.Data.forEach(item => {
           if (item.status == 1) {
             this.expandDatas.push(item);
@@ -135,6 +139,10 @@ export default {
           uid: userId
         }
       }).then((res) => {
+        if (res.Code !== 0) {
+          this.$message.error(res.Message);
+          return
+        }
         if (res.Data && res.Data.length > 0) {
           res.Data.forEach((item, index) => {
             if (item.type > 1 && item.fieldsExt) {
@@ -169,7 +177,6 @@ export default {
       this.appFetch({
         url: "delete_avatar_post_v3",
         method: "post",
-        // splice: `/${this.query.id}` + "/avatar",
         data: {
           aid: this.query.id
         }
@@ -218,7 +225,6 @@ export default {
       this.appFetch({
         url: "users_avatar_post_v3",
         method: "post",
-        // splice: `${this.query.id}` + "/avatar",
         data: formData
       }).then(res => {
         if (res.errors) {

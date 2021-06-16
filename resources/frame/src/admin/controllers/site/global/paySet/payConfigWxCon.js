@@ -31,6 +31,10 @@ export default {
         if (data.errors){
           this.$message.error(data.errors[0].code);
         }else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
           const {Data: forumData} = data;
           this.appId = forumData.paycenter.appId;
           this.mchId = forumData.paycenter.mchId;

@@ -93,6 +93,10 @@ export default {
           if (data.errors) {
             this.$message.error(data.errors[0].code);
           } else {
+            if (data.Code !== 0) {
+              this.$message.error(data.Message);
+              return
+            }
             const {Data: forumData} = data;
             // 微信支付关闭时置灰付费模式
             if (forumData.paycenter.wxpayClose == false) {

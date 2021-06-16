@@ -442,10 +442,13 @@ export default {
           sort: '-created_at',
         }
       }).then(res => {
-        console.log(res);
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.themeList = res.Data.pageData;
           this.total = res.Data.totalCount;
           this.pageCount = res.Data.totalPage;
@@ -467,12 +470,10 @@ export default {
         if (res.errors) {
           this.$message.error(res.errors[0].code);
         } else {
-          // res.data.forEach((item, index) => {
-          //   this.categoriesList.push({
-          //     name: item.attributes.name,
-          //     id: item.id
-          //   })
-          // })
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           res.Data.forEach(item => {
             if (item.children.length) {
               const child = []

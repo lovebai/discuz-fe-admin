@@ -130,6 +130,10 @@ export default {
         if (response.errors) {
           this.$message.error(response.errors[0].code);
         } else {
+          if (response.Code !== 0) {
+            this.$message.error(response.Message);
+            return
+          }
           if (initStatus) {
             this.tableData = [];
           }

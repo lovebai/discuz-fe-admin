@@ -138,6 +138,10 @@ export default {
         if (res.error){
           this.$message.error(res.errors[0].code);
         }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           res.Data.forEach((item, index) => {
             this.categoriesList.push({
               name: item.name,
