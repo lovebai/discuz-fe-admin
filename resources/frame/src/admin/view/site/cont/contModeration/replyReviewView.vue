@@ -37,6 +37,7 @@
               </el-option>
             </el-select>
             <el-cascader
+              clearable
               v-model="categoriesListSelect"
               :options="categoriesList"
               :props="{ expandTrigger: 'hover', checkStrictly: true }"

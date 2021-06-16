@@ -20,23 +20,16 @@
       <div class="cont-manage-header_middle condition-box">
         <div class="cont-manage-header_condition cont-manage-header_condition-lf">
           <span class="cont-manage-header_condition-title">搜索范围：</span>
-          <!-- <el-select v-model="searchData.categoryId" placeholder="选择搜索范围">
-            <el-option
-              v-for="item in categoriesList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            ></el-option>
-          </el-select> -->
           <el-cascader
             v-model="searchData.categoryId"
+            clearable
             :options="categoriesList"
             :props="{ expandTrigger: 'hover', checkStrictly: true }">
           </el-cascader>
         </div>
         <div class="cont-manage-header_condition">
           <span class="cont-manage-header_condition-title">主题类型：</span>
-          <el-select v-model="searchData.topicTypeId" placeholder="选择主题类型">
+          <el-select v-model="searchData.topicTypeId" placeholder="选择主题类型" clearable>
             <el-option v-for="item in topicType" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </div>
@@ -58,21 +51,6 @@
       </div>
 
       <div class="cont-manage-header_bottom condition-box">
-        <!--<div class="cont-manage-header_condition cont-manage-header_condition-lf">
-            <span class="cont-manage-header_condition-title">发布时间:</span>
-            <el-date-picker
-              v-model="searchData.dataValue"
-              type="daterange"
-              align="right"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-              value-format="yyyy-MM-dd HH:mm:ss"
-              :default-time="['00:00:00', '23:59:59']"
-              :picker-options="pickerOptions">
-            </el-date-picker>
-        </div>-->
         <div class="cont-manage-header_condition cont-manage-header_condition-mid">
           <span class="cont-manage-header_condition-title">浏览次数：</span>
           <el-input size="medium" placeholder="大于" v-model="searchData.viewedTimesMin" clearable></el-input>
@@ -210,16 +188,9 @@
 
         <el-table-column label="选项" min-width="250">
           <template slot-scope="scope">
-            <!-- <el-select v-if="scope.row.name === '批量移动到分类'" v-model="categoryId" placeholder="选择分类">
-              <el-option
-                v-for="item in categoriesList"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id"
-              ></el-option>
-            </el-select> -->
             <el-cascader
               v-if="scope.row.name === '批量移动到分类'"
+              clearable
               v-model="categoryId"
               :options="moveCateList"
               :props="{ expandTrigger: 'hover', checkStrictly: true }">

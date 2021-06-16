@@ -32,7 +32,7 @@
         </div>
         <div class="cont-review-header__rt-search">
           <span class="cont-review-header__lf-title">搜索范围：</span>
-          <el-select v-model="searchReviewSelect" size="medium" placeholder="选择审核状态">
+          <el-select v-model="searchReviewSelect" size="medium" placeholder="选择审核状态" clearable>
             <el-option
               v-for="item in searchReview"
               :key="item.value"
@@ -50,6 +50,7 @@
           </el-select> -->
           <el-cascader
             v-model="categoriesListSelect"
+            clearable
             :options="categoriesList"
             :props="{ expandTrigger: 'hover', checkStrictly: true }"
             @change="handleChange">
@@ -59,6 +60,7 @@
             @change="searchTimeChange"
             size="medium"
             placeholder="选择搜索时间"
+            clearable
           >
             <el-option
               v-for="item in searchTime"
