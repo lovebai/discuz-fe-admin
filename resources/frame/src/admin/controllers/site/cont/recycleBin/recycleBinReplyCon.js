@@ -199,7 +199,7 @@ export default {
           'createdAtBegin':this.releaseTime[0],
           'createdAtEnd':this.releaseTime[1],
           'deletedAtBegin':this.deleteTime[0],
-          'deletedEnd':this.deleteTime[1],
+          'deletedAtEnd':this.deleteTime[1],
           'sort':'-deleted_at'
         }
       }).then(res=>{
