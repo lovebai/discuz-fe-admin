@@ -107,7 +107,7 @@
         <Card class="sort-border-bottom">
           <CardRow >
             <div class="sort-item-wrap">
-              <span>按用户角色排除：</span>
+              <span>按用户排除：</span>
               <el-select 
                 ref="excludeUser"
                 v-model="sortData.blockUsersList" 

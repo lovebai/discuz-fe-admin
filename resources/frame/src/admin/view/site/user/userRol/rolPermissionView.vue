@@ -55,6 +55,7 @@
             v-model="selectList.createThread"
             :options="categoriesList"
             :disabled="checked.indexOf('switch.createThread') === -1"
+            clearable
             :props="{
               value: 'id',
               label: 'name',

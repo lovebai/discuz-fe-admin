@@ -9,6 +9,7 @@
           <div>
             <span class="cont-review-header__lf-title">搜索范围：</span>
             <el-cascader
+              clearable
               v-model="categoriesListSelect"
               :options="categoriesList"
               :props="{ expandTrigger: 'hover', checkStrictly: true }">
