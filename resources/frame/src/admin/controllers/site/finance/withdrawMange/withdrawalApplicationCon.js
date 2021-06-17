@@ -260,17 +260,15 @@ export default {
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
-          if (res.Data[data.id] === 'success') {
-            this.getReflectList();
-            this.$message({
-              message: '提交成功！',
-              type: 'success'
-            });
-          } else if (res.Data[data.id] === 'failure') {
-            this.$message.error('提交错误！请重新提交');
-          } else {
-            this.$message.error('未知错误，请刷新页面后重新提交');
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
           }
+          this.getReflectList();
+          this.$message({
+            message: '提交成功！',
+            type: 'success'
+          });
         }
       }).catch(err=>{
       })
