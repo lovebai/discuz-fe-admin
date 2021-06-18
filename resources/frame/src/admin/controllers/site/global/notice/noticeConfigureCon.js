@@ -189,10 +189,10 @@ export default {
         let data = [];
         // 系统通知提交数据
         if (this.showSystem === true){
-          if (this.systemList.content === '') {
-            this.$message.error('请填写通知内容');
-            return;
-          }
+          // if (this.systemList.content === '') {
+          //   this.$message.error('请填写通知内容');
+          //   return;
+          // }
           data.push({
             "id": this.systemList.tplId,
             "status": 1,
