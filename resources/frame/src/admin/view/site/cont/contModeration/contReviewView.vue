@@ -281,7 +281,7 @@
         v-if="pageCount > 1"
         @current-change="handleCurrentChange"
         :current-page="currentPaga"
-        :page-size="10"
+        :page-size="pageSelect"
         :total="total"
       ></Page>
     </div>

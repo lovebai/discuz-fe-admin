@@ -233,14 +233,14 @@ export default {
 			this.valueMouth = this.valueMouth == null ? ['',''] : this.valueMouth;
 
 			var dataStatistics = {    //盈利统计按日、周统计
-				'filter[type]': this.istrue + 1,
-				'filter[createdAtBegin]': this.financialTime[0],
-				'filter[createdAtEnd]': this.financialTime[1],
+				'type': this.istrue + 1,
+				'createdAtBegin': this.financialTime[0],
+				'createdAtEnd': this.financialTime[1],
 			}
 			var dataStatisticsMouth = {    //盈利统计按月统计
-				'filter[type]': this.istrue + 1,
-				'filter[createdAtBegin]': this.valueMouth[0],
-				'filter[createdAtEnd]': this.valueMouth[1],
+				'type': this.istrue + 1,
+				'createdAtBegin': this.valueMouth[0],
+				'createdAtEnd': this.valueMouth[1],
 			}
 			var data;
 			if (this.indexStatistics == false) {
@@ -286,14 +286,14 @@ export default {
 			this.valueOrder = this.valueOrder == null ? ['',''] : this.valueOrder;
 
 			var dataDay = {
-				'filter[type]': this.istrueOder + 1,
-				'filter[createdAtBegin]': this.orderTime[0],
-				'filter[createdAtEnd]': this.orderTime[1],
+				'type': this.istrueOder + 1,
+				'createdAtBegin': this.orderTime[0],
+				'createdAtEnd': this.orderTime[1],
 			}
 			var dataMouth = {
-				'filter[type]': this.istrueOder + 1,
-				'filter[createdAtBegin]': this.valueOrder[0],
-				'filter[createdAtEnd]': this.valueOrder[1],
+				'type': this.istrueOder + 1,
+				'createdAtBegin': this.valueOrder[0],
+				'createdAtEnd': this.valueOrder[1],
 			}
 			var data;
 			if (this.indexOrderTab == false) {
