@@ -368,7 +368,7 @@ export default {
           page:pageNumber,
           perPage:this.pageSelect,
           isDeleted: 'no',
-          uickname: this.searchUserName,
+          nickname: this.searchUserName,
           q: this.keyWords,
           isApproved: this.searchReviewSelect,
           createdAtBegin: this.relativeTime[1],
