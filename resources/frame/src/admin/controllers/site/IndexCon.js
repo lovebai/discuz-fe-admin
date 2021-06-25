@@ -423,7 +423,7 @@ export default {
           this.sideList = [];
       }
 
-      this.checkQcloud();
+      // this.checkQcloud();
     },
 
     /*
@@ -540,7 +540,7 @@ export default {
           this.$router.push({ path: "/admin/other-service-set" });
           break;
       }
-      this.checkQcloud();
+      // this.checkQcloud();
     },
 
     /*
@@ -756,46 +756,46 @@ export default {
     },
 
     // 判断腾讯云云api是否配置
-    checkQcloud() {
-      this.appFetch({
-        url: 'checkQcloud_get_v3',
-        method: "get",
-        data: {}
-      }).then(res => {
-        if (res.Code !== 0) {
-          this.$message.error(res.Message);
-          return
-        }
-        if (!res.Data.data.attributes.isBuildQcloud) {
-          this.dialogVisible = true;
-          this.tencentCloudList()//初始化云API配置
-        }
-      })
-      .catch(error => {});
-    },
+    // checkQcloud() {
+    //   this.appFetch({
+    //     url: 'checkQcloud_get_v3',
+    //     method: "get",
+    //     data: {}
+    //   }).then(res => {
+    //     if (res.Code !== 0) {
+    //       this.$message.error(res.Message);
+    //       return
+    //     }
+    //     if (!res.Data.data.attributes.isBuildQcloud) {
+    //       this.dialogVisible = true;
+    //       this.tencentCloudList()//初始化云API配置
+    //     }
+    //   })
+    //   .catch(error => {});
+    // },
 
-    tencentCloudList(){
-      this.appFetch({
-        url:'forum_get_v3',
-        method:'get',
-        data:{
+    // tencentCloudList(){
+    //   this.appFetch({
+    //     url:'forum_get_v3',
+    //     method:'get',
+    //     data:{
 
-        }
-      }).then(res=>{
-        if (res.errors){
-          this.$message.error(res.errors[0].code);
-        }else {
-          if (res.Code !== 0) {
-            this.$message.error(res.Message);
-            return
-          }
-          const {Data: forumData} = res;
-          this.appId = forumData.qcloud.qcloudAppId
-          this.secretId = forumData.qcloud.qcloudSecretId
-          this.secretKey = forumData.qcloud.qcloudSecretKey
-        }
-      })
-    },
+    //     }
+    //   }).then(res=>{
+    //     if (res.errors){
+    //       this.$message.error(res.errors[0].code);
+    //     }else {
+    //       if (res.Code !== 0) {
+    //         this.$message.error(res.Message);
+    //         return
+    //       }
+    //       const {Data: forumData} = res;
+    //       this.appId = forumData.qcloud.qcloudAppId
+    //       this.secretId = forumData.qcloud.qcloudSecretId
+    //       this.secretKey = forumData.qcloud.qcloudSecretKey
+    //     }
+    //   })
+    // },
     async  Submission(){
       try{
         await this.appFetch({
@@ -843,7 +843,7 @@ export default {
   created() {
     this.setDataStatus();
     this.userName = webDb.getLItem("username");
-    this.checkQcloud();
+    // this.checkQcloud();
   },
   watch: {
     $route() {
