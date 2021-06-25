@@ -423,7 +423,7 @@ export default {
           this.sideList = [];
       }
 
-      this.checkQcloud();
+      // this.checkQcloud();
     },
 
     /*
@@ -540,7 +540,7 @@ export default {
           this.$router.push({ path: "/admin/other-service-set" });
           break;
       }
-      this.checkQcloud();
+      // this.checkQcloud();
     },
 
     /*
@@ -843,7 +843,7 @@ export default {
   created() {
     this.setDataStatus();
     this.userName = webDb.getLItem("username");
-    this.checkQcloud();
+    // this.checkQcloud();
   },
   watch: {
     $route() {
