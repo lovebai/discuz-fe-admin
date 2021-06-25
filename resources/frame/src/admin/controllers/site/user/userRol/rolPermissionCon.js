@@ -254,7 +254,7 @@
          }
        } else {
          this.patchGroupScale();
-       }
+       }  
      },
  
      /*
@@ -304,6 +304,7 @@
                message: "提交成功",
                type: "success"
              });
+             this.getData();
            } else {
              this.$message.error(res.Message);
            }
@@ -361,14 +362,35 @@
      },
      // 分类下拉改变
      changeCategory(value, obj) {
+       let threadValue = value;
        let checked = this.checked;
        const isAll = this.checked.includes(obj);
  
-       // 获取当前选中的权限字符串;全选权限不用加category
-       const selectPermission = value.map(item => {
-         return item[0] ? `category${item[item.length - 1]}.${obj}` : obj;
-       })
- 
+      // 获取当前选中的权限字符串;全选权限不用加category
+      let selectPermission = [];
+      let arr = [];
+      value.forEach(item => {
+       // console.log(item);
+       if (item.length > 1) {
+         if (arr.indexOf(item[0]) === -1) {
+           arr.push(item[0]);
+           threadValue.push([item[0]]);
+           this.selectList[obj] = threadValue.filter(v => v[0] !== "");
+          //  this.selectList[obj] = threadValue;
+         } 
+         item.map((val)=> {
+           if (selectPermission.indexOf(`category${val}.${obj}` && !selectPermission.includes(obj))) {
+             selectPermission.push(`category${val}.${obj}`);
+           }
+         })
+       } else {
+         if (item[0]) {
+           arr.push(item[0]);
+         }
+         const data = item[0] ? `category${item[0]}.${obj}` : obj;
+         selectPermission.push(data);
+       }
+      })
        if (isAll) {
          // 取消全选
          this.selectList[obj] = value.filter(v => v[0] !== "");
