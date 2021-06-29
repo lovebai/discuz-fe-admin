@@ -9,6 +9,7 @@ export default {
   data:function () {
     return {
       categoriesList: [],           //分类列表
+      alternateLength:0,    //数据长度备份
       categoriesListLength:'',      //分类列表长度
       createCategoriesStatus:false, //添加分类状态
       deleteStatus:true,
@@ -24,13 +25,16 @@ export default {
   methods:{
     // 新增。当前父类添加二级子类，携带父级id
     childAdd(row){
-      row.children.push({
-        id: '',
-        name: '',
-        description: '',
-        sort: '',
-        parentid: row.id
-      });
+      const num = this.alternateLength.filter(v => v.pid === row.id);
+      if (row.children.length <= num[0].children.length) {
+        row.children.push({
+          id: '',
+          name: '',
+          description: '',
+          sort: '',
+          parentid: row.id
+        });
+      }
     },
     
     // 新增。删除带id子项，无id的等等提交刷新列表
@@ -211,6 +215,7 @@ export default {
           const {Data: data} = res
           this.categoriesListLength = data.length;
           this.categoriesList = [];
+          this.alternateLength = data;
           data.forEach((item, index) => {
             let children = [];
             item.children.forEach(citem => {
