@@ -155,8 +155,8 @@
       <p>{{ userInfo.lastLoginIp }}</p>
     </Card>
 
-    <Card header="微信昵称：" v-if="wechatNickName">
-      <p>{{ wechatNickName }}</p>
+    <Card header="微信昵称：" v-if="userInfo.wxNickname">
+      <p>{{ userInfo.wxNickname }}</p>
     </Card>
 
     <Card header="性别：" v-if="sex">
