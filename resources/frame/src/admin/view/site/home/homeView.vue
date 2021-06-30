@@ -74,6 +74,7 @@
       <a href="https://cloud.tencent.com/" target="_blank">腾讯云</a>
       <a href="http://www.dnspod.cn/" target="_blank">DNSPod</a>
       <a href="https://da.do/hmos" target="_blank">免费SSL证书</a>
+      <a href="https://discuz.chat/manual-admin/" target="_blank">鸣谢</a>
     </Card>
   </div>
 </template>
