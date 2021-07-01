@@ -115,6 +115,7 @@ export default {
           url: 'stopwords_export_v3',
           method: 'get',
           data: {
+            'keyword': this.serachVal,
           }
         })
         const blob = new Blob([response], { type: 'application/x-xls' });
