@@ -105,7 +105,7 @@
         <a
           slot="longText"
           class="cont-review-table__long-text"
-          v-if="items.title === 1"
+          v-if="items.title"
           :href="'/thread/' + items.threadId"
         >
           {{items.title}}
@@ -116,15 +116,17 @@
         </a>
 
         <div class="cont-review-table__main" slot="main">
-          <a
-            class="cont-review-table__main__cont-text"
-            :href="'/thread/' + items.threadId"
-            target="_blank"
-            :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
-            v-html="items.content.text"
-          ></a>
+          <div class="cont-review-table__main-box">
+            <a
+              class="cont-review-table__main__cont-text"
+              :href="'/thread/' + items.threadId"
+              target="_blank"
+              :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
+              v-html="items.content.text"
+            ></a>
+          </div>
           <span class="iconfont iconvideo" v-if="contentIndexes(items.content, 'videos')"></span>
-          <div class="cont-review-table__main__cont-imgs" v-if="!items.title">
+          <div class="cont-review-table__main__cont-imgs" v-if="contentIndexes(items.content, 'images')">
             <p
               class="cont-review-table__main__cont-imgs-p"
               v-for="(item,index) in contentIndexes(items.content, 'images')"
@@ -153,7 +155,8 @@
             <el-button
               type="text"
               :class="{'graybtn': contentIndexes(items.content, 'video')}"
-              v-if="contentIndexes(items.content, 'videos')"
+              v-if="contentIndexes(items.content, 'video')"
+              @click="sun"
             >通过</el-button>
             <el-button
               type="text"

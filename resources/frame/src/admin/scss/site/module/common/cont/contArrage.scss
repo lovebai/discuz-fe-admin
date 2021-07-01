@@ -82,7 +82,7 @@
             color: $descColor;
           }
           .themeName{
-            position: absolute;
+            // position: absolute;
             //width: calc(100% - 140PX);
             //left: 111PX;
           }
@@ -162,5 +162,12 @@
     }
 
   }
-
+  .cont-arrange-span {
+    background: white;
+  }
+  .cont-arrange__rt-main-header__release {
+    display: flex;
+    overflow: hidden;
+    flex-wrap: nowrap;
+  }
 }
