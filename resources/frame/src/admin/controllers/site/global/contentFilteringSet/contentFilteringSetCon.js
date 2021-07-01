@@ -17,9 +17,8 @@ export default {
       tableData: [],
       multipleSelection: [],
       tableDataLength: '',
-      // disabled:true,
       createCategoriesStatus: false,   //添加分类状态
-      exportUrl: appConfig.baseUrl + '/api/stop-words/export?token=Bearer ' + token,
+      exportUrl: appConfig.baseUrl + '/api/backAdmin/stopWords/export',
       options: [
         {
           value: '{IGNORE}',
@@ -61,13 +60,7 @@ export default {
       pageNum: 1, //当前页
       userLoadMoreStatus: true,
       userLoadMorePageChange: false,
-      // loginStatus:'',  //default  batchSet
       deleteStatus: true,
-      // contentParams: {
-      //   'filter[p]': '',
-      //   'page[number]': 1,
-      // }
-
       deleteList: [],
       tableAdd: false,
 
@@ -116,6 +109,27 @@ export default {
       this.pageNum = 1;
       this.handleSearchUser(true);
     },
+    async exportUrlContent() {
+      try {
+        const response = await this.appFetch({
+          url: 'stopwords_export_v3',
+          method: 'get',
+          data: {
+            'keyword': this.serachVal,
+          }
+        })
+        const blob = new Blob([response], { type: 'application/x-xls' });
+        const url = window.URL || window.webkitURL || window.moxURL;
+        const downloadHref = url.createObjectURL(blob);
+        let a = document.createElement('a');
+        a.href = downloadHref;
+        a.download = 'stop-words.txt';
+        a.click();
+        a = null;
+      } catch (err) {
+
+      }
+    },
     async handleSearchUser(initStatus = false) {
       try {
         const response = await this.appFetch({
@@ -143,7 +157,6 @@ export default {
               v.replacement = '';
             }
             this.total = data.totalCount;
-            // this.pageNum = response.meta.pageCount;
             return v;
           });
         }
@@ -218,16 +231,10 @@ export default {
             "overwrite": true
           }
         })
-        // if (res.errors){
-        //   this.$message.error(res.errors[0].code);
-        // }else{
-        // this.pageNum  = 1
         this.handleSearchUser(true);
         this.$message({ message: '提交成功', type: 'success' });
-        // }
-
       } catch (err) {
-        console.error(err, 'function loginStatus error')
+        console.error(err)
       }
 
     },

@@ -33,6 +33,7 @@ module.exports = {
   stopwords_batch_v3: '/backAdmin/stopwords.batch', // 创建/修改敏感词接口(批量)
   stopwords_get_v3: '/backAdmin/stopwords.list', // 查询敏感词(列表) 
   stopwords_delete_v3: '/backAdmin/stopwords.delete', // 删除敏感词(单个/批量)
+  stopwords_export_v3: '/backAdmin/stopWords/export', // 导出敏感词
 
   forum_get_v3: '/backAdmin/forum',
   notices_get_v3: '/backAdmin/notification/tpl', // 通知模板列表

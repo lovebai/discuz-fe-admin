@@ -15,6 +15,9 @@
     <Card header="支持的最大尺寸：">
       <CardRow description="单位：MB">
         <el-input v-model="maximumSize" type="number"></el-input>
+        <template #tail>
+            <a href="https://discuz.com/manual-admin/2.html#_2-5-%E9%99%84%E4%BB%B6%E8%AE%BE%E7%BD%AE" target="_blank" style="margin-left: 10px;">附件尺寸设置指南</a>
+        </template>
       </CardRow>
     </Card>
 

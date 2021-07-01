@@ -10,7 +10,8 @@
       <main class="content-filter-set-main">
         <p class="list-set-box">
           <span  @click="$router.push({path:'/admin/add-sensitive-words'})" >批量添加</span>
-          <a :href="exportUrl">导出过滤词库</a>
+          <span @click="exportUrlContent" >导出过滤词库</span>
+          <!-- <a :href="exportUrl">导出过滤词库</a> -->
         </p>
 
         <div>
@@ -113,13 +114,6 @@
           </el-table>
 
         <TableContAdd @tableContAddClick="tableContAdd" cont="新增"></TableContAdd>
-
-          <!--<div class="content-filter-set-table-add">
-            <p>
-              <span class="iconfont iconicon_add icon-add"></span>
-              新增
-            </p>
-          </div>-->
         <Page :total="total" :pageSize="pageLimit" :current-page.sync="pageNum" @current-change="handleCurrentChange" />
         </div>
 
