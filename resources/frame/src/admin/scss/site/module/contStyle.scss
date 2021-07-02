@@ -681,7 +681,19 @@
     }
   }
 }
-
+.cont-review-table__main-box {
+  width: 100%;
+  overflow: hidden;
+}
+.cont-review-table__main__cont-text {
+  display: block;
+  p {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+}
 /*
   回复审核
 */
