@@ -5,9 +5,10 @@ import CardRow from '../../../view/site/common/card/cardRow';
 export default {
   data: function () {
     return {
-      picture: '',     //图片扩展名
-      fileExtension: '',//文件扩展名
-      maximumSize: ''//最大尺寸
+      picture: '',       // 图片扩展名
+      fileExtension: '', // 文件扩展名
+      maximumSize: '',   // 最大尺寸
+      tipShow: false,    // 是否显示提示信息
     }
   },
   created() {
@@ -34,7 +35,13 @@ export default {
         }
       })
     },
-
+    onblurFun () {
+      if (this.maximumSize > 100) {
+        this.tipShow = true;
+      } else {
+        this.tipShow = false;
+      }
+    },
     submi() { //提交附件信息
       var reg = /^(?:[a-zA-Z]{3},)*[a-zA-Z]{3}$/;
       var regs = /^\d+$|^\d+[.]?\d+$/;
@@ -52,6 +59,10 @@ export default {
       }
       if (!maximumSize) {
         this.$message.error('请您输入支持的最大尺寸');
+        return
+      }
+      if (maximumSize > 100 ) {
+        this.$message.error('最大尺寸不能超过100MB');
         return
       }
       if (!regs.test(maximumSize)) {
