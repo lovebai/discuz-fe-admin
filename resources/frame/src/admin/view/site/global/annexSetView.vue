@@ -19,7 +19,6 @@
             <a href="https://discuz.com/manual-admin/2.html#_2-5-%E9%99%84%E4%BB%B6%E8%AE%BE%E7%BD%AE" target="_blank" style="margin-left: 15px;">附件尺寸设置指南</a>
         </template>
       </CardRow>
-      <div v-show="tipShow" class="annex-tips">*不能超过100MB</div>
     </Card>
 
     <Card class="footer-btn">

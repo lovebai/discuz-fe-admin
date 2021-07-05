@@ -370,7 +370,6 @@
       let selectPermission = [];
       let arr = [];
       value.forEach(item => {
-       // console.log(item);
        if (item.length > 1) {
          if (arr.indexOf(item[0]) === -1) {
            arr.push(item[0]);
