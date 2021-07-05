@@ -23,12 +23,12 @@
                   {{$attrs.establish}}
                 </a>
               </p>
-              <span v-if="$attrs.author">发布于</span>
-              <span v-if="$attrs.establish">创建于</span>
-              <span v-if="$attrs.replyBy">回复主题</span>
+              <p class="cont-arrange-span" v-if="$attrs.author">发布于</p>
+              <p class="cont-arrange-span" v-if="$attrs.establish">创建于</p>
+              <p class="cont-arrange-span" v-if="$attrs.replyBy">回复主题</p>
               <p v-if="$attrs.time">{{$attrs.time}}</p>
               <p v-if="$attrs.theme">{{$attrs.theme}}</p>
-              <p v-if="$attrs.themeName" ref="themeName" :class="$attrs.themeName?'themeName':''" :style=themeNameStyle >
+              <p v-if="$attrs.themeName" ref="themeName" :class="$attrs.themeName ? 'themeName':'' ">
                 {{$attrs.themeName}}
                 <span v-if="$attrs.titleIcon" class="iconfont cont-arrange__rt-main-header__release-title-icon" :class="$attrs.titleIcon"></span>
               </p>

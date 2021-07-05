@@ -8,7 +8,7 @@ export default {
       is_register_close:'', //是否允许游客注册成为会员
       is_need_transition:'', //是否启用微信内落地页
       register_validate:'',   //注册审核
-      pwdLength:'',           //密码长度
+      pwdLength:'6',           //密码长度
       checkList:[],           //密码规则
       register_captcha:'',    //验证码开始
       disabled:true,            //是否可以开启验证码
@@ -77,6 +77,12 @@ export default {
     changeSize(obj){
        this[obj]= !this[obj];
     },
+    onblurFun() {
+      if (this.pwdLength == null || this.pwdLength == "" || this.pwdLength < 6) {
+        this.$message("密码最小长度为6");
+        this.pwdLength = '6';
+      }
+    },
     extendFun() {
       this.appFetch({
         url: 'signinfields_get_v3',
@@ -132,16 +138,7 @@ export default {
       })
     },
     submission(){ //提交注册信息接口
-      var reg = /^\d+$|^\d+[.]?\d+$/;
-      var pwdLength = this.pwdLength;
-      var passwordStrength = this.checkList.join(",")
-      // if(pwdLength === ''){
-      //   return
-      // }
-      // if (!reg.test(pwdLength)) { //密码只能输入数字
-      //   this.$message("密码只能输入数字");
-      //   return
-      // }
+      var passwordStrength = this.checkList.join(",");
       this.appFetch({
         url:'settings_post_v3',
         method:'post',

@@ -60,7 +60,6 @@ export default {
     },
 
     informationList(datalist) {
-      console.log(datalist);
       this.groupsList = [];
       for (let i = 0; i < datalist.length; i++) {
         let data = {
@@ -228,7 +227,6 @@ export default {
     // 增加数据字段处理数据格式
     submitClick() {
       this.dataList = [];
-      console.log(this.groupsList, 'groupsList');
       for (let i = 0; i < this.groupsList.length; i++) {
         let  data = {
           "name": this.groupsList[i].name,

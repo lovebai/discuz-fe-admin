@@ -33,8 +33,8 @@
     </Card>
 
     <Card header="注册密码最小长度：">
-      <CardRow description="新用户注册时密码最小长度，0或不填为不限制">
-        <el-input v-model="pwdLength" type="number"  clearable></el-input>
+      <CardRow description="新用户注册时密码最小长度为6">
+        <el-input v-model="pwdLength" type="number" @blur.native.capture="onblurFun" clearable></el-input>
       </CardRow>
     </Card>
 

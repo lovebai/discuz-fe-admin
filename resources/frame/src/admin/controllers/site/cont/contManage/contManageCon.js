@@ -477,7 +477,7 @@ export default {
           res.Data.forEach(item => {
             if (item.children.length) {
               const child = []
-              item.attributes.children.forEach(c => {
+              item.children.forEach(c => {
                 child.push({
                   label: c.name,
                   value: c.searchIds
