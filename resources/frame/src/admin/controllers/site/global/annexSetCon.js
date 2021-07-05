@@ -7,8 +7,7 @@ export default {
     return {
       picture: '',       // 图片扩展名
       fileExtension: '', // 文件扩展名
-      maximumSize: '',   // 最大尺寸
-      tipShow: false,    // 是否显示提示信息
+      maximumSize: ''   // 最大尺寸
     }
   },
   created() {
@@ -37,9 +36,7 @@ export default {
     },
     onblurFun () {
       if (this.maximumSize > 100) {
-        this.tipShow = true;
-      } else {
-        this.tipShow = false;
+        this.$message('最大尺寸不能超过100MB');
       }
     },
     submi() { //提交附件信息
