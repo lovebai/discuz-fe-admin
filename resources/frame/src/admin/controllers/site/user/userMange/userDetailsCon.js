@@ -346,7 +346,6 @@ export default {
           this.exends.push(data);
         }
       })
-      // console.log(this.exends);
       // this.modificationUsers(this.exends);
     },
 

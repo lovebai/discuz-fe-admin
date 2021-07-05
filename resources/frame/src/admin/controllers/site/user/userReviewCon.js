@@ -308,7 +308,6 @@ export default {
     },
 
     optionFun(code) {
-      // console.log(code);
       let extendArr = '';
       if (code.options) {
         code.options.forEach(item => {

@@ -260,8 +260,7 @@ export default {
       }).catch(err=>{
       })
     },
-    // singlePatchGroup(id,name){
-    //   console.log('提交');
+    // singlePatchGroup(id,name){s
     //   this.appFetch({
     //     url:'groups',
     //     method:'patch',
