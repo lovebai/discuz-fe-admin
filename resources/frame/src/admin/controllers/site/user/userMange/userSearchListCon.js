@@ -53,6 +53,7 @@ export default {
       try {
         const {
           username,
+          uickname,
           userUID,
           userRole,
           userPhone,
@@ -67,6 +68,7 @@ export default {
             "perPage": this.pageLimit,
             "page": this.pageNum,
             "filter[username]": username,
+            "filter[nickname]": uickname,
             "filter[id]": userUID,
             "filter[groupId][]": userRole,
             "filter[mobile]": userPhone,
