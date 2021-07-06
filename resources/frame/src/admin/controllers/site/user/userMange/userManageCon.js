@@ -10,6 +10,7 @@ export default {
     return {
       options: [],
       username: '',
+      uickname: '',
       userUID: '',
       userRole: [],
       checked: false,
@@ -64,6 +65,7 @@ export default {
     searchBtn() {
       let query = {
         username: this.username.trim(),
+        uickname: this.uickname.trim(),
         userUID: this.userUID.trim(),
         userRole: this.userRole,
         userStatus: this.userStatus,
@@ -77,7 +79,7 @@ export default {
         this.userWeChat = '';
         this.isReal = '';
 
-        if (query.username + query.userUID + query.userRole + query.userStatus === '') {
+        if (query.username + query.userUID + query.uickname + query.userRole + query.userStatus === '') {
           query = {};
         } else {
           delete query.userPhone;

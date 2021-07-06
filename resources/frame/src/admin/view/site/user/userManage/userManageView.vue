@@ -6,6 +6,12 @@
       </CardRow>
     </Card>
 
+    <Card header="用户昵称：">
+      <CardRow>
+        <el-input v-model="uickname"></el-input>
+      </CardRow>
+    </Card>
+
     <Card header="用户 UID：">
       <CardRow>
         <el-input v-model="userUID"></el-input>
