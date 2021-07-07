@@ -21,8 +21,19 @@ export default {
     * 提交提现设置
     * */
     submitClick(){
+      if (this.minAmount < 1) {
+        this.$message.error("提现最小金额不能少于1元");
+        return;
+      }
       this.subLoading = true;
       this.postWithdrawalSettings();
+    },
+
+    onblurFun() {
+      if (this.minAmount < 1) {
+        this.$message("提现最小金额不能少于1元");
+        this.minAmount = '1';
+      }
     },
 
     /*
