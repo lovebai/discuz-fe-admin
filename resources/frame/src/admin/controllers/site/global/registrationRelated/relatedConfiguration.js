@@ -241,7 +241,7 @@ export default {
         }
         if (this.groupsList[i].content) {
           let lines = this.groupsList[i].content.split(/\n/);
-          for (var j = 0; j < lines.sort().length; j++) {
+          for (var j = 0; j < lines.length; j++) {
             if (lines[j].trim() !== '') {
               this.arr.push({value: lines[j].trim(), checked: false});
             }
