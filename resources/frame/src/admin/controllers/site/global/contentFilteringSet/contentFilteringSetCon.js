@@ -197,7 +197,7 @@ export default {
 
         for (let i = 0, len = this.tableData.length; i < len; i++) {
           const _data = this.tableData[i];
-          const { ugc, username, signature, dialog, find, replacement } = _data;
+          const { ugc, username, signature, dialog, find, replacement, nickname} = _data;
           if (replacement === '' && ugc === '{REPLACE}' && username === '{REPLACE}') {
             continue;
           }
@@ -213,8 +213,7 @@ export default {
             item = `${find}=${ugc}|${username}`
           }
           
-          item += `|${signature}|${dialog}`;
-
+          item += `|${signature}|${dialog}|${nickname}`;
           words.push(item);
         }
 
