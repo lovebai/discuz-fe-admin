@@ -206,7 +206,6 @@
        const checkedData = data;
        const selectList = this.selectList;
        checkedData.forEach((value, index) => {
- 
          // 1 分类-非全局状态回显
          if (value.includes("category")) {
            const splitIndex = value.indexOf(".");
@@ -218,7 +217,9 @@
            const id = value.substring(8, splitIndex);
            const parentId = this.mapCategoryId.get(parseInt(id));
            const selectItem = parentId === 0 ? [id] : [parentId, id];
-           selectList[obj].push(selectItem);
+           if (selectList[obj]) {
+            selectList[obj].push(selectItem);
+           }
            return;
          }
  
