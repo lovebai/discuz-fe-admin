@@ -105,6 +105,21 @@
 
             <el-table-column
               prop="address"
+              label="用户昵称处理方式">
+              <template slot-scope="scope">
+                <el-select v-model="scope.row.nickname" placeholder="请选择" @change="selectChange(scope)">
+                  <el-option
+                    v-for="item in optionsUser"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </template>
+            </el-table-column>
+
+            <el-table-column
+              prop="address"
               label="过滤词替换">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.replacement" placeholder="请输入替换内容" :disabled="scope.row.ugc !== '{REPLACE}' && scope.row.username !== '{REPLACE}'" clearable v-show="replace"></el-input>
