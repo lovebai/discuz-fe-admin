@@ -82,6 +82,7 @@
             color: $descColor;
           }
           .themeName{
+            line-height: 18PX;
             // position: absolute;
             //width: calc(100% - 140PX);
             //left: 111PX;
@@ -164,6 +165,15 @@
   }
   .cont-arrange-span {
     background: white;
+    line-height: 18PX;
+  }
+  .cont-arrange-title {
+    line-height: 18PX;
+  }
+  .cont-arrange-p {
+    a {
+      line-height: 18PX;
+    }
   }
   .cont-arrange__rt-main-header__release {
     display: flex;
