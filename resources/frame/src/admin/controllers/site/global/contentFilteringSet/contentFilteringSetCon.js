@@ -159,7 +159,6 @@ export default {
             this.total = data.totalCount;
             return v;
           });
-          console.log(this.tableData, 'tableData');
         }
       } catch (err) {
 
