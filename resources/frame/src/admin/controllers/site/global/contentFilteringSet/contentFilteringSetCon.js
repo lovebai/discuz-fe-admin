@@ -173,11 +173,11 @@ export default {
     },
 
     selectChange(scope) {
-      if (scope) {
-        if (scope.row.ugc !== '{REPLACE}' && scope.row.username !== '{REPLACE}') {
-          this.tableData[scope.$index].replacement = '';
-        }
-      }
+      // if (scope) {
+      //   if (scope.row.ugc !== '{REPLACE}' && scope.row.username !== '{REPLACE}') {
+      //     this.tableData[scope.$index].replacement = '';
+      //   }
+      // }
     },
 
     async loginStatus() {  //批量提交接口
