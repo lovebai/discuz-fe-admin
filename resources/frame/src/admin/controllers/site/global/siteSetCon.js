@@ -380,6 +380,13 @@ export default {
         .catch(error => { });
     },
     siteSetPost() {
+      if(this.radio === '2' && this.expireRadio === '1' && !this.siteExpire) {
+        this.$message({
+          message: "有效时间必须大于等于1，小于等于1000000",
+          type: "error"
+        });
+        return
+      }
 
       const closeData = this.closeList.map((item) => {
         item.value = this.closeSelectList.indexOf(item.key) != - 1;
@@ -423,11 +430,6 @@ export default {
           tag: "default"
         },
         {
-          key: "site_expire",
-          value: this.expireRadio === "2"  ? 0 : this.siteExpire,
-          tag: "default"
-        },
-        {
           key: "site_author_scale",
           value: this.siteAuthorScale,
           tag: "default"
@@ -468,6 +470,14 @@ export default {
           tag: "default"
         },
       ];
+
+      if(this.siteMode === 'pay') {
+        params.push({
+          key: "site_expire",
+          value: this.expireRadio === "2"  ? 0 : this.siteExpire,
+          tag: "default"
+        },)
+      }
 
       this.appFetch({
         url: "settings_post_v3",
@@ -517,7 +527,7 @@ export default {
     onExpireBlurFun() {
       var countRes = parseFloat(this.siteExpire);
       if (!(countRes >= 1 && countRes <= 1000000)) {
-        this.siteExpire = this.defaultExprie;
+        this.siteExpire = '';
         this.$message({
           message: "有效时间必须大于等于1，小于等于1000000",
           type: "error"
