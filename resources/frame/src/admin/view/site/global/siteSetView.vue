@@ -76,10 +76,23 @@
         </Card>
 
         <Card header="到期时间：">
-          <CardRow description="付费模式下，付费成为站点默认角色，可维持的时间，不填或为0时不限制">
-            加入起
-            <el-input class="elinput" style="height: 36PX;width: 80PX" clearable placeholder="天数" type="number"
-              v-model="siteExpire"></el-input>天后
+          <CardRow description="付费模式下，付费成为站点默认角色的有效时间">
+            <el-radio v-model="expireRadio" label="1">
+              加入起
+              <el-input
+                class="elinput"
+                style="height: 36PX;width: 160PX"
+                placeholder="天数"
+                type="number"
+                size="small"
+                v-model="siteExpire"
+                @blur.native.capture="onExpireBlurFun"
+              ></el-input>天后
+            </el-radio>
+            <el-radio
+              v-model="expireRadio"
+              label="2"
+            >永久有效</el-radio>
           </CardRow>
         </Card>
       </div>
