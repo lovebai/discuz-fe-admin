@@ -9,6 +9,7 @@ export default {
       closeSelectList: [],
       radio: "1",
       radio2: "2",
+      expireRadio: "1",
       // fileList:[],
       loading: true,
       fullscreenLoading: false,
@@ -68,6 +69,9 @@ export default {
     };
   },
 
+  // 默认有效时间
+  defaultExprie: 6,
+
   created: function () {
     //初始化请求设置
     this.loadStatus();
@@ -80,7 +84,7 @@ export default {
       return this.closeSelectList.length != this.closeList.length;
     }
   },
-
+  
   methods: {
     loadStatus() {
       //初始化设置
@@ -129,7 +133,8 @@ export default {
               this.radio = "1";
             }
             this.sitePrice = forumData.setSite.sitePrice;
-            this.siteExpire = forumData.setSite.siteExpire;
+            this.siteExpire = forumData.setSite.siteExpire || 6;
+            this.defaultExprie = forumData.setSite.siteExpire || 6;
             this.siteAuthorScale =
               forumData.setSite.siteAuthorScale;
             this.siteMasterScale =
@@ -419,7 +424,7 @@ export default {
         },
         {
           key: "site_expire",
-          value: this.siteExpire,
+          value: this.expireRadio === "2"  ? 0 : this.siteExpire,
           tag: "default"
         },
         {
@@ -505,6 +510,16 @@ export default {
       if (countRes != 10) {
         this.$message({
           message: "分成比例相加必须为10",
+          type: "error"
+        });
+      }
+    },
+    onExpireBlurFun() {
+      var countRes = parseFloat(this.siteExpire);
+      if (!(countRes >= 1 && countRes <= 1000000)) {
+        this.siteExpire = this.defaultExprie;
+        this.$message({
+          message: "有效时间必须大于等于1，小于等于1000000",
           type: "error"
         });
       }
