@@ -213,14 +213,16 @@
               <el-radio :label="1">精华</el-radio>
               <el-radio :label="2">取消精华</el-radio>
             </el-radio-group>
-            <el-radio-group
-              class="cont-manage__option-select"
-              v-if="scope.row.name === '批量推送到付费首页'"
-              v-model="siteRadio"
-            >
-              <el-radio :label="1">推送</el-radio>
-              <el-radio :label="2">取消推送</el-radio>
-            </el-radio-group>
+            <div v-if="scope.row.name === '批量推送到付费首页'">
+              <el-radio-group
+                class="cont-manage__option-select"
+                v-model="siteRadio"
+              >
+                <el-radio :label="1">推送</el-radio>
+                <el-radio :label="2">取消推送</el-radio>
+              </el-radio-group>
+              <span class="cont-manage__option-select-tip">如未设置，默认展示热门内容</span>
+            </div>
           </template>
         </el-table-column>
       </el-table>
