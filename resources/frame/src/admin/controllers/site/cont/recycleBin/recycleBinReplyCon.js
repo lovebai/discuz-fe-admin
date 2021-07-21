@@ -79,6 +79,9 @@ export default {
     titleIcon(item){
       return commonHelper.titleIcon(item);
     },
+    filterContent(text) {
+      return commonHelper.convertEmoticon(text);
+    },
 
     imgShowClick(list,imgIndex){
       this.url = [];

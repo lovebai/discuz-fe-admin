@@ -492,6 +492,17 @@ appCommonH.dataTypeJudgment = function (data, val) {
   return displayVal;
 }
 
+appCommonH.convertEmoticon = function (text) {
+  if (!text) return;
+  const regexp = /:([0-9A-Za-z\u017F\u212A]{2,20}):/gim;
+  return text.replace(regexp, match => {
+    return match.replace(regexp, (content, value, text) => {
+      const url = window.location.hostname === 'localhost' ? 'https://bbsv3.techo.chat' : window.location.origin;
+      return `<img style="display:inline-block;vertical-align:text-top" src="${url}/emoji/qq/${value}.gif" alt="${value}" class="qq-emotion">`;
+    });
+  });
+}
+
 if(!Vue.prototype.appCommonH) {
 	Vue.prototype.appCommonH = appCommonH;
 }

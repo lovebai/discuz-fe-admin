@@ -271,7 +271,9 @@ export default {
     contentIndexes(data, val) {
       return commonHelper.dataTypeJudgment(data, val);
     },
-
+    filterContent(text) {
+      return commonHelper.convertEmoticon(text);
+    }
   },
   created(){
     this.currentPag = Number(webDb.getLItem('currentPag'))||1;
