@@ -104,6 +104,7 @@ export default {
         });
         const {
           username,
+          uickname,
           userUID,
           userRole,
           userPhone,
@@ -115,7 +116,8 @@ export default {
         if (this.tableData.length > 0) {
           paramData = {
             "ids": usersIdList.toString(),
-            "filter[username]": username,
+            "filter[username]": `*${username}*`,
+            "filter[nickname]": uickname,
             "filter[id]": userUID,
             "filter[group_id]": userRole,
             "filter[mobile]": userPhone,
