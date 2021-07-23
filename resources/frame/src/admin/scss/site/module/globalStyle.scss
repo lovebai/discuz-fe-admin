@@ -929,3 +929,46 @@
   width: 75%;
   overflow: auto;
 }
+// 内容导入
+.content-import {
+  font-size: 14PX;
+  line-height: 18PX;
+  color: #df0505;
+}
+.content-import-search {
+  width: 500PX;
+  .el-input__inner {
+    height: 36PX;
+  }
+}
+.content-import-layer {
+  .card-row-box .card-row-lf {
+    width: 22%;
+  }
+}
+.content-import-num {
+  display: flex;
+  &__topic {
+    line-height: 36PX;
+  }
+  .el-input {
+    width: 200PX;
+    margin-left: 50PX;
+    .el-input__inner {
+      height: 36PX;
+    }
+  }
+}
+
+// 其他设置
+.pother-service-set-import {
+  display: flex;
+  .pother-service_import-icon {
+    height: 40PX;
+    border-radius: 50%;
+    margin-right: 12PX;
+    img {
+      border-radius: 50%;
+    }
+  }
+}
