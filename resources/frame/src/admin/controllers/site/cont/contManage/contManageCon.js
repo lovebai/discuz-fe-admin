@@ -410,6 +410,7 @@ export default {
 
       //处理时间为空
       this.searchData.dataValue = this.searchData.dataValue == null ? ['', ''] : this.searchData.dataValue;
+      this.topic = null;
       this.currentPag = 1;
       this.getThemeList(1);
     },
@@ -537,13 +538,6 @@ export default {
     if (this.$route.query && this.$route.query.name) {
       this.searchData.topicId = this.$route.query.id;
       this.topic =  this.$route.query.name;
-      // this.appFetch({
-      //   url: 'topics',
-      //   method: 'get',
-      //   splice:'/' + this.$route.query.id
-      // }).then(res => {
-      //   this.topic = res.readdata._data;
-      // });
     }
 
     this.currentPag = Number(webDb.getLItem('currentPag')) || 1;
