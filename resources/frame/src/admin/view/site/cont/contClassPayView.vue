@@ -120,7 +120,6 @@
       <Card class="footer-btn">
         <el-button
           type="primary"
-          :loading="subLoading"
           size="medium"
           @click="submitClick"
           >提交</el-button
@@ -139,7 +138,6 @@
           <el-button
             size="medium"
             style="margin-left: 10PX"
-            :loading="delLoading"
             :disabled="deleteStatus"
             slot="reference"
             >删除</el-button
