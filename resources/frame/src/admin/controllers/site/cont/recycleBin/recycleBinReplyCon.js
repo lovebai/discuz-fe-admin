@@ -80,7 +80,8 @@ export default {
       return commonHelper.titleIcon(item);
     },
     filterContent(text) {
-      return commonHelper.convertEmoticon(text);
+      const emojis = webDb.getLItem('Emoji');
+      return commonHelper.convertEmoticon(text, emojis);
     },
 
     imgShowClick(list,imgIndex){

@@ -9,7 +9,6 @@ import Page from '../../../../view/site/common/page/page';
 import webDb from 'webDbHelper';
 import { mapState, mapMutations } from 'vuex';
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
-import fa from "element-ui/src/locale/lang/fa";
 import commonHelper from '../../../../../helpers/commonHelper';
 
 export default {
@@ -513,7 +512,8 @@ export default {
       return commonHelper.dataTypeJudgment(data, val);
     },
     filterContent(text) {
-      return commonHelper.convertEmoticon(text);
+      const emojis = webDb.getLItem('Emoji');
+      return commonHelper.convertEmoticon(text, emojis);
     }
   },
 

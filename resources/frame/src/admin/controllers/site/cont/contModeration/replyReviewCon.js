@@ -506,7 +506,8 @@ export default {
       return commonHelper.dataTypeJudgment(data, val);
     },
     filterContent(text) {
-      return commonHelper.convertEmoticon(text);
+      const emojis = webDb.getLItem('Emoji');
+      return commonHelper.convertEmoticon(text, emojis);
     },
 
   },

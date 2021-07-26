@@ -761,7 +761,8 @@ export default {
         method:'get',
         data:{}
       }).then(res=>{
-        console.log(res, 'getEmoji');
+        const emoji = res.Data;
+        webDb.setLItem('Emoji', emoji);
       })
     },
     // 判断腾讯云云api是否配置
