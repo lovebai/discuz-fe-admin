@@ -494,13 +494,30 @@ appCommonH.dataTypeJudgment = function (data, val) {
 
 appCommonH.convertEmoticon = function (text) {
   if (!text) return;
-  const regexp = /:([0-9A-Za-z\u017F\u212A]{2,20}):/gim;
+  const regexp = /:([A-Za-z\u017F\u212A]{2,20}):/gim;
   return text.replace(regexp, match => {
     return match.replace(regexp, (content, value, text) => {
       const url = window.location.hostname === 'localhost' ? 'https://bbsv3.techo.chat' : window.location.origin;
       return `<img style="display:inline-block;vertical-align:text-top" src="${url}/emoji/qq/${value}.gif" alt="${value}" class="qq-emotion">`;
     });
   });
+}
+
+const getEmoji = function () {
+  return appFetch({
+    url:'emoji_list_get_v3',
+    method:'get',
+    data:{}
+  }).then(res=>{
+    if (res.Code !== 0) {
+      this.$message.error(res.Message);
+      return
+    }
+    let token = res.Data.accessToken;
+    browserDb.setLItem('Emoji', token);
+  }).catch(err=>{
+    browserDb.removeLItem('Emoji');
+  })
 }
 
 if(!Vue.prototype.appCommonH) {

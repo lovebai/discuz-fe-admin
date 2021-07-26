@@ -755,6 +755,15 @@ export default {
       this.$router.push({ path: "/admin/login" });
     },
 
+    getEmoji() {
+      this.appFetch({
+        url:'emoji_list_get_v3',
+        method:'get',
+        data:{}
+      }).then(res=>{
+        console.log(res, 'getEmoji');
+      })
+    },
     // 判断腾讯云云api是否配置
     // checkQcloud() {
     //   this.appFetch({
@@ -844,6 +853,7 @@ export default {
     this.setDataStatus();
     this.userName = webDb.getLItem("username");
     // this.checkQcloud();
+    this.getEmoji();
   },
   watch: {
     $route() {
