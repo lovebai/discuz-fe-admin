@@ -18,7 +18,8 @@ export default {
       delLoading:false,             //删除按钮状态
       subLoading:false,             //提交按钮状态
       showClass:false,              //分类权限显示隐藏
-      dialogVisible: false
+      dialogVisible: false,
+      classcCnfirm: false
     };
   },
 
@@ -52,7 +53,7 @@ export default {
     },
 
     // 新增。确认子类
-    submitChildClick(row){
+    submitChildClick(row, scope){
       if(!row.name){
         this.$message.warning('名称不能为空！')
         return
@@ -61,6 +62,7 @@ export default {
         this.$message.warning('修改子类，请点击页面底部的提交按钮')
         return
       }
+      this.classcCnfirm = true;
       this.createCategories([row]).then(()=>{
         this.getCategories();
       })
@@ -212,6 +214,7 @@ export default {
             this.$message.error(res.Message);
             return
           }
+          this.classcCnfirm = false;
           const {Data: data} = res
           this.categoriesListLength = data.length;
           this.categoriesList = [];
