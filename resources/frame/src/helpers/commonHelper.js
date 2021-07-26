@@ -4,7 +4,6 @@
 
 import Vue from "vue";
 import appConfig from "../../config/appConfig";
-import browserDb from 'webDbHelper';
 
 const appCommonH = {};
 
