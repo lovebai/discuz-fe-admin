@@ -224,6 +224,18 @@ export default {
               attribution: "全局",
             }
           },
+          "other-service-content": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/otherService/otherServiceContent"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "其他服务设置",
+              name: "otherServiceSet",
+              attribution: "全局",
+            }
+          },
           "system-notice": {
             comLoad: function (resolve) {
               require([
