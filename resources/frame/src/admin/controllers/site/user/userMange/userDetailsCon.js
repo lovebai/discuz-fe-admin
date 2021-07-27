@@ -82,7 +82,6 @@ export default {
           this.$message.error(response.Message);
         } else {
           this.userInfo = response.Data;
-          console.log(this.userInfo);
           this.imageUrl = this.userInfo.avatarUrl;
           this.userName = this.userInfo.username;
           this.nickName = this.userInfo.nickname;
