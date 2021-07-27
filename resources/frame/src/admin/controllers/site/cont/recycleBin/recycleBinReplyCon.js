@@ -79,6 +79,10 @@ export default {
     titleIcon(item){
       return commonHelper.titleIcon(item);
     },
+    filterContent(text) {
+      const emojis = webDb.getLItem('Emoji');
+      return commonHelper.convertEmoticon(text, emojis);
+    },
 
     imgShowClick(list,imgIndex){
       this.url = [];

@@ -9,8 +9,21 @@
           label="其他服务设置"
         >
           <template slot-scope="scope">
-            <div class="pother-service-set-type-box">
-              <i class="iconfont iconweizhi1 table-icon"></i>
+            <div class="pother-service-set-import" v-if="scope.row.type === 'import'">
+              <div class="pother-service_import-icon">
+                <el-image
+                  style="width: 40px; height: 40px; background: #0054A5; border-radius: 50%;"
+                  src="../../static/images/import.svg"
+                  :fit="fit">
+                </el-image>
+              </div>
+              <div class="table-con-box">
+                <p>{{scope.row.name }}</p>
+                <p><span v-html="scope.row.description"></span></p>
+              </div>
+            </div>
+            <div class="pother-service-set-type-box" v-if="scope.row.type === 'lbs_close'">
+              <i class="iconfont iconweizhi1 table-icon" ></i>
               <div class="table-con-box">
                 <p>{{scope.row.name }}</p>
                 <p><span v-html="scope.row.description"></span></p>
@@ -34,7 +47,7 @@
           label="操作"
           width="180">
           <template slot-scope="scope">
-            <div>
+            <div v-if="scope.row.type === 'lbs_close'">
               <el-button
                 size="mini"
                 @click="configClick(scope.row.tag)"
@@ -44,13 +57,19 @@
                 size="mini"
                 @click.native.prevent="statusSetting(false)"
               >关闭</el-button>
-            <el-button
-              v-else
-              size="mini"
-              @click.native.prevent="statusSetting(true)"
-            >开启</el-button>
+              <el-button
+                v-else
+                size="mini"
+                @click.native.prevent="statusSetting(true)"
+              >开启</el-button>
             </div>
 
+            <div v-else>
+              <el-button
+                size="mini"
+                @click="importClick()"
+              >配置</el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>

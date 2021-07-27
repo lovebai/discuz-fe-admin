@@ -58,6 +58,12 @@
       </CardRow>
     </Card>
 
+    <Card header="昵称：">
+      <CardRow>
+        <el-input v-model="nickName"></el-input>
+      </CardRow>
+    </Card>
+
     <Card header="旧密码：" v-if="noAdmin">
       <CardRow description="如果不更改密码此处请留空">
         <el-input

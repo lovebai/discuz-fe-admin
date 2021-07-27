@@ -33,6 +33,9 @@ export default {
     this.loadSortStatus()
   },
   methods:{
+    jumpDataRules() {
+      this.$router.push({ path: '/admin/site-data-rules'});
+    },
     // 获取智能排序状态
     loadSortStatus() {
       this.getCategories()

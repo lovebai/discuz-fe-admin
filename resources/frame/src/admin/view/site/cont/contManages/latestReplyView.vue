@@ -54,11 +54,11 @@
 
 
             <div class="latest-reply-theme__table-main" slot="main">
-              <a
+              <a 
                 class="latest-reply-theme__table-main__cont-text"
                 :href="items.replyPostId ? `/thread/comment/${items.replyPostId}?threadId=${items.threadId}` : `/thread/${items.threadId}`"
                 target="_blank"
-                v-html="items.content.text"
+                v-html="filterContent(items.content.text)"
               ></a>
               <div class="latest-reply-theme__table-main__cont-imgs" v-if="items.content && items.content.indexes && items.content.indexes.length > 0">
                 <p class="latest-reply-theme__table-main__cont-imgs-p"  v-for="(item, indexs) in items.content.indexes" :key="indexs">

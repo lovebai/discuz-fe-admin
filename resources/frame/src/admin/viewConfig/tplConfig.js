@@ -75,6 +75,17 @@ export default {
               alias: "首页数据设置"
             }
           },
+          "site-data-rules": {
+            comLoad: function (resolve) {
+              require(["../view/site/global/siteSet/siteDataRulesView"], resolve);
+            },
+            metaInfo: {
+              title: "站点设置",
+              name: "siteSet",
+              attribution: "全局",
+              alias: "首页数据设置"
+            }
+          },
           // "operation-log": {
           //   comLoad: function (resolve) {
           //     require([
@@ -216,6 +227,18 @@ export default {
             comLoad: function (resolve) {
               require([
                 "../view/site/global/otherService/otherServiceKeySet"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "其他服务设置",
+              name: "otherServiceSet",
+              attribution: "全局",
+            }
+          },
+          "other-service-content": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/otherService/otherServiceContent"
               ], resolve);
             },
             metaInfo: {

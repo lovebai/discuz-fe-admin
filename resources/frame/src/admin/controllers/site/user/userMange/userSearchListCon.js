@@ -104,6 +104,7 @@ export default {
         });
         const {
           username,
+          uickname,
           userUID,
           userRole,
           userPhone,
@@ -116,6 +117,7 @@ export default {
           paramData = {
             "ids": usersIdList.toString(),
             "filter[username]": username,
+            "filter[nickname]": uickname,
             "filter[id]": userUID,
             "filter[group_id]": userRole,
             "filter[mobile]": userPhone,

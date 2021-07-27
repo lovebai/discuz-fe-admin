@@ -501,6 +501,10 @@ export default {
     contentIndexes(data, val) {
       return commonHelper.dataTypeJudgment(data, val);
     },
+    filterContent(text) {
+      const emojis = webDb.getLItem('Emoji');
+      return commonHelper.convertEmoticon(text, emojis);
+    },
 
     imagesIndexes(data) {
       let images = [];

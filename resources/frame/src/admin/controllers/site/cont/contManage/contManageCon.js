@@ -9,7 +9,6 @@ import Page from '../../../../view/site/common/page/page';
 import webDb from 'webDbHelper';
 import { mapState, mapMutations } from 'vuex';
 import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
-import fa from "element-ui/src/locale/lang/fa";
 import commonHelper from '../../../../../helpers/commonHelper';
 
 export default {
@@ -410,6 +409,7 @@ export default {
 
       //处理时间为空
       this.searchData.dataValue = this.searchData.dataValue == null ? ['', ''] : this.searchData.dataValue;
+      this.topic = null;
       this.currentPag = 1;
       this.getThemeList(1);
     },
@@ -512,6 +512,10 @@ export default {
     contentIndexes(data, val) {
       return commonHelper.dataTypeJudgment(data, val);
     },
+    filterContent(text) {
+      const emojis = webDb.getLItem('Emoji');
+      return commonHelper.convertEmoticon(text, emojis);
+    }
   },
 
   beforeDestroy() {
@@ -534,13 +538,6 @@ export default {
     if (this.$route.query && this.$route.query.name) {
       this.searchData.topicId = this.$route.query.id;
       this.topic =  this.$route.query.name;
-      // this.appFetch({
-      //   url: 'topics',
-      //   method: 'get',
-      //   splice:'/' + this.$route.query.id
-      // }).then(res => {
-      //   this.topic = res.readdata._data;
-      // });
     }
 
     this.currentPag = Number(webDb.getLItem('currentPag')) || 1;
