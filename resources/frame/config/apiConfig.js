@@ -89,5 +89,7 @@ module.exports = {
   // 登录
   login_post_v3: '/backAdmin/login', // 登录
   refresh_token_post_v3: '/backAdmin/refresh.token', // 刷新token
+
+  emoji_list_get_v3: '/backAdmin/emoji.list', // 刷新token
   create_crawler_get: '/backAdmin/create.crawler',  // 内容导入
 };
