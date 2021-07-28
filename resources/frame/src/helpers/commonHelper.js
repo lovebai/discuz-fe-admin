@@ -3,7 +3,6 @@
  */
 
 import Vue from "vue";
-import appFetch from "axiosHelper.js";
 import appConfig from "../../config/appConfig";
 
 const appCommonH = {};
@@ -490,6 +489,45 @@ appCommonH.dataTypeJudgment = function (data, val) {
     displayVal = newData.fileData;
   }
   return displayVal;
+}
+
+appCommonH.convertEmoticon = function (text, emojis) {
+  if (!text) return;
+  const regexp = /:([A-Za-z\u017F\u212A]{2,20}):/gim;
+  return text.replace(regexp, match => {
+    return match.replace(regexp, (content, value, text) => {
+      const { code, url, isAllow } = handleEmoji(value, emojis);
+      if (isAllow) {
+        return `<img style="display:inline-block;vertical-align:top" src="${url}" alt="${code}" class="qq-emotion">`;
+      }
+      return `:${value}:`
+    });
+  });
+}
+
+const handleEmoji = (value, emojis) => {
+  const url = window.location.hostname === 'localhost' ? 'https://bbsv3.techo.chat' : window.location.origin;
+  if (!emojis || emojis.length <= 0) {
+    return {
+      code: value,
+      url: `${url}/emoji/qq/${value}.gif`,
+      isAllow: true
+    }
+  }
+  const emoji = emojis.filter(item => item.code === `:${value}:`).map(item => {
+    return {
+      code: value,
+      url: item.url,
+      isAllow: true
+    }
+  })
+
+  if (emoji && emoji.length > 0) {
+    return emoji[0]
+  } else {
+    return { isAllow: false }
+  }
+  
 }
 
 if(!Vue.prototype.appCommonH) {

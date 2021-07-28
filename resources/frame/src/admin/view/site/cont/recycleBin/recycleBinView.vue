@@ -89,7 +89,13 @@
           </a>
 
           <div class="recycle-bin-table__main" slot="main">
-            <a class="recycle-bin-table__main__cont-text" :href="'/thread/' + items.threadId" target="_blank" :style="{'display':(contentIndexes(items.content, 'video') ? 'inline':'block')}" v-html="items.content.text"></a>
+            <a
+              class="recycle-bin-table__main__cont-text"
+              :href="'/thread/' + items.threadId"
+              target="_blank"
+              :style="{'display':(contentIndexes(items.content, 'video') ? 'inline':'block')}"
+              v-html="filterContent(items.content.text)"
+            ></a>
             <span class="iconfont iconvideo" v-if="items.threadVideo"></span>
             <div class="recycle-bin-table__main__cont-imgs" v-if="!items.title">
               <p class="recycle-bin-table__main__cont-imgs-p" v-for="(item,index) in contentIndexes(items.content, 'images')" :key="item.thumbUrl">
