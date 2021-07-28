@@ -11,7 +11,7 @@
           <template slot-scope="scope">
             <div class="pother-service-set-type-box">
               <i class="iconfont iconweizhi1 table-icon" v-if="scope.row.type === 'lbs_close'"></i>
-              <i class="iconfont icondaoru table-icon daoru" v-if="scope.row.type === 'import'"></i>
+              <i class="iconfont  icon-daoru1 table-icon daoru" v-if="scope.row.type === 'import'"></i>
               <div class="table-con-box">
                 <p>{{scope.row.name }}</p>
                 <p><span v-html="scope.row.description"></span></p>
