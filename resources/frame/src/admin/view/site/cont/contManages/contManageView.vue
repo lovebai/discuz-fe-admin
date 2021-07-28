@@ -128,7 +128,7 @@
               :href="'/thread/' + items.threadId"
               target="_blank"
               :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
-              v-html="items.content.text"
+              v-html="filterContent(items.content.text)"
             ></a>
             <span class="iconfont iconvideo" v-if="contentIndexes(items.content, 'videos')"></span>
             <div class="cont-manage-theme__table-main__cont-imgs" v-if="contentIndexes(items.content, 'images')">
