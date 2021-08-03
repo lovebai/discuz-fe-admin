@@ -2,7 +2,10 @@
   <div class="site-sort-set-box" >
     <div v-show="isShow">
       <!-- 添加内容 -->
-      <p class="sort-desc">推荐首页：</p>
+      <div class="sort-switch-header">
+        <p class="sort-desc repeat">推荐首页</p>
+        <p class="data-rules" @click="jumpDataRules">数据规则</p>
+      </div>
 
       <div class="sort-switch-box">
         <div class="sort-switch">

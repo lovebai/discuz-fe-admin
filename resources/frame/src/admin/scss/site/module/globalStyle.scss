@@ -421,6 +421,41 @@
     }
   }
   // 智能排序开关
+  .sort-switch-header {
+    display: flex;
+    .sort-desc {
+      margin-right: 20PX;
+      cursor: pointer;
+    }
+    .data-rules {
+      line-height:20PX;
+      padding:20PX 0;
+      color:$titleColor;
+      cursor: pointer;
+    }
+    .repeat {
+      color: #336699;
+    }
+  }
+  .sort-switch-radio {
+    // display: flex;
+    // justify-content: column;
+    &_title {
+      font-weight: 400;
+    }
+    &_option {
+      margin: 20PX 0;
+    }
+    &_explain {
+      padding: 20PX 0 0 22PX;
+      color: #909399;
+    }
+    .sort-switch-radio_cont {
+      .el-radio__label {
+        color: #409eff;
+      }
+    }
+  }
   .sort-switch-box{
     display:flex;
     justify-content: flex-start;
