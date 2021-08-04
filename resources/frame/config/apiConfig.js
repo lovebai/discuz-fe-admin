@@ -20,7 +20,7 @@ module.exports = {
   cashLogs_get_v3: '/backAdmin/users.cash.logs', // 提现管理
   cashReview_post_v3: '/backAdmin/wallet.cash.review', // 审核拒绝/标记打款
   finance_get_v3: '/backAdmin/statistic.finance', // 获取资金概况
-  financeChart_get_v3: 'backAdmin/statistic.financeChart', // 获取盈利图表数据
+  financeChart_get_v3: '/backAdmin/statistic.financeChart', // 获取盈利图表数据
 
 
   //全局
@@ -32,7 +32,7 @@ module.exports = {
   bopen_view_count_post: '/backAdmin/open.view.count', // 数据规则
 
   stopwords_batch_v3: '/backAdmin/stopwords.batch', // 创建/修改敏感词接口(批量)
-  stopwords_get_v3: '/backAdmin/stopwords.list', // 查询敏感词(列表) 
+  stopwords_get_v3: '/backAdmin/stopwords.list', // 查询敏感词(列表)
   stopwords_delete_v3: '/backAdmin/stopwords.delete', // 删除敏感词(单个/批量)
   stopwords_export_v3: '/backAdmin/stopWords/export', // 导出敏感词
 
