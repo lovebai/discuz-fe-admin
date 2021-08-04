@@ -90,6 +90,6 @@ module.exports = {
   login_post_v3: '/backAdmin/login', // 登录
   refresh_token_post_v3: '/backAdmin/refresh.token', // 刷新token
 
-  emoji_list_get_v3: '/backAdmin/emoji.list', // 刷新token
+  emoji_list_get_v3: '/backAdmin/emoji.list', // 获取表情
   create_crawler_get: '/backAdmin/create.crawler',  // 内容导入
 };
