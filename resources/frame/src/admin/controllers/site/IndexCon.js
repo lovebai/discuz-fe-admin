@@ -510,8 +510,8 @@ export default {
           this.$router.push({ path: "/admin/cont-review" });
           break;
         case "recycleBin":
-          this.sideSubmenu = this.navList[3].submenu[4].submenu;
-          this.sideSubmenuSelect = this.navList[3].submenu[4].submenu[0].title;
+          this.sideSubmenu = this.navList[3].submenu[5].submenu;
+          this.sideSubmenuSelect = this.navList[3].submenu[5].submenu[0].title;
           this.$router.push({ path: "/admin/recycle-bin" });
           break;
         case "topicManagement":
