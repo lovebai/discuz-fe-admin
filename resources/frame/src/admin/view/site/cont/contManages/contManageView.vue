@@ -27,7 +27,7 @@
             :props="{ expandTrigger: 'hover', checkStrictly: true }">
           </el-cascader>
         </div>
-        <div class="cont-manage-header_condition">
+        <div class="cont-manage-header_condition cont-manage-header_condition-lf">
           <span class="cont-manage-header_condition-title">主题类型：</span>
           <el-select v-model="searchData.topicTypeId" placeholder="选择主题类型" clearable>
             <el-option v-for="item in topicType" :key="item.id" :label="item.name" :value="item.id"></el-option>
@@ -51,7 +51,7 @@
       </div>
 
       <div class="cont-manage-header_bottom condition-box">
-        <div class="cont-manage-header_condition cont-manage-header_condition-mid">
+        <div class="cont-manage-header_condition cont-manage-header_condition-lf">
           <span class="cont-manage-header_condition-title">浏览次数：</span>
           <el-input size="medium" placeholder="大于" v-model="searchData.viewedTimesMin" clearable></el-input>
           <div class="spacing">-</div>
@@ -128,7 +128,7 @@
               :href="'/thread/' + items.threadId"
               target="_blank"
               :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
-              v-html="items.content.text"
+              v-html="filterContent(items.content.text)"
             ></a>
             <span class="iconfont iconvideo" v-if="contentIndexes(items.content, 'videos')"></span>
             <div class="cont-manage-theme__table-main__cont-imgs" v-if="contentIndexes(items.content, 'images')">
@@ -213,14 +213,16 @@
               <el-radio :label="1">精华</el-radio>
               <el-radio :label="2">取消精华</el-radio>
             </el-radio-group>
-            <el-radio-group
-              class="cont-manage__option-select"
-              v-if="scope.row.name === '批量推送到付费首页'"
-              v-model="siteRadio"
-            >
-              <el-radio :label="1">推送</el-radio>
-              <el-radio :label="2">取消推送</el-radio>
-            </el-radio-group>
+            <div v-if="scope.row.name === '批量推送到付费首页'">
+              <el-radio-group
+                class="cont-manage__option-select"
+                v-model="siteRadio"
+              >
+                <el-radio :label="1">推送</el-radio>
+                <el-radio :label="2">取消推送</el-radio>
+              </el-radio-group>
+              <span class="cont-manage__option-select-tip">如未设置，默认展示热门内容</span>
+            </div>
           </template>
         </el-table-column>
       </el-table>

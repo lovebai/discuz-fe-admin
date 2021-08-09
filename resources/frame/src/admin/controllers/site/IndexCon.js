@@ -510,8 +510,8 @@ export default {
           this.$router.push({ path: "/admin/cont-review" });
           break;
         case "recycleBin":
-          this.sideSubmenu = this.navList[3].submenu[4].submenu;
-          this.sideSubmenuSelect = this.navList[3].submenu[4].submenu[0].title;
+          this.sideSubmenu = this.navList[3].submenu[5].submenu;
+          this.sideSubmenuSelect = this.navList[3].submenu[5].submenu[0].title;
           this.$router.push({ path: "/admin/recycle-bin" });
           break;
         case "topicManagement":
@@ -755,6 +755,17 @@ export default {
       this.$router.push({ path: "/admin/login" });
     },
 
+    getEmoji() {
+      this.appFetch({
+        url:'emoji_list_get_v3',
+        method:'get',
+        data:{}
+      }).then(res=>{
+        const emoji = res.Data;
+        webDb.setLItem('Emoji', emoji);
+      })
+    },
+
     // 判断腾讯云云api是否配置
     // checkQcloud() {
     //   this.appFetch({
@@ -844,6 +855,7 @@ export default {
     this.setDataStatus();
     this.userName = webDb.getLItem("username");
     // this.checkQcloud();
+    this.getEmoji();
   },
   watch: {
     $route() {

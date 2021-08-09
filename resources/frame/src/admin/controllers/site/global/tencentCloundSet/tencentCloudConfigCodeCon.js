@@ -4,8 +4,8 @@ import CardRow from '../../../../view/site/common/card/cardRow';
 export default {
   data: function () {
     return {
-      appId: '',     //APPID：
-      secretId: '',  //App Secret Key：
+      appId: '',     //CaptchaAppId
+      secretId: '',  //AppSecretKey
       appID: '',      // 腾讯云验证码场景 id
       captcha: null,           // 腾讯云验证码实例
       captcha_ticket: '',      // 腾讯云验证码返回票据

@@ -49,8 +49,8 @@
 				class="report-manage-content__table"
 				v-for="items in reportList"
 				:key="items.report.id"
-				:establish="!items.user ? '该用户被删除' : items.user.userName"
-				:userId="!items.user?'该用户被删除':items.user.pid"
+				:establish="!items.user.userName ? '该用户被删除' : items.user.userName"
+				:userId="!items.user.pid?'该用户被删除':items.user.pid"
 				:time="formatDate(items.report.createdAt)"
 				:type="getType(items.report.type)"
 			>

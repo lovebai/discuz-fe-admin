@@ -77,7 +77,12 @@
           </div>
 
           <div class="cont-review-table__main" slot="main">
-            <a class="cont-review-table__main__cont-text" :href="'/thread/comment/' + items.postId + '?threadId='+ items.threadId" target="_blank" v-html="items.content.text"></a>
+            <a
+              class="cont-review-table__main__cont-text"
+              :href="items.replyPostId ? `/thread/comment/${items.replyPostId}?threadId=${items.threadId}` : `/thread/${items.threadId}`"
+              target="_blank"
+              v-html="filterContent(items.content.text)"
+            ></a>
             <div class="cont-review-table__main__cont-imgs">
               <p class="cont-review-table__main__cont-imgs-p" v-for="(item, indexs) in items.content.indexes" :key="indexs">
                 <img  v-lazy="item.thumbUrl" @click="imgShowClick(items.content.indexes, indexs)" :alt="item.fileName">

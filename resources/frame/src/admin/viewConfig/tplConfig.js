@@ -75,6 +75,17 @@ export default {
               alias: "首页数据设置"
             }
           },
+          "site-data-rules": {
+            comLoad: function (resolve) {
+              require(["../view/site/global/siteSet/siteDataRulesView"], resolve);
+            },
+            metaInfo: {
+              title: "站点设置",
+              name: "siteSet",
+              attribution: "全局",
+              alias: "首页数据设置"
+            }
+          },
           // "operation-log": {
           //   comLoad: function (resolve) {
           //     require([
