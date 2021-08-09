@@ -9,7 +9,7 @@
     </Card>
     
     <Card class="content-import-layer">
-      <CardRow description="一次最多倒导入1000条">
+      <CardRow description="一次最多导入1000条">
         <div class="content-import-num">
           <p class="content-import-num__topic">导入条数</p>
           <el-input type="number" v-model="topicNum" @input="topicNumInput"></el-input>
