@@ -597,7 +597,7 @@
                 $router.history.current.query.id === '1' ||
                 $router.history.current.query.id === '7'
             "
-            >发帖/评论需要先绑定手机或微信</el-checkbox
+            >发帖/评论需先绑定手机或微信</el-checkbox
           >
         </CardRow>
       </Card>
