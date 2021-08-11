@@ -108,6 +108,12 @@ export default {
             } else {
               this.disabled = false;
             }
+            // 付费加入永久有效判断
+            if (forumData.setSite.siteExpire === '') {
+              this.expireRadio = '2';
+            } else {
+              this.expireRadio = '1';
+            }
             // logo size
             // this.siteTheme = forumData.setSite.site_skin;
             // this.numberimg[0].textrule = this.siteTheme === 1
