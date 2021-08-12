@@ -15,6 +15,9 @@
        isSubordinate: false, // 是否开启推广下线
        scale: 0, // 提成比例
        bindPhoneDisabled: false, // 是否开启短信验证
+       wechatDisabled: false,  // 是否开启微信
+       appletDisabled: false,  // 是否开启小程序
+       postDisabled: false,
        categoriesList: [], // 分类列表
        selectList: {
          "createThread": [], // 发布帖子
@@ -196,7 +199,10 @@
        this.captchaDisabled = data.qcloud.qcloudCaptcha === false;
        this.realNameDisabled = data.qcloud.qcloudFaceid === false;
        this.bindPhoneDisabled = data.qcloud.qcloudSms === false;
+       this.wechatDisabled = data.passport.offiaccountOpen === false;
+       this.appletDisabled = data.passport.miniprogramOpen === false;
        this.allowtobuy = siteData.sitePayGroupClose;
+       this.postDisabled = this.bindPhoneDisabled && this.wechatDisabled && this.appletDisabled;
        // if (!this.allowtobuy) {
        //   this.value = false;
        // }
