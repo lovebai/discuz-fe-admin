@@ -288,7 +288,7 @@ export default {
       switch (this.operatingSelect) {
         case 'class':
           if (this.categoryId) {
-            attributes.categoryId = this.categoryId;
+            attributes.categoryId = this.categoryId[this.categoryId.length -1];
             // relationships.category.data.id = this.categoryId;
             // relationships.category.data.id = this.categoryId[this.categoryId.length -1];
 
