@@ -564,6 +564,7 @@
          "thread.insertReward", // 插入悬赏
          "thread.insertRedPacket", // 插入红包
          "thread.insertPosition", // 插入位置
+         "thread.insertVote", // 插入投票
          "thread.allowAnonymous", // 发布匿名
          "dialog.create", // 发布私信
          "switch.thread.reply", //回复主题
