@@ -14,6 +14,7 @@ export default {
       vodUrlKey: "", // 云点播防盗链
       vodUrlExpire: "", // 云点播防盗链签名有效期
       vodToken: "", // 云点播回调校验码
+      vodAutoPlay: false, // 首页视频是否自动播放
     };
   },
   created() {
@@ -46,6 +47,7 @@ export default {
           this.vodUrlKey = forumData.qcloud.qcloudVodUrlKey;
           this.vodUrlExpire = forumData.qcloud.qcloudVodUrlExpire;
           this.vodToken = forumData.qcloud.qcloudVodToken;
+          this.vodAutoPlay = forumData.qcloud.qcloudVodAutoPlay;
         }
       });
     },
@@ -107,6 +109,11 @@ export default {
             {
               key: "qcloud_vod_token",
               value: this.vodToken,
+              tag: "qcloud"
+            },
+            {
+              key: "qcloud_vod_auto_play",
+              value: this.vodAutoPlay,
               tag: "qcloud"
             }
           ]
