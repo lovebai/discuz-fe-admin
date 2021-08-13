@@ -189,6 +189,19 @@
           </CardRow>
         </Card>
         <Card>
+          <CardRow description="允许发帖插入投票的权限">
+            <el-checkbox
+              v-model="checked"
+              label="thread.insertVote"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >插入投票</el-checkbox
+            >
+          </CardRow>
+        </Card>
+        <Card>
           <CardRow description="允许发帖发布匿名的权限">
             <el-checkbox
               v-model="checked"
