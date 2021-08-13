@@ -964,3 +964,14 @@
   width: 75%;
   overflow: auto;
 }
+
+// 云点播
+.demand-switch {
+  height: 100%;
+  display: flex;
+  align-items:center;
+  margin-top: 20PX;
+  &__video {
+    margin-right: 20PX;
+  }
+}
