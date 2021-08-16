@@ -602,16 +602,16 @@
       </Card>
 
       <Card>
-        <CardRow description="绑定手机或微信即可发帖/评论">
+        <CardRow description="绑定手机后才可发布内容">
           <el-checkbox
             v-model="checked"
             label="publishNeedBindPhone"
             :disabled="
-              postDisabled ||
+              bindPhoneDisabled ||
                 $router.history.current.query.id === '1' ||
                 $router.history.current.query.id === '7'
             "
-            >发帖/评论需先绑定手机或微信</el-checkbox
+            >发布内容需先绑定手机</el-checkbox
           >
         </CardRow>
       </Card>

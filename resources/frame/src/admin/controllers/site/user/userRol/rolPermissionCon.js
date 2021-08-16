@@ -201,7 +201,7 @@
        this.wechatDisabled = data.passport.offiaccountOpen === false;
        this.appletDisabled = data.passport.miniprogramOpen === false;
        this.allowtobuy = siteData.sitePayGroupClose;
-       this.postDisabled = this.bindPhoneDisabled && this.wechatDisabled && this.appletDisabled;
+       this.postDisabled = this.wechatDisabled && this.appletDisabled;
        // if (!this.allowtobuy) {
        //   this.value = false;
        // }
