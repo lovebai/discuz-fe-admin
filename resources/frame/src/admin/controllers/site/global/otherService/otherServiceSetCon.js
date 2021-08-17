@@ -13,13 +13,13 @@ export default {
           tag:'lbs',
           status:'',
         },
-        // {
-        //   name: '内容导入',
-        //   type: 'import',
-        //   description: '为站点一键填充站点内容，营造活跃气氛',
-        //   tag:'import',
-        //   status:'',
-        // }
+        {
+          name: '内容导入',
+          type: 'import',
+          description: '为站点一键填充站点内容，营造活跃气氛',
+          tag:'import',
+          status:'',
+        }
       ],
       key: '',
     }
