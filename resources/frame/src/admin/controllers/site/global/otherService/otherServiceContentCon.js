@@ -10,6 +10,7 @@ export default {
       speed: false, // 进度显示
       importing: '',
       progress: 0,
+      startTiming: false,
     }
   },
   methods:{
@@ -37,9 +38,11 @@ export default {
             return
           }
           this.speed = true;
-          this.timer = setInterval(this.crawlerQuery, 2000);
-          this.importing = 1;
+          clearInterval(this.timer);
+          this.startTiming = false;
           this.progress = 0;
+          this.importing = 1;
+          this.timer = setInterval(this.crawlerQuery, 2000);
           this.$message({
             message: res.Message,
             type: 'success'
@@ -52,6 +55,7 @@ export default {
         url:'check_crawler_get',
         method:'get',
       }).then( res => {
+        console.log(res);
         if (res.errors){
           clearInterval(this.timer);
           this.$message.error(res.errors[0].code);
@@ -62,30 +66,30 @@ export default {
             return
           }
           const crawlerData = res.Data;
-          this.importing = crawlerData.status;
-          this.progress = crawlerData.progress;
-          if (crawlerData.status === 2) {
-            this.progress = 100;
-            clearInterval(this.timer);
+          if (crawlerData.startCrawlerTime !== 0) {
+            this.startTiming = true;
+            this.importing = crawlerData.status;
+            this.progress = crawlerData.progress;
+            // if (crawlerData.status === 2 && crawlerData.progress === 100) {
+            //   this.progress = 100;
+            //   clearInterval(this.timer);
+            // }
+            if (crawlerData.status === 3 || crawlerData.status === 4) {
+              clearInterval(this.timer);
+            }
           }
-          if (crawlerData.status === 3 || crawlerData.status === 4) {
-            clearInterval(this.timer);
+          if (this.startTiming) {
+            this.importing = crawlerData.status;
+            this.progress = crawlerData.progress;
+            if (crawlerData.status === 2 && crawlerData.progress === 100) {
+              this.progress = 100;
+              clearInterval(this.timer);
+            }
+            if (crawlerData.status === 3 || crawlerData.status === 4) {
+              clearInterval(this.timer);
+            }
           }
         }
-        // console.log(res);
-        // const crawlerData = res.Data;
-        // this.importing = crawlerData.status;
-        // this.progress = crawlerData.progress;
-        // if (crawlerData.status === 2) {
-        //   this.progress = 100;
-        //   clearInterval(this.timer);
-        // }
-        // if (crawlerData.status === 3 || crawlerData.status === 4) {
-        //   clearInterval(this.timer);
-        // }
-        // if (crawlerData === 1) {
-        //   this.importing = true;
-        // }
       })
     },
     determineBtn() {
