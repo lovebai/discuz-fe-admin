@@ -30,7 +30,7 @@
       </div>
       <div class="progress-box__fail" v-if="importing === 3 || importing === 4">
         <p class="progress-box__fail-fotter">导入失败</p>
-        <el-button type="primary" size="medium" @click="retrybtn">重试</el-button>
+        <el-button type="primary" size="medium" @click="retryBtn">重试</el-button>
         <el-button size="medium" @click="cancelBtn">取消</el-button>
       </div>
     </Card>
