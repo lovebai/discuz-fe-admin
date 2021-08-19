@@ -20,6 +20,24 @@
     <Card class="footer-btn" >
       <el-button type="primary" size="medium" @click="importDataBtn">提交</el-button>
     </Card>
+
+    <Card v-if="speed">
+      <el-progress :percentage="progress" class="progress-box"></el-progress>
+      <p class="progress-box__importing" v-if="importing === 1">正在导入中</p>
+      <div class="progress-box__success" v-if="importing === 2">
+        <p class="progress-box__success-confirm">成功导入{{topicNum}}条数据，稍后可在前台查看</p>
+        <el-button type="primary" size="medium" @click="determineBtn">确认</el-button>
+      </div>
+      <div class="progress-box__fail" v-if="importing === 3 || importing === 4">
+        <p class="progress-box__fail-fotter">导入失败</p>
+        <el-button type="primary" size="medium" @click="retrybtn">重试</el-button>
+        <el-button size="medium" @click="cancelBtn">取消</el-button>
+      </div>
+    </Card>
+
+    <!-- <Card class="footer-btn" >
+      <el-button type="primary" size="medium" @click="crawlerQuery">提交</el-button>
+    </Card> -->
   </div>
 </template>
 
