@@ -6,7 +6,7 @@
 
 @import "../common/index";
 @import "../../../../../static/css/admin/discuzQfont.css";
-
+@import "../../../../../static/css/iconfont/iconfont.css";
 /**
   公共样式
  */
@@ -973,5 +973,49 @@
   margin-top: 20PX;
   &__video {
     margin-right: 20PX;
+// 内容导入
+.content-import {
+  font-size: 14PX;
+  line-height: 18PX;
+  color: #df0505;
+}
+.content-import-search {
+  width: 500PX;
+  .el-input__inner {
+    height: 36PX;
+  }
+}
+.content-import-layer {
+  .card-row-box .card-row-lf {
+    width: 22%;
+    min-width: 230PX;
+  }
+  .content-import-num__topic {
+    min-width: 60PX;
+  }
+  .el-input__inner {
+    min-width: 100PX;
+  }
+}
+.content-import-num {
+  display: flex;
+  &__topic {
+    line-height: 36PX;
+  }
+  .el-input {
+    width: 200PX;
+    margin-left: 50PX;
+    .el-input__inner {
+      height: 36PX;
+    }
+  }
+}
+
+// 其他设置
+.pother-service-set-type-box {
+  .daoru {
+    color: #fff;
+    background-color: #0054A5;
+    border-radius: 50%;
   }
 }
