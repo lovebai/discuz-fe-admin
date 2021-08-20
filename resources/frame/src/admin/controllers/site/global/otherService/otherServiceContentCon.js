@@ -55,7 +55,6 @@ export default {
         url:'check_crawler_get',
         method:'get',
       }).then( res => {
-        console.log(res);
         if (res.errors){
           clearInterval(this.timer);
           this.$message.error(res.errors[0].code);
