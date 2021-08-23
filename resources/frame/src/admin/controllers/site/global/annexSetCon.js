@@ -33,6 +33,13 @@ export default {
           this.picture = forumData.setAttach.supportImgExt;
           this.fileExtension = forumData.setAttach.supportFileExt;
           this.maximumSize = forumData.setAttach.supportMaxSize;
+          if (Number(forumData.setAttach.supportMaxDownloadNum) > 0) {
+            this.restrictionsOn = '2';
+            this.downloads = Number(forumData.setAttach.supportMaxDownloadNum);
+          } else {
+            this.restrictionsOn = '1';
+            this.downloads = '';
+          }
         }
       })
     },
