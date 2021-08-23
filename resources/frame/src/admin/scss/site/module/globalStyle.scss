@@ -1021,3 +1021,20 @@
     border-radius: 50%;
   }
 }
+.progress-box {
+  width: 500PX;
+  &__importing {
+    margin-top: 20PX;
+  }
+  &__success {
+    margin: 20PX 0 20PX 0;
+    &-confirm {
+      margin: 20PX 0;
+    }
+  }
+  &__fail {
+    &-fotter {
+      margin: 20PX 0;
+    }
+  }
+}
