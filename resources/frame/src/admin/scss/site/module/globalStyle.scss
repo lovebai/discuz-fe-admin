@@ -964,6 +964,17 @@
   width: 75%;
   overflow: auto;
 }
+
+// 云点播
+.demand-switch {
+  height: 100%;
+  display: flex;
+  align-items:center;
+  margin-top: 20PX;
+  &__video {
+    margin-right: 20PX;
+  }
+}
 // 内容导入
 .content-import {
   font-size: 14PX;

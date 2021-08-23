@@ -82,6 +82,17 @@
         <el-input v-model="vodToken" clearable></el-input>
       </CardRow>
     </Card>
+    
+     <Card>
+      <CardRow
+        description="开启后，用户在首页浏览帖子，帖子内视频自动播放，滑走后自动停止播放"
+      >
+        <div class="demand-switch">
+          <p class="demand-switch__video">视频在首页自动播放</p>
+          <el-switch v-model="videoDemand" active-color="#336699" inactive-color="#bbbbbb"></el-switch>
+        </div>
+      </CardRow>
+    </Card>
 
     <Card header="视频在首页自动播放:">
       <CardRow

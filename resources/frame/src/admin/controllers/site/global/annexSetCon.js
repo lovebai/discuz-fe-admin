@@ -7,7 +7,9 @@ export default {
     return {
       picture: '',       // 图片扩展名
       fileExtension: '', // 文件扩展名
-      maximumSize: ''   // 最大尺寸
+      maximumSize: '',   // 最大尺寸
+      restrictionsOn: '', // 附件限制选项
+      downloads: '',
     }
   },
   created() {
@@ -31,12 +33,25 @@ export default {
           this.picture = forumData.setAttach.supportImgExt;
           this.fileExtension = forumData.setAttach.supportFileExt;
           this.maximumSize = forumData.setAttach.supportMaxSize;
+          if (Number(forumData.setAttach.supportMaxDownloadNum) > 0) {
+            this.restrictionsOn = '2';
+            this.downloads = Number(forumData.setAttach.supportMaxDownloadNum);
+          } else {
+            this.restrictionsOn = '1';
+            this.downloads = '';
+          }
         }
       })
     },
     onblurFun () {
       if (this.maximumSize > 100) {
         this.$message('最大尺寸不能超过100MB');
+      }
+    },
+    downloadsNumInput(value) {
+      if (Number(value) <= 0) {
+        this.$message.error('请输入大于0的正整数');
+        this.downloads = '';
       }
     },
     submi() { //提交附件信息
@@ -70,6 +85,10 @@ export default {
         this.$message.error('请输入正确的支持最大尺寸格式');
         return
       }
+      if (this.restrictionsOn === '1' && this.downloads <= 0) {
+        this.$message.error('输入大于0的正整数');
+        return
+      }
       this.appFetch({
         url: 'settings_post_v3',
         method: 'post',
@@ -88,6 +107,11 @@ export default {
             {
               "key": 'support_max_size',
               "value": this.maximumSize,
+              "tag": "default",
+            },
+            {
+              "key": 'support_max_download_num',
+              "value": this.restrictionsOn === '1' ? 0 : this.downloads,
               "tag": "default",
             },
           ]
