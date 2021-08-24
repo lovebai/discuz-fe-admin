@@ -7,7 +7,7 @@ export default {
     return {
       picture: '',       // 图片扩展名
       fileExtension: '', // 文件扩展名
-      maximumSize: '',   // 最大尺寸
+      maximumSize: '',  // 最大尺寸
       restrictionsOn: '', // 附件限制选项
       downloads: '',
     }
@@ -49,7 +49,7 @@ export default {
       }
     },
     downloadsNumInput(value) {
-      if (Number(value) <= 0) {
+      if (Number(value) < 0) {
         this.$message.error('请输入大于0的正整数');
         this.downloads = '';
       }
@@ -85,9 +85,15 @@ export default {
         this.$message.error('请输入正确的支持最大尺寸格式');
         return
       }
-      if (this.restrictionsOn === '1' && this.downloads <= 0) {
-        this.$message.error('输入大于0的正整数');
-        return
+      if (this.restrictionsOn === '2') {
+        if (this.downloads <= 0 || this.downloads === '') {
+          this.$message.error('下载次数请输入大于0的正整数');
+          return
+        }
+        if (!regSize.test(this.downloads)) {
+          this.$message.error('下载次数请输入大于0的正整数');
+          return
+        }
       }
       this.appFetch({
         url: 'settings_post_v3',
