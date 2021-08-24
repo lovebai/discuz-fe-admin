@@ -153,6 +153,15 @@
                 <a :href="item.url" target="_blank">{{item.fileName}}</a>
               </p>
             </div>
+            <div
+              class="cont-manage-theme__table-main__cont-vote"
+              v-if="contentIndexes(items.content, 'vote')"
+            >
+              <p>{{contentIndexes(items.content, 'vote')[0].voteTitle}}</p>
+              <div>
+                 <p v-for="(voteItems, indexs) in contentIndexes(items.content, 'vote')[0].subitems" :key="indexs">{{indexs + 1}}.  {{voteItems.content}}</p>
+              </div>
+            </div>
           </div>
         </ContArrange>
 
