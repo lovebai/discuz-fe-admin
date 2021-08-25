@@ -99,6 +99,7 @@ export default {
       },
       searchData: {
         topicTypeId: '',         //主题类型
+        contentSourceId: '',      // 内容来源
         // categoryId: 0,            //主题分类ID
         categoryId: [0],          //主题分类ID
         pageSelect: '10',         //每页显示数
@@ -135,6 +136,20 @@ export default {
           name: '付费首页主题',
           id: '4'
         }
+      ],
+      contentSource : [
+        {
+          name: '全部',
+          id: ''
+        },
+        {
+          name: '导入内容',
+          id: 1
+        },
+        {
+          name: '普通内容',
+          id: 0
+        },
       ],
       subLoading:false,     //提交按钮状态
 
@@ -439,6 +454,7 @@ export default {
           createdAtBegin: searchData.dataValue[0],
           createdAtEnd: searchData.dataValue[1],
           categoryId: searchData.categoryId[searchData.categoryId.length - 1],
+          source: searchData.contentSourceId,
           sort: '-created_at',
         }
       }).then(res => {
