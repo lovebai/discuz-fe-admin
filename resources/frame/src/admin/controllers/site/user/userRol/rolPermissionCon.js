@@ -570,6 +570,9 @@
          "switch.viewThreads", //查看主题列表
          "switch.thread.viewPosts", //查看主题详情
          "switch.thread.freeViewPosts", //免费查看付费帖子
+         "thread.viewVideo",  // 查看视频
+         "thread.viewAttachment",  // 查看附件
+         "thread.downloadAttachment",  // 下载附件
          "thread.sticky", //置顶
          "switch.thread.essence", //加精
          "switch.thread.edit", //编辑主题
