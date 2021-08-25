@@ -354,6 +354,45 @@
             @remove-tag="clearItem($event, 'thread.freeViewPosts')"
           ></el-cascader>
         </Card>
+        <Card>
+          <CardRow description="查看帖子内上传的视频">
+            <el-checkbox
+              v-model="checked"
+              label="thread.viewVideo"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >查看视频</el-checkbox
+            >
+          </CardRow>
+        </Card>
+        <Card>
+          <CardRow description="查看帖子内上传的附件">
+            <el-checkbox
+              v-model="checked"
+              label="thread.viewAttachment"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >查看附件</el-checkbox
+            >
+          </CardRow>
+        </Card>
+         <Card>
+          <CardRow description="下载帖子内上传的附件">
+            <el-checkbox
+              v-model="checked"
+              label="thread.downloadAttachment"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+              >下载附件</el-checkbox
+            >
+          </CardRow>
+        </Card>
       </div>
       <div class="user-operate">
         <div class="user-operate__header">
