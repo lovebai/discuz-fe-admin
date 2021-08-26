@@ -198,22 +198,21 @@ export default {
         for (let i = 0, len = this.tableData.length; i < len; i++) {
           const _data = this.tableData[i];
           const { ugc, username, signature, dialog, find, replacement, nickname} = _data;
-          if (replacement === '' && ugc === '{REPLACE}' && username === '{REPLACE}') {
-            continue;
-          }
+          // if (replacement === '' && ugc === '{REPLACE}') {
+          //   continue;
+          // }
           let item = '';
-
-          if (ugc === '{REPLACE}' && username === '{REPLACE}') {
-            item = `${find}=${replacement}|`
-          } else if (ugc === '{REPLACE}' && username !== '{REPLACE}') {
-            item = `${find}=${replacement}|${username}`
-          } else if (username === '{REPLACE}' && ugc !== '{REPLACE}') {
-            item = `${find}=${replacement}|${ugc}`
-          } else if (username !== '{REPLACE}' && ugc !== '{REPLACE}') {
-            item = `${find}=${ugc}|${username}`
+          const ugcData = ugc ? ugc : '{IGNORE}';
+          const usernameData = username ? username : '{IGNORE}';
+          const signatureData = signature ? signature : '{IGNORE}';
+          const dialogData = dialog ? dialog : '{IGNORE}';
+          const nicknameData = nickname ? nickname : '{IGNORE}';
+          const replacementData = replacement ? replacement : '**';
+          if (ugcData !== '{REPLACE}') {
+            item = `${find}=${ugcData}|${usernameData}|${signatureData}|${dialogData}|${nicknameData}`
+          } else {
+            item = `${find}=${replacementData}|${ugcData}|${usernameData}|${signatureData}|${dialogData}|${nicknameData}`
           }
-          
-          item += `|${signature}|${dialog}|${nickname}`;
           words.push(item);
         }
 
