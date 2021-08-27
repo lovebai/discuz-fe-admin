@@ -419,7 +419,6 @@ export default {
     * */
     getThemeList(pageNumber) {
       let searchData = this.searchData;
-
       this.appFetch({
         url: 'thread_get_v3',
         method: 'get',
@@ -480,12 +479,12 @@ export default {
               item.children.forEach(c => {
                 child.push({
                   label: c.name,
-                  value: c.searchIds
+                  value: c.searchIds.length > 1 ? c.searchIds[0] : c.searchIds,
                 })
               })
               this.categoriesList.push({
                 label: item.name,
-                value: item.searchIds,
+                value: item.searchIds.length > 1 ? item.searchIds[0] : item.searchIds,
                 children: child
               })
               this.moveCateList.push({
@@ -496,7 +495,7 @@ export default {
             } else {
               this.categoriesList.push({
                 label: item.name,
-                value: item.searchIds
+                value: item.searchIds.length > 1 ? item.searchIds[0] : item.searchIds,
               })
               this.moveCateList.push({
                 label: item.name,
