@@ -466,6 +466,8 @@ appCommonH.dataTypeJudgment = function (data, val) {
       newData.rewardData = item.body;
     } else if (conversionTomID === '108') { // 附件
       newData.fileData = item.body;
+    } else if (conversionTomID === '109') {
+      newData.voteData = item.body;
     }
   });
   if (val === 'video' && newData.videoData && newData.videoData.status === 0 || val === 'video' && newData.videoData && newData.videoData.status === 2) {
@@ -487,6 +489,9 @@ appCommonH.dataTypeJudgment = function (data, val) {
   }
   if (val === 'attachments' && newData.fileData && newData.fileData.length > 0) {
     displayVal = newData.fileData;
+  }
+  if (val === 'vote' && newData.voteData && newData.voteData.length > 0) {
+    displayVal = newData.voteData;
   }
   return displayVal;
 }
