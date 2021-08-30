@@ -20,6 +20,26 @@
         </template>
       </CardRow>
     </Card>
+    
+    <Card header="用户一天内可下载附件次数：">
+      <CardRow>
+        <el-radio
+          v-model="restrictionsOn"
+          label="1"
+        >不限制</el-radio>
+        <el-radio v-model="restrictionsOn" label="2">
+          自定义
+        </el-radio>
+        <el-input
+          class="elinput"
+          style="height: 36PX;width: 100PX"
+          type="number"
+          size="small"
+          v-model="downloads"
+          @input="downloadsNumInput"
+        ></el-input>次
+      </CardRow>
+    </Card>
 
      <Card header="用户一天内可下载附件次数：">
       <CardRow>
