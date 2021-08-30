@@ -94,7 +94,7 @@
               :href="'/thread/' + items.threadId"
               target="_blank"
               :style="{'display':(contentIndexes(items.content, 'video') ? 'inline':'block')}"
-              v-html="filterContent(items.content.text)"
+              v-html="$xss(filterContent(items.content.text))"
             ></a>
             <span class="iconfont iconvideo" v-if="items.threadVideo"></span>
             <div class="recycle-bin-table__main__cont-imgs" v-if="!items.title">
