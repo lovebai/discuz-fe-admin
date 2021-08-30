@@ -27,7 +27,8 @@ import RConfig from "./admin/viewConfig/tpl"; //获取路由对象
 import "axiosHelper"; //ajax 请求封装
 /* end 设置引入的模板路径 end */
 import axios from 'axios';
-import Router from 'vue-router'
+import Router from 'vue-router';
+import VueXss from 'vue-xss';
 
 Vue.use(VueI18n);
 
@@ -58,6 +59,7 @@ Vue.use(VueLazyload, {
   // loading: require('img/loading.png'),//加载中图片，一定要有，不然会一直重复加载占位图
   // error: require('img/error.png')  //加载失败图片
 });
+Vue.use(VueXss);
 Vue.prototype.$utils = utils; //注册全局方法
 Vue.prototype.$echarts = Echarts; //后台财务统计echarts图标
 let app = {};
