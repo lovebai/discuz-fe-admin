@@ -5,7 +5,7 @@ export default {
   data(){
     return {
       // purchase:false, // 购买权限
-      reward: false, // 打赏功能
+      reward: false, // 数据过滤开关
     }
   },
   methods:{
@@ -28,7 +28,7 @@ export default {
             // 购买权限
             // this.purchase = forumData.setSite.sitePayGroupClose === '1';
             // 打赏权限
-            this.reward = forumData.setSite.siteCanReward; 
+            // this.reward = forumData.setSite.siteCanReward; 
           }
         })
         .catch(error => {});
@@ -36,23 +36,10 @@ export default {
     // 提交功能状态更改
     handlePublishingSubmit(){
       this.appFetch({
-        url: "settings_post_v3",
+        url: "thread_optimize_post",
         method: "post",
         data: {
-          data: [
-            {
-              key: "site_can_reward",
-              value: this.reward,
-              tag: "default"
-            },
-            // {
-            //   attributes: {
-            //     key: "site_pay_group_close",
-            //     value: this.purchase,
-            //     tag: "default"
-            //   }
-            // },
-          ]
+          isDisplay: this.reward ? 1 : 0
         }
       })
         .then(data => {

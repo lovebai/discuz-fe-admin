@@ -17,9 +17,9 @@
     <Card>
       <CardRow
         class="card-points"
-        description="允许发布的内容被其它用户打赏"
+        description="关闭后，这些功能将无法在站内使用"
       >
-        <el-checkbox v-model="reward">打赏功能</el-checkbox>
+        <el-checkbox v-model="reward">打赏、悬赏、红包、匿名、私信、商品、付费</el-checkbox>
       </CardRow>
     </Card>
 
