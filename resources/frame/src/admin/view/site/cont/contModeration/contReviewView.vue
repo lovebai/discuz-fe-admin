@@ -122,7 +122,7 @@
               :href="'/thread/' + items.threadId"
               target="_blank"
               :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
-              v-html="filterContent(items.content.text)"
+              v-html="$xss(filterContent(items.content.text))"
             ></a>
           </div>
           <span class="iconfont iconvideo" v-if="contentIndexes(items.content, 'videos')"></span>

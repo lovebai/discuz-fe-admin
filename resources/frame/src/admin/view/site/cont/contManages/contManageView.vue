@@ -76,7 +76,6 @@
         </div>
       </div>
     </div>
-
     <!-- 主题展示 -->
     <div class="cont-manage-theme">
       <div class="cont-manage-theme__table">
@@ -99,7 +98,7 @@
           :releaseTime="formatDate(items.createdAt)"
           :userId="!items.user ? '该用户被删除':items.user.userId"
           :key="index"
-        >
+        > 
           <div class="cont-manage-theme__table-side" slot="side">
             <el-checkbox
               v-model="checkedTheme"
@@ -128,7 +127,7 @@
               :href="'/thread/' + items.threadId"
               target="_blank"
               :style="{'display':(contentIndexes(items.content, 'videos') ? 'inline':'block')}"
-              v-html="filterContent(items.content.text)"
+              v-html="$xss(filterContent(items.content.text))"
             ></a>
             <span class="iconfont iconvideo" v-if="contentIndexes(items.content, 'videos')"></span>
             <div class="cont-manage-theme__table-main__cont-imgs" v-if="contentIndexes(items.content, 'images')">
@@ -159,7 +158,7 @@
             >
               <p>{{contentIndexes(items.content, 'vote')[0].voteTitle}}</p>
               <div>
-                 <p v-for="(voteItems, indexs) in contentIndexes(items.content, 'vote')[0].subitems" :key="indexs">{{indexs + 1}}.  {{voteItems.content}}</p>
+                 <p v-for="(voteItems, indexs) in contentIndexes(items.content, 'vote')[0].subitems" :key="indexs">{{indexs + 1}}.  {{$xss(voteItems.content)}}</p>
               </div>
             </div>
           </div>
