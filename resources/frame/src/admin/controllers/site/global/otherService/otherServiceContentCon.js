@@ -11,6 +11,20 @@ export default {
       importing: '',
       progress: 0,
       startTiming: false,
+      contentSourceId: '',
+      accuntlnroCookie: '',
+      accuntlnroToken: '',
+      totalNumber: 0,
+      contentSource : [
+        {
+          name: '微博',
+          id: 1
+        },
+        {
+          name: '微信公众号',
+          id: 4
+        },
+      ],
     }
   },
   methods:{
@@ -21,14 +35,25 @@ export default {
       }
     },
     importDataBtn() {
+      let params = {};
+      if (this.contentSourceId === 1) {
+        params = {
+          topic: this.topicContent,
+          number: this.topicNum,
+          platform: this.contentSourceId,
+        }
+      } else {
+        params = {
+          officialAccountName:this.topicContent,
+          officialAccountCookie: this.accuntlnroCookie,
+          officialAccountToken: this.accuntlnroToken,
+          platform: this.contentSourceId,
+        }
+      }
       this.appFetch({
         url:'create_crawler_get',
         method:'get',
-        data:{
-          topic: this.topicContent,
-          number: this.topicNum,
-          platform: 1,
-        }
+        data: params,
       }).then(res => {
         if (res.errors){
           this.$message.error(res.errors[0].code);
@@ -73,7 +98,7 @@ export default {
             //   this.progress = 100;
             //   clearInterval(this.timer);
             // }
-            if (crawlerData.status === 3 || crawlerData.status === 4) {
+            if (crawlerData.status !== 0 && crawlerData.status !== 1 && crawlerData.status !== 2) {
               clearInterval(this.timer);
             }
           }
@@ -82,9 +107,10 @@ export default {
             this.progress = crawlerData.progress;
             if (crawlerData.status === 2 && crawlerData.progress === 100) {
               this.progress = 100;
+              this.totalDataNumber = crawlerData.totalDataNumber;
               clearInterval(this.timer);
             }
-            if (crawlerData.status === 3 || crawlerData.status === 4) {
+            if (crawlerData.status !== 0 && crawlerData.status !== 1 && crawlerData.status !== 2) {
               clearInterval(this.timer);
             }
           }

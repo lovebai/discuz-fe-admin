@@ -976,6 +976,14 @@
   }
 }
 // 内容导入
+.content-import-source {
+  &__title {
+    margin-right: 20PX;
+  }
+  .el-input__inner {
+    height: 36PX;
+  }
+}
 .content-import {
   font-size: 14PX;
   line-height: 18PX;
