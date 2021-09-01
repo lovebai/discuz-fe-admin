@@ -360,8 +360,7 @@
               v-model="checked"
               label="thread.viewVideo"
               :disabled="
-                $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
+                $router.history.current.query.id === '1'
               "
               >查看视频</el-checkbox
             >
@@ -373,8 +372,7 @@
               v-model="checked"
               label="thread.viewAttachment"
               :disabled="
-                $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
+                $router.history.current.query.id === '1'
               "
               >查看附件</el-checkbox
             >
@@ -386,8 +384,7 @@
               v-model="checked"
               label="thread.downloadAttachment"
               :disabled="
-                $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
+                $router.history.current.query.id === '1'
               "
               >下载附件</el-checkbox
             >
