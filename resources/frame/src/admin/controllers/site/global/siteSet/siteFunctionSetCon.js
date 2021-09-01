@@ -28,7 +28,7 @@ export default {
             // 购买权限
             // this.purchase = forumData.setSite.sitePayGroupClose === '1';
             // 打赏权限
-            // this.reward = forumData.setSite.siteCanReward; 
+            this.reward = forumData.other.threadOptimize;
           }
         })
         .catch(error => {});
@@ -60,6 +60,7 @@ export default {
               message: "提交成功",
               type: "success"
             });
+            this.loadFunctionStatus();
           }
         })
         .catch(error => {});
