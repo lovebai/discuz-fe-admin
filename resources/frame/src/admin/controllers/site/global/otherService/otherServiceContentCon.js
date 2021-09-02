@@ -11,7 +11,7 @@ export default {
       importing: '',
       progress: 0,
       startTiming: false,
-      contentSourceId: '',
+      contentSourceId: 1,
       accuntlnroCookie: '',
       accuntlnroToken: '',
       totalNumber: 0,
