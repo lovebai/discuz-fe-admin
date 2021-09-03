@@ -59,7 +59,20 @@ Vue.use(VueLazyload, {
   // loading: require('img/loading.png'),//加载中图片，一定要有，不然会一直重复加载占位图
   // error: require('img/error.png')  //加载失败图片
 });
-Vue.use(VueXss);
+const options = {
+  // 设置标签白名单
+  whiteList: {
+    div: ['class', 'style'],
+    a: ['class','href', 'style'],
+    img: ['class', 'src', 'alt'],
+    span: ['class', 'style'],
+    p: ['class', 'style'],
+    video: ['class', 'style'],
+  },
+  stripIgnoreTag: true, // 去掉不在白名单上的标签   true：去掉不在白名单上的标签
+  stripIgnoreTagBody: ['script', 'style'] // 去掉不在白名单上的标签及标签体
+}
+Vue.use(VueXss, options);
 Vue.prototype.$utils = utils; //注册全局方法
 Vue.prototype.$echarts = Echarts; //后台财务统计echarts图标
 let app = {};
