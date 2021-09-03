@@ -10,21 +10,23 @@
       </div>
     </Card>
     <div v-if="contentSourceId === 1" class="content-import">多次导入同一话题会导致数据重复，需要站长手动清理</div>
-    <Card>
+    <Card v-if="contentSourceId === 1">
       <div class="content-import-search">
-        <el-input v-model="topicContent" :placeholder="contentSourceId === 1 ? '搜索想要导入站点的话题' : '输入想要导入公众号名称'"></el-input>
+        <el-input v-model="topicContent" placeholder='搜索想要导入站点的话题'></el-input>
       </div>
     </Card>
 
     <Card  v-if="contentSourceId === 4">
-      <div class="content-import-search">
-        <el-input v-model="accuntlnroCookie" placeholder="输入想要导入公众号的cookie"></el-input>
-      </div>
-    </Card>
-    
-    <Card  v-if="contentSourceId === 4">
-      <div class="content-import-search">
-        <el-input v-model="accuntlnroToken" placeholder="输入想要导入公众号的token"></el-input>
+      <div class="content-import-official" v-for="(item, index) in officialAccountLink" :key="index">
+        <el-input v-model="item.linkData" placeholder="输入想要导入公众号文章链接"></el-input>
+        <div class="content-import-official__btn">
+          <span class="content-import-official__btn-iconleft" v-if="index === officialAccountLink.length - 1" @click="increaseLink">
+            <i class="el-icon-circle-plus-outline"></i>
+          </span>
+          <span class="content-import-official__btn-iconright" v-if="officialAccountLink.length !== 1" @click="deleteLink(index)">
+            <i class="el-icon-remove-outline"></i>
+          </span>
+        </div>
       </div>
     </Card>
 

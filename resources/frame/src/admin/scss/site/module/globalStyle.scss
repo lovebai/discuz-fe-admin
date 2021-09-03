@@ -1020,7 +1020,24 @@
     }
   }
 }
-
+.content-import-official {
+  // width: 350PX;
+  display: flex;
+  margin-bottom: 20PX;
+  .el-input {
+    width: 350PX;
+  }
+  .el-input__inner {
+    height: 36PX;
+  }
+  &__btn {
+    font-size: 20PX;
+    line-height: 36PX;
+    span {
+      margin-left: 20PX;
+    }
+  }
+}
 // 其他设置
 .pother-service-set-type-box {
   .daoru {
