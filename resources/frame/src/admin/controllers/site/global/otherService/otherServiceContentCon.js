@@ -15,7 +15,7 @@ export default {
       accuntlnroCookie: '',
       accuntlnroToken: '',
       totalNumber: 0,
-      contentSource : [
+      contentSource: [
         {
           name: '微博',
           id: 1
@@ -25,9 +25,28 @@ export default {
           id: 4
         },
       ],
+      officialAccountLink: [
+        {
+          linkData: '',
+        }
+      ]
     }
   },
   methods:{
+    increaseLink() {
+      if (this.officialAccountLink.length < 20) {
+        this.officialAccountLink.push(
+          {
+            linkData: '',
+          }
+        );
+      }
+    },
+    deleteLink(index) {
+      if (this.officialAccountLink.length > 1 ) {
+        this.officialAccountLink.splice(index, 1);
+      }
+    },
     topicNumInput(value) {
       if (Number(value) > 1000) {
         this.$message.error('一次最多导入1000条');
@@ -43,10 +62,12 @@ export default {
           platform: this.contentSourceId,
         }
       } else {
+        let officialAccountUrlArr = [];
+        this.officialAccountLink.map(item => {
+          officialAccountUrlArr.push(item.linkData);
+        })
         params = {
-          officialAccountName:this.topicContent,
-          officialAccountCookie: this.accuntlnroCookie,
-          officialAccountToken: this.accuntlnroToken,
+          officialAccountUrl: officialAccountUrlArr,
           platform: this.contentSourceId,
         }
       }
