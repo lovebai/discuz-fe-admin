@@ -21,6 +21,14 @@ export default {
           id: 1
         },
         {
+          name: '贴吧',
+          id: 2
+        },
+        {
+          name: '豆瓣',
+          id: 3
+        },
+        {
           name: '微信公众号',
           id: 4
         },
@@ -55,19 +63,19 @@ export default {
     },
     importDataBtn() {
       let params = {};
-      if (this.contentSourceId === 1) {
-        params = {
-          topic: this.topicContent,
-          number: this.topicNum,
-          platform: this.contentSourceId,
-        }
-      } else {
+      if (this.contentSourceId === 4) {
         let officialAccountUrlArr = [];
         this.officialAccountLink.map(item => {
           officialAccountUrlArr.push(item.linkData);
         })
         params = {
           officialAccountUrl: officialAccountUrlArr,
+          platform: this.contentSourceId,
+        }
+      } else {
+        params = {
+          topic: this.topicContent,
+          number: this.topicNum,
           platform: this.contentSourceId,
         }
       }
