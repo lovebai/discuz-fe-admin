@@ -9,8 +9,8 @@
         </el-select>
       </div>
     </Card>
-    <div v-if="contentSourceId === 1" class="content-import">多次导入同一话题会导致数据重复，需要站长手动清理</div>
-    <Card v-if="contentSourceId === 1">
+    <div v-if="contentSourceId !== 4" class="content-import">多次导入同一话题会导致数据重复，需要站长手动清理</div>
+    <Card v-if="contentSourceId !== 4">
       <div class="content-import-search">
         <el-input v-model="topicContent" placeholder='搜索想要导入站点的话题'></el-input>
       </div>
@@ -30,7 +30,7 @@
       </div>
     </Card>
 
-    <Card class="content-import-layer" v-if="contentSourceId === 1">
+    <Card class="content-import-layer" v-if="contentSourceId !== 4">
       <CardRow description="一次最多导入1000条">
         <div class="content-import-num">
           <p class="content-import-num__topic">导入条数</p>
