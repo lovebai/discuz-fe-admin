@@ -68,6 +68,9 @@ const options = {
     span: ['class', 'style'],
     p: ['class', 'style'],
     video: ['class', 'style'],
+    iframe: ['class', 'style', 'src'],
+    strong: ['class', 'style'],
+    br: ['class', 'style'],
   },
   stripIgnoreTag: true, // 去掉不在白名单上的标签   true：去掉不在白名单上的标签
   stripIgnoreTagBody: ['script', 'style'] // 去掉不在白名单上的标签及标签体

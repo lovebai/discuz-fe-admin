@@ -468,6 +468,8 @@ appCommonH.dataTypeJudgment = function (data, val) {
       newData.fileData = item.body;
     } else if (conversionTomID === '109') {
       newData.voteData = item.body;
+    }else if (conversionTomID === '10002') {
+      newData.iframeData = item.body;
     }
   });
   if (val === 'video' && newData.videoData && newData.videoData.status === 0 || val === 'video' && newData.videoData && newData.videoData.status === 2) {
@@ -492,6 +494,9 @@ appCommonH.dataTypeJudgment = function (data, val) {
   }
   if (val === 'vote' && newData.voteData && newData.voteData.length > 0) {
     displayVal = newData.voteData;
+  }
+  if (val === 'iframe' && newData.iframeData) {
+    displayVal = newData.iframeData;
   }
   return displayVal;
 }
