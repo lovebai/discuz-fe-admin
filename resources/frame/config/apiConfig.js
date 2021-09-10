@@ -30,6 +30,7 @@ module.exports = {
   delete_logo_post_v3: '/backAdmin/settings/delete.logo', // 删除站点logo
   signinfields_post_v3: '/backAdmin/signinfields', // 编辑注冊扩展列表
   bopen_view_count_post: '/backAdmin/open.view.count', // 数据规则
+  thread_optimize_post: '/backAdmin/thread.optimize', // 数据过滤
 
   stopwords_batch_v3: '/backAdmin/stopwords.batch', // 创建/修改敏感词接口(批量)
   stopwords_get_v3: '/backAdmin/stopwords.list', // 查询敏感词(列表)
