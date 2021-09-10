@@ -25,10 +25,10 @@ module.exports = {
 
   //全局
   settings_get_v3: '/backAdmin/settings',
-  signinfields_get_v3: '/backAdmin/signinfields', // 注册扩展信息字段配置
+  signinfields_get_v3: '/backAdmin/signinfields.list', // 注册扩展信息字段配置
   settings_logo_post_v3: '/backAdmin/settings/logo', // 上传站点logo
   delete_logo_post_v3: '/backAdmin/settings/delete.logo', // 删除站点logo
-  signinfields_post_v3: '/backAdmin/signinfields', // 编辑注冊扩展列表
+  signinfields_post_v3: '/backAdmin/signinfields.create', // 编辑注冊扩展列表
   bopen_view_count_post: '/backAdmin/open.view.count', // 数据规则
   thread_optimize_post: '/backAdmin/thread.optimize', // 数据过滤
 
@@ -42,8 +42,8 @@ module.exports = {
   notices_detail_get_v3: '/backAdmin/notification/tpl/detail', // 通知模板编辑列表
   notices_update_post_v3: '/backAdmin/notification/tpl/update', // 编辑通知模板
 
-  sequence_get_v3: '/backAdmin/sequence', //获取智能排序
-  sequence_post_v3: '/backAdmin/sequence', //修改智能排序
+  sequence_get_v3: '/backAdmin/sequence.list', //获取智能排序
+  sequence_post_v3: '/backAdmin/sequence.update', //修改智能排序
   recommend_topics_get_v3: '/backAdmin/recommend.topics', //推荐话题
   recommend_users_post_v3: '/backAdmin/recommend.users', //推荐用户
 
