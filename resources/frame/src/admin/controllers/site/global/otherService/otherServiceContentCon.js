@@ -14,6 +14,8 @@ export default {
       contentSourceId: 1,
       accuntlnroCookie: '',
       accuntlnroToken: '',
+      planetCookie: '',
+      planetUserAgent: '',
       totalNumber: 0,
       contentSource: [
         {
@@ -31,6 +33,10 @@ export default {
         {
           name: '微信公众号',
           id: 4
+        },
+        {
+          name: '知识星球',
+          id: 5
         },
       ],
       officialAccountLink: [
@@ -70,6 +76,14 @@ export default {
         })
         params = {
           officialAccountUrl: officialAccountUrlArr,
+          platform: this.contentSourceId,
+        }
+      } else if (this.contentSourceId === 5) {
+        params = {
+          topic: this.topicContent,
+          cookie: this.planetCookie,
+          userAgent: this.planetUserAgent,
+          number: this.topicNum,
           platform: this.contentSourceId,
         }
       } else {

@@ -9,7 +9,25 @@
         </el-select>
       </div>
     </Card>
-    <div v-if="contentSourceId !== 4" class="content-import">多次导入同一话题会导致数据重复，需要站长手动清理</div>
+    <div v-if="contentSourceId !== 4 && contentSourceId !== 5" class="content-import">多次导入同一话题会导致数据重复，需要站长手动清理</div>
+    <div v-if="contentSourceId === 5" class="content-import">仅支持导入已加入的星球内容，多次导入同一话题会导致数据重复，需要站长手动清理</div>
+
+    <Card v-if="contentSourceId === 5">
+      <div class="content-import-planet">
+        <p class="content-import-planet__left">Cookie</p>
+        <el-input v-model="planetCookie"></el-input>
+        <span class="content-import-planet__right"><i class="el-icon-question"></i></span>
+      </div>
+    </Card>
+    
+    <Card v-if="contentSourceId === 5">
+      <div class="content-import-planet">
+        <p class="content-import-planet__left">User-Agent</p>
+        <el-input v-model="planetUserAgent"></el-input>
+        <span class="content-import-planet__right"><i class="el-icon-question"></i></span>
+      </div>
+    </Card>
+
     <Card v-if="contentSourceId !== 4">
       <div class="content-import-search">
         <el-input v-model="topicContent" placeholder='搜索想要导入站点的话题'></el-input>
