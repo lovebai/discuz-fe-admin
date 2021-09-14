@@ -186,7 +186,6 @@
        permissions.forEach(item => {
          this.checked.push(item.permission);
        });
- 
        // 回显选择值
        this.setSelectValue(this.checked);
      },
