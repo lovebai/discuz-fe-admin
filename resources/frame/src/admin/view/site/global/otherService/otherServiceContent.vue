@@ -16,7 +16,7 @@
       <div class="content-import-planet">
         <p class="content-import-planet__left">Cookie</p>
         <el-input v-model="planetCookie"></el-input>
-        <span class="content-import-planet__right"><i class="el-icon-question"></i></span>
+        <a href="https://discuz.com/manual-admin/2.html#_2-10-2-知识星球cookie和user-agent" target="_blank" class="content-import-planet__right"><i class="el-icon-question"></i></a>
       </div>
     </Card>
     
@@ -24,7 +24,7 @@
       <div class="content-import-planet">
         <p class="content-import-planet__left">User-Agent</p>
         <el-input v-model="planetUserAgent"></el-input>
-        <span class="content-import-planet__right"><i class="el-icon-question"></i></span>
+        <a href="https://discuz.com/manual-admin/2.html#_2-10-2-知识星球cookie和user-agent" target="_blank" class="content-import-planet__right"><i class="el-icon-question"></i></a>
       </div>
     </Card>
 
