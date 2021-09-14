@@ -138,7 +138,7 @@ export default {
         method:'get',
         // splice:'/' + id,
         data:{
-          pid: id,
+          userId: id,
         }
       }).then(res=>{
         return res

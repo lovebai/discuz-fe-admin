@@ -75,7 +75,7 @@ export default {
           url: "user_get_v3",
           // splice: `/${this.query.id}`,
           data: {
-            pid: this.query.id
+            userId: this.query.id
           }
         });
         if (response.Code || (response.Code && response.Code !== 0)) {
