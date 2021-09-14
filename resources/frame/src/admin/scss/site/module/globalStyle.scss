@@ -984,6 +984,27 @@
     height: 36PX;
   }
 }
+.content-import-planet {
+  display: flex;
+  &__left {
+    width: 100PX;
+    line-height: 36PX;
+    margin-right: 20PX;
+  }
+  &__right {
+    font-size: 20PX;
+    line-height: 36PX;
+    margin-left: 20PX;
+    color: #303133;
+  }
+  .el-input {
+    width: 390PX;
+  }
+  .el-input__inner {
+    height: 36PX;
+    width: 380PX;
+  }
+}
 .content-import {
   font-size: 14PX;
   line-height: 18PX;
