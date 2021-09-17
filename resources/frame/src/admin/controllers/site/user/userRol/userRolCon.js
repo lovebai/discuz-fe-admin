@@ -22,6 +22,47 @@ export default {
       delLoading:false,     //删除按钮状态
       groupName:'',      //是否显示用户组名称
       groupId: '',       // 用户组id
+      upgradeData: [
+        {
+          checked: 1,
+          days: 0,
+          default: false,
+          fee: "0.00",
+          id: 12,
+          isCommission: true,
+          isDisplay: false,
+          isPaid: 0,
+          isSubordinate: true,
+          name: "测试组",
+          scale: 10,
+        },
+        {
+          checked: 1,
+          days: 0,
+          default: false,
+          fee: "0.00",
+          id: 12,
+          isCommission: true,
+          isDisplay: false,
+          isPaid: 0,
+          isSubordinate: true,
+          name: "测试组",
+          scale: 10,
+        },
+        {
+          checked: 1,
+          days: 0,
+          default: false,
+          fee: "0.00",
+          id: 12,
+          isCommission: true,
+          isDisplay: false,
+          isPaid: 0,
+          isSubordinate: true,
+          name: "测试组",
+          scale: 10,
+        },
+      ]
     }
   },
   methods:{
@@ -71,6 +112,20 @@ export default {
           }
         );
       }
+      this.addStatus = true;
+    },
+    
+    upgradeList() {
+      // if (this.alternateLength >= this.tableData.length){
+        this.upgradeData.push(
+          {
+            "name": "",
+            "type": "",
+            "color": "",
+            "icon": ""
+          }
+        );
+      // }
       this.addStatus = true;
     },
 
@@ -362,6 +417,9 @@ export default {
           }, 100);
         }
       });
+    },
+    riseOperation(scope) {
+      console.log(scope, 'riseOperation');
     }
   },
   created(){

@@ -2,7 +2,7 @@
 
 @import "../common/index";
 @import "../../../../../static/css/admin/discuzQfont.css";
-
+@import "../../../../../static/css/iconfont/iconfont.css";
 
 /*
   公共样式
@@ -224,6 +224,15 @@
 
   .user-rol-table{
     margin-top: 15PX;
+    &__left {
+      margin-right: 40PX;
+    }
+    &__icons {
+      margin-left: 66PX;
+    }
+    .table-icon {
+      font-size: 20PX;
+    }
   }
 
   /*.user-rol-table-add{
