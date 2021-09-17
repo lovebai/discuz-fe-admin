@@ -342,6 +342,39 @@
   .footer-btn__inner{
     padding-left: 27PX;
   }
+  .user-pay {
+    &-money {
+      &__left {
+        display: inline-block;
+        width: 100PX;
+      }
+    }
+    &-introduce {
+      .card-box__main {
+        display: flex;
+      }
+      &__left {
+        width: 100PX;
+        margin-right: 10PX;
+      }
+    }
+    &-explain {
+      &__title {
+        font-size: 14PX;
+        font-weight: bold;
+        margin-bottom: 20PX;
+      }
+      &__content {
+        line-height: 30PX;
+      }
+    }
+    .el-textarea {
+      width: 50%;
+      .el-textarea__inner {
+        height: 125PX;
+      }
+    }
+  }
 }
 .elinput{
   margin: 0 10PX;

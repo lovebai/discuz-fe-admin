@@ -116,7 +116,7 @@ export default {
     },
     
     upgradeList() {
-      // if (this.alternateLength >= this.tableData.length){
+      if (this.upgradeData.length < 5) {
         this.upgradeData.push(
           {
             "name": "",
@@ -125,7 +125,7 @@ export default {
             "icon": ""
           }
         );
-      // }
+      }
       this.addStatus = true;
     },
 

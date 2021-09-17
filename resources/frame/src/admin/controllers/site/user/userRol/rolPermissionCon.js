@@ -7,6 +7,8 @@
  export default {
    data: function () {
      return {
+       textarea: '',
+       textareaValue: '购买金额将用于升级您所在的用户组。\n如果购买多次同一用户组，有效期将累加。\n如果购买不同用户组，则新购买的用户组权限立即生效，在此之前的用户组有效期将叠加计算。\n付费站点中，如果您的站点有效期低于付费用户组有效期，则以付费用户组有效期为准。',
        groupId: 0, // 用户组 ID
        checked: [], // 选中的权限
        videoDisabled: false, // 是否开启云点播
@@ -115,6 +117,9 @@
      }
    },
    methods: {
+    textareaValueInput(data) {
+      console.log(data);
+    },
      duedata: function (evn) {
        this.duedata = evn.replace(/[^\d]/g, "");
      },

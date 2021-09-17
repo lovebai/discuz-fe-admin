@@ -604,6 +604,82 @@
           ></el-cascader>
         </Card>
       </div>
+      <div class="user-pay">
+        <div class="user-operate__header">
+          <Card header="付费设置"></Card>
+        </div>
+
+        <Card class="user-pay-money">
+          <span class="user-pay-money__left">
+            付费金额
+          </span>
+          <el-input
+            class="elinput"
+            style="height: 36PX;width: 100PX"
+            type="number"
+            size="small"
+            v-model="downloads"
+            @input="downloadsNumInput"
+          ></el-input>
+          <span>
+            0.1 ~ 10000之间
+          </span>
+        </Card>
+
+        <Card class="user-pay-money">
+          <span class="user-pay-money__left">
+            付费有效期
+          </span>
+          <el-input
+            class="elinput"
+            style="height: 36PX;width: 100PX"
+            type="number"
+            size="small"
+            v-model="downloads"
+            @input="downloadsNumInput"
+          ></el-input>
+          <span>
+            0.1 ~ 10000之间
+          </span>
+        </Card>
+
+        <Card class="user-pay-introduce">
+          <p class="user-pay-introduce__left">
+            版权介绍
+          </p>
+          <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            maxlength="200"
+            show-word-limit
+            v-model="textarea">
+          </el-input>
+        </Card>
+
+        <Card class="user-pay-introduce">
+          <p class="user-pay-introduce__left">
+            购买须知
+          </p>
+          <el-input
+            type="textarea"
+            :rows="2"
+            :placeholder="text"
+            maxlength="200"
+            show-word-limit
+            v-model="textareaValue"
+            @input="textareaValueInput"
+            >
+          </el-input>
+        </Card>
+
+        <Card class="user-pay-explain">
+          <p class="user-pay-explain__title">用户组购买规则说明</p>
+          <p class="user-pay-explain__content">一个用户只能在一个付费用户组内。</p>
+          <p class="user-pay-explain__content">当用户在付费用户组有效期内，购买另一付费用户组，则原用户组前一个付费用户组的时效，顺延到第二个付费用户组时效结束之后。</p>
+          <p class="user-pay-explain__content">付费站点中，如果用户的站点有效期低于付费用户组有效期，则以付费用户组有效期为准。</p>
+        </Card>
+      </div>
     </div>
     <!-- 安全设置 -->
     <div v-show="activeTab.name === 'security'">

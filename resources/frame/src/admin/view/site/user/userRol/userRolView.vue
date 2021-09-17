@@ -1,6 +1,7 @@
 <template>
   <div class="user-rol-box">
     <div class="user-rol-table">
+      <p>付费用户组</p>
       <el-table
         :data="upgradeData"
         style="width: 100%"
@@ -124,6 +125,7 @@
       <TableContAdd cont="新增" @tableContAddClick="upgradeList"></TableContAdd>
     </div>
     <div class="user-rol-table">
+      <p>免费用户组</p>
       <el-table
         :data="tableData"
         style="width: 100%"
