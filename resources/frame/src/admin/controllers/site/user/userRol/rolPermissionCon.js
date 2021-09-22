@@ -217,7 +217,7 @@
          this.plugInPermissions.push({
            appId: item.appId,
            name: item.name,
-           canInsert: item.authority.canInsert,
+           canUsePlugin: item.authority.canUsePlugin,
            title: item.authority.title,
            description: item.description,
          })
@@ -563,7 +563,7 @@
       this.plugInPermissions.forEach(item => {
         params.push({
           "appId": item.appId,
-          "status": item.canInsert ? 1 : 0,
+          "status": item.canUsePlugin ? 1 : 0,
         })
       });
       this.appFetch({

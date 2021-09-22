@@ -612,7 +612,7 @@
       <Card v-for="(item, index) in plugInPermissions" :key="index">
         <CardRow :description="item.description">
           <el-checkbox
-            v-model="item.canInsert"
+            v-model="item.canUsePlugin"
             :disabled="
               $router.history.current.query.id === '1' ||
                 $router.history.current.query.id === '7'
