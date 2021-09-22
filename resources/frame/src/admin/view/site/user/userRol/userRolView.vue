@@ -32,28 +32,6 @@
           </template>
         </el-table-column>
 
-        <!-- <el-table-column width="100">
-          <template slot-scope="scope">
-            <el-button
-              v-if="scope.row.id !== '7' && scope.row.id !== '1'"
-              :disabled="addStatus && tableData.length - 1 === scope.$index"
-              type="text"
-              @click="
-                $router.push({
-                  path: '/admin/rol-permission',
-                  query: {
-                    id: scope.row.id,
-                    name: scope.row.name,
-                    title: '其他设置',
-                    names: 'other',
-                  },
-                })
-              "
-              >允许购买</el-button
-            >
-          </template>
-        </el-table-column> -->
-
         <el-table-column>
           <template slot-scope="scope">
             <el-button size="medium" @click="extension(scope.row.id)"
@@ -66,7 +44,7 @@
               @click="
                 $router.push({
                   path: '/admin/rol-permission',
-                  query: { id: scope.row.id, name: scope.row.name },
+                  query: { type: 'normal', id: scope.row.id, name: scope.row.name },
                 })
               "
               >设置</el-button
@@ -124,6 +102,24 @@
       </el-table>
       <TableContAdd cont="新增" @tableContAddClick="upgradeList"></TableContAdd>
     </div>
+
+    <Card class="footer-btn">
+      <el-button
+        type="primary"
+        :loading="btnLoading"
+        size="medium"
+        @click="paidNewbtn()"
+        >提交</el-button
+      >
+      <el-button
+        size="medium"
+        :loading="delLoading"
+        :disabled="deleteStatus"
+        @click="deleteClick"
+        >删除</el-button
+      >
+    </Card>
+
     <div class="user-rol-table">
       <p>免费用户组</p>
       <el-table
@@ -190,7 +186,7 @@
               @click="
                 $router.push({
                   path: '/admin/rol-permission',
-                  query: { id: scope.row.id, name: scope.row.name },
+                  query: { type: 'normal', id: scope.row.id, name: scope.row.name },
                 })
               "
               >设置</el-button

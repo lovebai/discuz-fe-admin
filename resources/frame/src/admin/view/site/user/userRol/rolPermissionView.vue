@@ -605,7 +605,7 @@
         </Card>
       </div>
       <div class="user-pay">
-        <div class="user-operate__header">
+        <div>
           <Card header="付费设置"></Card>
         </div>
 

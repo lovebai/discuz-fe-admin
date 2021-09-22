@@ -88,7 +88,8 @@
          'thread.freeViewPosts',
        ],
        mapCategoryId: new Map(),
-       keyValue: 0
+       keyValue: 0,
+       groupType: '', // 用户组类型
      };
    },
    watch: {
@@ -546,10 +547,14 @@
      },
    },
    created() {
+     console.log(this.$route.query);
+     this.groupType = this.$route.query.type || 'normal';
      this.groupId = this.$route.query.id;
      this.activeTab.title = this.$route.query.title || "操作权限";
      this.activeTab.name = this.$route.query.names || "userOperate";
-     this.getData();
+     if (this.groupType === 'normal') {
+       this.getData();
+     }
      if (this.groupId === '7') {
        // 游客权限
        this.checkAllPermission = [

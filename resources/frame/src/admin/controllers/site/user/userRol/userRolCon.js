@@ -22,6 +22,34 @@ export default {
       delLoading:false,     //删除按钮状态
       groupName:'',      //是否显示用户组名称
       groupId: '',       // 用户组id
+      sunData: [
+        {
+          checked: 1,
+          days: 0,
+          default: false,
+          fee: "0.00",
+          id: 12,
+          isCommission: true,
+          isDisplay: false,
+          isPaid: 0,
+          isSubordinate: true,
+          name: "测试组",
+          scale: 10,
+        },
+        {
+          checked: 1,
+          days: 0,
+          default: false,
+          fee: "0.00",
+          id: 12,
+          isCommission: true,
+          isDisplay: false,
+          isPaid: 0,
+          isSubordinate: true,
+          name: "测试组",
+          scale: 10,
+        }
+      ],
       upgradeData: [
         {
           checked: 1,
@@ -116,19 +144,23 @@ export default {
     },
     
     upgradeList() {
-      if (this.upgradeData.length < 5) {
-        this.upgradeData.push(
-          {
-            "name": "",
-            "type": "",
-            "color": "",
-            "icon": ""
-          }
-        );
-      }
-      this.addStatus = true;
+      this.$router.push({ path: '/admin/rol-permission', query: { type: 'pay' } });
+      // if (this.upgradeData.length < 5) {
+      //   this.upgradeData.push(
+      //     {
+      //       "name": "",
+      //       "type": "",
+      //       "color": "",
+      //       "icon": ""
+      //     }
+      //   );
+      // }
+      // this.addStatus = true;
     },
-
+    paidNewbtn(res) {
+      // if (this.upgradeData.length > this.sunData.length)
+      // this.$router.push({ path: '/admin/rol-permission', query: { type: res } });
+    },
     submitClick(){
       this.btnLoading = true;
       /*if (this.addStatus && this.multipleSelection.length > 0){
