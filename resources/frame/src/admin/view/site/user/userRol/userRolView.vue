@@ -14,6 +14,15 @@
         >
         </el-table-column>
 
+        <el-table-column
+          label="级别"
+          min-width="20"
+        >
+          <template slot-scope="scope">
+             <span>{{scope.row.level}}</span>
+          </template>
+        </el-table-column>
+
         <el-table-column label="级别名称" width="240">
           <template slot-scope="scope">
             <el-input maxlength="20" v-model="scope.row.name"></el-input>
@@ -32,7 +41,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column>
+        <el-table-column width="200">
           <template slot-scope="scope">
             <el-button size="medium" @click="extension(scope.row.id)"
               >邀请</el-button
@@ -91,8 +100,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column
-          min-width="115">
+        <el-table-column min-width="50" label="级别顺序">
           <template slot-scope="scope">
             <!-- <el-radio v-model="radio" @change="radioChange(scope.row,scope.$index)" v-if="scope.row.id != 1 && scope.row.id !== 6 && scope.row.id !== 7" :label="scope.row.id">设为加入站点的默认级别</el-radio> -->
             <span :class="scope.$index !== upgradeData.length - 1  ? 'user-rol-table__left' : 'user-rol-table__icon'" @click="dropOperation(scope)" v-if="scope.$index !== upgradeData.length - 1"><i class="iconfont icon-xiangxia table-icon"></i></span>
@@ -108,7 +116,7 @@
         type="primary"
         :loading="btnLoading"
         size="medium"
-        @click="paidNewbtn()"
+        @click="paidNewbtn"
         >提交</el-button
       >
       <el-button

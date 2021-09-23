@@ -33,7 +33,7 @@ export default {
           isDisplay: false,
           isPaid: 0,
           isSubordinate: true,
-          name: "测试组",
+          name: "测试组1",
           scale: 10,
         },
         {
@@ -46,7 +46,7 @@ export default {
           isDisplay: false,
           isPaid: 0,
           isSubordinate: true,
-          name: "测试组",
+          name: "测试组2",
           scale: 10,
         }
       ],
@@ -61,8 +61,9 @@ export default {
           isDisplay: false,
           isPaid: 0,
           isSubordinate: true,
-          name: "测试组",
+          name: "测试组1",
           scale: 10,
+          level: 4,
         },
         {
           checked: 1,
@@ -74,8 +75,9 @@ export default {
           isDisplay: false,
           isPaid: 0,
           isSubordinate: true,
-          name: "测试组",
+          name: "测试组2",
           scale: 10,
+          level: 5,
         },
         {
           checked: 1,
@@ -87,8 +89,37 @@ export default {
           isDisplay: false,
           isPaid: 0,
           isSubordinate: true,
-          name: "测试组",
+          name: "测试组3",
           scale: 10,
+          level: 3,
+        },
+        {
+          checked: 1,
+          days: 0,
+          default: false,
+          fee: "0.00",
+          id: 12,
+          isCommission: true,
+          isDisplay: false,
+          isPaid: 0,
+          isSubordinate: true,
+          name: "测试组4",
+          scale: 10,
+          level: 2,
+        },
+        {
+          checked: 1,
+          days: 0,
+          default: false,
+          fee: "0.00",
+          id: 12,
+          isCommission: true,
+          isDisplay: false,
+          isPaid: 0,
+          isSubordinate: true,
+          name: "测试组5",
+          scale: 10,
+          level: 1,
         },
       ]
     }
@@ -157,7 +188,12 @@ export default {
       // }
       // this.addStatus = true;
     },
-    paidNewbtn(res) {
+    paidNewbtn() {
+      console.log(this.upgradeData);
+      this.upgradeData.forEach((item, index) => {
+        item.level = index + 1;
+      })
+      console.log(this.upgradeData, 'paidNewbtn');
       // if (this.upgradeData.length > this.sunData.length)
       // this.$router.push({ path: '/admin/rol-permission', query: { type: res } });
     },
@@ -256,6 +292,7 @@ export default {
             this.$message.error(res.Message);
             return
           }
+          this.orderList();
           this.tableData = res.Data;
           this.alternateLength = res.Data.length;
           this.tableData.forEach((item) => {
@@ -452,7 +489,32 @@ export default {
     },
     riseOperation(scope) {
       console.log(scope, 'riseOperation');
-    }
+      let payData = [...this.upgradeData];
+      let newData = [...this.upgradeData];
+      newData.splice(scope.$index, 1);
+      newData.splice(scope.$index - 1, 0, payData[scope.$index]);
+      this.upgradeData = newData;
+    },
+    dropOperation(scope) {
+      console.log(scope, 'riseOperation');
+      let payData = [...this.upgradeData];
+      let newData = [...this.upgradeData];
+      newData.splice(scope.$index, 1);
+      newData.splice(scope.$index + 1, 0, payData[scope.$index]);
+      this.upgradeData = newData;
+    },
+    // 数据排序
+    orderList() {
+      this.upgradeData.sort(this.soreoder('level'));
+    },
+    // 数据排序
+    soreoder(property) {
+      return (a, b) => {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value1 - value2;
+      }
+    },
   },
   created(){
     this.getGroups();
