@@ -19,7 +19,7 @@
           min-width="20"
         >
           <template slot-scope="scope">
-             <span>{{scope.row.level}}</span>
+             <span>{{scope.$index + 1}}</span>
           </template>
         </el-table-column>
 
