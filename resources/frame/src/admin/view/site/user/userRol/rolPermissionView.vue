@@ -608,6 +608,20 @@
         <div>
           <Card header="付费设置"></Card>
         </div>
+        
+        <Card class="user-pay-money">
+          <span class="user-pay-money__left">
+            付费用户组名称
+          </span>
+          <el-input
+            class="elinput"
+            style="height: 36PX;width: 200PX"
+            type="number"
+            size="small"
+            v-model="groupFeeName"
+            @input="downloadsNumInput"
+          ></el-input>
+        </Card>
 
         <Card class="user-pay-money">
           <span class="user-pay-money__left">
@@ -618,7 +632,7 @@
             style="height: 36PX;width: 100PX"
             type="number"
             size="small"
-            v-model="downloads"
+            v-model="groupPrice"
             @input="downloadsNumInput"
           ></el-input>
           <span>
@@ -635,10 +649,11 @@
             style="height: 36PX;width: 100PX"
             type="number"
             size="small"
-            v-model="downloads"
+            v-model="groupDays"
             @input="downloadsNumInput"
           ></el-input>
-          <span>
+          天
+          <span class="user-pay-money__right">
             0.1 ~ 10000之间
           </span>
         </Card>
@@ -653,7 +668,7 @@
             placeholder="请输入内容"
             maxlength="200"
             show-word-limit
-            v-model="textarea">
+            v-model="groupDescription">
           </el-input>
         </Card>
 
@@ -665,9 +680,7 @@
             type="textarea"
             :rows="2"
             :placeholder="text"
-            maxlength="200"
-            show-word-limit
-            v-model="textareaValue"
+            v-model="groupNotice"
             @input="textareaValueInput"
             >
           </el-input>
@@ -848,7 +861,7 @@
       </Card>
     </div> -->
     <Card class="footer-btn" :class="activeTab.name === 'userOperate' ? 'footer-btn__inner': ''">
-      <el-button size="medium" type="primary" @click="submitClick"
+      <el-button size="medium" type="primary" @click="submitGroupList"
         >提交</el-button
       >
     </Card>

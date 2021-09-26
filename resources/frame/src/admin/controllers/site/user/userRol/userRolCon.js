@@ -20,7 +20,6 @@ export default {
       addStatus:false,
       btnLoading:false,     //提交按钮状态
       delLoading:false,     //删除按钮状态
-      groupName:'',      //是否显示用户组名称
       groupId: '',       // 用户组id
       sunData: [
         {
@@ -51,76 +50,76 @@ export default {
         }
       ],
       upgradeData: [
-        {
-          checked: 1,
-          days: 0,
-          default: false,
-          fee: "0.00",
-          id: 12,
-          isCommission: true,
-          isDisplay: false,
-          isPaid: 0,
-          isSubordinate: true,
-          name: "测试组1",
-          scale: 10,
-          level: 4,
-        },
-        {
-          checked: 1,
-          days: 0,
-          default: false,
-          fee: "0.00",
-          id: 12,
-          isCommission: true,
-          isDisplay: false,
-          isPaid: 0,
-          isSubordinate: true,
-          name: "测试组2",
-          scale: 10,
-          level: 5,
-        },
-        {
-          checked: 1,
-          days: 0,
-          default: false,
-          fee: "0.00",
-          id: 12,
-          isCommission: true,
-          isDisplay: false,
-          isPaid: 0,
-          isSubordinate: true,
-          name: "测试组3",
-          scale: 10,
-          level: 3,
-        },
-        {
-          checked: 1,
-          days: 0,
-          default: false,
-          fee: "0.00",
-          id: 12,
-          isCommission: true,
-          isDisplay: false,
-          isPaid: 0,
-          isSubordinate: true,
-          name: "测试组4",
-          scale: 10,
-          level: 2,
-        },
-        {
-          checked: 1,
-          days: 0,
-          default: false,
-          fee: "0.00",
-          id: 12,
-          isCommission: true,
-          isDisplay: false,
-          isPaid: 0,
-          isSubordinate: true,
-          name: "测试组5",
-          scale: 10,
-          level: 1,
-        },
+        // {
+        //   checked: 1,
+        //   days: 0,
+        //   default: false,
+        //   fee: "0.00",
+        //   id: 12,
+        //   isCommission: true,
+        //   isDisplay: false,
+        //   isPaid: 0,
+        //   isSubordinate: true,
+        //   name: "测试组1",
+        //   scale: 10,
+        //   level: 4,
+        // },
+        // {
+        //   checked: 1,
+        //   days: 0,
+        //   default: false,
+        //   fee: "0.00",
+        //   id: 12,
+        //   isCommission: true,
+        //   isDisplay: false,
+        //   isPaid: 0,
+        //   isSubordinate: true,
+        //   name: "测试组2",
+        //   scale: 10,
+        //   level: 5,
+        // },
+        // {
+        //   checked: 1,
+        //   days: 0,
+        //   default: false,
+        //   fee: "0.00",
+        //   id: 12,
+        //   isCommission: true,
+        //   isDisplay: false,
+        //   isPaid: 0,
+        //   isSubordinate: true,
+        //   name: "测试组3",
+        //   scale: 10,
+        //   level: 3,
+        // },
+        // {
+        //   checked: 1,
+        //   days: 0,
+        //   default: false,
+        //   fee: "0.00",
+        //   id: 12,
+        //   isCommission: true,
+        //   isDisplay: false,
+        //   isPaid: 0,
+        //   isSubordinate: true,
+        //   name: "测试组4",
+        //   scale: 10,
+        //   level: 2,
+        // },
+        // {
+        //   checked: 1,
+        //   days: 0,
+        //   default: false,
+        //   fee: "0.00",
+        //   id: 12,
+        //   isCommission: true,
+        //   isDisplay: false,
+        //   isPaid: 0,
+        //   isSubordinate: true,
+        //   name: "测试组5",
+        //   scale: 10,
+        //   level: 1,
+        // },
       ]
     }
   },
@@ -175,25 +174,19 @@ export default {
     },
     
     upgradeList() {
-      this.$router.push({ path: '/admin/rol-permission', query: { type: 'pay' } });
-      // if (this.upgradeData.length < 5) {
-      //   this.upgradeData.push(
-      //     {
-      //       "name": "",
-      //       "type": "",
-      //       "color": "",
-      //       "icon": ""
-      //     }
-      //   );
-      // }
-      // this.addStatus = true;
+      this.$router.push({ path: '/admin/rol-permission', query: { type: 'pay', groupFeeData: this.upgradeData} });
     },
     paidNewbtn() {
       console.log(this.upgradeData);
+      let data = []
       this.upgradeData.forEach((item, index) => {
+        // data.push({
+
+        // })
         item.level = index + 1;
       })
       console.log(this.upgradeData, 'paidNewbtn');
+
       // if (this.upgradeData.length > this.sunData.length)
       // this.$router.push({ path: '/admin/rol-permission', query: { type: res } });
     },
@@ -292,9 +285,18 @@ export default {
             this.$message.error(res.Message);
             return
           }
-          this.orderList();
-          this.tableData = res.Data;
-          this.alternateLength = res.Data.length;
+          const groupList = res.Data;
+          this.tableData = [];
+          this.upgradeData = [];
+          groupList.forEach(items => {
+            if (items.isPaid === 1) {
+              this.upgradeData.push(items);
+            } else {
+              this.tableData.push(items);
+            }
+          })
+          // this.tableData = res.Data;
+          this.alternateLength = this.tableData.length;
           this.tableData.forEach((item) => {
             this.groupName = item.isDisplay;
             if (item.default == 1) {

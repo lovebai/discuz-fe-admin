@@ -90,6 +90,13 @@
        mapCategoryId: new Map(),
        keyValue: 0,
        groupType: '', // 用户组类型
+       groupName:'',      //是否显示用户组名称
+       groupFeeName:'',  // 付费用户组名字
+       groupPrice: '',   // 付费用户组价格
+       groupDays: '',    // 付费用户组日期
+       groupDescription: '', // 付费用户组描述
+       groupNotice: '购买金额将用于升级您所在的用户组。\n如果购买多次同一用户组，有效期将累加。\n如果购买不同用户组，则新购买的用户组权限立即生效，在此之前的用户组有效期将叠加计算。\n付费站点中，如果您的站点有效期低于付费用户组有效期，则以付费用户组有效期为准。',   // 付费须知
+       groupFeeList: [],
      };
    },
    watch: {
@@ -241,7 +248,60 @@
        this.selectList = selectList;
        this.checked = checkedData;
      },
+     getGroups(){
+      this.appFetch({
+        url:'groups_list_get_v3',
+        method:'get',
+        data:{}
+      }).then(res=>{
+        if (res.errors){
+          this.$message.error(res.errors[0].code);
+        }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
+          const groupList = res.Data;
+          groupList.forEach(items => {
+            if (items.isPaid) {
+              this.groupFeeList.push(items);
+            }
+          })
+        }
+      })
+     },
      // 提交权限选择
+     submitGroupList() {
+       if (this.groupType === 'pay') {
+        console.log('提交付费')
+         this.getGroups();
+         this.groupIncrease();
+       } else {
+         console.log('提交免费')
+         this.submitClick();
+       }
+     },
+     groupIncrease() {
+      this.appFetch({
+        url: "groups_create_post_v3",
+        method: "post",
+        params: {
+          "name": this.groupFeeName,
+          "type": "groups",
+          "default": false,
+          "isDisplay": false,
+          "isPaid": 1,
+          "fee": this.groupPrice,
+          "days": this.groupDays,
+          "level": this.groupFeeList.length + 1,
+          "description": this.groupDescription,
+          "notice": this.groupNotice
+        }
+      })
+      .then( res => {
+        console.log(res, 'groupIncrease');
+      })
+     },
      submitClick() {
        if (!this.checkNum()) {
          return;
@@ -549,6 +609,7 @@
    created() {
      console.log(this.$route.query);
      this.groupType = this.$route.query.type || 'normal';
+     this.groupFeeList = this.$route.query.groupFeeData || [];
      this.groupId = this.$route.query.id;
      this.activeTab.title = this.$route.query.title || "操作权限";
      this.activeTab.name = this.$route.query.names || "userOperate";

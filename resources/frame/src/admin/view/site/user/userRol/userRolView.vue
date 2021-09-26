@@ -25,7 +25,7 @@
 
         <el-table-column label="级别名称" width="240">
           <template slot-scope="scope">
-            <el-input maxlength="20" v-model="scope.row.name"></el-input>
+            <p>{{scope.row.name}}</p>
           </template>
         </el-table-column>
 
