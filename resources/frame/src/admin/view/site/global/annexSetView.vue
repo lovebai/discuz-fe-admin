@@ -21,7 +21,7 @@
       </CardRow>
     </Card>
 
-     <Card header="用户一天内可下载附件次数：">
+     <Card header="用户一天内可下载附件次数：" class="annex-set-box__copy">
       <CardRow>
         <el-radio
           v-model="restrictionsOn"
@@ -38,6 +38,7 @@
           v-model="downloads"
           @input="downloadsNumInput"
         ></el-input>次
+        <span class="annex-set-box__copy-span">如果在用户设置中开启了游客可下载附件权限，则游客下载不受次数限制</span>
       </CardRow>
     </Card>
 
