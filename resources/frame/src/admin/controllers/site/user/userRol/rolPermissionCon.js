@@ -20,6 +20,8 @@
        appletDisabled: false,  // 是否开启小程序
        postDisabled: false,
        categoriesList: [], // 分类列表
+       pluginUnit: false,
+       plugInPermissions: [],
        selectList: {
          "createThread": [], // 发布帖子
          'viewThreads': [], // 查看主题列表扩展
@@ -143,12 +145,13 @@
      },
  
      getData() {
-       Promise.all([this.getCategories(), this.getGroupResource(), this.getSiteInfo()])
+       Promise.all([this.getCategories(), this.getGroupResource(), this.getSiteInfo(), this.operateRequest()])
          .then(
            res => {
              this.handleCategories(res[0]);
              this.handleGroupResource(res[1]);
              this.signUpSet(res[2]);
+             this.operateList(res[3]);
            },
            err => {
              console.log(err);
@@ -202,7 +205,6 @@
        permissions.forEach(item => {
          this.checked.push(item.permission);
        });
- 
        // 回显选择值
        this.setSelectValue(this.checked);
      },
@@ -222,6 +224,19 @@
        // if (!this.allowtobuy) {
        //   this.value = false;
        // }
+     },
+     operateList(res) {
+       if (res.errors) return this.$message.error(res.errors[0].code);
+       this.plugInPermissions = [];
+       res.Data.forEach(item => {
+         this.plugInPermissions.push({
+           appId: item.appId,
+           name: item.name,
+           canUsePlugin: item.authority.canUsePlugin,
+           title: item.authority.title,
+           description: item.description,
+         })
+       })
      },
      // 扩展项回显
      setSelectValue(data) {
@@ -389,7 +404,9 @@
          }
        })
      },
- 
+     operateRequest() {
+      return this.appFetch({url: "permissionlist_get", method: "get", data: {groupId: this.groupId}})
+     },
      patchGroupPermission() {
        let checked = this.checked;
        if (this.isSubordinate) {
@@ -480,6 +497,7 @@
               return
             }
              this.patchGroupPermission();
+             this.operatePost();
            }
          })
          .catch(err => { });
@@ -675,6 +693,29 @@
          this.checkAll = false;
        }
      },
+     operatePost() {
+      let params = [];
+      this.plugInPermissions.forEach(item => {
+        params.push({
+          "appId": item.appId,
+          "status": item.canUsePlugin ? 1 : 0,
+        })
+      });
+      this.appFetch({
+        url: "permission_switch_post",
+        method: "post",
+        data: {
+          "groupId": this.groupId,
+          "permissions": params,
+        },
+      }).then(res => {
+        if (res.Code !== 0) {
+          setTimeout(() => {
+            this.$message.error(res.Message);
+          }, 2000)
+        }
+      })
+     }
    },
    created() {
      this.groupType = this.$route.query.type || 'normal';
