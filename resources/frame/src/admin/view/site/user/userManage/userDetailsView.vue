@@ -99,7 +99,7 @@
 
     <Card header="用户角色：">
       <CardRow>
-        <el-select v-model="userRole" placeholder="请选择">
+        <el-select :value="userRole" placeholder="请选择" @change="groupSwitch">
           <el-option
             v-for="item in options"
             :key="item.value"

@@ -39,7 +39,9 @@
   }
 
 }
+.el-message-box__wrapper {
 
+}
 
 /*
   用户管理
@@ -191,6 +193,13 @@
     word-break: keep-all;
     overflow: hidden;
   }
+  .user-details-masks {
+    // background: #606266;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(41, 36, 33, 0.5);
+  }
 }
 
 
@@ -224,11 +233,27 @@
 
   .user-rol-table{
     margin-top: 15PX;
-    &__left {
-      margin-right: 40PX;
+    &-box {
+      width: 100PX;
+      display: flex;
+      justify-content: space-between;
+      span {
+        width: 25PX;
+        height: 25PX;
+        text-align: center;
+        line-height: 25PX;
+        display: block;
+        cursor: pointer;
+      }
     }
-    &__icons {
-      margin-left: 66PX;
+    &__frame {
+      border: solid 1PX #606266;
+    }
+    &__right {
+      margin-left: 73PX;
+    }
+    &__rights {
+      margin-left: 75PX;
     }
     .table-icon {
       font-size: 20PX;
@@ -343,8 +368,15 @@
     padding-left: 27PX;
   }
   .user-pay {
-    padding-left: 27PX;
+    // padding-left: 27PX;
+    &__title {
+      background-color: #FAFAFA;
+      height: 53PX;
+      line-height: 53PX;
+      padding-left: 27PX;
+    }
     &-money {
+      padding-left: 27PX;
       &__left {
         display: inline-block;
         width: 100PX;
@@ -355,15 +387,24 @@
       }
     }
     &-introduce {
+      padding-left: 27PX;
       .card-box__main {
         display: flex;
+        flex-wrap: wrap;
       }
       &__left {
         width: 100PX;
         margin-right: 10PX;
       }
+      &__btn {
+        width: 100%;
+        margin-top: 10PX;
+        text-align: right;
+        color: #909399;
+      }
     }
     &-explain {
+      padding-left: 27PX;
       &__title {
         font-size: 14PX;
         font-weight: bold;
@@ -374,7 +415,7 @@
       }
     }
     .el-textarea {
-      width: 50%;
+      width: 500PX;
       .el-textarea__inner {
         height: 125PX;
       }

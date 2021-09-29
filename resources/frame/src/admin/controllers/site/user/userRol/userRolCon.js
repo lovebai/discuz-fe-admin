@@ -11,6 +11,7 @@ export default {
     return {
       tableData: [],
       alternateLength:0,    //数据长度备份
+      feeDataLength: 0,
       radio:'',             //设为加入站点的默认级别
       alternateRadio:'',    //默认级别选中备份
       radioName:'',         //默认级别名称
@@ -19,108 +20,11 @@ export default {
       multipleSelection:[],
       addStatus:false,
       btnLoading:false,     //提交按钮状态
+      paidLoading: false,
       delLoading:false,     //删除按钮状态
       groupId: '',       // 用户组id
-      sunData: [
-        {
-          checked: 1,
-          days: 0,
-          default: false,
-          fee: "0.00",
-          id: 12,
-          isCommission: true,
-          isDisplay: false,
-          isPaid: 0,
-          isSubordinate: true,
-          name: "测试组1",
-          scale: 10,
-        },
-        {
-          checked: 1,
-          days: 0,
-          default: false,
-          fee: "0.00",
-          id: 12,
-          isCommission: true,
-          isDisplay: false,
-          isPaid: 0,
-          isSubordinate: true,
-          name: "测试组2",
-          scale: 10,
-        }
-      ],
-      upgradeData: [
-        // {
-        //   checked: 1,
-        //   days: 0,
-        //   default: false,
-        //   fee: "0.00",
-        //   id: 12,
-        //   isCommission: true,
-        //   isDisplay: false,
-        //   isPaid: 0,
-        //   isSubordinate: true,
-        //   name: "测试组1",
-        //   scale: 10,
-        //   level: 4,
-        // },
-        // {
-        //   checked: 1,
-        //   days: 0,
-        //   default: false,
-        //   fee: "0.00",
-        //   id: 12,
-        //   isCommission: true,
-        //   isDisplay: false,
-        //   isPaid: 0,
-        //   isSubordinate: true,
-        //   name: "测试组2",
-        //   scale: 10,
-        //   level: 5,
-        // },
-        // {
-        //   checked: 1,
-        //   days: 0,
-        //   default: false,
-        //   fee: "0.00",
-        //   id: 12,
-        //   isCommission: true,
-        //   isDisplay: false,
-        //   isPaid: 0,
-        //   isSubordinate: true,
-        //   name: "测试组3",
-        //   scale: 10,
-        //   level: 3,
-        // },
-        // {
-        //   checked: 1,
-        //   days: 0,
-        //   default: false,
-        //   fee: "0.00",
-        //   id: 12,
-        //   isCommission: true,
-        //   isDisplay: false,
-        //   isPaid: 0,
-        //   isSubordinate: true,
-        //   name: "测试组4",
-        //   scale: 10,
-        //   level: 2,
-        // },
-        // {
-        //   checked: 1,
-        //   days: 0,
-        //   default: false,
-        //   fee: "0.00",
-        //   id: 12,
-        //   isCommission: true,
-        //   isDisplay: false,
-        //   isPaid: 0,
-        //   isSubordinate: true,
-        //   name: "测试组5",
-        //   scale: 10,
-        //   level: 1,
-        // },
-      ]
+      upgradeData: [],
+      groupEdit: false,
     }
   },
   methods:{
@@ -133,7 +37,6 @@ export default {
         this.deleteStatus = true
       }
     },
-
     /*checkSelect(val){
 
     },*/
@@ -177,18 +80,19 @@ export default {
       this.$router.push({ path: '/admin/rol-permission', query: { type: 'pay', groupFeeData: this.upgradeData} });
     },
     paidNewbtn() {
-      console.log(this.upgradeData);
+      this.paidLoading = true;
+      this.groupEdit = false;
       let data = []
       this.upgradeData.forEach((item, index) => {
-        // data.push({
-
-        // })
+        data.push({
+          "name": item.name,
+          'id': item.id,
+          'isDisplay': item.isDisplay,
+          'level': index + 1,
+        })
         item.level = index + 1;
-      })
-      console.log(this.upgradeData, 'paidNewbtn');
-
-      // if (this.upgradeData.length > this.sunData.length)
-      // this.$router.push({ path: '/admin/rol-permission', query: { type: res } });
+      });
+      this.batchPatchGroup(data);
     },
     submitClick(){
       this.btnLoading = true;
@@ -248,12 +152,20 @@ export default {
       // this.PermissionPurchaseAllowed();
     },
 
-    singleDelete(index,id){
-      if (index > this.alternateLength-1){
-        this.tableData.pop();
-        this.addStatus = false;
-      } else {
-        this.singleDeleteGroup(id);
+    singleDelete(index, id, type) {
+      if (type === 'normal') {
+        if (index > this.alternateLength - 1){
+          this.tableData.pop();
+          this.addStatus = false;
+        } else {
+          this.singleDeleteGroup(id);
+        }
+      } else if (type === 'pay') {
+        if (index > this.upgradeData.length - 1){
+          this.upgradeData.pop();
+        } else {
+          this.singleDeleteGroup(id);
+        }
       }
     },
 
@@ -304,6 +216,7 @@ export default {
               this.alternateRadio = item.id;
             }
           })
+          this.orderList();
         }
       }).catch(err=>{
       })
@@ -315,6 +228,7 @@ export default {
         data: data
       }).then(res=>{
         this.btnLoading = false;
+        this.paidLoading = false;
         if (res.errors){
           if (res.errors[0].detail){
             this.$message.error(res.errors[0].code + '\n' + res.errors[0].detail[0])
@@ -422,6 +336,7 @@ export default {
         }
       }).then(res=>{
         this.btnLoading = false;
+        this.paidLoading = false;
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
@@ -490,7 +405,7 @@ export default {
       });
     },
     riseOperation(scope) {
-      console.log(scope, 'riseOperation');
+      this.groupEdit = true;
       let payData = [...this.upgradeData];
       let newData = [...this.upgradeData];
       newData.splice(scope.$index, 1);
@@ -498,7 +413,7 @@ export default {
       this.upgradeData = newData;
     },
     dropOperation(scope) {
-      console.log(scope, 'riseOperation');
+      this.groupEdit = true;
       let payData = [...this.upgradeData];
       let newData = [...this.upgradeData];
       newData.splice(scope.$index, 1);

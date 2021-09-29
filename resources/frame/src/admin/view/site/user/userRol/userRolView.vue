@@ -53,7 +53,7 @@
               @click="
                 $router.push({
                   path: '/admin/rol-permission',
-                  query: { type: 'normal', id: scope.row.id, name: scope.row.name },
+                  query: { type: 'isPaid', id: scope.row.id, name: scope.row.name },
                 })
               "
               >设置</el-button
@@ -63,7 +63,7 @@
               placement="top"
               :ref="`popover-${scope.$index}`"
             >
-              <p>确定删除该项吗？</p>
+              <p>删除后，付费用户组中的用户将被移入默认分组或其他付费分组</p>
               <div style="text-align: right; margin: 10px 0 0 0">
                 <el-button
                   type="danger"
@@ -78,7 +78,7 @@
                   type="primary"
                   size="mini"
                   @click="
-                    singleDelete(scope.$index, scope.row.id);
+                    singleDelete(scope.$index, scope.row.id, 'pay');
                     scope._self.$refs[`popover-${scope.$index}`].doClose();
                   "
                   >确定</el-button
@@ -102,26 +102,39 @@
 
         <el-table-column min-width="50" label="级别顺序">
           <template slot-scope="scope">
-            <!-- <el-radio v-model="radio" @change="radioChange(scope.row,scope.$index)" v-if="scope.row.id != 1 && scope.row.id !== 6 && scope.row.id !== 7" :label="scope.row.id">设为加入站点的默认级别</el-radio> -->
-            <span :class="scope.$index !== upgradeData.length - 1  ? 'user-rol-table__left' : 'user-rol-table__icon'" @click="dropOperation(scope)" v-if="scope.$index !== upgradeData.length - 1"><i class="iconfont icon-xiangxia table-icon"></i></span>
-            <span :class="scope.$index !== upgradeData.length - 1  ? 'user-rol-table__right' : 'user-rol-table__icons'" @click="riseOperation(scope)" v-if="scope.$index !== 0"><i class="iconfont icon-xiangshang table-icon"></i></span>
+            <div class="user-rol-table-box">
+              <span
+                :class="groupEdit ? 'user-rol-table__frame' : ''"
+                @click="dropOperation(scope)"
+                v-if="scope.$index !== upgradeData.length - 1"
+              >
+                <i class="iconfont icon-xiangxia table-icon"></i>
+              </span>
+              <span
+               :class="scope.$index === upgradeData.length - 1 ? groupEdit ? 'user-rol-table__right user-rol-table__frame' : 'user-rol-table__rights' : groupEdit ? 'user-rol-table__frame' : ''"
+                @click="riseOperation(scope)"
+                v-if="scope.$index !== 0"
+              >
+                <i class="iconfont icon-xiangshang table-icon"></i>
+              </span>
+            </div>
           </template>
         </el-table-column>
       </el-table>
-      <TableContAdd cont="新增" @tableContAddClick="upgradeList"></TableContAdd>
+      <TableContAdd cont="新增" v-if="upgradeData.length < 5" @tableContAddClick="upgradeList"></TableContAdd>
     </div>
 
     <Card class="footer-btn">
       <el-button
         type="primary"
-        :loading="btnLoading"
+        :loading="paidLoading"
         size="medium"
         @click="paidNewbtn"
         >提交</el-button
       >
       <el-button
         size="medium"
-        :loading="delLoading"
+        :loading="delpaidLoading"
         :disabled="deleteStatus"
         @click="deleteClick"
         >删除</el-button
@@ -219,7 +232,7 @@
                   type="primary"
                   size="mini"
                   @click="
-                    singleDelete(scope.$index, scope.row.id);
+                    singleDelete(scope.$index, scope.row.id, 'normal');
                     scope._self.$refs[`popover-${scope.$index}`].doClose();
                   "
                   >确定</el-button
