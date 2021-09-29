@@ -456,6 +456,25 @@
       }
     }
   }
+  .sort-switch-exhibition {
+    &__box {
+      display: flex;
+      line-height: 30PX;
+      margin-bottom: 20PX;
+      &-title {
+        margin-right: 20PX;
+      }
+      &-explain {
+        color: #909399;
+      }
+    }
+    .el-radio-group {
+      .el-radio {
+        display: block;
+        margin-bottom: 20PX;
+      }
+    }
+  }
   .sort-switch-box{
     display:flex;
     justify-content: flex-start;
