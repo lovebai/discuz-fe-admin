@@ -69,7 +69,7 @@
           ></el-input>
           天
           <span class="user-pay-money__right">
-            0.1 ~ 10000之间
+            1 ~ 10000之间
           </span>
         </Card>
 
@@ -702,22 +702,22 @@
           ></el-cascader>
         </Card>
       </div>
-    </div>
-    <div class="user-operate">
-      <div class="user-operate__header">
-        <Card header="插件权限"></Card>
+      <div class="user-operate" v-if="groupType !== 'pay'">
+        <div class="user-operate__header">
+          <Card header="插件权限"></Card>
+        </div>
+        <Card v-for="(item, index) in plugInPermissions" :key="index">
+          <CardRow :description="item.description">
+            <el-checkbox
+              v-model="item.canUsePlugin"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+            >{{item.title}}</el-checkbox>
+          </CardRow>
+        </Card>
       </div>
-      <Card v-for="(item, index) in plugInPermissions" :key="index">
-        <CardRow :description="item.description">
-          <el-checkbox
-            v-model="item.canUsePlugin"
-            :disabled="
-              $router.history.current.query.id === '1' ||
-                $router.history.current.query.id === '7'
-            "
-          >{{item.title}}</el-checkbox>
-        </CardRow>
-      </Card>
     </div>
     <!-- 安全设置 -->
     <div v-show="activeTab.name === 'security'">

@@ -297,7 +297,7 @@
      },
      // 提交权限选择
      submitGroupList() {
-       if (this.groupType === 'pay') {
+       if (this.groupType === 'pay' || this.groupType === 'isPaid') {
          if (this.groupFeeName === '') {
           this.$message.error("用户组名称不能为空");
           return;
@@ -314,14 +314,17 @@
           this.$message.error("付费有效期不能为空");
           return;
          }
-         if (this.groupDays < 0.1 || this.groupDays > 10000) {
-          this.$message.error("付费有效期0.1~10000之间");
+         if (this.groupDays < 1 || this.groupDays > 10000) {
+          this.$message.error("付费有效期为1~10000之间");
           return;
          }
-         this.getGroups();
-       } else if(this.groupType === 'isPaid') {
-        this.submitClick();
-       }else {
+         if (this.groupType === 'pay') {
+           this.getGroups();
+         }
+         if (this.groupType === 'isPaid') {
+          this.submitClick();
+        }
+       } else {
          this.submitClick();
        }
      },
@@ -465,7 +468,7 @@
              if (Number(this.groupId) === item.id) {
               item.name = this.groupFeeName;
               item.fee = this.groupPrice;
-              item.days = this.groupDays;
+              item.days = Number(this.groupDays);
               item.description = this.groupDescription;
               item.notice = this.groupNotice;
              }
@@ -497,7 +500,9 @@
               return
             }
              this.patchGroupPermission();
-             this.operatePost();
+             if (this.groupType !== 'pay') {
+               this.operatePost();
+             }
            }
          })
          .catch(err => { });
