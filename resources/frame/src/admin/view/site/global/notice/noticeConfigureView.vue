@@ -112,16 +112,6 @@
       </div>
     </div>
     </Card>
-    <Card>
-      <div class="applets">
-        <span class="applets-title">消息推送时间：</span>
-        <div class="applets-radio">
-          <el-radio v-model="wxList.redirectType" :label="0">无跳转</el-radio>
-          <el-radio v-model="wxList.redirectType" :label="2">跳转至小程序</el-radio>
-          <el-radio v-model="wxList.redirectType" :label="1">跳转至H5</el-radio>
-        </div>
-      </div>
-    </Card>
   </div>
   <!-- 短信通知 -->
     <div class="system-notice" v-show="showSms">
