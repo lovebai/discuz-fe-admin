@@ -7,6 +7,7 @@
  export default {
    data: function () {
      return {
+       textarea: '',
        groupId: 0, // 用户组 ID
        checked: [], // 选中的权限
        videoDisabled: false, // 是否开启云点播
@@ -88,7 +89,17 @@
          'thread.freeViewPosts',
        ],
        mapCategoryId: new Map(),
-       keyValue: 0
+       keyValue: 0,
+       groupType: '', // 用户组类型
+       groupName:'',      //是否显示用户组名称
+       groupFeeName:'',  // 付费用户组名字
+       groupPrice: '',   // 付费用户组价格
+       groupDays: '',    // 付费用户组日期
+       groupDescription: '', // 付费用户组描述
+       groupNotice: '购买金额将用于升级您所在的用户组。\n如果购买多次同一用户组，有效期将累加。\n如果购买不同用户组，则新购买的用户组权限立即生效，在此之前的用户组有效期将叠加计算。\n付费站点中，如果您的站点有效期低于付费用户组有效期，则以付费用户组有效期为准。',   // 付费须知
+       groupFeeList: [],
+       groupDataName: '',
+       groupLevel: '',
      };
    },
    watch: {
@@ -183,7 +194,12 @@
        this.defaultuser = data.default;
        this.isSubordinate = data.isSubordinate;
        // this.value = data.isPaid;
- 
+       this.groupFeeName = data.name;
+       this.groupLevel = data.level
+       this.groupPrice = data.fee;
+       this.groupDays = data.days;
+       this.groupDescription = data.description;
+       this.groupNotice = data.notice;
        const permissions = data.permission || [];
        this.checked = [];
        permissions.forEach(item => {
@@ -250,7 +266,100 @@
        this.selectList = selectList;
        this.checked = checkedData;
      },
+     getGroups(){
+      this.appFetch({
+        url:'groups_list_get_v3',
+        method:'get',
+        data:{}
+      }).then(res=>{
+        if (res.errors){
+          this.$message.error(res.errors[0].code);
+        }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
+          const groupList = res.Data;
+          this.groupFeeList = [];
+          groupList.forEach(items => {
+            if (items.isPaid) {
+              this.groupFeeList.push(items);
+            }
+          });
+          if (this.groupType === 'pay') {
+            this.groupIncrease();
+          }
+          if (this.groupType === 'isPaid') {
+            this.getData();
+          }
+        }
+      })
+     },
      // 提交权限选择
+     submitGroupList() {
+       if (this.groupType === 'pay' || this.groupType === 'isPaid') {
+         if (this.groupFeeName === '') {
+          this.$message.error("用户组名称不能为空");
+          return;
+         }
+         if (this.groupPrice === '') {
+          this.$message.error("付费金额不能为空");
+          return;
+         }
+         if (this.groupPrice < 0.1 || this.groupPrice > 10000) {
+          this.$message.error("付费金额为0.1~10000之间");
+          return;
+         }
+         if (this.groupDays === '') {
+          this.$message.error("付费有效期不能为空");
+          return;
+         }
+         if (this.groupDays < 1 || this.groupDays > 10000) {
+           this.$message.error("付费有效期为1~10000之间的整数");
+           return;
+          }
+         if (this.groupType === 'pay') {
+           this.getGroups();
+         }
+         if (this.groupType === 'isPaid') {
+          this.submitClick();
+        }
+       } else {
+         this.submitClick();
+       }
+     },
+     groupIncrease() {
+      this.appFetch({
+        url: "groups_create_post_v3",
+        method: "post",
+        params: {
+          "name": this.groupFeeName,
+          "type": "groups",
+          "default": false,
+          "isDisplay": false,
+          "isPaid": 1,
+          "fee": this.groupPrice,
+          "days": this.groupDays,
+          "level": this.groupFeeList.length + 1,
+          "description": this.groupDescription,
+          "notice": this.groupNotice
+        }
+      })
+      .then( res => {
+        if (res.errors){
+          this.$message.error(res.errors[0].code);
+        }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
+          const groupData = res.Data;
+          this.groupId = groupData.id;
+          this.groupDataName = groupData.name;
+          this.submitClick();
+        }
+      })
+     },
      submitClick() {
        if (!this.checkNum()) {
          return;
@@ -259,13 +368,13 @@
          return;
        }
        if (this.value) {
-         if (this.purchasePrice == 0) {
+         if (this.purchasePrice <= 0) {
            this.$message.error("价格不能为0");
            return;
          } else if (this.purchasePrice == " ") {
            this.$message.error("价格不能为空");
            return;
-         } else if (this.dyedate == 0) {
+         } else if (this.dyedate <= 0) {
            this.$message.error("到期时间不能为0");
            return;
          } else if (this.dyedate == " ") {
@@ -337,19 +446,49 @@
      },
  
      patchGroupScale() {
+       let params = [];
+       if (this.groupType === 'pay') {
+         params = [{
+            id: this.groupId,
+            name: this.groupDataName,
+            scale: this.scale,
+            isSubordinate: this.isSubordinate,
+         }];
+       } else if (this.groupType === 'isPaid') {
+         if (this.activeTab.name === 'other') {
+            params = [{
+              id: this.groupId,
+              name: this.groupFeeName,
+              scale: this.scale,
+              isSubordinate: this.isSubordinate,
+            }];
+         } else {
+           this.groupFeeList.forEach(item => {
+             item.default = false;
+             if (Number(this.groupId) === item.id) {
+              item.name = this.groupFeeName;
+              item.fee = this.groupPrice;
+              item.days = Number(this.groupDays);
+              item.description = this.groupDescription;
+              item.notice = this.groupNotice;
+             }
+           });
+           params = this.groupFeeList;
+         }
+       } else {
+         params = [{
+          id: this.groupId,
+          name: this.$route.query.name,
+          scale: this.scale,
+          isSubordinate: this.isSubordinate,
+        }];
+       }
        this.appFetch({
          url: "groups_batchupdate_post_v3",
          method: "post",
          // splice: "/" + this.groupId,
          data: {
-           data: [
-             {
-               id: this.groupId,
-               name: this.$route.query.name,
-               scale: this.scale,
-               isSubordinate: this.isSubordinate,
-             }
-           ]
+           data: params,
          }
        })
          .then(res => {
@@ -361,7 +500,9 @@
               return
             }
              this.patchGroupPermission();
-             this.operatePost();
+             if (this.groupType !== 'pay') {
+               this.operatePost();
+             }
            }
          })
          .catch(err => { });
@@ -558,6 +699,7 @@
        }
      },
      operatePost() {
+       console.log(this.plugInPermissions);
       let params = [];
       this.plugInPermissions.forEach(item => {
         params.push({
@@ -565,27 +707,35 @@
           "status": item.canUsePlugin ? 1 : 0,
         })
       });
-      this.appFetch({
-        url: "permission_switch_post",
-        method: "post",
-        data: {
-          "groupId": this.groupId,
-          "permissions": params,
-        },
-      }).then(res => {
-        if (res.Code !== 0) {
-          setTimeout(() => {
-            this.$message.error(res.Message);
-          }, 2000)
-        }
-      })
+      if (params.length > 0) {
+        this.appFetch({
+          url: "permission_switch_post",
+          method: "post",
+          data: {
+            "groupId": this.groupId,
+            "permissions": params,
+          },
+        }).then(res => {
+          if (res.Code !== 0) {
+            setTimeout(() => {
+              this.$message.error(res.Message);
+            }, 2000)
+          }
+        })
+      } 
      }
    },
    created() {
+     this.groupType = this.$route.query.type || 'normal';
+     this.groupFeeList = this.$route.query.groupFeeData || [];
      this.groupId = this.$route.query.id;
      this.activeTab.title = this.$route.query.title || "操作权限";
      this.activeTab.name = this.$route.query.names || "userOperate";
-     this.getData();
+     if (this.groupType === 'normal') {
+       this.getData();
+     } else if (this.groupType === 'isPaid') {
+       this.getGroups();
+     }
      if (this.groupId === '7') {
        // 游客权限
        this.checkAllPermission = [

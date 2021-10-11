@@ -57,6 +57,19 @@
           </el-option>
         </el-select>
       </div>
+      
+      <div class="order-record__search-condition">
+        <span class="order-record__search-condition__title">订单类型：</span>
+        <el-select v-model="orderValue" clearable placeholder="请选择">
+          <el-option
+            v-for="item in orderType"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </div>
 
       <div class="order-record__search-condition">
         <span class="order-record__search-condition__title">收入方：</span>
