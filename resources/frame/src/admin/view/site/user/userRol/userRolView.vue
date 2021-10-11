@@ -1,7 +1,7 @@
 <template>
   <div class="user-rol-box">
     <div class="user-rol-table">
-      <p>付费用户组</p>
+      <p class="user-rol-table__pay">付费用户组</p>
       <el-table
         :data="upgradeData"
         style="width: 100%"
@@ -142,7 +142,7 @@
     </Card>
 
     <div class="user-rol-table">
-      <p>免费用户组</p>
+      <p class="user-rol-table__pay">免费用户组</p>
       <el-table
         :data="tableData"
         style="width: 100%"

@@ -34,6 +34,7 @@
             style="height: 36PX;width: 200PX"
             size="small"
             v-model="groupFeeName"
+            maxlength="10"
             @input="downloadsNumInput"
           ></el-input>
         </Card>
@@ -69,13 +70,13 @@
           ></el-input>
           天
           <span class="user-pay-money__right">
-            1 ~ 10000之间
+            1 ~ 10000之间的整数
           </span>
         </Card>
 
         <Card class="user-pay-introduce">
           <p class="user-pay-introduce__left">
-            版权介绍
+            特权介绍
           </p>
           <div>
             <el-input

@@ -315,9 +315,9 @@
           return;
          }
          if (this.groupDays < 1 || this.groupDays > 10000) {
-          this.$message.error("付费有效期为1~10000之间");
-          return;
-         }
+           this.$message.error("付费有效期为1~10000之间的整数");
+           return;
+          }
          if (this.groupType === 'pay') {
            this.getGroups();
          }
@@ -699,6 +699,7 @@
        }
      },
      operatePost() {
+       console.log(this.plugInPermissions);
       let params = [];
       this.plugInPermissions.forEach(item => {
         params.push({
@@ -706,20 +707,22 @@
           "status": item.canUsePlugin ? 1 : 0,
         })
       });
-      this.appFetch({
-        url: "permission_switch_post",
-        method: "post",
-        data: {
-          "groupId": this.groupId,
-          "permissions": params,
-        },
-      }).then(res => {
-        if (res.Code !== 0) {
-          setTimeout(() => {
-            this.$message.error(res.Message);
-          }, 2000)
-        }
-      })
+      if (params.length > 0) {
+        this.appFetch({
+          url: "permission_switch_post",
+          method: "post",
+          data: {
+            "groupId": this.groupId,
+            "permissions": params,
+          },
+        }).then(res => {
+          if (res.Code !== 0) {
+            setTimeout(() => {
+              this.$message.error(res.Message);
+            }, 2000)
+          }
+        })
+      } 
      }
    },
    created() {

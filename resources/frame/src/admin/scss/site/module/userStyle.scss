@@ -244,6 +244,9 @@
         line-height: 25PX;
         display: block;
         cursor: pointer;
+        .table-icon {
+          margin: 0;
+        }
       }
     }
     &__frame {
@@ -257,6 +260,9 @@
     }
     .table-icon {
       font-size: 20PX;
+    }
+    &__pay {
+      margin-bottom: 20PX;
     }
   }
 
