@@ -25,6 +25,7 @@ export default {
       groupId: '',       // 用户组id
       upgradeData: [],
       groupEdit: false,
+      counter: '',
     }
   },
   methods:{
@@ -89,6 +90,7 @@ export default {
           'id': item.id,
           'isDisplay': item.isDisplay,
           'level': index + 1,
+          'visible': false,
         })
         item.level = index + 1;
       });
@@ -161,6 +163,7 @@ export default {
           this.singleDeleteGroup(id);
         }
       } else if (type === 'pay') {
+        this.upgradeData[index].visible = false;
         if (index > this.upgradeData.length - 1){
           this.upgradeData.pop();
         } else {
@@ -410,6 +413,10 @@ export default {
       let newData = [...this.upgradeData];
       newData.splice(scope.$index, 1);
       newData.splice(scope.$index - 1, 0, payData[scope.$index]);
+      this.counter = scope.$index - 1;
+      setTimeout(() => {
+        this.counter = '';
+      }, 500);
       this.upgradeData = newData;
     },
     dropOperation(scope) {
@@ -418,7 +425,20 @@ export default {
       let newData = [...this.upgradeData];
       newData.splice(scope.$index, 1);
       newData.splice(scope.$index + 1, 0, payData[scope.$index]);
+      this.counter = scope.$index + 1;
+      setTimeout(() => {
+        this.counter = '';
+      }, 500);
       this.upgradeData = newData;
+    },
+    tableRowClassName({row, rowIndex}) {
+      if (rowIndex === this.counter) {
+        return 'success-row';
+      }
+      return '';
+    },
+    cancelClick(scope) {
+      this.upgradeData[scope.$index].visible = false;
     },
     // 数据排序
     orderList() {
