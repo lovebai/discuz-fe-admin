@@ -158,6 +158,19 @@
            }
          )
      },
+
+     paymentProcess() {
+      Promise.all([this.getCategories(), this.getSiteInfo()])
+        .then(
+          res => {
+            this.handleCategories(res[0]);
+            this.signUpSet(res[1]);
+          },
+          err => {
+            console.log(err);
+          }
+        )
+     },
      handleCategories(res) {
        if (res.errors) return this.$message.error(res.errors[0].code);
  
@@ -735,6 +748,8 @@
        this.getData();
      } else if (this.groupType === 'isPaid') {
        this.getGroups();
+     } else {
+       this.paymentProcess();
      }
      if (this.groupId === '7') {
        // 游客权限

@@ -108,7 +108,7 @@
                 @click="dropOperation(scope)"
                 v-if="scope.$index !== upgradeData.length - 1"
               >
-                <i class="iconfont icon-xiangxia table-icon"></i>
+                <i class="iconfont icon-xiangxiaicon table-icon"></i>
               </span>
               <span
                :class="scope.$index === upgradeData.length - 1 ? groupEdit ? 'user-rol-table__right user-rol-table__frame' : 'user-rol-table__rights' : groupEdit ? 'user-rol-table__frame' : ''"
