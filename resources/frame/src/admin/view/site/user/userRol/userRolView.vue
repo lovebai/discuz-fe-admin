@@ -6,6 +6,7 @@
         :data="upgradeData"
         style="width: 100%"
         @selection-change="handleSelectionChange"
+        :row-class-name="tableRowClassName"
       >
         <el-table-column
           type="selection"
@@ -61,7 +62,7 @@
             <el-popover
               width="100"
               placement="top"
-              :ref="`popover-${scope.$index}`"
+              v-model="scope.row.visible"
             >
               <p>删除后，付费用户组中的用户将被移入默认分组或其他付费分组</p>
               <div style="text-align: right; margin: 10px 0 0 0">
@@ -69,7 +70,7 @@
                   type="danger"
                   size="mini"
                   @click="
-                    scope._self.$refs[`popover-${scope.$index}`].doClose()
+                    cancelClick(scope)
                   "
                 >
                   取消
@@ -79,7 +80,6 @@
                   size="mini"
                   @click="
                     singleDelete(scope.$index, scope.row.id, 'pay');
-                    scope._self.$refs[`popover-${scope.$index}`].doClose();
                   "
                   >确定</el-button
                 >
