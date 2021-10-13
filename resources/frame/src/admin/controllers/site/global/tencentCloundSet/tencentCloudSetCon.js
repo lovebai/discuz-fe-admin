@@ -61,6 +61,13 @@ export default {
           status: '',
           icon: 'iconyanzhengma',
           setFlag: true
+        },{
+          name: 'CDN',
+          type: 'qcloud_cdn',
+          description: '请先配置云API，开通腾讯云的验证码服务，并确保有对应的资源包，<a href="https://discuz.chat/manual-admin/2.html#_2-7-8-%E9%AA%8C%E8%AF%81%E7%A0%81" target="_blank">查看文档</a>',
+          status: '',
+          icon: 'iconyanzhengma',
+          setFlag: true
         }
 
       ]
@@ -83,6 +90,9 @@ export default {
           break;
         case 'qcloud_vod':
           this.$router.push({ path: '/admin/tencent-cloud-config/vod', query: { type: type } });
+          break;
+        case 'qcloud_cdn':
+          this.$router.push({ path: '/admin/tencent-cloud-config/cdn', query: { type: type } });
           break;
         case 'qcloud_captcha':
           this.$router.push({ path: '/admin/tencent-cloud-config/code', query: { type: type } })
