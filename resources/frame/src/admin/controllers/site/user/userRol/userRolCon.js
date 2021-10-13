@@ -11,6 +11,7 @@ export default {
     return {
       tableData: [],
       alternateLength:0,    //数据长度备份
+      feeDataLength: 0,
       radio:'',             //设为加入站点的默认级别
       alternateRadio:'',    //默认级别选中备份
       radioName:'',         //默认级别名称
@@ -19,9 +20,12 @@ export default {
       multipleSelection:[],
       addStatus:false,
       btnLoading:false,     //提交按钮状态
+      paidLoading: false,
       delLoading:false,     //删除按钮状态
-      groupName:'',      //是否显示用户组名称
       groupId: '',       // 用户组id
+      upgradeData: [],
+      groupEdit: false,
+      counter: '',
     }
   },
   methods:{
@@ -34,7 +38,6 @@ export default {
         this.deleteStatus = true
       }
     },
-
     /*checkSelect(val){
 
     },*/
@@ -73,7 +76,26 @@ export default {
       }
       this.addStatus = true;
     },
-
+    
+    upgradeList() {
+      this.$router.push({ path: '/admin/rol-permission', query: { type: 'pay', groupFeeData: this.upgradeData} });
+    },
+    paidNewbtn() {
+      this.paidLoading = true;
+      this.groupEdit = false;
+      let data = []
+      this.upgradeData.forEach((item, index) => {
+        data.push({
+          "name": item.name,
+          'id': item.id,
+          'isDisplay': item.isDisplay,
+          'level': index + 1,
+          'visible': false,
+        })
+        item.level = index + 1;
+      });
+      this.batchPatchGroup(data);
+    },
     submitClick(){
       this.btnLoading = true;
       /*if (this.addStatus && this.multipleSelection.length > 0){
@@ -132,12 +154,21 @@ export default {
       // this.PermissionPurchaseAllowed();
     },
 
-    singleDelete(index,id){
-      if (index > this.alternateLength-1){
-        this.tableData.pop();
-        this.addStatus = false;
-      } else {
-        this.singleDeleteGroup(id);
+    singleDelete(index, id, type) {
+      if (type === 'normal') {
+        if (index > this.alternateLength - 1){
+          this.tableData.pop();
+          this.addStatus = false;
+        } else {
+          this.singleDeleteGroup(id);
+        }
+      } else if (type === 'pay') {
+        this.upgradeData[index].visible = false;
+        if (index > this.upgradeData.length - 1){
+          this.upgradeData.pop();
+        } else {
+          this.singleDeleteGroup(id);
+        }
       }
     },
 
@@ -169,8 +200,18 @@ export default {
             this.$message.error(res.Message);
             return
           }
-          this.tableData = res.Data;
-          this.alternateLength = res.Data.length;
+          const groupList = res.Data;
+          this.tableData = [];
+          this.upgradeData = [];
+          groupList.forEach(items => {
+            if (items.isPaid === 1) {
+              this.upgradeData.push(items);
+            } else {
+              this.tableData.push(items);
+            }
+          })
+          // this.tableData = res.Data;
+          this.alternateLength = this.tableData.length;
           this.tableData.forEach((item) => {
             this.groupName = item.isDisplay;
             if (item.default == 1) {
@@ -178,6 +219,7 @@ export default {
               this.alternateRadio = item.id;
             }
           })
+          this.orderList();
         }
       }).catch(err=>{
       })
@@ -189,6 +231,7 @@ export default {
         data: data
       }).then(res=>{
         this.btnLoading = false;
+        this.paidLoading = false;
         if (res.errors){
           if (res.errors[0].detail){
             this.$message.error(res.errors[0].code + '\n' + res.errors[0].detail[0])
@@ -296,6 +339,7 @@ export default {
         }
       }).then(res=>{
         this.btnLoading = false;
+        this.paidLoading = false;
         if (res.errors){
           this.$message.error(res.errors[0].code);
         }else {
@@ -362,7 +406,52 @@ export default {
           }, 100);
         }
       });
-    }
+    },
+    riseOperation(scope) {
+      this.groupEdit = true;
+      let payData = [...this.upgradeData];
+      let newData = [...this.upgradeData];
+      newData.splice(scope.$index, 1);
+      newData.splice(scope.$index - 1, 0, payData[scope.$index]);
+      this.counter = scope.$index - 1;
+      setTimeout(() => {
+        this.counter = '';
+      }, 500);
+      this.upgradeData = newData;
+    },
+    dropOperation(scope) {
+      this.groupEdit = true;
+      let payData = [...this.upgradeData];
+      let newData = [...this.upgradeData];
+      newData.splice(scope.$index, 1);
+      newData.splice(scope.$index + 1, 0, payData[scope.$index]);
+      this.counter = scope.$index + 1;
+      setTimeout(() => {
+        this.counter = '';
+      }, 500);
+      this.upgradeData = newData;
+    },
+    tableRowClassName({row, rowIndex}) {
+      if (rowIndex === this.counter) {
+        return 'success-row';
+      }
+      return '';
+    },
+    cancelClick(scope) {
+      this.upgradeData[scope.$index].visible = false;
+    },
+    // 数据排序
+    orderList() {
+      this.upgradeData.sort(this.soreoder('level'));
+    },
+    // 数据排序
+    soreoder(property) {
+      return (a, b) => {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value1 - value2;
+      }
+    },
   },
   created(){
     this.getGroups();

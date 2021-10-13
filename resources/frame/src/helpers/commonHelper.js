@@ -486,6 +486,9 @@ appCommonH.dataTypeJudgment = function (data, val) {
   if (val === 'videoStatusTwo' && newData.videoData && newData.videoData.status === 2) {
     displayVal = true;
   }
+  if (val === 'audio' && newData.audioData) {
+    displayVal = newData.audioData;
+  }
   if (val === 'images' && newData.imageData && newData.imageData.length > 0) {
     displayVal = newData.imageData;
   }

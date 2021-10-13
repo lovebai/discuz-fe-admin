@@ -83,7 +83,62 @@ export default {
           label: '在异常订单处理中不进行处理的订单'
         },
       ],                     //搜索-订单状态选项
+      orderType: [
+        {
+          value: '1',
+          label: '注册'
+        },
+        {
+          value: '2',
+          label: '打赏'
+        },
+        {
+          value: '3',
+          label: '付费主题'
+        },
+        {
+          value: '4',
+          label: '付费用户组'
+        },
+        {
+          value: '5',
+          label: '问答提问'
+        },
+        {
+          value: '6',
+          label: '问答围观'
+        },
+        {
+          value: '7',
+          label: '付费附件'
+        },
+        {
+          value: '8',
+          label: '站点续费'
+        },
+        {
+          value: '9',
+          label: '红包'
+        },
+        {
+          value: '10',
+          label: '悬赏'
+        },
+        {
+          value: '11',
+          label: '合并支付'
+        },
+        {
+          value: '20',
+          label: '文字贴红包'
+        },
+        {
+          value: '21',
+          label: '长文贴红包'
+        },
+      ],                     //搜索-订单状态选项
       value: '',             //搜索-订单状态值
+      orderValue: '',
     }
   },
   methods:{
@@ -168,6 +223,7 @@ export default {
           'filter[startTime]':this.orderTime[0],
           'filter[endTime]':this.orderTime[1],
           'filter[status]':this.value,
+          'filter[type]':this.orderValue,
           'filter[payeeNickname]':this.incomeSide
         }
       }).then(res=>{
