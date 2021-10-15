@@ -1009,6 +1009,60 @@
   }
 }
 // 内容导入
+.content-import-autoImport {
+  height: 100%;
+  display: flex;
+  align-items:center;
+  &__left {
+    margin-right: 20PX;
+  }
+}
+.content-import-time {
+  &__title {
+    margin-bottom: 20PX;
+  }
+  .card-row-box .card-row-lf {
+    width: 240PX;
+    min-width: 50PX;
+    margin: 0;
+  }
+  .card-row-rf {
+    span {
+      color: #303133;
+    }
+  }
+  &__years {
+    display: flex;
+    &-day {
+      min-width: 20PX;
+      line-height: 36PX;
+    }
+    .el-input {
+      width: 80PX;
+      margin-left: 20PX;
+      .el-input__inner {
+        width: 80PX;
+        height: 36PX;
+      }
+    }
+  }
+  &__detailed {
+    display: flex;
+    &-day {
+      line-height: 36PX;
+      margin: 0 20PX;
+    }
+    &-time {
+      .el-input {
+        width: 80PX;
+        .el-input__inner {
+          width: 80PX;
+          height: 36PX;
+        }
+      }
+    }
+  }
+}
 .content-import-source {
   &__title {
     margin-right: 20PX;
@@ -1049,6 +1103,7 @@
     height: 36PX;
   }
 }
+
 .content-import-layer {
   .card-row-box .card-row-lf {
     width: 22%;

@@ -1,6 +1,84 @@
 <template>
   <div>
     <Card header="内容导入"></Card>
+
+    <Card>
+      <div class="content-import-autoImport">
+        <p class="content-import-autoImport__left">自动导入</p>
+        <el-switch v-model="autoImport" active-color="#336699" inactive-color="#bbbbbb"></el-switch>
+      </div>
+    </Card>
+    
+    <Card class="content-import-time">
+      <p class="content-import-time__title">更新频率</p>
+      <CardRow description="更新1次同一话题下的新发布内容">
+        <div class="content-import-time__years">
+          <p class="content-import-time__years-day">每</p>
+          <el-select v-model="numValue">
+            <el-option
+              v-for="(item, index) in 12"
+              :key="index"
+              :label="index + 1"
+              :value="index + 1">
+            </el-option>
+          </el-select>
+          <el-select v-model="timeValue">
+            <el-option
+              v-for="item in timeValueData"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </div>
+      </CardRow>
+    </Card>
+    
+    <Card class="content-import-time">
+      <p class="content-import-time__title">更新时间</p>
+      <div class="content-import-time__detailed">
+        <el-time-picker
+          v-model="hourValue"
+          placeholder="任意时间点">
+        </el-time-picker>
+        <p class="content-import-time__detailed-day">每</p>
+        <el-select v-if="timeValue === 3" v-model="weekValue" class="content-import-time__detailed-time">
+          <el-option
+            v-for="item in weekData"
+            :key="item.id"
+            :label="item.name"
+            :value="item.type">
+          </el-option>
+        </el-select>
+        <el-select v-if="timeValue === 2" v-model="monthValue" class="content-import-time__detailed-time">
+          <el-option
+            v-for="(item, index) in 31"
+            :key="index"
+            :label="index + 1 + '号'"
+            :value="item.type">
+          </el-option>
+        </el-select>
+        <el-select v-if="timeValue === 2" v-model="monthValue" class="content-import-time__detailed-time">
+          <el-option
+            v-for="(item, index) in 31"
+            :key="index"
+            :label="index + 1 + '号'"
+            :value="item.type">
+          </el-option>
+        </el-select>
+        <div class="block" v-if="timeValue === 1">
+          <el-date-picker
+            v-model="yearValue"
+            type="date"
+            placeholder="选择日期"
+            value-format="MM-dd"
+            format="MM月dd日"
+            @blur="fun">
+          </el-date-picker>
+        </div>
+      </div>
+    </Card>
+
     <Card>
       <div class="content-import-source">
         <span class="content-import-source__title">来源</span>

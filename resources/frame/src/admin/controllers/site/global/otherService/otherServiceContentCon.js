@@ -5,6 +5,7 @@ import CardRow from '../../../../view/site/common/card/cardRow';
 export default {
   data:function () {
     return {
+      autoImport: false,
       topicContent: '',
       topicNum: '',
       speed: false, // 进度显示
@@ -39,6 +40,60 @@ export default {
           id: 5
         },
       ],
+      timeValueData: [
+        {
+          name: '年',
+          id: 1
+        },
+        {
+          name: '月',
+          id: 2
+        },
+        {
+          name: '周',
+          id: 3
+        },
+        {
+          name: '天',
+          id: 4
+        }
+      ],
+      timeValue: '',
+      weekData : [
+        {
+          name: '周一',
+          type: 1,
+        },
+        {
+          name: '周二',
+          type: 2,
+        },
+        {
+          name: '周三',
+          type: 3,
+        },
+        {
+          name: '周四',
+          type: 4,
+        },
+        {
+          name: '周五',
+          type: 5,
+        },
+        {
+          name: '周六',
+          type: 6,
+        },
+        {
+          name: '周日',
+          type: 7,
+        }
+      ],
+      numValue: '',
+      weekValue: '',
+      monthValue: '',
+      yearValue: '',
+      hourValue: '',
       officialAccountLink: [
         {
           linkData: '',
@@ -47,6 +102,10 @@ export default {
     }
   },
   methods:{
+    fun(value) {
+      let sun = new Date();
+      console.log(this.yearValue);
+    },
     increaseLink() {
       if (this.officialAccountLink.length < 20) {
         this.officialAccountLink.push(
