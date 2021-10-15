@@ -56,6 +56,8 @@ export default {
       expandUsers:[],
       expandDatas: [],
       exends: [],
+      groupList: [],
+      userGroupId: '',
     };
   },
 
@@ -91,6 +93,7 @@ export default {
           }
           this.reasonsForDisable = this.userInfo.banReason;
           this.userRole = response.Data.group.pid;
+          this.userGroupId = response.Data.group.pid;
           if (response.isBindWechat) {
             this.wechatNickName = response.Data.nickname;
             this.sex = response.Data.sex;
@@ -292,6 +295,7 @@ export default {
           url: "groups_list_get_v3"
         });
         const data = response.Data;
+        this.groupList = data;
         data.map(v => {
           if (v.id !== 7) {
             this.options.push({value: v.id, label: v.name});
@@ -367,6 +371,45 @@ export default {
         }
         console.log(res);
       })
+    },
+    groupSwitch(value) {
+      let groupType = '';
+      let userGroup = '';
+      this.groupList.forEach(item => {
+        if (value === item.id) {
+          groupType = item.isPaid;
+        }
+        if (this.userGroupId === item.id) {
+          userGroup = item.isPaid;
+        }
+      });
+      if (userGroup === 0 && groupType === 0) {
+        this.userRole = value;
+      }
+      if (userGroup === 1 && groupType === 0) {
+        const text = '移入新用户组后，原用户组的付费信息全部失效。';
+        this.open(text, value);
+      }
+      if (userGroup === 1 && groupType === 1) {
+        const text = '移入新用户组后，原用户组的付费信息全部失效。';
+        this.open(text, value);
+      }
+      if (userGroup === 0 && groupType === 1) {
+        const text = '移入新用户组后，用户将享受付费权益。';
+        this.open(text, value);
+      }
+    },
+    open(text, value) {
+      this.$confirm(text, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        lockScroll: false,
+      }).then(() => {
+        this.userRole = value;
+      }).catch(() => {
+        this.userRole = this.userRole;
+      });
     },
   },
 

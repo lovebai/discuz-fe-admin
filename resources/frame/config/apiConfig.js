@@ -87,10 +87,13 @@ module.exports = {
   user_signinfields_get_v3: '/backAdmin/user/signinfields', // 用户扩展信息查询
   users_examine_post_v3: '/backAdmin/users/examine', // 用户批量审核
   invite_link_v3: '/backAdmin/adminInvite.link.create', // 邀请链接
+  permissionlist_get: '/backAdmin/plugin/permissionlist', // 插件权限
+  permission_switch_post: '/backAdmin/plugin/permission.switch',
   // 登录
   login_post_v3: '/backAdmin/login', // 登录
   refresh_token_post_v3: '/backAdmin/refresh.token', // 刷新token
   create_crawler_get: '/backAdmin/create.crawler',  // 内容导入
 
   emoji_list_get_v3: '/backAdmin/emoji.list', // 获取表情
+  check_crawler_get: '/backAdmin/check.crawler.process' // 数据导入进度查询
 };

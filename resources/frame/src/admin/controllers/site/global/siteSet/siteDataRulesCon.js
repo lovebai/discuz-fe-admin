@@ -9,6 +9,7 @@ export default {
   data(){
     return {
       radio: '',
+      exhibition: '',
     }
   },
   created(){
@@ -31,6 +32,7 @@ export default {
             }
             const {Data: forumData} = res;
             this.radio = forumData.setSite.openViewCount;
+            this.exhibition = forumData.other.threadTab
         }
       })
     },
@@ -52,10 +54,36 @@ export default {
             this.$message.error(res.Message);
             return
           }
+          this.exhibitionPost();
+        }
+      })
+    },
+    exhibitionPost() {
+      this.appFetch({
+        url:'settings_post_v3',
+        method:'post',
+        data:{
+          data:[
+            {
+              key: "thread_tab",
+              value: this.exhibition,
+              tag: "default"
+            }  
+          ]
+        }
+      }).then(res => {
+        if (res.errors){
+          this.$message.error(res.errors[0].code)
+        }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
           this.$message({
-            message: "提交成功",
-            type: "success"
+            message: '提交成功',
+            type: 'success'
           });
+          this.initializeData();
         }
       })
     }

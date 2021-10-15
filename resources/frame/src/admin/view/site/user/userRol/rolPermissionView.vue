@@ -13,11 +13,110 @@
     </div>
 
     <Card
-      :header="$router.history.current.query.name + '--' + activeTab.title"
+      :header="groupType === 'pay' ? '付费用户组--' + activeTab.title : $router.history.current.query.name + '--' + activeTab.title"
     ></Card>
 
     <!-- 操作权限 -->
     <div v-show="activeTab.name === 'userOperate'">
+      <div class="user-pay" v-if="groupType !== 'normal'">
+         <!-- <div class="user-operate__title"> -->
+        <div class="user-pay__title">
+          <!-- <Card class="user-pay__title-text" header="付费设置"></Card> -->
+          付费设置
+        </div>
+        
+        <Card class="user-pay-money">
+          <span class="user-pay-money__left">
+            付费用户组名称
+          </span>
+          <el-input
+            class="elinput"
+            style="height: 36PX;width: 200PX"
+            size="small"
+            v-model="groupFeeName"
+            maxlength="10"
+            @input="downloadsNumInput"
+          ></el-input>
+        </Card>
+
+        <Card class="user-pay-money">
+          <span class="user-pay-money__left">
+            付费金额
+          </span>
+          <el-input
+            class="elinput"
+            style="height: 36PX;width: 100PX"
+            type="number"
+            size="small"
+            v-model="groupPrice"
+            @input="downloadsNumInput"
+          ></el-input>
+          <span>
+            0.1 ~ 10000之间
+          </span>
+        </Card>
+
+        <Card class="user-pay-money">
+          <span class="user-pay-money__left">
+            付费有效期
+          </span>
+          <el-input
+            class="elinput"
+            style="height: 36PX;width: 100PX"
+            type="number"
+            size="small"
+            v-model="groupDays"
+            @input="downloadsNumInput"
+          ></el-input>
+          天
+          <span class="user-pay-money__right">
+            1 ~ 10000之间的整数
+          </span>
+        </Card>
+
+        <Card class="user-pay-introduce">
+          <p class="user-pay-introduce__left">
+            特权介绍
+          </p>
+          <div>
+            <el-input
+              class="user-pay-introduce__center"
+              type="textarea"
+              :rows="2"
+              placeholder="请输入内容"
+              maxlength="20"
+              show-word-limit
+              v-model="groupDescription">
+            </el-input>
+            <p class="user-pay-introduce__btn">特权介绍将展示在前台卡片，解释该付费用户组包含的权益</p>
+          </div>
+        </Card>
+
+        <Card class="user-pay-introduce">
+          <p class="user-pay-introduce__left">
+            购买须知
+          </p>
+          <div>
+            <el-input
+              type="textarea"
+              :rows="2"
+              :placeholder="text"
+              v-model="groupNotice"
+              maxlength="300"
+              show-word-limit
+              >
+            </el-input>
+            <p class="user-pay-introduce__btn">购买须知将展示在前台</p>
+          </div>
+        </Card>
+
+        <Card class="user-pay-explain">
+          <p class="user-pay-explain__title">用户组购买规则说明</p>
+          <p class="user-pay-explain__content">一个用户同时只能在一个付费用户组内。</p>
+          <p class="user-pay-explain__content">当用户在付费用户组有效期内，购买另一付费用户组，则原用户组前一个付费用户组的时效，顺延到第二个付费用户组时效结束之后。</p>
+          <p class="user-pay-explain__content">付费站点中，如果用户的站点有效期低于付费用户组有效期，则以付费用户组有效期为准。</p>
+        </Card>
+      </div>
       <div class="user-operate__title">
         <el-checkbox
           :indeterminate="isIndeterminate"
@@ -604,6 +703,22 @@
           ></el-cascader>
         </Card>
       </div>
+      <div class="user-operate" v-if="groupType !== 'pay'">
+        <div class="user-operate__header">
+          <Card header="插件权限"></Card>
+        </div>
+        <Card v-for="(item, index) in plugInPermissions" :key="index">
+          <CardRow :description="item.description">
+            <el-checkbox
+              v-model="item.canUsePlugin"
+              :disabled="
+                $router.history.current.query.id === '1' ||
+                  $router.history.current.query.id === '7'
+              "
+            >{{item.title}}</el-checkbox>
+          </CardRow>
+        </Card>
+      </div>
     </div>
     <!-- 安全设置 -->
     <div v-show="activeTab.name === 'security'">
@@ -772,7 +887,7 @@
       </Card>
     </div> -->
     <Card class="footer-btn" :class="activeTab.name === 'userOperate' ? 'footer-btn__inner': ''">
-      <el-button size="medium" type="primary" @click="submitClick"
+      <el-button size="medium" type="primary" @click="submitGroupList"
         >提交</el-button
       >
     </Card>
