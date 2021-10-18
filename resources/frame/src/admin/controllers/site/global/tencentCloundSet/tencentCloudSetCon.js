@@ -194,6 +194,8 @@ export default {
         this.changeSettings('qcloud_vod', status);
       } else if (type == 'qcloud_captcha') {
         this.changeSettings('qcloud_captcha', status);
+      }else if (type == 'qcloud_cdn') {
+        this.changeSettings('qcloud_cdn', status);
       }
 
 
