@@ -22,6 +22,15 @@
         <el-checkbox v-model="reward">打赏、悬赏、红包、匿名、私信、商品、付费</el-checkbox>
       </CardRow>
     </Card>
+   
+   <Card>
+      <CardRow
+        class="card-points"
+        description="开启后，用户可在站内自主充值钱包余额。"
+      >
+        <el-checkbox v-model="recharge">充值</el-checkbox>
+      </CardRow>
+    </Card>
 
     <el-button type="primary" size="medium" @click="handlePublishingSubmit">提交</el-button>
 
