@@ -5,21 +5,16 @@ import CardRow from '../../../../view/site/common/card/cardRow';
 export default {
   data:function () {
     return {
-      secretId:'',
-      secretKey:'',
-      appId:'',
-      type:'',
+      accelerateData:'',
+      originAddress:'',
+      sourceHost: '',
+      subLoading: false,
     }
   },
   created(){
-    // this.tencentCloudList()//初始化云API配置
-    // var type = this.$route.query.type;
-    // this.type = type;
+    this.tencentCloudList()//初始化云API配置
   },
   methods:{
-    configClick(type){
-
-    },
     tencentCloudList(){
       this.appFetch({
         url:'forum_get_v3',
@@ -34,57 +29,72 @@ export default {
             return
           }
           const {Data: forumData} = res;
-          this.appId = forumData.qcloud.qcloudAppId;
-          this.secretId = forumData.qcloud.qcloudSecretId;
-          this.secretKey = forumData.qcloud.qcloudSecretKey;
+          this.accelerateData = forumData.qcloud.qcloudCdnDomain;
+          const num = forumData.qcloud.qcloudCdnOrigins;
+          let text = '';
+          num.forEach(item => {
+            text += `${item}\n`
+          });
+          this.originAddress = text;
+          this.sourceHost = forumData.qcloud.qcloudCdnServerName;
         }
       })
     },
-    async  Submission(){
-      this.secretId = this.secretId.trim();
-      this.secretKey = this.secretKey.trim();
-      try{
-        await this.appFetch({
+    submitClick(){
+      this.subLoading = true;
+      let originAddressArr = [];
+      if (this.originAddress) {
+        let lines = this.originAddress.split(/\n/);
+        for (var j = 0; j < lines.length; j++) {
+          if (lines[j].trim() !== '') {
+            originAddressArr.push(lines[j].trim());
+          }
+        }
+      }
+      this.appFetch({
         url:'settings_post_v3',
         method:'post',
         data:{
           "data":[
             {
-              "key":'qcloud_app_id',
-              "value":this.appId,
+              "key":'qcloud_cdn_domain',
+              "value":this.accelerateData,
               "tag": "qcloud"
             },
             {
-              "key":'qcloud_secret_id',
-              "value":this.secretId,
+              "key":'qcloud_cdn_origins',
+              "value": originAddressArr,
               "tag": "qcloud",
             },
             {
-              "key":'qcloud_secret_key',
-              "value":this.secretKey,
+              "key":'qcloud_cdn_server_name',
+              "value":this.sourceHost,
               "tag": "qcloud",
             }
           ]
         }
-      }).then(res=>{
+      })
+      .then(res=>{
+        this.subLoading = false
         if(res.errors){
-          throw new Error(res.errors[0].code);
+          this.$message.error(res.errors[0].code);
         } else {
           if (res.Code !== 0) {
             this.$message.error(res.Message);
             return
           }
           this.$message({ message: '提交成功', type: 'success' });
+          this.tencentCloudList();
         }
       })
-    }
-      catch(err){
+      .catch(err => {
+        this.subLoading = false
         this.$message({
           showClose: true,
           message: err
         });
-      }
-   }
+      })
+    }
   },
   components:{
     Card,

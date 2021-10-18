@@ -8,10 +8,10 @@
     <Card class="config-cdn-domain">
       <span class="config-cdn-domain__name"> 加速域名 </span>
       <el-input
+        v-model="accelerateData"
         class="elinput"
         style="height: 36px; width: 200px"
         size="small"
-        maxlength="10"
       ></el-input>
     </Card>
 
@@ -23,8 +23,7 @@
           type="textarea"
           :rows="2"
           placeholder="请输入内容"
-          maxlength="20"
-          show-word-limit
+          v-model="originAddress"
         >
         </el-input>
         <div>
@@ -47,11 +46,21 @@
     <Card class="config-cdn-domain">
       <span class="config-cdn-domain__name"> 回源HOST </span>
       <el-input
+        v-model="sourceHost"
         class="elinput"
         style="height: 36px; width: 400px"
         size="small"
       ></el-input>
     </Card>
+
+    <Card class="register-option-btn">
+        <el-button
+          type="primary"
+          :loading="subLoading"
+          size="medium"
+          @click="submitClick"
+        >提交</el-button>
+      </Card>
   </div>
 </template>
 

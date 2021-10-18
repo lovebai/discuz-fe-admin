@@ -154,6 +154,11 @@ export default {
           } else {
             this.tableData[7].status = false
           }
+          if (forumData.qcloud.qcloudCdn) {
+            this.tableData[8].status = true
+          } else {
+            this.tableData[8].status = false
+          }
         }
       })
     },
