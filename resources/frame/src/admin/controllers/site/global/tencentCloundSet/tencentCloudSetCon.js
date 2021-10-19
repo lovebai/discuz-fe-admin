@@ -64,9 +64,9 @@ export default {
         },{
           name: 'CDN',
           type: 'qcloud_cdn',
-          description: '请先配置云API，开通腾讯云的验证码服务，并确保有对应的资源包，<a href="https://discuz.chat/manual-admin/2.html#_2-7-8-%E9%AA%8C%E8%AF%81%E7%A0%81" target="_blank">查看文档</a>',
+          description: '请先配置云API，开通腾讯云的CDN服务，并确保有对应资源包，<a href="https://discuz.com/docs/CDN%20%E8%AE%BE%E7%BD%AE.html" target="_blank">查看文档</a>',
           status: '',
-          icon: 'iconyanzhengma',
+          icon: 'icon-jiasuxhdpi',
           setFlag: true
         }
 

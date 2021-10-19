@@ -9,6 +9,7 @@ export default {
       originAddress:'',
       sourceHost: '',
       subLoading: false,
+      mainDomain: '',
     }
   },
   created(){
@@ -29,8 +30,9 @@ export default {
             return
           }
           const {Data: forumData} = res;
-          this.accelerateData = forumData.qcloud.qcloudCdnDomain;
-          const num = forumData.qcloud.qcloudCdnOrigins;
+          this.accelerateData = forumData.qcloud.qcloudCdnSpeedDomain;
+          this.mainDomain = forumData.qcloud.qcloudCdnMainDomain
+          const num = forumData.qcloud.qcloudCdnOrigins || [];
           let text = '';
           num.forEach(item => {
             text += `${item}\n`
@@ -57,7 +59,7 @@ export default {
         data:{
           "data":[
             {
-              "key":'qcloud_cdn_domain',
+              "key":'qcloud_cdn_speed_domain',
               "value":this.accelerateData,
               "tag": "qcloud"
             },
@@ -69,6 +71,11 @@ export default {
             {
               "key":'qcloud_cdn_server_name',
               "value":this.sourceHost,
+              "tag": "qcloud",
+            },
+            {
+              "key":'qcloud_cdn_main_domain',
+              "value":this.mainDomain,
               "tag": "qcloud",
             }
           ]

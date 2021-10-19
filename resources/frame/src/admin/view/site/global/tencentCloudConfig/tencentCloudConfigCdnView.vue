@@ -2,7 +2,7 @@
   <div class="config-cdn">
     <Card class="config-cdn-title">
       <span class="config-cdn-title__left">CDN配置</span>
-      <span>如需更改更多配置项请进入腾讯云<a href="https://cloud.tencent.com/document/product/1427/56183" target="_blank">CDN控制台</a></span>
+      <span>如需更改更多配置项请进入腾讯云<a href="https://console.cloud.tencent.com/cdn" target="_blank">CDN控制台</a></span>
     </Card>
 
     <Card class="config-cdn-domain">
@@ -28,10 +28,10 @@
         </el-input>
         <div>
           <p class="config-cdn-address__lower">
-            支持填充多个IP源站（一行一个）或者一个域名源站
+            支持填充多个IP源站（一行一个）或一个域名源站
           </p>
           <p class="config-cdn-address__lower">
-            支持增加配置端口（0-65535）和权重（1-100）: 源站:端口:权重（端口可缺省：源站:权重
+            支持增加配置端口（0-65535）和权重（1-100）: 源站:端口:权重（端口可缺省：源站:权重）
           </p>
           <p class="config-cdn-address__lower">
             若选择HTTPS回源，端口仅可配置为443或不配置端口
@@ -47,6 +47,16 @@
       <span class="config-cdn-domain__name"> 回源HOST </span>
       <el-input
         v-model="sourceHost"
+        class="elinput"
+        style="height: 36px; width: 400px"
+        size="small"
+      ></el-input>
+    </Card>
+    
+    <Card class="config-cdn-domain">
+      <span class="config-cdn-domain__name"> 主域名 </span>
+      <el-input
+        v-model="mainDomain"
         class="elinput"
         style="height: 36px; width: 400px"
         size="small"
