@@ -51,12 +51,12 @@
       </div>
 
       <div class="cont-manage-header_bottom condition-box">
-         <div class="cont-manage-header_condition cont-manage-header_condition-lf">
+         <!-- <div class="cont-manage-header_condition cont-manage-header_condition-lf">
           <span class="cont-manage-header_condition-title">内容来源：</span>
           <el-select v-model="searchData.contentSourceId" placeholder="选择内容来源" clearable>
             <el-option v-for="item in contentSource" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
-        </div>
+        </div> -->
         <div class="cont-manage-header_condition cont-manage-header_condition-lf">
           <span class="cont-manage-header_condition-title">浏览次数：</span>
           <el-input size="medium" placeholder="大于" v-model="searchData.viewedTimesMin" clearable></el-input>
@@ -166,6 +166,9 @@
               <div>
                  <p v-for="(voteItems, indexs) in contentIndexes(items.content, 'vote')[0].subitems" :key="indexs">{{indexs + 1}}.  {{$xss(voteItems.content)}}</p>
               </div>
+            </div>
+            <div v-if="contentIndexes(items.content, 'audio')">
+              <audio controls class="cont-manage-theme__table-main__audio" :src="contentIndexes(items.content, 'audio').mediaUrl" ref="audioPlear"></audio>
             </div>
             <div v-if="contentIndexes(items.content, 'iframe')">
                <div v-html="contentIndexes(items.content, 'iframe').content"></div>
