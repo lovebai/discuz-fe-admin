@@ -6,6 +6,41 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4141855",
+      "name": "加速xhdpi",
+      "font_class": "jiasuxhdpi",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "5741743",
+      "name": "加速",
+      "font_class": "jiasu1",
+      "unicode": "e6ba",
+      "unicode_decimal": 59066
+    },
+    {
+      "icon_id": "13983883",
+      "name": "rocket",
+      "font_class": "yijiasu",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "12547697",
+      "name": "CDN加速",
+      "font_class": "CDNjiasu",
+      "unicode": "e6c3",
+      "unicode_decimal": 59075
+    },
+    {
+      "icon_id": "6537238",
+      "name": "加速",
+      "font_class": "jiasu",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
       "icon_id": "478798",
       "name": "向下",
       "font_class": "xiangxia",

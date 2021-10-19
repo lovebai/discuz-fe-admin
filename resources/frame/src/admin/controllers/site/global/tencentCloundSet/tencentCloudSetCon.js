@@ -61,6 +61,13 @@ export default {
           status: '',
           icon: 'iconyanzhengma',
           setFlag: true
+        },{
+          name: 'CDN',
+          type: 'qcloud_cdn',
+          description: '请先配置云API，开通腾讯云的CDN服务，并确保有对应资源包，<a href="https://discuz.com/docs/CDN%20%E8%AE%BE%E7%BD%AE.html" target="_blank">查看文档</a>',
+          status: '',
+          icon: 'icon-jiasuxhdpi',
+          setFlag: true
         }
 
       ]
@@ -83,6 +90,9 @@ export default {
           break;
         case 'qcloud_vod':
           this.$router.push({ path: '/admin/tencent-cloud-config/vod', query: { type: type } });
+          break;
+        case 'qcloud_cdn':
+          this.$router.push({ path: '/admin/tencent-cloud-config/cdn', query: { type: type } });
           break;
         case 'qcloud_captcha':
           this.$router.push({ path: '/admin/tencent-cloud-config/code', query: { type: type } })
@@ -144,6 +154,11 @@ export default {
           } else {
             this.tableData[7].status = false
           }
+          if (forumData.qcloud.qcloudCdn) {
+            this.tableData[8].status = true
+          } else {
+            this.tableData[8].status = false
+          }
         }
       })
     },
@@ -184,6 +199,8 @@ export default {
         this.changeSettings('qcloud_vod', status);
       } else if (type == 'qcloud_captcha') {
         this.changeSettings('qcloud_captcha', status);
+      }else if (type == 'qcloud_cdn') {
+        this.changeSettings('qcloud_cdn', status);
       }
 
 
