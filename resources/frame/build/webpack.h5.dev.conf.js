@@ -148,7 +148,7 @@ module.exports = {
         // target: "https://discuz.run",
         // target: "https://dq.comsenz-service.com/",
         // target: "http://dev.discuz.com/",
-        target: "https://bbsv3.techo.chat/",
+        target: "http://106.55.53.168/",
         changeOrigin: true,
         secure: false,
       }
