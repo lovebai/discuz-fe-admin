@@ -64,7 +64,7 @@ export default {
         },{
           name: 'CDN',
           type: 'qcloud_cdn',
-          description: '请先配置云API，开通腾讯云的CDN服务，并确保有对应资源包，<a href="https://discuz.com/docs/CDN%20%E8%AE%BE%E7%BD%AE.html" target="_blank">查看文档</a>',
+          description: '请先配置云API，开通腾讯云的CDN服务，并确保有对应资源包，<a href="https://discuz.com/docs/%E7%AB%99%E7%82%B9%E6%8E%A5%E5%85%A5%20CDN.html" target="_blank">查看文档</a>',
           status: '',
           icon: 'icon-jiasuxhdpi',
           setFlag: true
