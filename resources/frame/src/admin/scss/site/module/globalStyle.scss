@@ -346,7 +346,24 @@
     margin:30PX 0;
   }
 }
-
+.recharge-points {
+  .card-box__main {
+    display: flex;
+  }
+  &__lf {
+    padding-top: 20PX;
+    line-height: 20PX;
+    margin-right: 20PX;
+    width: 50%;
+  }
+  &__rf {
+    width: 47%;
+    p {
+      color: #909399;
+      line-height: 20PX;
+    }
+  }
+}
 /*
 * 站点设置  - 首页数据排序配置
 */
