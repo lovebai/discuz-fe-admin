@@ -2,7 +2,7 @@
   <div class="shop-box">
     <Card header="腾讯位置服务帐号"></Card>
     
-    <Card header="图片：">
+    <Card header="小商店二维码上传" class="shop-box-img">
       <el-upload
         class="avatar-uploader"
         action

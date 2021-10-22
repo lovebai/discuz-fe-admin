@@ -1189,6 +1189,20 @@
   }
 }
 .shop-box {
+  &-img {
+    display: flex;
+    .el-button--text {
+      margin-left: 56PX;
+    }
+  }
+  .shop-box-img .card-box__header {
+    width: 120PX;
+    margin-right: 20PX;
+    padding-top: 65PX;
+    .card-title {
+      color: #303133;
+    }
+  }
   .avatar-uploader .el-upload {
     width: 140PX;
     height: 140PX;
@@ -1246,6 +1260,7 @@
     position: relative;
   }
   .avatar-LogoImage {
+    height: 100%;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -1253,15 +1268,15 @@
     right: 0;
     margin: auto;
   }
-  .avatar-LogoImage-img {
-    height: 100%;
-    position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    margin: auto;
-  }
+  // .avatar-LogoImage-img {
+  //   height: 100%;
+  //   position: absolute;
+  //   top:0;
+  //   bottom:0;
+  //   left:0;
+  //   right:0;
+  //   margin: auto;
+  // }
   .el-button--text {
     padding-bottom: 0;
   }

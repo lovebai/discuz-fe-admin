@@ -13,9 +13,10 @@ export default {
   },
 
   created(){
-    var type = this.$route.query.type;
+    const type = this.$route.query.type;
     this.type = type;
     this.loadStatus();
+    this.pluginUnitList();
   },
   methods:{
     loadStatus(){
@@ -34,6 +35,33 @@ export default {
           }
           const {Data: forumData} = data;
           this.key = forumData.lbs.qqLbsKey;
+        }
+      })
+    },
+    pluginUnitList(){
+      this.appFetch({
+        url:'plugin_list_get_v3',
+        method:'get',
+        data:{}
+      }).then(data=>{
+        if (data.errors){
+          this.$message.error(data.errors[0].code);
+        }else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
+          console.log(data);
+          data.Data.forEach(item => {
+            if (item.name_en === 'shop') {
+              this.shopAppId = item.setting.publicValue.wxAppId;
+              this.shopSecretKey = item.setting.privateValue.wxAppSecret;
+              this.imageUrl = item.setting.publicValue.wxQrcode;
+            }
+          })
+          if(this.imageUrl !== '' && this.imageUrl != null){
+            this.deleteBtn = true;
+          }
         }
       })
     },
@@ -112,15 +140,14 @@ export default {
       .catch(error => {});
     },
     deleteImage(file, fileList) {
-     if (this.deleteBtn === false) {
+      if (this.deleteBtn === false) {
         return;
       }
-      this.imageUrl = "";
       this.appFetch({
-        url: "delete_logo_post_v3",
+        url: "plugin_deleteimage_post_v3",
         method: "post",
         data: {
-        type: 'watermark_image',
+          url: this.imageUrl,
         }
       })
       .then(data => {
@@ -132,6 +159,7 @@ export default {
             return
           }
           this.$message("删除成功");
+          this.imageUrl = '';
           this.deleteBtn = false;
         }
       })

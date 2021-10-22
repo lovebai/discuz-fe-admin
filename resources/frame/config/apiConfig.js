@@ -47,8 +47,9 @@ module.exports = {
   recommend_topics_get_v3: '/backAdmin/recommend.topics', //推荐话题
   recommend_users_post_v3: '/backAdmin/recommend.users', //推荐用户
   plugin_uploadimage_post_v3: '/backAdmin/plugin/uploadimage',  // 微信小商店图片
-  plugin_settings_post_v3: '/backAdmin/plugin/settings.save',
-
+  plugin_settings_post_v3: '/backAdmin/plugin/settings.save',  // 微信小商城设置
+  plugin_list_get_v3: '/backAdmin/plugin/list', // 插件列表
+  plugin_deleteimage_post_v3: 'backAdmin/plugin/deleteimage', // 商品图片删除
 
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
