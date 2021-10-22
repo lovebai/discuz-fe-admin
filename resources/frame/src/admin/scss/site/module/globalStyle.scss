@@ -53,6 +53,12 @@
     border-radius: 50%;
   }
 }
+.pay-set-open {
+  display: flex;
+  &__right {
+    margin-left: 20PX;
+  }
+}
 .other-service-set-box {
   margin-top: 15PX;
   .el-table__body {
@@ -340,7 +346,24 @@
     margin:30PX 0;
   }
 }
-
+.recharge-points {
+  .card-box__main {
+    display: flex;
+  }
+  &__lf {
+    padding-top: 20PX;
+    line-height: 20PX;
+    margin-right: 20PX;
+    width: 50%;
+  }
+  &__rf {
+    width: 47%;
+    p {
+      color: #909399;
+      line-height: 20PX;
+    }
+  }
+}
 /*
 * 站点设置  - 首页数据排序配置
 */
@@ -1007,6 +1030,54 @@
   &__video {
     margin-right: 20PX;
   }
+}
+// cdn设置
+.config-cdn {
+  &-title {
+    span {
+      display: inline-block;
+    }
+    &__left {
+      width: 130PX;
+      margin-right: 10PX;
+    }
+  }
+  &-domain {
+    &__name {
+      display: inline-block;
+      margin-right: 10PX;
+      width: 120PX;
+    }
+  }
+  &-address {
+    .card-box__main {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &__box {
+      padding: 0 10PX;
+    }
+    &__text {
+      width: 120PX;
+      margin-right: 10PX;
+    }
+    .el-textarea__inner {
+      width: 400PX;
+      height: 120PX;
+    }
+    &__input {
+      width: 400PX;
+    }
+    &__lower {
+      // width: 100%;
+      margin-top: 10PX;
+      text-align: left;
+      color: #909399;
+    }
+  }
+}
+.icon-jiasuxhdpi {
+  color: #1296db;
 }
 // 内容导入
 .content-import-source {

@@ -345,7 +345,7 @@
       this.appFetch({
         url: "groups_create_post_v3",
         method: "post",
-        params: {
+        data: {
           "name": this.groupFeeName,
           "type": "groups",
           "default": false,
