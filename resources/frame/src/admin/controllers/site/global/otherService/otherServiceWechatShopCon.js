@@ -6,9 +6,18 @@ export default {
     return {
       imageUrl:'',
       deleteBtn: false, //图片删除按钮显示状态
+      appId: '',
       shopAppId: '',
       shopSecretKey: '',
+      radioOpen: '',
       shopTranslate: '',
+      checkedImgUrl: '',
+      checkedAppId: '',
+      checkedSecretKey: '',
+      checkedTranslate: '',
+      checkedRadioOpen: '',
+      privateValue: {},
+      publicValue: {},
     }
   },
 
@@ -51,40 +60,103 @@ export default {
             this.$message.error(data.Message);
             return
           }
-          console.log(data);
+          let num = '';
           data.Data.forEach(item => {
             if (item.name_en === 'shop') {
-              this.shopAppId = item.setting.publicValue.wxAppId;
-              this.shopSecretKey = item.setting.privateValue.wxAppSecret;
-              this.imageUrl = item.setting.publicValue.wxQrcode;
+              num = item.setting;
+              this.appId = item.app_id;
             }
           })
+          if (num.publicValue) {
+            if (num.publicValue.wxAppId || num.publicValue.wxAppId === "") {
+              this.shopAppId = num.publicValue.wxAppId;
+              this.checkedAppId = true;
+            }
+            if (num.publicValue.wxAppSecret || num.publicValue.wxAppSecret === "") {
+              this.shopSecretKey = num.publicValue.wxAppSecret;
+              this.checkedSecretKey = true;
+            }
+            if (num.publicValue.wxQrcode || num.publicValue.wxQrcode === "") {
+              this.checkedImgUrl = true;
+              this.imageUrl = num.publicValue.wxQrcode;
+            }
+            if (num.publicValue.description || num.publicValue.description === "") {
+              this.shopTranslate = num.publicValue.description;
+              this.checkedTranslate = true;
+            }
+            if (num.publicValue.isOpen || num.publicValue.isOpen === "") {
+              this.radioOpen = num.publicValue.isOpen;
+              this.checkedRadioOpen = true;
+            }
+          }
+          if (num.privateValue) {
+            if (num.privateValue.wxAppId || num.privateValue.wxAppId === "") {
+              this.shopAppId = num.privateValue.wxAppId;
+              this.checkedAppId = false;
+            }
+            if (num.privateValue.wxAppSecret || num.privateValue.wxAppSecret === "") {
+              this.shopSecretKey = num.privateValue.wxAppSecret;
+              this.checkedSecretKey = false;
+            }
+            if (num.privateValue.wxQrcode || num.privateValue.wxQrcode === "") {
+              this.checkedImgUrl = false;
+              this.imageUrl = num.privateValue.wxQrcode;
+            }
+            if (num.privateValue.description || num.privateValue.description === "") {
+              this.shopTranslate = num.privateValue.description;
+              this.checkedTranslate = false;
+            }
+            if (num.privateValue.isOpen || num.privateValue.isOpen === "") {
+              this.radioOpen = num.privateValue.isOpen;
+              this.checkedRadioOpen = false;
+            }
+          }
           if(this.imageUrl !== '' && this.imageUrl != null){
             this.deleteBtn = true;
           }
         }
       })
     },
+    parameterSubmit() {
+      this.publicValue = {};
+      this.privateValue = {};
+      if (this.checkedAppId) {
+        this.publicValue.wxAppId = this.shopAppId;
+      } else {
+        this.privateValue.wxAppId = this.shopAppId;
+      }
+      if (this.checkedSecretKey) {
+        this.publicValue.wxAppSecret = this.shopSecretKey;
+      } else {
+        this.privateValue.wxAppSecret = this.shopSecretKey;
+      }
+      if (this.checkedImgUrl) {
+        this.publicValue.wxQrcode =  this.imageUrl;
+      } else {
+        this.privateValue.wxQrcode =  this.imageUrl;
+      }
+      if (this.checkedTranslate) {
+        this.publicValue.description =  this.shopTranslate;
+      } else {
+        this.privateValue.description =  this.shopTranslate;
+      }
+      if (this.checkedRadioOpen) {
+        this.publicValue.isOpen =  this.radioOpen;
+      } else {
+        this.privateValue.isOpen =  this.radioOpen;
+      }
+      this.submitConfiguration();
+    },
     submitConfiguration(){
-    //   if(!this.key) {
-    //     this.$message({
-    //       message: 'key不能为空',
-    //       type: 'error'
-    //     });
-    //     return;
-    //   }
       this.appFetch({
         url:'plugin_settings_post_v3',
         method:'post',
         data: {
-          appId: '61540fef8f4de8',
+          appId: this.appId,
           appName: 'wxshop',
-          type: 1,
-          value: {
-            isopen : { value: 1, isPublic: 1 },
-            wxAppId: { value: 'wx4fa036c724187cd1'},
-            wxAppSecret: { value: 'd149e40218cfbbf'}
-          }
+          type:1,
+          privateValue: this.privateValue,
+          publicValue: this.publicValue,
         }
       }).then(data=>{
         if (data.errors){
@@ -98,6 +170,7 @@ export default {
             message: '提交成功',
             type: 'success'
           });
+          this.pluginUnitList();
         }
       })
     },
@@ -131,7 +204,6 @@ export default {
           this.$message.error(data.Message);
           return
         }
-        console.log(data);
         this.imageUrl = data.Data.url;
         this.$message({ message: "上传成功", type: "success" });
         this.deleteBtn = true;

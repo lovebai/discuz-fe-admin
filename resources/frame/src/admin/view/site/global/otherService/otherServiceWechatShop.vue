@@ -3,35 +3,37 @@
     <Card header="腾讯位置服务帐号"></Card>
     
     <Card header="小商店二维码上传" class="shop-box-img">
-      <el-upload
-        class="avatar-uploader"
-        action
-        :http-request="uploaderLogo"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        @change="handleFile"
-        :before-upload="beforeAvatarUpload"
-      >
-        <div v-if="imageUrl" class="avatar">
-          <img
-              :src="imageUrl"
-              class="avatar-LogoImage"
-          />
-        </div>
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-      <el-button
-        type="text"
-        :style="{
-        opacity: deleteBtn ? '1' : '0',
-        cursor: deleteBtn ? 'pointer' : 'auto'
-        }"
-        @click="deleteImage"
-        >删除</el-button
-      >
+      <div>
+        <el-upload
+          class="avatar-uploader"
+          action
+          :http-request="uploaderLogo"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          @change="handleFile"
+          :before-upload="beforeAvatarUpload"
+        >
+          <div v-if="imageUrl" class="avatar">
+            <img
+                :src="imageUrl"
+                class="avatar-LogoImage"
+            />
+          </div>
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+        <el-button
+          type="text"
+          :style="{
+          opacity: deleteBtn ? '1' : '0',
+          cursor: deleteBtn ? 'pointer' : 'auto'
+          }"
+          @click="deleteImage"
+        >删除</el-button>
+      </div>
+      <el-checkbox v-model="checkedImgUrl">是否前端可见</el-checkbox>
     </Card>
     
-    <Card class="config-cdn-domain">
+    <Card class="config-cdn-domain config-cdn-shop">
       <span class="config-cdn-domain__name"> appid </span>
       <el-input
         v-model="shopAppId"
@@ -39,9 +41,10 @@
         style="height: 36px; width: 400px"
         size="small"
       ></el-input>
+      <el-checkbox v-model="checkedAppId">是否前端可见</el-checkbox>
     </Card>
 
-    <Card class="config-cdn-domain">
+    <Card class="config-cdn-domain config-cdn-shop">
       <span class="config-cdn-domain__name"> secret key </span>
       <el-input
         v-model="shopSecretKey"
@@ -49,9 +52,10 @@
         style="height: 36px; width: 400px"
         size="small"
       ></el-input>
+      <el-checkbox v-model="checkedSecretKey">是否前端可见</el-checkbox>
     </Card>
 
-    <Card class="config-cdn-address">
+    <Card class="config-cdn-address config-shop-address">
       <p class="config-cdn-address__text"> 小店介绍 </p>
       <div class="config-cdn-address__box">
         <el-input
@@ -63,10 +67,18 @@
         >
         </el-input>
       </div>
+      <el-checkbox v-model="checkedTranslate">是否前端可见</el-checkbox>
+    </Card>
+    
+    <Card class="config-cdn-domain config-shop-radio">
+      <span class="config-cdn-domain__name"> 是否打开 </span>
+      <el-radio v-model="radioOpen" :label="1">是</el-radio>
+      <el-radio v-model="radioOpen" :label="0">否</el-radio>
+      <el-checkbox v-model="checkedRadioOpen">是否前端可见</el-checkbox>
     </Card>
 
     <Card class="footer-btn" >
-      <el-button type="primary" size="medium" @click="submitConfiguration">提交</el-button>
+      <el-button type="primary" size="medium" @click="parameterSubmit">提交</el-button>
     </Card>
   </div>
 </template>

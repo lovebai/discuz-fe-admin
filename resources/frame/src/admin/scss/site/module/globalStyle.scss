@@ -1194,6 +1194,13 @@
     .el-button--text {
       margin-left: 56PX;
     }
+    .card-box__main {
+      display: flex;
+      .el-checkbox {
+        margin-left: 400PX;
+        padding-top: 68PX;
+      }
+    } 
   }
   .shop-box-img .card-box__header {
     width: 120PX;
@@ -1279,5 +1286,20 @@
   // }
   .el-button--text {
     padding-bottom: 0;
+  }
+}
+.config-cdn-shop {
+  .el-checkbox {
+    margin-left: 122PX;
+  }
+}
+.config-shop-address {
+  .el-checkbox {
+    margin-left: 132PX;
+  }
+}
+.config-shop-radio {
+  .el-checkbox {
+    margin-left: 410PX;
   }
 }
