@@ -46,6 +46,8 @@ module.exports = {
   sequence_post_v3: '/backAdmin/sequence.update', //修改智能排序
   recommend_topics_get_v3: '/backAdmin/recommend.topics', //推荐话题
   recommend_users_post_v3: '/backAdmin/recommend.users', //推荐用户
+  thread_stick_get_v3: '/backAdmin/thread.stick.sort', // 置顶列表
+  stick_sort_set_post_v3: '/backAdmin/stick.sort.set',  //  置顶排序
 
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表

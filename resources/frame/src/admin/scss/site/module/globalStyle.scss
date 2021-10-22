@@ -345,6 +345,11 @@
   .el-button {
     margin:30PX 0;
   }
+
+  &__topping {
+    color: #336699;
+    cursor: pointer;
+  }
 }
 .recharge-points {
   .card-box__main {
@@ -363,6 +368,43 @@
       line-height: 20PX;
     }
   }
+}
+.user-rol-table{
+  margin-top: 15PX;
+  &-box {
+    width: 80PX;
+    display: flex;
+    justify-content: space-between;
+    span {
+      width: 25PX;
+      height: 25PX;
+      text-align: center;
+      line-height: 25PX;
+      display: block;
+      cursor: pointer;
+      .table-icon {
+        margin: 0;
+      }
+    }
+  }
+  &__frame {
+    border: solid 1PX #606266;
+  }
+  &__right {
+    margin-left: 53PX;
+  }
+  &__rights {
+    margin-left: 55PX;
+  }
+  .table-icon {
+    font-size: 20PX;
+  }
+  &__pay {
+    margin-bottom: 20PX;
+  }
+}
+.el-table .success-row {
+  background: #fffcd9;
 }
 /*
 * 站点设置  - 首页数据排序配置

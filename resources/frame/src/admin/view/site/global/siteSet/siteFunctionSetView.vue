@@ -33,6 +33,55 @@
       </div>
     </Card>
 
+    <p class="user-rol-table__pay">首页置顶管理</p>
+    <div class="user-rol-table">
+      <el-table
+        :data="upgradeData"
+        style="width: 100%"
+        @selection-change="handleSelectionChange"
+        :row-class-name="tableRowClassName"
+      >
+        <el-table-column width="150" label="级别顺序">
+          <template slot-scope="scope">
+            <div class="user-rol-table-box">
+              <span
+                :class="groupEdit ? 'user-rol-table__frame' : ''"
+                @click="dropOperation(scope)"
+                v-if="scope.$index !== upgradeData.length - 1"
+              >
+                <i class="iconfont icon-xiangxiaicon table-icon"></i>
+              </span>
+              <span
+                :class="scope.$index === upgradeData.length - 1 ? groupEdit ? 'user-rol-table__right user-rol-table__frame' : 'user-rol-table__rights' : groupEdit ? 'user-rol-table__frame' : ''"
+                @click="riseOperation(scope)"
+                v-if="scope.$index !== 0"
+              >
+                <i class="iconfont icon-xiangshang table-icon"></i>
+              </span>
+            </div>
+          </template>
+        </el-table-column>
+
+        <el-table-column
+          label="帖子标题/内容"
+          width="400"
+        >
+          <template slot-scope="scope">
+             <span>{{scope.row.title}}</span>
+          </template>
+        </el-table-column>
+
+        <el-table-column width="150" label="操作">
+          <template slot-scope="scope">
+            <p class="site-function-set-box__topping" @click="relieveTopping(scope)">取消置顶</p>
+          </template>
+        </el-table-column>
+
+        <el-table-column>
+          <p></p>
+        </el-table-column>
+      </el-table>
+    </div>
     <el-button type="primary" size="medium" @click="handlePublishingSubmit">提交</el-button>
 
   </div>
