@@ -97,19 +97,19 @@ export default {
             this.$message.error(res.Message);
             return
           }
-          console.log(res);
           const {Data: forumData} = res;
           const ipData = forumData.other.innerNetIp;
           this.optionsIpData = [];
-          ipData.forEach((item,index) => {
-            const division = item.split('/');
-            this.optionsIpData.push({
-              domainName: division[0],
-              domainMask: division[1],
-              domainId: index,
+          if (ipData && ipData.length > 0) {
+            ipData.forEach((item,index) => {
+              const division = item.split('/');
+              this.optionsIpData.push({
+                domainName: division[0],
+                domainMask: division[1],
+                domainId: index,
+              })
             })
-          })
-          console.log(this.optionsIpData);
+          }
         }
       })
     },
@@ -297,7 +297,6 @@ export default {
         domainMask: '',
         domainId: this.optionsIpData.length,
       });
-      console.log(this.optionsIpData);
     },
     async ipDataLoginStatus() {
       let ipDataArr = [];
