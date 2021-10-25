@@ -34,7 +34,8 @@
     </Card>
 
     <p class="user-rol-table__pay">首页置顶管理</p>
-    <div class="user-rol-table">
+    <p v-if="upgradeData.length <= 0" class="user-rol-table__pay">暂无置顶贴，可在内容-内容管理中进行设置。</p>
+    <div class="user-rol-table"  v-if="upgradeData.length > 0">
       <el-table
         :data="upgradeData"
         style="width: 100%"

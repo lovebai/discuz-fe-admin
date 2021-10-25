@@ -80,7 +80,9 @@ export default {
               this.$message.error(data.Message);
               return
             }
-            this.toppingSubmit();
+            if (this.upgradeData.length > 0) {
+              this.toppingSubmit();
+            }
             this.rechargePost();
           }
         })
