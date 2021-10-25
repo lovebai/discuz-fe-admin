@@ -90,9 +90,9 @@
   content: "\e619";
 }
 
-.icon-word:before {
+/* .icon-word:before {
   content: "\e61a";
-}
+} */
 
 .icon-like:before {
   content: "\e61b";

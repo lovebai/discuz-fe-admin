@@ -27,7 +27,7 @@ export default {
         {
           name: '微信小商店',
           type: 'wechat_shop',
-          icon: 'icon-daoru1',
+          icon: 'icon-shangdian',
           description: '为站点关联微信小商城，实现电商盈利',
           tag:'shop',
           status:'',
