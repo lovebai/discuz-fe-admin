@@ -74,7 +74,9 @@
 
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
-            <p class="site-function-set-box__topping" @click="relieveTopping(scope)">取消置顶</p>
+            <p class="site-function-set-box__topping">
+              <el-button type="text" @click="relieveToppingopen(scope)">取消置顶</el-button>
+            </p>
           </template>
         </el-table-column>
 

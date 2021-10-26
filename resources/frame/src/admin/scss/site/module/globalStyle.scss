@@ -349,6 +349,10 @@
   &__topping {
     color: #336699;
     cursor: pointer;
+    .el-button {
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 .recharge-points {

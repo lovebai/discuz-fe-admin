@@ -175,6 +175,21 @@ export default {
         }
       })
     },
+    relieveToppingopen(scope) {
+      this.$confirm('确认要取消置顶贴子吗', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        lockScroll: false,
+      }).then(() => {
+        this.relieveTopping(scope);
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });          
+      });
+    },
     riseOperation(scope) {
       this.groupEdit = true;
       let payData = [...this.upgradeData];
