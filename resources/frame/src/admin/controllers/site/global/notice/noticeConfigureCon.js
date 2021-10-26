@@ -29,7 +29,10 @@ export default {
         miniKeyWord: [],      //小程序keyword数组
         showClick: true,      //微信通知keyword超过五个不显示增加
         keyList: [],
-        miniTips:''
+        miniTips:'',
+        miniTips:'',
+        intervalTime: '',
+        text: '选择自定义推送时间后，可在配置项后边新增{X条}，则会展示一段时间内统计的消息数量 \n 示例：\n keyword1：你收到了点赞{X条}\n则推送消息为：keyword1：你收到了点赞X条'
       }
     },
     components: {
