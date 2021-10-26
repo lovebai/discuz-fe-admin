@@ -49,6 +49,7 @@ export default {
         //   label: '审核'
         // }
       ],
+      optionsIpData: [],
       serachVal: '',
       checked: false,
       searchData: [],//搜索后的数据
@@ -63,13 +64,15 @@ export default {
       deleteStatus: true,
       deleteList: [],
       tableAdd: false,
-
+      ipDeleteStatus: true,
+      multipleSelectionIp: '',
     }
   },
   created() {
     // this.handleSearchUser(true);  //初始化页面数据
     // this.pageNum  = Number(webDb.getLItem('currentPag'))||1;
     // this.handleSearchUser(Number(webDb.getLItem('currentPag'))||1);
+    this.tencentCloudStatus();
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -81,6 +84,35 @@ export default {
     })
   },
   methods: {
+    tencentCloudStatus() {
+      this.appFetch({
+        url: 'forum_get_v3',
+        method: 'get',
+        data: {}
+      }).then(res => {
+        if (res.errors) {
+          this.$message.error(res.errors[0].code);
+        } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
+          const {Data: forumData} = res;
+          const ipData = forumData.other.innerNetIp;
+          this.optionsIpData = [];
+          if (ipData && ipData.length > 0) {
+            ipData.forEach((item,index) => {
+              const division = item.split('/');
+              this.optionsIpData.push({
+                domainName: division[0],
+                domainMask: division[1],
+                domainId: index,
+              })
+            })
+          }
+        }
+      })
+    },
     getCreated(state) {
       if (state) {
         this.pageNum = 1
@@ -103,7 +135,20 @@ export default {
       this.multipleSelection = val;
       this.deleteStatus = this.multipleSelection.length < 1;
     },
-
+    deleteChanges(val) {
+      this.multipleSelectionIp = val;
+      this.ipDeleteStatus = val.length < 1;
+    },
+    ipDataDelete() {
+      this.multipleSelectionIp.forEach((item, index) => {
+        this.optionsIpData.forEach((items, indexs) => {
+          if (item.domainId === items.domainId) {
+            this.optionsIpData.splice(indexs, 1);
+          }
+        })
+      })
+      this.ipDataLoginStatus();
+    },
     onSearch(val) {
       this.searchVal = val;
       this.pageNum = 1;
@@ -245,6 +290,42 @@ export default {
         addInputFlag: true,
       })
       this.tableAdd = true
+    },
+    increaseIpAdd() {
+      this.optionsIpData.push({
+        domainName: '',
+        domainMask: '',
+        domainId: this.optionsIpData.length,
+      });
+    },
+    async ipDataLoginStatus() {
+      let ipDataArr = [];
+      this.optionsIpData.forEach((item, index) => {
+        ipDataArr.push(`${item.domainName}/${item.domainMask}`)
+      })
+      await this.appFetch({
+        url:'settings_post_v3',
+        method:'post',
+        data:{
+          "data":[
+            {
+              "key":'inner_net_ip',
+              "value": ipDataArr,
+              "tag": "default"
+            },
+          ]
+        }
+      }).then(res=>{
+        if(res.errors){
+          throw new Error(res.errors[0].code);
+        } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
+          this.$message({ message: '提交成功', type: 'success' });
+        }
+      })
     },
     deleteWords() {
       this.deleteList = []
