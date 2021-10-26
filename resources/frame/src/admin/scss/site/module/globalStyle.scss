@@ -342,10 +342,6 @@
     border-color:#666;
   }
 
-  .el-button {
-    margin:30PX 0;
-  }
-
   &__topping {
     color: #336699;
     cursor: pointer;
@@ -560,6 +556,9 @@
       line-height:20PX;
       color:$descColor;
     }
+  }
+  &__btn {
+    margin-top: 30PX;
   }
 }
 
