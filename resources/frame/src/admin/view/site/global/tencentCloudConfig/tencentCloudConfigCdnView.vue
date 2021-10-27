@@ -64,13 +64,20 @@
     </Card>
 
     <Card class="register-option-btn">
-        <el-button
-          type="primary"
-          :loading="subLoading"
-          size="medium"
-          @click="submitClick"
-        >提交</el-button>
-      </Card>
+      <el-button
+        type="primary"
+        :loading="subLoading"
+        size="medium"
+        @click="submitClick"
+      >提交</el-button>
+
+      <el-button
+        type="primary"
+        size="medium"
+        :loading="purgeCdnLoading"
+        @click="purgeCdnClick"
+      >清除缓存</el-button>
+    </Card>
   </div>
 </template>
 
