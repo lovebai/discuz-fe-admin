@@ -119,7 +119,7 @@ export default {
           return '';
         }
       } else {
-        return num.tradeNo.replace(/[^0-9]/ig,"");
+        return num.tradeNo;
       }
     },
     toexamine(num) {
