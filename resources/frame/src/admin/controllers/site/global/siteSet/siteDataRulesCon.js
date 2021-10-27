@@ -193,7 +193,7 @@ export default {
             return
           }
           this.$message({
-            message: '提交成功',
+            message: '取消置顶成功',
             type: 'success'
           });
           this.toppingListObtain();
