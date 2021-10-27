@@ -47,6 +47,8 @@ module.exports = {
   recommend_topics_get_v3: '/backAdmin/recommend.topics', //推荐话题
   recommend_users_post_v3: '/backAdmin/recommend.users', //推荐用户
 
+  purge_cdn_get_v3: '/backAdmin/purge.cdn.cache',
+
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
   categories_create_v3: '/backAdmin/categories.create', // 创建内容分类(批量)

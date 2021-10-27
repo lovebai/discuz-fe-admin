@@ -266,7 +266,7 @@ export default {
           mobile: mobile,
           groupId: this.userRole,
           status: this.userInfo.status,
-          refuseMessage: this.reasonsForDisable,
+          rejectReason: this.reasonsForDisable,
           expiredAt: this.expired_at,
           username: this.userName,
           nickname: this.nickName,
