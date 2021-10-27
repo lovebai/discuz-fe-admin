@@ -77,7 +77,7 @@
           
           <el-table-column
             label="收款账号"
-            width="150">
+            width="210">
              <template slot-scope="scope">{{accountNumber(scope.row)}}</template>
           </el-table-column>
 
