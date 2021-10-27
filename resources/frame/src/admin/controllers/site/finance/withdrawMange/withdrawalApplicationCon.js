@@ -112,7 +112,6 @@ export default {
      * 收款账号
      */
     accountNumber(num) {
-      console.log(num)
       if (num.cashType === 1) {
         if (num.wechat) {
           return num.wechat.mpOpenid || num.wechat.minOpenid;
