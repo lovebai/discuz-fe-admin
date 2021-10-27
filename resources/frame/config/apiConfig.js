@@ -49,6 +49,8 @@ module.exports = {
   thread_stick_get_v3: '/backAdmin/thread.stick.sort', // 置顶列表
   stick_sort_set_post_v3: '/backAdmin/stick.sort.set',  //  置顶排序
 
+  purge_cdn_get_v3: '/backAdmin/purge.cdn.cache',
+
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
   categories_create_v3: '/backAdmin/categories.create', // 创建内容分类(批量)
