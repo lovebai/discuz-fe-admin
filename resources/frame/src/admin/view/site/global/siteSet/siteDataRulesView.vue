@@ -65,7 +65,7 @@
             width="400"
           >
             <template slot-scope="scope">
-              <span>{{scope.row.title}}</span>
+              <a class="user-rol-table-box__text" :href="'/thread/' + scope.row.threadId" target="_blank">{{scope.row.title}}</a>
             </template>
           </el-table-column>
 
