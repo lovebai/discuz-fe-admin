@@ -112,6 +112,7 @@ export default {
      * 收款账号
      */
     accountNumber(num) {
+      console.log(num)
       if (num.cashType === 1) {
         if (num.wechat) {
           return num.wechat.mpOpenid || num.wechat.minOpenid;
@@ -119,7 +120,7 @@ export default {
           return '';
         }
       } else {
-        return num.cashMobile;
+        return num.tradeNo.replace(/[^0-9]/ig,"");
       }
     },
     toexamine(num) {
