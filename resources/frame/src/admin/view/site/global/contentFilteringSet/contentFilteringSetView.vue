@@ -140,7 +140,7 @@
         
         <div>
           <p class="ip-filter">IP过滤</p>
-          <p class="ip-filter-text">禁止名单中的IP访问站点</p>
+          <p class="ip-filter-text">内网IP白名单</p>
           <el-table
             class="content-filter-set__ip"
             ref="multipleTable"
@@ -154,7 +154,7 @@
             </el-table-column>
 
             <el-table-column
-              label="域名"
+              label="IP地址"
               width="200"
             >
               <template slot-scope="scope">
@@ -166,7 +166,7 @@
               </template>
             </el-table-column>
             <el-table-column
-              label="子网掩码"
+              label="掩码位"
               width="200"
             >
               <template slot-scope="scope">
