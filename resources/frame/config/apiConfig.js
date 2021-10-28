@@ -48,6 +48,10 @@ module.exports = {
   recommend_users_post_v3: '/backAdmin/recommend.users', //推荐用户
   thread_stick_get_v3: '/backAdmin/thread.stick.sort', // 置顶列表
   stick_sort_set_post_v3: '/backAdmin/stick.sort.set',  //  置顶排序
+  plugin_uploadimage_post_v3: '/backAdmin/plugin/uploadimage',  // 微信小商店图片
+  plugin_settings_post_v3: '/backAdmin/plugin/settings.save',  // 微信小商城设置
+  plugin_list_get_v3: '/backAdmin/plugin/list', // 插件列表
+  plugin_deleteimage_post_v3: 'backAdmin/plugin/deleteimage', // 商品图片删除
 
   purge_cdn_get_v3: '/backAdmin/purge.cdn.cache',
 
