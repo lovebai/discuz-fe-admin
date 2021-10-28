@@ -247,6 +247,18 @@ export default {
               attribution: "全局",
             }
           },
+          "other-service-content": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/otherService/otherServiceContent"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "其他服务设置",
+              name: "otherServiceSet",
+              attribution: "全局",
+            }
+          },
           "system-notice": {
             comLoad: function (resolve) {
               require([
@@ -364,6 +376,18 @@ export default {
               title: "附件设置",
               name: "annexSet",
               attribution: "全局"
+            }
+          },
+          "pulgin-unit": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/pluginUnitView"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "插件设置",
+              name: "pluginUnit",
+              attribution: "全局",
             }
           },
           "water-mark-set": {

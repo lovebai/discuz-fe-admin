@@ -122,7 +122,7 @@ export default {
               id: 10,
               title: "插件设置",
               name: "pluginUnit",
-              icon: "iconqitafuwushezhi"
+              icon: "icon-xiangxiaicon"
             },
             // {
             //   id:7,
@@ -436,6 +436,7 @@ export default {
      *  左侧菜单点击事件
      * */
     sideClick(item) {
+      console.log(item);
       this.sideSelect = item.name;
       this.indexTitle = item.title;
 
@@ -545,9 +546,10 @@ export default {
         case "otherServiceSet":
           this.$router.push({ path: "/admin/other-service-set" });
           break;
-        case "otherServiceSet":
-          this.$router.push({ path: "/admin/other-service-set" });
+        case "pluginUnit":
+          this.$router.push({ path: "/admin/pulgin-unit" });
           break;
+        
       }
       // this.checkQcloud();
     },
