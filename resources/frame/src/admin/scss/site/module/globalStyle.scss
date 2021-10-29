@@ -1110,6 +1110,9 @@
       margin-right: 10PX;
       width: 120PX;
     }
+    .el-switch__core {
+      margin-left: 10PX;
+    }
   }
   &-address {
     .card-box__main {
@@ -1117,7 +1120,7 @@
       flex-wrap: wrap;
     }
     &__box {
-      padding: 0 10PX;
+      padding-left: 16PX;
     }
     &__text {
       width: 120PX;

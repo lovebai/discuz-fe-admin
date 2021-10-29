@@ -11,11 +11,11 @@ export default {
       shopSecretKey: '',
       radioOpen: '',
       shopTranslate: '',
-      checkedImgUrl: '',
-      checkedAppId: '',
-      checkedSecretKey: '',
-      checkedTranslate: '',
-      checkedRadioOpen: '',
+      // checkedImgUrl: '',
+      // checkedAppId: '',
+      // checkedSecretKey: '',
+      // checkedTranslate: '',
+      // checkedRadioOpen: '',
       privateValue: {},
       publicValue: {},
     }
@@ -118,33 +118,33 @@ export default {
       })
     },
     parameterSubmit() {
-      this.publicValue = {};
-      this.privateValue = {};
-      if (this.checkedAppId) {
-        this.publicValue.wxAppId = this.shopAppId;
-      } else {
-        this.privateValue.wxAppId = this.shopAppId;
-      }
-      if (this.checkedSecretKey) {
-        this.publicValue.wxAppSecret = this.shopSecretKey;
-      } else {
-        this.privateValue.wxAppSecret = this.shopSecretKey;
-      }
-      if (this.checkedImgUrl) {
-        this.publicValue.wxQrcode =  this.imageUrl;
-      } else {
-        this.privateValue.wxQrcode =  this.imageUrl;
-      }
-      if (this.checkedTranslate) {
-        this.publicValue.description =  this.shopTranslate;
-      } else {
-        this.privateValue.description =  this.shopTranslate;
-      }
-      if (this.checkedRadioOpen) {
-        this.publicValue.isOpen =  this.radioOpen;
-      } else {
-        this.privateValue.isOpen =  this.radioOpen;
-      }
+      // this.publicValue = {};
+      // this.privateValue = {};
+      // if (this.checkedAppId) {
+      //   this.publicValue.wxAppId = this.shopAppId;
+      // } else {
+      //   this.privateValue.wxAppId = this.shopAppId;
+      // }
+      // if (this.checkedSecretKey) {
+      //   this.publicValue.wxAppSecret = this.shopSecretKey;
+      // } else {
+      //   this.privateValue.wxAppSecret = this.shopSecretKey;
+      // }
+      // if (this.checkedImgUrl) {
+      //   this.publicValue.wxQrcode =  this.imageUrl;
+      // } else {
+      //   this.privateValue.wxQrcode =  this.imageUrl;
+      // }
+      // if (this.checkedTranslate) {
+      //   this.publicValue.description =  this.shopTranslate;
+      // } else {
+      //   this.privateValue.description =  this.shopTranslate;
+      // }
+      // if (this.checkedRadioOpen) {
+      //   this.publicValue.isOpen =  this.radioOpen;
+      // } else {
+      //   this.privateValue.isOpen =  this.radioOpen;
+      // }
       this.submitConfiguration();
     },
     submitConfiguration(){
@@ -155,8 +155,17 @@ export default {
           appId: this.appId,
           appName: 'wxshop',
           type:1,
-          privateValue: this.privateValue,
-          publicValue: this.publicValue,
+          publicValue: {
+            wxAppSecret: this.shopSecretKey
+          },
+          privateValue: {
+            wxQrcode: this.imageUrl,
+            wxAppId: this.shopAppId,
+            description: this.shopTranslate,
+            isOpen: this.radioOpen ? 1 : 0,
+          }
+          // privateValue: this.privateValue,
+          // publicValue: this.publicValue,
         }
       }).then(data=>{
         if (data.errors){
