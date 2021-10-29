@@ -25,6 +25,7 @@ export default {
         miniProgramList: '',  //小程序通知数据
         smsList: '',          //短信通知数据
         appletsList: [],      //keyword数组
+        pushTypeList: [],
         smsKeyWord: [],       //短信keyword数组
         miniKeyWord: [],      //小程序keyword数组
         showClick: true,      //微信通知keyword超过五个不显示增加
@@ -33,11 +34,13 @@ export default {
         miniTips:'',
         intervalTime: '',
         text: '选择自定义推送时间后，可在配置项后边新增{X条}，则会展示一段时间内统计的消息数量 \n 示例：\n keyword1：你收到了点赞{X条}\n则推送消息为：keyword1：你收到了点赞X条',
-        // delayTimeOptions: [
-        //   {
-            
-        //   }
-        // ]
+        delayTimeOptions: [
+          {
+            label: '秒',
+            value: 1
+          }
+        ],
+        delayTimeValue: 1,
       }
     },
     components: {
@@ -121,7 +124,8 @@ export default {
                 this.wxDes += `${key} ${vars[key]}\n`;
               }
             }
-            this.appletsList = this.wxList.keywordsData.length > 0
+            
+            this.pushTypeList= this.wxList.keywordsData.length > 0
               ? this.wxList.keywordsData
               : ['', ''];
               if (this.wxList.status === 1) {
@@ -130,6 +134,7 @@ export default {
               } else {
                 this.showWx = false;
               }
+            this.appletsList = this.pushTypeList;
           }
 
           // 短信通知
@@ -193,6 +198,14 @@ export default {
         }
       },
       // 提交按钮
+      pushTypeCange(value) {
+        if (value === 1) {
+          this.appletsList = [];
+        }
+        if (value === 0) {
+          this.appletsList = this.pushTypeList;
+        }
+      },
       Submission() {
         let data = [];
         // 系统通知提交数据
@@ -216,7 +229,7 @@ export default {
         }
         // 微信通知提交数据
         if (this.showWx === true){
-          if (this.wxList.firstData === '') {
+          if (this.wxList.firstData === '' && this.wxList.pushType === 0) {
             this.$message.error('请填写first');
             return;
           }
@@ -233,11 +246,15 @@ export default {
             this.$message.error('请填写remark');
             return;
           }
+          let firstData = '';
+          if (this.wxList.pushType === 0) {
+            firstData = this.wxList.firstData;
+          }
           data.push({
             "id": this.wxList.tplId,
             "status": 1,
             "templateId": this.wxList.templateId,
-            "firstData": this.wxList.firstData,
+            "firstData": firstData,
             "keywordsData": this.appletsList,
             "remarkData": this.wxList.remarkData,
             "redirectType": this.wxList.redirectType,

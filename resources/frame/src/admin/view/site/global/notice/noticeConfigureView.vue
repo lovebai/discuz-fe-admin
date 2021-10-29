@@ -116,8 +116,8 @@
       <Card header="">
         <div class="applets-box">
           <div class="applets-box-content">
-            <CardRow row :description="wxDes">
-              <div class="applets">
+            <CardRow row :description="wxList.pushType === 1 ? text : wxDes">
+              <div class="applets" v-if="wxList.pushType === 0">
                 <span class="applets-titles">first：</span>
                 <el-input
                   type="input"
@@ -172,8 +172,10 @@
               <div class="applets-cardRow__box">
                 <span class="applets-interval">消息推送时间</span>
                 <div class="applets-interval-text">
-                  <el-radio v-model="wxList.pushType" :label="0">即时推送</el-radio>
-                  <el-radio v-model="wxList.pushType" :label="1">自定义</el-radio>
+                  <el-radio-group v-model="wxList.pushType" @change="pushTypeCange">
+                    <el-radio :label="0">即时推送</el-radio>
+                    <el-radio :label="1">自定义</el-radio>
+                  </el-radio-group>  
                   每
                   <el-input
                     class="elinput"
@@ -182,7 +184,7 @@
                     size="small"
                     v-model="wxList.delayTime"
                   ></el-input>
-                  <el-select class="applets-interval-text__input" v-model="value" placeholder="请选择">
+                  <el-select class="applets-interval-text__input" v-model="delayTimeValue" placeholder="请选择">
                     <el-option
                       v-for="item in delayTimeOptions"
                       :key="item.value"
@@ -193,7 +195,7 @@
                   推荐一次
                 </div>
               </div>
-              <div class="applets-cardRow__text">
+              <div class="applets-cardRow__text" v-if="wxList.pushType === 0">
                 <p>选择自定义推送时间后，可在配置项后边新增{X条}，则会展示一段时间内统计的消息数量</p>
                 <p>示例：</p>
                 <p>keyword1：你收到了点赞{X条}</p>
