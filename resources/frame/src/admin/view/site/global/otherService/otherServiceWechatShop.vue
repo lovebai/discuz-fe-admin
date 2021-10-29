@@ -30,7 +30,6 @@
           @click="deleteImage"
         >删除</el-button>
       </div>
-      <el-checkbox v-model="checkedImgUrl">是否前端可见</el-checkbox>
     </Card>
     
     <Card class="config-cdn-domain config-cdn-shop">
@@ -41,7 +40,6 @@
         style="height: 36px; width: 400px"
         size="small"
       ></el-input>
-      <el-checkbox v-model="checkedAppId">是否前端可见</el-checkbox>
     </Card>
 
     <Card class="config-cdn-domain config-cdn-shop">
@@ -52,7 +50,6 @@
         style="height: 36px; width: 400px"
         size="small"
       ></el-input>
-      <el-checkbox v-model="checkedSecretKey">是否前端可见</el-checkbox>
     </Card>
 
     <Card class="config-cdn-address config-shop-address">
@@ -67,14 +64,11 @@
         >
         </el-input>
       </div>
-      <el-checkbox v-model="checkedTranslate">是否前端可见</el-checkbox>
     </Card>
     
     <Card class="config-cdn-domain config-shop-radio">
       <span class="config-cdn-domain__name"> 是否打开 </span>
-      <el-radio v-model="radioOpen" :label="1">是</el-radio>
-      <el-radio v-model="radioOpen" :label="0">否</el-radio>
-      <el-checkbox v-model="checkedRadioOpen">是否前端可见</el-checkbox>
+      <el-switch v-model="radioOpen" active-color="#336699" inactive-color="#bbbbbb"></el-switch>
     </Card>
 
     <Card class="footer-btn" >
