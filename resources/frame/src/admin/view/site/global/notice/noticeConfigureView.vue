@@ -172,19 +172,19 @@
               <div class="applets-cardRow__box">
                 <span class="applets-interval">消息推送时间</span>
                 <div class="applets-interval-text">
-                  <el-radio v-model="wxList.redirectType" :label="0">即时推送</el-radio>
-                  <el-radio v-model="wxList.redirectType" :label="2">自定义</el-radio>
+                  <el-radio v-model="wxList.pushType" :label="0">即时推送</el-radio>
+                  <el-radio v-model="wxList.pushType" :label="1">自定义</el-radio>
                   每
                   <el-input
                     class="elinput"
                     style="height: 36PX;width: 50PX"
                     type="number"
                     size="small"
-                    v-model="intervalTime"
+                    v-model="wxList.delayTime"
                   ></el-input>
                   <el-select class="applets-interval-text__input" v-model="value" placeholder="请选择">
                     <el-option
-                      v-for="item in options"
+                      v-for="item in delayTimeOptions"
                       :key="item.value"
                       :label="item.label"
                       :value="item.value">

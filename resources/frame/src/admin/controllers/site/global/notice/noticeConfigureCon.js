@@ -32,7 +32,12 @@ export default {
         miniTips:'',
         miniTips:'',
         intervalTime: '',
-        text: '选择自定义推送时间后，可在配置项后边新增{X条}，则会展示一段时间内统计的消息数量 \n 示例：\n keyword1：你收到了点赞{X条}\n则推送消息为：keyword1：你收到了点赞X条'
+        text: '选择自定义推送时间后，可在配置项后边新增{X条}，则会展示一段时间内统计的消息数量 \n 示例：\n keyword1：你收到了点赞{X条}\n则推送消息为：keyword1：你收到了点赞X条',
+        // delayTimeOptions: [
+        //   {
+            
+        //   }
+        // ]
       }
     },
     components: {
@@ -238,6 +243,8 @@ export default {
             "redirectType": this.wxList.redirectType,
             "redirectUrl": this.wxList.redirectUrl,
             "pagePath":this.wxList.pagePath,
+            "pushType": this.wxList.pushType,
+            "delayTime": this.wxList.delayTime,
           });
         } else {
           data.push({
