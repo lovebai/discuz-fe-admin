@@ -1,49 +1,27 @@
 
-import Card from '../../../../view/site/common/card/card';
-import CardRow from '../../../../view/site/common/card/cardRow';
+import Card from '../../../view/site/common/card/card';
+import CardRow from '../../../view/site/common/card/cardRow';
 
 export default {
   data:function () {
     return {
-      topicContent: '',
-      topicNum: '',
-      speed: false, // 进度显示
-      importing: '',
-      progress: 0,
-      startTiming: false,
-      contentSourceId: 1,
-      accuntlnroCookie: '',
-      accuntlnroToken: '',
-      planetCookie: '',
-      planetUserAgent: '',
-      totalNumber: 0,
-      contentSource: [
-        {
-          name: '微博',
-          id: 1
-        },
-        {
-          name: '贴吧',
-          id: 2
-        },
-        {
-          name: '豆瓣',
-          id: 3
-        },
-        {
-          name: '微信公众号',
-          id: 4
-        },
-        {
-          name: '知识星球',
-          id: 5
-        },
-      ],
-      officialAccountLink: [
-        {
-          linkData: '',
-        }
-      ]
+      tableData: [{
+        date: '2016-05-02',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }, {
+        date: '2016-05-04',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1517 弄'
+      }, {
+        date: '2016-05-01',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1519 弄'
+      }, {
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1516 弄'
+      }]
     }
   },
   methods:{
