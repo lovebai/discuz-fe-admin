@@ -1043,6 +1043,46 @@
   width:134PX;
   // margin-left:72PX;
 }
+.applets-interval {
+  width: 106PX;
+}
+.applets-interval-text {
+  .elinput {
+    .el-input__inner {
+      height: 36PX;
+    }
+  }
+  &__input {
+    .el-input {
+      width: 100PX;
+      height: 36PX;
+      .el-input__inner {
+        height: 36PX;
+      }
+      .el-input__suffix {
+        height: 36PX;
+      }
+    }
+  }
+}
+.applets-cardRow {
+  margin-top: 20PX;
+  .card-row-lf {
+    width: 80%;
+  }
+  &__box {
+    display: flex;
+    line-height: 40PX;
+  }
+  &__text {
+    padding-left: 220PX;
+    margin-top: 20PX;
+    p {
+      color: #909399;
+      line-height: 20PX;
+    }
+  }
+}
 .iconicon_delect {
   // width: 40Px;
   // height: 40Px;
