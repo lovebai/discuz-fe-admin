@@ -886,6 +886,15 @@
       color: #df0505;
     }
   }
+  &__limit {
+    .el-input {
+      margin: 0 10PX 0 0;
+    }
+    &-title {
+      margin-left: 20PX;
+      color: #909399;
+    }
+  }
 }
 /**
   用户管理
