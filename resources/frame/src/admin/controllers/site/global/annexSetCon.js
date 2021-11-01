@@ -10,6 +10,7 @@ export default {
       maximumSize: '',  // 最大尺寸
       restrictionsOn: '', // 附件限制选项
       downloads: '',
+      quantityLimit: '9',
     }
   },
   created() {
@@ -33,6 +34,7 @@ export default {
           this.picture = forumData.setAttach.supportImgExt;
           this.fileExtension = forumData.setAttach.supportFileExt;
           this.maximumSize = forumData.setAttach.supportMaxSize;
+          this.quantityLimit = forumData.setAttach.supportMaxUploadAttachmentNum;
           if (Number(forumData.setAttach.supportMaxDownloadNum) > 0) {
             this.restrictionsOn = '2';
             this.downloads = Number(forumData.setAttach.supportMaxDownloadNum);
@@ -95,6 +97,10 @@ export default {
           return
         }
       }
+      if (Number(this.quantityLimit) < 1) {
+        this.$message.error('发帖时一次性可添加附件数为大于0的整数');
+        return
+      }
       this.appFetch({
         url: 'settings_post_v3',
         method: 'post',
@@ -120,6 +126,11 @@ export default {
               "value": this.restrictionsOn === '1' ? 0 : this.downloads,
               "tag": "default",
             },
+            {
+              "key": "support_max_upload_attachment_num",
+              "value": this.quantityLimit,
+              "tag": "default"
+          }
           ]
         }
       }).then(data => {
