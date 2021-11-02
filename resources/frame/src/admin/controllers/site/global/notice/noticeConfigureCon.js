@@ -22,6 +22,7 @@ export default {
         miniDes: '',          //小程序描述
         systemList: '',       //系统通知数据
         wxList: '',           //微信通知数据
+        delayTime: '',        //自定义时间
         miniProgramList: '',  //小程序通知数据
         smsList: '',          //短信通知数据
         appletsList: [],      //keyword数组
@@ -38,6 +39,22 @@ export default {
           {
             label: '秒',
             value: 1
+          },
+          {
+            label: '分',
+            value: 2
+          },
+          {
+            label: '时',
+            value: 3
+          },
+          {
+            label: '天',
+            value: 4
+          },
+          {
+            label: '月',
+            value: 5
           }
         ],
         delayTimeValue: 1,
@@ -117,6 +134,23 @@ export default {
           // 微信模板通知
           if (res.Data[1]) {
             this.wxList = res.Data[1];
+            let timeDelay = res.Data[1].delayTime;
+            if (timeDelay / 60 < 1) {
+              this.delayTime = timeDelay;
+              this.delayTimeValue = 1;
+            } else if (timeDelay / 60 / 60 < 1){
+              this.delayTime = timeDelay / 60;
+              this.delayTimeValue = 2;
+            } else if (timeDelay / 60 / 60 / 24 < 1) {
+              this.delayTime = timeDelay / 60 / 60;
+              this.delayTimeValue = 3;
+            } else if (timeDelay / 60 / 60 / 24 / 30 < 1) {
+              this.delayTime = timeDelay / 60 / 60 / 24;
+              this.delayTimeValue = 4
+            }else if (timeDelay / 60 / 60 / 24 / 30 / 12 < 1) {
+              this.delayTime = timeDelay / 60 / 60 / 24 / 30;
+              this.delayTimeValue = 5
+            }
             let vars = this.wxList.templateVariables;
             if (vars) {
               this.wxDes = '请输入模板消息详细内容对应的变量。关键字个数需与已添加的模板一致。\n\n可以使用如下变量：\n';
@@ -124,16 +158,21 @@ export default {
                 this.wxDes += `${key} ${vars[key]}\n`;
               }
             }
-            
-            this.pushTypeList= this.wxList.keywordsData.length > 0
+            if (this.wxList.pushType === 0) {
+              this.pushTypeList= this.wxList.keywordsData.length > 0
+                ? this.wxList.keywordsData
+                : ['', ''];
+            } else {
+              this.pushTypeList= this.wxList.keywordsData.length > 0
               ? this.wxList.keywordsData
-              : ['', ''];
-              if (this.wxList.status === 1) {
-                !this.noticeList.includes("1") && this.noticeList.push("1")
-                this.showWx = true;
-              } else {
-                this.showWx = false;
-              }
+              : [];
+            }
+            if (this.wxList.status === 1) {
+              !this.noticeList.includes("1") && this.noticeList.push("1")
+              this.showWx = true;
+            } else {
+              this.showWx = false;
+            }
             this.appletsList = this.pushTypeList;
           }
 
@@ -203,7 +242,11 @@ export default {
           this.appletsList = [];
         }
         if (value === 0) {
-          this.appletsList = this.pushTypeList;
+          if (this.pushTypeList.length < 1) {
+            this.appletsList = ['', ''];
+          } else {
+            this.appletsList = this.pushTypeList;
+          }
         }
       },
       Submission() {
@@ -250,6 +293,21 @@ export default {
           if (this.wxList.pushType === 0) {
             firstData = this.wxList.firstData;
           }
+          let delayTimeValue = '';
+          switch (this.delayTimeValue) {
+            case 1: delayTimeValue = this.delayTime;
+              break;
+            case 2: delayTimeValue = this.delayTime * 60;
+              break;
+            case 3: delayTimeValue = this.delayTime * 60 * 60;
+              break;
+            case 4: delayTimeValue = this.delayTime * 60 * 60 * 24;
+              break;
+            case 5: delayTimeValue = this.delayTime * 60 * 60 * 24 * 30;
+              break;
+            default:
+              break;
+          }
           data.push({
             "id": this.wxList.tplId,
             "status": 1,
@@ -261,7 +319,7 @@ export default {
             "redirectUrl": this.wxList.redirectUrl,
             "pagePath":this.wxList.pagePath,
             "pushType": this.wxList.pushType,
-            "delayTime": this.wxList.delayTime,
+            "delayTime": delayTimeValue,
           });
         } else {
           data.push({
