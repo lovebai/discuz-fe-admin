@@ -1,5 +1,6 @@
 import Card from '../../../../view/site/common/card/card';
 import CardRow from '../../../../view/site/common/card/cardRow';
+import axios from 'axios';
 
 export default {
   data:function () {
@@ -9,7 +10,6 @@ export default {
       appId: '',
       shopAppId: '',
       shopSecretKey: '',
-      radioOpen: '',
       shopTranslate: '',
       // checkedImgUrl: '',
       // checkedAppId: '',
@@ -71,7 +71,6 @@ export default {
           this.shopAppId = num.publicValue.wxAppId;
           this.shopSecretKey = num.privateValue.wxAppSecret;
           this.shopTranslate = num.publicValue.description;
-          this.radioOpen = num.publicValue.isOpen === 1;
           if(this.imageUrl !== '' && this.imageUrl != null){
             this.deleteBtn = true;
           }
@@ -93,15 +92,15 @@ export default {
             wxAppSecret: this.shopSecretKey
           },
           publicValue: {
-            wxQrcode: this.imageUrl,
+            // wxQrcode: this.imageUrl,
             wxAppId: this.shopAppId,
             description: this.shopTranslate,
-            isOpen: this.radioOpen ? 1 : 0,
           }
           // privateValue: this.privateValue,
           // publicValue: this.publicValue,
         }
       }).then(data=>{
+        console.log(data);
         if (data.errors){
           this.$message.error(data.errors[0].code);
         }else {
@@ -113,7 +112,25 @@ export default {
             message: '提交成功',
             type: 'success'
           });
-          this.pluginUnitList();
+          // this.pluginUnitList();
+          this.codeObtain();
+        }
+      })
+    },
+    codeObtain(){
+      this.pluginFetch({
+        url:'plugin_setting_v3',
+        method:'post',
+        data: {}
+      }).then(data=>{
+        console.log(data);
+        if (data.errors){
+          this.$message.error(data.errors[0].code);
+        }else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
         }
       })
     },

@@ -51,7 +51,8 @@ module.exports = {
   plugin_uploadimage_post_v3: '/backAdmin/plugin/uploadimage',  // 微信小商店图片
   plugin_settings_post_v3: '/backAdmin/plugin/settings.save',  // 微信小商城设置
   plugin_list_get_v3: '/backAdmin/plugin/list', // 插件列表
-  plugin_deleteimage_post_v3: 'backAdmin/plugin/deleteimage', // 商品图片删除
+  plugin_deleteimage_post_v3: '/backAdmin/plugin/deleteimage', // 商品图片删除
+  plugin_setting_v3: '/plugin/shop/api/wxshop/setting',  // 商品二维码上传
 
   purge_cdn_get_v3: '/backAdmin/purge.cdn.cache',
 

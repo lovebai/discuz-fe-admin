@@ -65,11 +65,6 @@
         </el-input>
       </div>
     </Card>
-    
-    <Card class="config-cdn-domain config-shop-radio">
-      <span class="config-cdn-domain__name"> 是否打开 </span>
-      <el-switch v-model="radioOpen" active-color="#336699" inactive-color="#bbbbbb"></el-switch>
-    </Card>
 
     <Card class="footer-btn" >
       <el-button type="primary" size="medium" @click="parameterSubmit">提交</el-button>
