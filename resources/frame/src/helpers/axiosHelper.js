@@ -282,7 +282,6 @@ const pluginFetch = function(params, options) {
   }
   var oldUrl = params.url;
   var apiUrl = appConfig.apis[oldUrl];
-  console.log(apiUrl);
   //是不是标准接口
   params.standard = params.standard !== undefined ? params.standard : true;
 
@@ -306,11 +305,9 @@ const pluginFetch = function(params, options) {
   if (process.env.NODE_ENV === 'development') {
     params.baseURL = "/";
     params.url = apiUrl;
-    console.log(params.url, apiUrl, '1111代理')
   } else {
     params.baseURL = "/";
     params.url = appConfig.pluginBaseUrl + apiUrl;
-    console.log(params.url, appConfig.apiBaseUrl, '代理')
   }
 
   params.withCredentials = true;
@@ -382,7 +379,6 @@ const pluginFetch = function(params, options) {
   }
 
   return axios(params).then(data => {
-    console.log(params);
     if(data.status >= 200 && data.status < 300) {
       if(params.standard) {
         if(data.data.meta && data.data.meta instanceof Array) {
@@ -399,7 +395,6 @@ const pluginFetch = function(params, options) {
 
       return data.data;
     } else {
-      console.log(data);
       if (data.data.errors[0].code === 'access_denied'){
         //拒绝访问需要跳转到登录页面
         let isWeixin = appCommonH.isWeixin().isWeixin;

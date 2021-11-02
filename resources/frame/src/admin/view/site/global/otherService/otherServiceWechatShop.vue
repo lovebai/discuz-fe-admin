@@ -12,14 +12,6 @@
           />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </div>
-        <el-button
-          type="text"
-          :style="{
-          opacity: deleteBtn ? '1' : '0',
-          cursor: deleteBtn ? 'pointer' : 'auto'
-          }"
-          @click="deleteImage"
-        >删除</el-button>
       </div>
     </Card>
     
