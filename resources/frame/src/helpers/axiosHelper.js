@@ -309,7 +309,7 @@ const pluginFetch = function(params, options) {
     console.log(params.url, apiUrl, '1111代理')
   } else {
     params.baseURL = "/";
-    params.url = appConfig.apiBaseUrl + apiUrl;
+    params.url = appConfig.pluginBaseUrl + apiUrl;
     console.log(params.url, appConfig.apiBaseUrl, '代理')
   }
 

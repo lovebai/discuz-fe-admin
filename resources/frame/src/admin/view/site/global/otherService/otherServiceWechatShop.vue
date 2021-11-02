@@ -4,23 +4,14 @@
     
     <Card header="小商店二维码上传" class="shop-box-img">
       <div>
-        <el-upload
-          class="avatar-uploader"
-          action
-          :http-request="uploaderLogo"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          @change="handleFile"
-          :before-upload="beforeAvatarUpload"
-        >
-          <div v-if="imageUrl" class="avatar">
-            <img
-                :src="imageUrl"
-                class="avatar-LogoImage"
-            />
-          </div>
+        <div class="avatar-shop">
+          <img
+              v-if="deleteBtn"
+              :src="imageUrl"
+              class="avatar-LogoImage"
+          />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
+        </div>
         <el-button
           type="text"
           :style="{
