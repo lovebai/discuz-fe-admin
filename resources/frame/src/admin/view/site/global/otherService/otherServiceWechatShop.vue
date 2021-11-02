@@ -4,31 +4,14 @@
     
     <Card header="小商店二维码上传" class="shop-box-img">
       <div>
-        <el-upload
-          class="avatar-uploader"
-          action
-          :http-request="uploaderLogo"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          @change="handleFile"
-          :before-upload="beforeAvatarUpload"
-        >
-          <div v-if="imageUrl" class="avatar">
-            <img
-                :src="imageUrl"
-                class="avatar-LogoImage"
-            />
-          </div>
+        <div class="avatar-shop">
+          <img
+              v-if="deleteBtn"
+              :src="imageUrl"
+              class="avatar-LogoImage"
+          />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-        </el-upload>
-        <el-button
-          type="text"
-          :style="{
-          opacity: deleteBtn ? '1' : '0',
-          cursor: deleteBtn ? 'pointer' : 'auto'
-          }"
-          @click="deleteImage"
-        >删除</el-button>
+        </div>
       </div>
     </Card>
     
@@ -64,11 +47,6 @@
         >
         </el-input>
       </div>
-    </Card>
-    
-    <Card class="config-cdn-domain config-shop-radio">
-      <span class="config-cdn-domain__name"> 是否打开 </span>
-      <el-switch v-model="radioOpen" active-color="#336699" inactive-color="#bbbbbb"></el-switch>
     </Card>
 
     <Card class="footer-btn" >

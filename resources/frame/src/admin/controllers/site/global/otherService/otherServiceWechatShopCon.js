@@ -1,5 +1,6 @@
 import Card from '../../../../view/site/common/card/card';
 import CardRow from '../../../../view/site/common/card/cardRow';
+import axios from 'axios';
 
 export default {
   data:function () {
@@ -9,7 +10,6 @@ export default {
       appId: '',
       shopAppId: '',
       shopSecretKey: '',
-      radioOpen: '',
       shopTranslate: '',
       // checkedImgUrl: '',
       // checkedAppId: '',
@@ -71,7 +71,6 @@ export default {
           this.shopAppId = num.publicValue.wxAppId;
           this.shopSecretKey = num.privateValue.wxAppSecret;
           this.shopTranslate = num.publicValue.description;
-          this.radioOpen = num.publicValue.isOpen === 1;
           if(this.imageUrl !== '' && this.imageUrl != null){
             this.deleteBtn = true;
           }
@@ -93,15 +92,15 @@ export default {
             wxAppSecret: this.shopSecretKey
           },
           publicValue: {
-            wxQrcode: this.imageUrl,
+            // wxQrcode: this.imageUrl,
             wxAppId: this.shopAppId,
             description: this.shopTranslate,
-            isOpen: this.radioOpen ? 1 : 0,
           }
           // privateValue: this.privateValue,
           // publicValue: this.publicValue,
         }
       }).then(data=>{
+        console.log(data);
         if (data.errors){
           this.$message.error(data.errors[0].code);
         }else {
@@ -113,41 +112,27 @@ export default {
             message: '提交成功',
             type: 'success'
           });
+          this.codeObtain();
+        }
+      })
+    },
+    codeObtain(){
+      this.pluginFetch({
+        url:'plugin_setting_v3',
+        method:'post',
+        data: {}
+      }).then(data=>{
+        if (data.errors){
+          this.$message.error(data.errors[0].code);
+        }else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
+          this.imageUrl = data.Data.wxQrCode;
           this.pluginUnitList();
         }
       })
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/png" || file.type === "image/jpeg";
-      if (!isJPG) {
-        this.$message.warning("上传图片只能是 JPG 或 PNG 格式!");
-        return isJPG;
-      }
-      return isJPG;
-    },
-    uploaderLogo(e) {
-      let logoFormData = new FormData();
-      logoFormData.append("file", e.file);
-    //   logoFormData.append("type", "watermark_image");
-      this.appFetch({
-        url: "plugin_uploadimage_post_v3",
-        method: "post",
-        data: logoFormData,
-      })
-      .then(data => {
-        if (data.errors) {
-          this.$message.error(data.errors[0].code);
-        } else {
-          if (data.Code !== 0) {
-          this.$message.error(data.Message);
-          return
-        }
-        this.imageUrl = data.Data.url;
-        this.$message({ message: "上传成功", type: "success" });
-        this.deleteBtn = true;
-        }
-      })
-      .catch(error => {});
     },
     deleteImage(file, fileList) {
       if (this.deleteBtn === false) {
