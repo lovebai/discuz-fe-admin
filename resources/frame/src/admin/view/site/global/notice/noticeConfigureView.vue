@@ -170,7 +170,7 @@
 
             <CardRow row class="applets-cardRow">
               <div class="applets-cardRow__box">
-                <span class="applets-interval">消息推送时间</span>
+                <span class="applets-interval">消息推送规则</span>
                 <div class="applets-interval-text">
                   <el-radio-group v-model="wxList.pushType" @change="pushTypeCange">
                     <el-radio :label="0">即时推送</el-radio>
@@ -182,7 +182,7 @@
                     style="height: 36PX;width: 50PX"
                     type="number"
                     size="small"
-                    v-model="wxList.delayTime"
+                    v-model="delayTime"
                   ></el-input>
                   <el-select class="applets-interval-text__input" v-model="delayTimeValue" placeholder="请选择">
                     <el-option
@@ -198,8 +198,8 @@
               <div class="applets-cardRow__text" v-if="wxList.pushType === 0">
                 <p>选择自定义推送时间后，可在配置项后边新增{X条}，则会展示一段时间内统计的消息数量</p>
                 <p>示例：</p>
-                <p>keyword1：你收到了点赞{X条}</p>
-                <p>则推送消息为：keyword1：你收到了点赞X条</p>
+                <p>keyword1：你收到了点赞{$notification_num}条</p>
+                <p>则推送消息为：keyword1：你收到了点赞{$notification_num}条</p>
               </div>
             </CardRow>
             
