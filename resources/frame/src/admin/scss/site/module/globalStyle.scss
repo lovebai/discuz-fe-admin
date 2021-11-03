@@ -1070,6 +1070,9 @@
   .card-row-lf {
     width: 80%;
   }
+  .card-row-rf {
+    display: none;
+  }
   &__box {
     display: flex;
     line-height: 40PX;
