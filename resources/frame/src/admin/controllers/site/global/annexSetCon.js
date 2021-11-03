@@ -11,6 +11,7 @@ export default {
       restrictionsOn: '', // 附件限制选项
       downloads: '',
       quantityLimit: '9',
+      maxUpload: 50,
     }
   },
   created() {
@@ -35,6 +36,7 @@ export default {
           this.fileExtension = forumData.setAttach.supportFileExt;
           this.maximumSize = forumData.setAttach.supportMaxSize;
           this.quantityLimit = forumData.setAttach.supportMaxUploadAttachmentNum;
+          this.maxUpload = forumData.setAttach.maxUploadAttachmentNum;
           if (Number(forumData.setAttach.supportMaxDownloadNum) > 0) {
             this.restrictionsOn = '2';
             this.downloads = Number(forumData.setAttach.supportMaxDownloadNum);
