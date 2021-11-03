@@ -247,6 +247,18 @@ export default {
               attribution: "全局",
             }
           },
+          "other-service-wechat-shop": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/otherService/otherServiceWechatShop"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "微信小商店",
+              name: "otherServiceSet",
+              attribution: "全局",
+            }
+          },
           "system-notice": {
             comLoad: function (resolve) {
               require([

@@ -10,6 +10,7 @@ var appConfig = {
 
   baseUrl: '',                           //网站根目录
   apiBaseUrl: '',                        //网站根目录
+  pluginBaseUrl: '',
   staticBaseUrl: '',                     //静态文件根目录
   uploadBaseUrl: '',                     //上传文件地址
 

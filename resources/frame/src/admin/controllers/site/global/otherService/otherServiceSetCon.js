@@ -9,17 +9,30 @@ export default {
         {
           name: '腾讯位置服务',
           type: 'lbs_close',
+          icon: 'iconweizhi1',
           description: '配置KEY后，才可使用腾讯位置的WebServiceAPI服务，<a href="https://discuz.com/manual-admin/2.html#_2-10-1-%E8%85%BE%E8%AE%AF%E4%BD%8D%E7%BD%AE%E6%9C%8D%E5%8A%A1" target="_blank">查看文档</a>',
           tag:'lbs',
           status:'',
+          open: true,
         },
         // {
         //   name: '内容导入',
         //   type: 'import',
+        //   icon: 'icon-daoru1',
         //   description: '为站点一键填充站点内容，营造活跃气氛',
         //   tag:'import',
         //   status:'',
-        // }
+        //   open: false,
+        // },
+        {
+          name: '微信小商店',
+          type: 'wechat_shop',
+          icon: 'icon-shangdian',
+          description: '为站点关联微信小商城，实现电商盈利',
+          tag:'shop',
+          status:'',
+          open: false,
+        }
       ],
       key: '',
     }
@@ -90,16 +103,20 @@ export default {
       })
     },
     configClick(type){
-      this.$router.push({
-        path:'/admin/other-service-set-key',
-        query: {type:type}
-      });
+      switch (type) {
+        case 'lbs':
+          this.$router.push({ path:'/admin/other-service-set-key', query: {type: type} });
+          break;
+        case 'import':
+          this.$router.push({ path:'/admin/other-service-content'});
+          break;
+        case 'shop':
+          this.$router.push({ path:'/admin/other-service-wechat-shop'});
+          break;  
+        default:
+          break;
+      }
     },
-    importClick() {
-      this.$router.push({
-        path:'/admin/other-service-content'
-      });
-    }
   },
   components:{
     Card,
