@@ -41,7 +41,19 @@
         <span class="annex-set-box__copy-span">如果在用户设置中开启了游客可下载附件权限，则游客下载不受次数限制</span>
       </CardRow>
     </Card>
-
+    
+    <Card header="发帖时一次性可添加附件数：" class="annex-set-box__limit">
+      <CardRow>
+        <el-input
+          class="elinput"
+          style="height: 36PX;width: 100PX"
+          type="number"
+          size="small"
+          v-model="quantityLimit"
+        ></el-input>个
+        <span class="annex-set-box__limit-title">最多可设置{{maxUpload}}个</span>
+      </CardRow>
+    </Card>
     <Card class="footer-btn">
       <el-button type="primary" size="medium" @click="submi">提交</el-button>
     </Card>

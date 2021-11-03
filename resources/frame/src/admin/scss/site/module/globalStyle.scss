@@ -881,9 +881,21 @@
     .card-row-lf {
       width: 100%;
     }
+    .card-row-rf {
+      display: none;
+    }
     &-span {
       margin-left: 20PX;
       color: #df0505;
+    }
+  }
+  &__limit {
+    .el-input {
+      margin: 0 10PX 0 0;
+    }
+    &-title {
+      margin-left: 20PX;
+      color: #909399;
     }
   }
 }
