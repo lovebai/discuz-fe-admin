@@ -436,7 +436,6 @@ export default {
      *  左侧菜单点击事件
      * */
     sideClick(item) {
-      console.log(item);
       this.sideSelect = item.name;
       this.indexTitle = item.title;
 
