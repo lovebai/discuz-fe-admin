@@ -19,12 +19,11 @@ export default {
     determineBtn(type, scope) {
       this.uploadType = type;
       this.uploadDetails = scope.row;
-      console.log(scope)
       this.dialogVisible = true;
     },
-    detailsClick() {
-      // this.dialogVisible = true;
-    },
+    // detailsClick() {
+    //   this.dialogVisible = true;
+    // },
     plugInRelease(id, num) {
       this.appFetch({
         url:'panel_operate_post_v3',
@@ -42,7 +41,6 @@ export default {
             this.$message.error(data.Message);
             return
           }
-          console.log(data);
           if (num === 1) {
             this.$message({
               message: '插件发布成功',
@@ -84,7 +82,6 @@ export default {
             this.$message.error(data.Message);
             return
           }
-          console.log(data);
           this.$message({
             message: '插件上传成功',
             type: 'success'
