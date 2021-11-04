@@ -10,6 +10,7 @@ export default {
       sourceHost: '',
       subLoading: false,
       mainDomain: '',
+      purgeCdnLoading: false
     }
   },
   created(){
@@ -96,6 +97,33 @@ export default {
       })
       .catch(err => {
         this.subLoading = false
+        this.$message({
+          showClose: true,
+          message: err
+        });
+      })
+    },
+    purgeCdnClick() {
+      this.purgeCdnLoading = true;
+      this.appFetch({
+        url:'purge_cdn_get_v3',
+        method:'get',
+        data:{}
+      })
+      .then(res => {
+        this.purgeCdnLoading = false;
+        if(res.errors){
+          this.$message.error(res.errors[0].code);
+        } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
+          this.$message({ message: 'cdn缓存清除完毕', type: 'success' });
+        }
+      })
+      .catch(err => {
+        this.purgeCdnLoading = false;
         this.$message({
           showClose: true,
           message: err

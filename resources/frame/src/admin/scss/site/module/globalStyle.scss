@@ -153,42 +153,13 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   }
   .avatar-uploader .el-upload:hover {
     border-color: $main;
-  }
-  .avatar-uploader-icon {
-    font-size: 28PX;
-    color: #8c939d;
-    width: 140PX;
-    height: 140PX;
-    line-height: 140PX;
-    text-align: center;
-  }
-  .el-icon-circle-plus-outline {
-    display: block;
-    width: 48PX;
-    height: 48PX;
-    font-size: 48PX;
-    margin: 11PX auto 0;
-    color: #D5D8DE;
-  }
-  .avatar-logo {
-    display: block;
-    font-size:14PX;
-    font-weight:600;
-    margin: 8PX auto 0;
-    color:rgba(151,156,169,1);
-    line-height:20PX;
-  }
-  .avatar-pm {
-    margin: 4PX auto 0;
-    display: block;
-    font-size:8PX;
-    font-weight:400;
-    white-space:nowrap;
-    color:rgba(151,156,169,1);
-    line-height:14PX;
   }
   .avatar-btn {
     padding: 0;
@@ -342,8 +313,13 @@
     border-color:#666;
   }
 
-  .el-button {
-    margin:30PX 0;
+  &__topping {
+    color: #336699;
+    cursor: pointer;
+    .el-button {
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 .recharge-points {
@@ -363,6 +339,46 @@
       line-height: 20PX;
     }
   }
+}
+.user-rol-table{
+  margin-top: 15PX;
+  &-box {
+    width: 80PX;
+    display: flex;
+    justify-content: space-between;
+    span {
+      width: 25PX;
+      height: 25PX;
+      text-align: center;
+      line-height: 25PX;
+      display: block;
+      cursor: pointer;
+      .table-icon {
+        margin: 0;
+      }
+    }
+    &__text {
+      color: #303133;
+    }
+  }
+  &__frame {
+    border: solid 1PX #606266;
+  }
+  &__right {
+    margin-left: 53PX;
+  }
+  &__rights {
+    margin-left: 55PX;
+  }
+  .table-icon {
+    font-size: 20PX;
+  }
+  &__pay {
+    margin-bottom: 20PX;
+  }
+}
+.el-table .success-row {
+  background: #fffcd9;
 }
 /*
 * 站点设置  - 首页数据排序配置
@@ -514,6 +530,9 @@
       line-height:20PX;
       color:$descColor;
     }
+  }
+  &__btn {
+    margin-top: 30PX;
   }
 }
 
@@ -791,6 +810,20 @@
 }
 
 /**
+  ip网段设置
+*/
+.ip-filter {
+  color: #000000;
+  font-size: 16PX;
+  line-height: 40PX;
+}
+.ip-filter-text {
+  color: #303133;
+  font-size: 14PX;
+  line-height: 40PX;
+  margin-bottom: 20PX;
+}
+/**
   支付设置
  */
 .pay-set-box {
@@ -819,9 +852,21 @@
     .card-row-lf {
       width: 100%;
     }
+    .card-row-rf {
+      display: none;
+    }
     &-span {
       margin-left: 20PX;
       color: #df0505;
+    }
+  }
+  &__limit {
+    .el-input {
+      margin: 0 10PX 0 0;
+    }
+    &-title {
+      margin-left: 20PX;
+      color: #909399;
     }
   }
 }
@@ -1048,6 +1093,9 @@
       margin-right: 10PX;
       width: 120PX;
     }
+    .el-switch__core {
+      margin-left: 10PX;
+    }
   }
   &-address {
     .card-box__main {
@@ -1055,7 +1103,7 @@
       flex-wrap: wrap;
     }
     &__box {
-      padding: 0 10PX;
+      padding-left: 16PX;
     }
     &__text {
       width: 120PX;
@@ -1188,69 +1236,121 @@
     }
   }
 }
-
-// 插件设置
-.plugin-unit {
-  &-post {
-    &__box {
-      span {
-        cursor: pointer;
-      }
-      &-text {
-        color: #3571A5;
-      }
-      &-detal {
-        // color: #3571A5;
-        color: #303133;
-      }
-      &-dialog {
-        .el-dialog__footer {
-          text-align: center;
-          .el-button--primary {
-            margin-left: 50PX;
-          }
-        }
-        .el-dialog {
-          height: 500PX;
-          position: relative;
-          .el-dialog__footer {
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-          }
-        }
-      }
+.shop-box {
+  &-img {
+    display: flex;
+    .el-button--text {
+      margin-left: 56PX;
     }
+    .card-box__main {
+      display: flex;
+      .el-checkbox {
+        margin-left: 400PX;
+        padding-top: 68PX;
+      }
+    } 
+  }
+  .shop-box-img .card-box__header {
+    width: 120PX;
+    margin-right: 20PX;
+    padding-top: 65PX;
+    .card-title {
+      color: #303133;
+    }
+  }
+  .avatar-shop {
+    width: 140PX;
+    height: 140PX;
+    background-color: #F9F9F9;
+    border: 1PX dashed #d9d9d9;
+    border-radius: 6PX;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: $main;
+  }
+  .avatar-uploader-icon {
+    font-size: 28PX;
+    color: #8c939d;
+    width: 140PX;
+    height: 140PX;
+    line-height: 140PX;
+    text-align: center;
+  }
+  .el-icon-circle-plus-outline {
+    display: block;
+    width: 48PX;
+    height: 48PX;
+    font-size: 48PX;
+    margin: 11PX auto 0;
+    color: #D5D8DE;
+  }
+  .avatar-logo {
+    display: block;
+    font-size:14PX;
+    font-weight:600;
+    margin: 8PX auto 0;
+    color:rgba(151,156,169,1);
+    line-height:20PX;
+  }
+  .avatar-pm {
+    margin: 4PX auto 0;
+    display: block;
+    font-size:8PX;
+    font-weight:400;
+    white-space:nowrap;
+    color:rgba(151,156,169,1);
+    line-height:14PX;
+  }
+  .avatar-btn {
+    padding: 0;
+    margin:11PX 0 0 56PX;
+  }
+  .avatar {
+    width: 140PX;
+    height: 140PX;
+    display: block;
+    position: relative;
+  }
+  .avatar-LogoImage {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+  // .avatar-LogoImage-img {
+  //   height: 100%;
+  //   position: absolute;
+  //   top:0;
+  //   bottom:0;
+  //   left:0;
+  //   right:0;
+  //   margin: auto;
+  // }
+  .el-button--text {
+    padding-bottom: 0;
   }
 }
-.plugin-unit-post__box-upload {
-  &-name {
-    &__left {
-      display: inline-block;
-      margin: 0 20PX 0 0;
-      color: #303133;
-      font-size: 16PX;
-    }
-    &__right {
-      .el-input__inner {
-        width: 400PX;
-        height: 36PX;
-      } 
-    }
+.config-cdn-shop {
+  .el-checkbox {
+    margin-left: 122PX;
   }
-  &-file {
-    display: flex;
-    margin-top: 20PX;
-    &__left {
-      display: inline-block;
-      margin: 0 20PX 0 0;
-      padding-top: 8PX;
-      color: #303133;
-      font-size: 16PX;
-    }
-    .upload-demo {
-      width: 400PX;
-    }
+}
+.config-shop-address {
+  .el-checkbox {
+    margin-left: 132PX;
   }
+}
+.config-shop-radio {
+  .el-checkbox {
+    margin-left: 410PX;
+  }
+}
+.icon-shangdian {
+  color: rgb(247, 181, 0);
 }

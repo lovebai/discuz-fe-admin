@@ -119,7 +119,7 @@ export default {
           return '';
         }
       } else {
-        return num.cashMobile;
+        return num.tradeNo;
       }
     },
     toexamine(num) {

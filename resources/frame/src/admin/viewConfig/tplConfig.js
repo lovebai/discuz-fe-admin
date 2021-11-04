@@ -247,14 +247,14 @@ export default {
               attribution: "全局",
             }
           },
-          "other-service-content": {
+          "other-service-wechat-shop": {
             comLoad: function (resolve) {
               require([
-                "../view/site/global/otherService/otherServiceContent"
+                "../view/site/global/otherService/otherServiceWechatShop"
               ], resolve);
             },
             metaInfo: {
-              title: "其他服务设置",
+              title: "微信小商店",
               name: "otherServiceSet",
               attribution: "全局",
             }

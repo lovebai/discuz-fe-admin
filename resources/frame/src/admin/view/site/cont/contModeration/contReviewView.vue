@@ -157,6 +157,9 @@
                 <p v-for="(voteItems, indexs) in contentIndexes(items.content, 'vote')[0].subitems" :key="indexs">{{indexs + 1}}.  {{$xss(voteItems.content)}}</p>
             </div>
           </div>
+          <div v-if="contentIndexes(items.content, 'audio')">
+            <audio controls class="cont-manage-theme__table-main__audio" :src="contentIndexes(items.content, 'audio').mediaUrl" ref="audioPlear"></audio>
+          </div>
           <div v-if="contentIndexes(items.content, 'iframe')">
               <div v-html="contentIndexes(items.content, 'iframe').content"></div>
           </div>

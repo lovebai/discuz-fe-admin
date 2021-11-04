@@ -825,7 +825,7 @@
           >
         </CardRow>
         <CardRow
-          description="站点开启付费模式时下线付费加入、主题被打赏、被付费等的分成比例设置，填1表示10%，不填或为0时为不分成"
+          description="站点开启付费模式时下线注册并付费加入的分成比例设置，填1表示10%，不填或为0时为不分成"
           class="proportion-box"
           v-if="isSubordinate"
         >
