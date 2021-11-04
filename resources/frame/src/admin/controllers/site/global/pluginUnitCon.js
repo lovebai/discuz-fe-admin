@@ -5,63 +5,129 @@ import CardRow from '../../../view/site/common/card/cardRow';
 export default {
   data:function () {
     return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }],
+      tableData: [],
       dialogVisible: false,
-      fileList: []
+      fileList: [],
+      uploadType: '',
+      uploadDetails: '',
     }
   },
+  created() {
+    this.importDataBtn();
+  },
   methods:{
+    determineBtn(type, scope) {
+      this.uploadType = type;
+      this.uploadDetails = scope.row;
+      console.log(scope)
+      this.dialogVisible = true;
+    },
     detailsClick() {
-       this.dialogVisible = true;
+      // this.dialogVisible = true;
+    },
+    plugInRelease(id, num) {
+      this.appFetch({
+        url:'panel_operate_post_v3',
+        method:'post',
+        data: {
+          appId: id,
+          operate: num
+        },
+      })
+      .then(data => {
+        if (data.errors){
+          this.$message.error(data.errors[0].code);
+        }else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
+          console.log(data);
+          if (num === 1) {
+            this.$message({
+              message: '插件发布成功',
+              type: 'success'
+            });
+          }
+          if (num === 3) {
+            this.$message({
+              message: '插件删除成功',
+              type: 'success'
+            });
+          }
+          this.importDataBtn();
+        }
+      })
     },
     handleChange(file, fileList) {
       this.fileList = fileList.slice(-3);
     },
-    beforePluginUpload() {
+    beforePluginUpload(file) {
       const isLt20M = file.size / 1024 / 1024 < 20;
-
-      if (!isLt20M) {
-        this.$message.error("上传头像图片大小不能超过 20MB!");
-      }
       if (isLt20M == true) {
       }
       return isLt20M;
     },
-    uploaderPlugin(file) {
-      console.log(file);
-    },
-    importDataBtn() {
+    uploaderPlugin(e) {
+      let logoFormData = new FormData();
+      logoFormData.append("file", e.file);
       this.appFetch({
-        url:'create_crawler_get',
-        method:'get',
-        data: params,
-      }).then(res => {
-        if (res.errors){
-          this.$message.error(res.errors[0].code);
-        } else {
-          if (res.Code !== 0) {
-            this.$message.error(res.Message);
+        url:'panel_upload_post_v3',
+        method:'post',
+        data: logoFormData,
+      })
+      .then(data => {
+        if (data.errors){
+          this.$message.error(data.errors[0].code);
+        }else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
             return
           }
+          console.log(data);
+          this.$message({
+            message: '插件上传成功',
+            type: 'success'
+          });
+          this.importDataBtn();
         }
       })
     },
+    importDataBtn() {
+      this.appFetch({
+        url:'plugin_list_get_v3',
+        method:'get',
+        data:{}
+      }).then(data=>{
+        if (data.errors){
+          this.$message.error(data.errors[0].code);
+        }else {
+          if (data.Code !== 0) {
+            this.$message.error(data.Message);
+            return
+          }
+          this.tableData = data.Data;
+        }
+      })
+    },
+    typeConversion(type) {
+      switch (type) {
+        case 0: return '完全自定义插件';
+          break;
+        case 1: return '帖子新增类型';
+          break;
+        case 2: return '外部数据导入';
+          break;
+        case 3: return '广告插件';
+          break;
+        case 4: return '首页banner插件';
+          break;
+        case 5: return '表情插件';
+          break;
+        default:
+          break;
+      }
+    }
   },
   components:{
     Card,

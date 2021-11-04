@@ -122,7 +122,7 @@ export default {
               id: 10,
               title: "插件设置",
               name: "pluginUnit",
-              icon: "icon-xiangxiaicon"
+              icon: "icon-chajian"
             },
             // {
             //   id:7,
