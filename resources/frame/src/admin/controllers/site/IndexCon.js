@@ -118,6 +118,12 @@ export default {
               name: "otherServiceSet",
               icon: "iconqitafuwushezhi"
             },
+            {
+              id: 10,
+              title: "插件设置",
+              name: "pluginUnit",
+              icon: "icon-chajian"
+            },
             // {
             //   id:7,
             //   title:'后台用户管理',
@@ -430,6 +436,7 @@ export default {
      *  左侧菜单点击事件
      * */
     sideClick(item) {
+      console.log(item);
       this.sideSelect = item.name;
       this.indexTitle = item.title;
 
@@ -539,6 +546,10 @@ export default {
         case "otherServiceSet":
           this.$router.push({ path: "/admin/other-service-set" });
           break;
+        case "pluginUnit":
+          this.$router.push({ path: "/admin/pulgin-unit" });
+          break;
+        
       }
       // this.checkQcloud();
     },
