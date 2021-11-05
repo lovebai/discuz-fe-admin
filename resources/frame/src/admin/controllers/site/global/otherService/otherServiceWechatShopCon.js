@@ -111,7 +111,7 @@ export default {
             message: '提交成功',
             type: 'success'
           });
-          // this.codeObtain();
+          this.codeObtain();
         }
       })
     },
@@ -128,7 +128,7 @@ export default {
             this.$message.error(data.Message);
             return
           }
-          this.imageUrl = data.Data.wxQrCode;
+          // this.imageUrl = data.Data.wxQrCode;
           this.pluginUnitList();
         }
       })
