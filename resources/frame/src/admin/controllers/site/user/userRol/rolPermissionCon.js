@@ -765,7 +765,6 @@
          "thread.insertVideo", // 插入视频
          "thread.insertAudio", // 插入语音
          "thread.insertAttachment", // 插入附件
-         "thread.insertGoods", // 插入商品
          "thread.insertPay", // 插入付费
          "thread.insertReward", // 插入悬赏
          "thread.insertRedPacket", // 插入红包
