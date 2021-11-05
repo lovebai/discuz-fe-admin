@@ -140,7 +140,7 @@
         
         <div>
           <p class="ip-filter">IP过滤</p>
-          <p class="ip-filter-text">内网IP白名单</p>
+          <p class="ip-filter-text">内网IP黑名单</p>
           <el-table
             class="content-filter-set__ip"
             ref="multipleTable"
