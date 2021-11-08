@@ -1,5 +1,7 @@
 import Card from "../../../../view/site/common/card/card";
 import CardRow from "../../../../view/site/common/card/cardRow";
+import webDb from 'webDbHelper';
+import commonHelper from '../../../../../helpers/commonHelper';
 
 export default {
   components:{
@@ -245,5 +247,9 @@ export default {
       }
       return '';
     },
+    filterContent(text) {
+      const emojis = webDb.getLItem('Emoji');
+      return commonHelper.convertEmoticon(text, emojis);
+    }
   },
 }

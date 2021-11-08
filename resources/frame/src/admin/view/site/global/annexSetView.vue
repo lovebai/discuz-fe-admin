@@ -51,7 +51,7 @@
           size="small"
           v-model="quantityLimit"
         ></el-input>个
-        <span class="annex-set-box__limit-title">最多可设置100个</span>
+        <span class="annex-set-box__limit-title">最多可设置{{maxUpload}}个</span>
       </CardRow>
     </Card>
     <Card class="footer-btn">

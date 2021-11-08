@@ -65,7 +65,7 @@
             width="400"
           >
             <template slot-scope="scope">
-              <a class="user-rol-table-box__text" :href="'/thread/' + scope.row.threadId" target="_blank">{{scope.row.title}}</a>
+              <a class="user-rol-table-box__text" :href="'/thread/' + scope.row.threadId" target="_blank" v-html="$xss(filterContent(scope.row.title))"></a>
             </template>
           </el-table-column>
 
