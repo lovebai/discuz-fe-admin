@@ -27,6 +27,7 @@ export default {
         smsList: '',          //短信通知数据
         appletsList: [],      //keyword数组
         pushTypeList: [],
+        customTypeList: '',
         smsKeyWord: [],       //短信keyword数组
         miniKeyWord: [],      //小程序keyword数组
         showClick: true,      //微信通知keyword超过五个不显示增加
@@ -158,6 +159,7 @@ export default {
                 this.wxDes += `${key} ${vars[key]}\n`;
               }
             }
+            this.customTypeList = this.wxList.pushType;
             if (this.wxList.pushType === 0) {
               this.pushTypeList= this.wxList.keywordsData.length > 0
                 ? this.wxList.keywordsData
@@ -174,6 +176,7 @@ export default {
               this.showWx = false;
             }
             this.appletsList = this.pushTypeList;
+            // this.customTypeList = this.pushTypeList;
           }
 
           // 短信通知
@@ -239,10 +242,14 @@ export default {
       // 提交按钮
       pushTypeCange(value) {
         if (value === 1) {
-          this.appletsList = [];
+          if (value !== this.customTypeList) {
+            this.appletsList = [];
+          } else {
+            this.appletsList = this.pushTypeList;
+          }
         }
         if (value === 0) {
-          if (this.pushTypeList.length < 1) {
+          if (this.pushTypeList.length < 1 || value !== this.customTypeList) {
             this.appletsList = ['', ''];
           } else {
             this.appletsList = this.pushTypeList;
