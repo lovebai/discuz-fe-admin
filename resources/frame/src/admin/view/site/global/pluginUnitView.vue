@@ -48,8 +48,8 @@
           <template slot-scope="scope">
             <div class="plugin-unit-post__box">
               <!-- <span class="plugin-unit-post__box-text" @click="determineBtn('details', scope)">查看详情</span> -->
-              <span class="plugin-unit-post__box-text" @click="plugInRelease(scope.row.app_id, 1)">发布</span>
-              <span class="plugin-unit-post__box-text" @click="plugInRelease(scope.row.app_id, 2)">下线</span>
+              <span class="plugin-unit-post__box-text" v-if="scope.row.status === 0" @click="plugInRelease(scope.row.app_id, 1)">发布</span>
+              <span class="plugin-unit-post__box-text" v-if="scope.row.status === 1" @click="plugInRelease(scope.row.app_id, 2)">下线</span>
               <span class="plugin-unit-post__box-detal" @click="plugInRelease(scope.row.app_id, 3)">删除</span>
               <!-- <span class="plugin-unit-post__box-text">编辑</span> -->
             </div>
