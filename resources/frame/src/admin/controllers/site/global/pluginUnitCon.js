@@ -47,6 +47,12 @@ export default {
               type: 'success'
             });
           }
+          if (num === 2) {
+            this.$message({
+              message: '插件下线成功',
+              type: 'success'
+            });
+          }
           if (num === 3) {
             this.$message({
               message: '插件删除成功',
