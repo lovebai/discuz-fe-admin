@@ -192,7 +192,7 @@
                       :value="item.value">
                     </el-option>
                   </el-select>
-                  推荐一次
+                  推送一次
                 </div>
               </div>
               <div class="applets-cardRow__text" v-if="wxList.pushType === 0">
