@@ -13,12 +13,32 @@ export default {
       indexesText: '',
       mapText: '',
       optionType: 'option',
+      xmlText: '',
     }
   },
-  // created(){
-    
-  // },
+  created(){
+    this.xmlTextobtain();
+  },
   methods:{
+    xmlTextobtain () {
+      axios({
+        method: 'get',
+        url: '../static/xml/sitemap.xml'
+      })
+      .then(res => {
+        const xml = res.data;
+        this.xmlText = this.$x2js.xml2js(res.data);
+        console.log(this.xmlText);
+        this.indexesTextHandle(this.xmlText.sitemapindex.sitemap);
+      })
+    },
+    async indexesTextHandle(xml) {
+      // let indexesArr = '';
+      await xml.forEach((item, index) => {
+        this.mapText += item.loc.replace('https://discuz.chat', `${window.location.protocol}//${window.location.host}`) + '\n';
+      })
+      console.log(this.indexesText);
+    },
     handleSelect(key, keyPath) {
       this.$router.push({ path: '/admin/site-ssr-set'});
     },
@@ -26,25 +46,18 @@ export default {
       this.optionType = type;
     },
     optionBtn() {
-      axios({
-        method: 'get',
-        url: 'https://discuz.chat/sitemap.xml'
-      })
-      .then(res => {
-        console.log(res);
-      })
-      // let input = '';
-      // if (this.optionType === 'option') {
-      //   input = this.$refs.indexesText.$refs.textarea
-      // } else {
-      //   input = this.$refs.mapText.$refs.textarea;
-      // }
-      // input.select();
-      // document.execCommand('Copy');
-      // this.$message({
-      //   message: '链接已复制到剪贴板',
-      //   type: 'success'
-      // });
+      let input = '';
+      if (this.optionType === 'option') {
+        input = this.$refs.indexesText.$refs.textarea
+      } else {
+        input = this.$refs.mapText.$refs.textarea;
+      }
+      input.select();
+      document.execCommand('Copy');
+      this.$message({
+        message: '链接已复制到剪贴板',
+        type: 'success'
+      });
     },
     initializeData() {
       this.appFetch({

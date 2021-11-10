@@ -74,12 +74,6 @@
         @click="optionBtn"
         >复制</el-button
       >
-      <el-button
-        size="primary"
-        :loading="delpaidLoading"
-        @click="deleteClick"
-        >打包下载</el-button
-      >
     </Card>
   </div>
 </template>

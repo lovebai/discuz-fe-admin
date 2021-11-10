@@ -29,6 +29,7 @@ import "axiosHelper"; //ajax 请求封装
 import axios from 'axios';
 import Router from 'vue-router';
 import VueXss from 'vue-xss';
+import x2js from 'x2js';
 
 Vue.use(VueI18n);
 
@@ -54,6 +55,8 @@ Vue.prototype.$rconfig = RConfig;
 Vue.prototype.axios = axios;
 Vue.prototype.$dayjs = dayjs;//时间转换-赋值使用
 Vue.config.devtools = process.env.NODE_ENV === "development";
+
+Vue.prototype.$x2js = new x2js();
 
 Vue.use(VueLazyload, {
   // loading: require('img/loading.png'),//加载中图片，一定要有，不然会一直重复加载占位图
