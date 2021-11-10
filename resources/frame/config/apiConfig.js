@@ -104,5 +104,6 @@ module.exports = {
   create_crawler_get: '/backAdmin/create.crawler',  // 内容导入
 
   emoji_list_get_v3: '/backAdmin/emoji.list', // 获取表情
-  check_crawler_get: '/backAdmin/check.crawler.process' // 数据导入进度查询
+  check_crawler_get: '/backAdmin/check.crawler.process', // 数据导入进度查询
+  sitemap_xml_get: 'sitemap.xml'
 };

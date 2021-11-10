@@ -61,7 +61,13 @@ export default {
                   title: "首页数据设置",
                   name: "siteSet",
                   icon: "iconzhandianshezhi"
-                }
+                },
+                {
+                  id: 3,
+                  title: "SEO设置",
+                  name: "siteSet",
+                  icon: "iconzhandianshezhi"
+                },
               ]
             },
             {
@@ -576,6 +582,10 @@ export default {
           this.sideSubmenuSelect = title;
           this.$router.push({ path: "/admin/site-sort-set" });
           break;
+        case "SEO设置":
+          this.sideSubmenuSelect = title;
+          this.$router.push({ path: "/admin/site-seo-set" });
+          break;
         case "最新主题":
           this.sideSubmenuSelect = title;
           this.$router.push({ path: "/admin/cont-manage" });
@@ -693,6 +703,10 @@ export default {
           case "首页数据设置":
             this.sideSubmenu = this.navList[1].submenu[0].submenu;
             this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[2].title;
+            break;
+          case "SEO设置":
+            this.sideSubmenu = this.navList[1].submenu[0].submenu;
+            this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[3].title;
             break;
           case "最新主题":
             this.sideSubmenu = this.navList[3].submenu[1].submenu;
