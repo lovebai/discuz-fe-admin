@@ -135,7 +135,13 @@ export default {
             message: '修改成功',
             type: 'success'
           });
-          this.pluginUnitList();
+          let num = '';
+          data.Data.forEach(item => {
+            if (item.name_en === 'shop') {
+              num = item.setting;
+            }
+          })
+          this.settingStatus[1].status = num.publicValue.wxshopOpen === 1 ? true : false;
         }
       })
     },
