@@ -43,12 +43,12 @@
               <el-button
                 v-if="scope.row.status"
                 size="mini"
-                @click.native.prevent="statusSetting(false)"
+                @click.native.prevent="statusSetting(false, scope.row.tag)"
               >关闭</el-button>
               <el-button
                 v-else
                 size="mini"
-                @click.native.prevent="statusSetting(true)"
+                @click.native.prevent="statusSetting(true, scope.row.tag)"
               >开启</el-button>
             </div>
 
