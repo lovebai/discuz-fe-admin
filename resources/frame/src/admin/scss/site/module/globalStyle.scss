@@ -536,9 +536,11 @@
   }
 }
 .site-seo {
-  .el-menu-item {
-    padding: 0;
-    margin-right: 20PX;
+  .el-menu-demo {
+    .el-menu-item {
+      padding: 0;
+      margin-right: 20PX;
+    }
   }
 }
 .site-seo-explain {
@@ -550,7 +552,17 @@
       font-size: 14PX;
       line-height: 30PX;
     }
+    &-btn {
+      // margin-top: 20PX;
+      line-height: 40PX;
+      span {
+        display: inline-block;
+        margin-right: 20PX;
+        color: #336699;
+      }
+    }
   }
+
 }
 .site-seo-address {
   &__title {
@@ -584,6 +596,19 @@
       // height: 100%;
       border: 0;
     }
+  }
+  &__ssrtext {
+    padding: 10PX 6PX;
+    line-height: 20PX;
+    border: solid #e6e6e6 1PX;
+  }
+  &__nginx {
+    font-size: 14PX;
+    font-weight: bold;
+  }
+  &__describe {
+    color: #303133;
+    margin: 20PX 0;
   }
 }
 /**

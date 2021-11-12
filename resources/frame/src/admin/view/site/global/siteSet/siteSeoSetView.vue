@@ -46,16 +46,7 @@
     <Card>
       <div class="site-seo-address">
         <div class="site-seo-address__title">
-          <p :class="optionType === 'option' ? 'site-seo-address__title-option' : ''" @click="indexesClick('option')">站点地图索引</p>
-          <p :class="optionType === 'seat' ? 'site-seo-address__title-option title-seat' : 'title-seat'" @click="indexesClick('seat')">站点地图</p>
-        </div>
-        <div class="site-seo-address__textarea" v-if="optionType === 'option'">
-          <el-input
-            type="textarea"
-            ref="indexesText"
-            :autosize="{ minRows: 10, maxRows: 20}"
-            v-model="indexesText">
-          </el-input>
+          <p class="site-seo-address__title-option">站点地图</p>
         </div>
         <div class="site-seo-address__textarea" v-if="optionType === 'seat'">
           <el-input

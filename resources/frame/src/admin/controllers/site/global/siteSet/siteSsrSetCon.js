@@ -1,7 +1,5 @@
 import Card from "../../../../view/site/common/card/card";
 import CardRow from "../../../../view/site/common/card/cardRow";
-import webDb from 'webDbHelper';
-import commonHelper from '../../../../../helpers/commonHelper';
 
 export default {
   components:{
@@ -10,36 +8,50 @@ export default {
   },
   data(){
     return {
-      activeIndex: '2'
+      activeIndex: '2',
+      ssrText: '',
     }
   },
   // created(){
   // },
   methods:{
-    handleSelect(key, keyPath) {
+    handleSelect() {
       this.$router.push({ path: '/admin/site-seo-set'});
     },
-    initializeData() {
-      this.appFetch({
-        url: 'forum_get_v3',
-        method: 'get',
-        data: {}
-      }).then(res => {
-        if (res.errors) {
-            this.$message.error(res.errors[0].code);
-        } else {
-            if (res.Code !== 0) {
-            this.$message.error(res.Message);
-            return
-            }
-            const {Data: forumData} = res;
-            this.radio = forumData.setSite.openViewCount;
-            this.exhibition = forumData.other.threadTab;
-        }
-      })
+    flipClick(type) {
+      switch(type) {
+        case 'qcloud_close':
+          this.$router.push({ path: '/admin/tencent-cloud-config/cloud', query: { type: type } });
+          break;
+        case 'qcloud_close':
+          this.$router.push({ path: '/admin/tencent-cloud-config/cloud', query: { type: type } });
+          break;
+        default:
+      }
     },
-    jumpDataRules() {
-      this.$router.push({ path: '/admin/site-sort-set'});
+    optionBtn() {
+      const div = document.getElementById('sharedurl');
+      if (document.body.createTextRange) {
+          let range = document.body.createTextRange();
+          range.moveToElementText(div);
+          range.select();
+      } else if (window.getSelection) {
+          let selection = window.getSelection();
+          let range = document.createRange();
+          range.selectNodeContents(div);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          /*if(selection.setBaseAndExtent){
+              selection.setBaseAndExtent(text, 0, text, 1);
+          }*/
+      } else {
+          console.warn("none");
+      }
+      this.$message({
+        message: '内容已复制到剪贴板',
+        type: 'success'
+      });
+      document.execCommand("Copy"); // 执行浏览器复制命令
     },
   },
 }
