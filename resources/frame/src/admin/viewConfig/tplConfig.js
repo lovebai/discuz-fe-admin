@@ -368,6 +368,18 @@ export default {
               attribution: "全局"
             }
           },
+          "tencent-cloud-config/server": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/tencentCloudConfig/tencentCloudServerView"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "腾讯云设置",
+              name: "tencentCloudSet",
+              attribution: "全局"
+            }
+          },
           "annex-set": {
             comLoad: function (resolve) {
               require(["../view/site/global/annexSetView"], resolve);
