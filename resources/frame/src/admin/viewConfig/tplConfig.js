@@ -400,6 +400,18 @@ export default {
               attribution: "全局"
             }
           },
+          "pulgin-unit": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/pluginUnitView"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "插件设置",
+              name: "pluginUnit",
+              attribution: "全局",
+            }
+          },
           "water-mark-set": {
             comLoad: function (resolve) {
               require(["../view/site/global/waterMarkSetView"], resolve);

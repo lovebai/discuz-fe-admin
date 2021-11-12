@@ -1502,3 +1502,77 @@
 .icon-shangdian {
   color: rgb(247, 181, 0);
 }
+// 插件设置
+.plugin-unit {
+  &-post {
+    &__box {
+      span {
+        cursor: pointer;
+      }
+      &-text {
+        color: #3571A5;
+        margin-right: 10PX;
+      }
+      &-detal {
+        // color: #3571A5;
+        color: #303133;
+      }
+      &-dialog {
+        .el-dialog__footer {
+          text-align: center;
+          .el-button--primary {
+            margin-left: 50PX;
+          }
+        }
+        .el-dialog {
+          height: 500PX;
+          position: relative;
+          .el-dialog__footer {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+          }
+        }
+        .el-dialog__body {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+  .upload-demo {
+    .el-upload-list {
+      display: none;
+    }
+  }
+}
+.plugin-unit-post__box-upload {
+  &-name {
+    &__left {
+      display: inline-block;
+      margin: 0 20PX 0 0;
+      color: #303133;
+      font-size: 16PX;
+    }
+    &__right {
+      .el-input__inner {
+        width: 400PX;
+        height: 36PX;
+      } 
+    }
+  }
+  &-file {
+    display: flex;
+    margin-top: 20PX;
+    &__left {
+      display: inline-block;
+      margin: 0 20PX 0 0;
+      padding-top: 8PX;
+      color: #303133;
+      font-size: 16PX;
+    }
+    .upload-demo {
+      width: 400PX;
+    }
+  }
+}
