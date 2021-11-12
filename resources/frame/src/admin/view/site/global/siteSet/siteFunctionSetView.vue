@@ -19,7 +19,7 @@
         class="card-points"
         description="关闭后，这些功能将无法在站内使用。(仅限小程序)"
       >
-        <el-checkbox v-model="reward">打赏、悬赏、红包、匿名、私信、商品、付费</el-checkbox>
+        <el-checkbox v-model="reward">打赏、悬赏、红包、匿名、私信、商品、帖子付费、用户组付费、充值</el-checkbox>
       </CardRow>
     </Card>
    

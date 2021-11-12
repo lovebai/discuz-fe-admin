@@ -223,19 +223,6 @@
           </CardRow>
         </Card>
         <Card>
-          <CardRow description="允许发帖插入商品的权限">
-            <el-checkbox
-              v-model="checked"
-              label="thread.insertGoods"
-              :disabled="
-                $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
-              "
-              >插入商品</el-checkbox
-            >
-          </CardRow>
-        </Card>
-        <Card>
           <CardRow description="允许发帖插入付费的权限">
             <el-checkbox
               v-model="checked"
