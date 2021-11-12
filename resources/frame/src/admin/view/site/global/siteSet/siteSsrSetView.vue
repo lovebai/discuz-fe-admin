@@ -27,7 +27,7 @@
         </p>
         <div class="site-seo-explain__box-btn">
           <span @click="flipClick('qcloud_close')">云API</span>
-          <span @click="flipClick('qcloud_close')">SSR存储</span>
+          <span @click="flipClick('qcloud_server')">SSR存储</span>
         </div>
       </div>
     </Card>

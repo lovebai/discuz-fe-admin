@@ -757,6 +757,8 @@ export default {
             this.sideSubmenu = [];
             this.$message.error("当下没有侧边栏子菜单");
         }
+      } else {
+        this.sideSubmenu = [];
       }
     },
 

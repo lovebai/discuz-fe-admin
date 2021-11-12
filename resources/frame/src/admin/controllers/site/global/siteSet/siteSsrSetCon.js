@@ -21,7 +21,7 @@ export default {
     flipClick(type) {
       switch(type) {
         case 'qcloud_close':
-          this.$router.push({ path: '/admin/tencent-cloud-config/cloud', query: { type: type } });
+          this.$router.push({ path: '/admin/tencent-cloud-config/cloud'});
           break;
         case 'qcloud_close':
           this.$router.push({ path: '/admin/tencent-cloud-config/cloud', query: { type: type } });
