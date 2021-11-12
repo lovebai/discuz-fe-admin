@@ -24,15 +24,15 @@ export default {
           status:'',
           open: true,
         },
-        {
-          name: '内容导入',
-          type: 'import',
-          icon: 'icon-daoru1',
-          description: '为站点一键填充站点内容，营造活跃气氛',
-          tag:'import',
-          status:'',
-          open: false,
-        },
+        // {
+        //   name: '内容导入',
+        //   type: 'import',
+        //   icon: 'icon-daoru1',
+        //   description: '为站点一键填充站点内容，营造活跃气氛',
+        //   tag:'import',
+        //   status:'',
+        //   open: false,
+        // },
       ],
       key: '',
       appId: '',
@@ -135,6 +135,7 @@ export default {
             message: '修改成功',
             type: 'success'
           });
+          let num = '';
           data.Data.forEach(item => {
             if (item.name_en === 'shop') {
               num = item.setting;
