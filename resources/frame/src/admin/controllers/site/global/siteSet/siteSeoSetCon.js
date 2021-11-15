@@ -23,7 +23,7 @@ export default {
     xmlTextobtain () {
       axios({
         method: 'get',
-        url: '../static/xml/sitemap.xml'
+        url: '/static-admin/xml/sitemap.xml'
       })
       .then(res => {
         const xml = res.data;
