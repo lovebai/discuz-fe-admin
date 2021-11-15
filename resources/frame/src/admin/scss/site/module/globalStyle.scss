@@ -1356,6 +1356,9 @@
 }
 // 插件设置
 .plugin-unit {
+  &-file {
+    margin-bottom: 10PX;
+  }
   &-post {
     &__box {
       span {
@@ -1391,6 +1394,10 @@
         }
       }
     }
+  }
+  &__footer {
+    padding: 15PX 0;
+    text-align: center;
   }
   .upload-demo {
     .el-upload-list {
