@@ -33,6 +33,15 @@ export default {
         //   status:'',
         //   open: false,
         // },
+        {
+          name: '分享裂变',
+          type: 'fission',
+          icon: 'icon-shangdian',
+          description: '运营工具，开启后，发布内容可添加裂变活动增加阅读量',
+          tag:'fission',
+          status:'',
+          open: false,
+        },
       ],
       key: '',
       appId: '',
@@ -192,6 +201,9 @@ export default {
         case 'shop':
           this.$router.push({ path:'/admin/other-service-wechat-shop'});
           break;  
+        case 'fission':
+          this.$router.push({ path:'/admin/other-service-fission'});
+          break;
         default:
           break;
       }

@@ -259,6 +259,18 @@ export default {
               attribution: "全局",
             }
           },
+          "other-service-fission": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/otherService/otherServiceFission"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "分享裂变",
+              name: "otherServiceSet",
+              attribution: "全局",
+            }
+          },
           "system-notice": {
             comLoad: function (resolve) {
               require([
