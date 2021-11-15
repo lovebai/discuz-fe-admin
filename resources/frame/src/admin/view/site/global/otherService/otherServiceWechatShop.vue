@@ -2,7 +2,7 @@
   <div class="shop-box">
     <Card header="微信小商店"></Card>
     
-    <Card header="小商店二维码上传" class="shop-box-img">
+    <!-- <Card header="小商店二维码上传" class="shop-box-img">
       <div>
         <div class="avatar-shop">
           <img
@@ -13,7 +13,7 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </div>
       </div>
-    </Card>
+    </Card> -->
     
     <Card class="config-cdn-domain config-cdn-shop">
       <span class="config-cdn-domain__name"> appid </span>

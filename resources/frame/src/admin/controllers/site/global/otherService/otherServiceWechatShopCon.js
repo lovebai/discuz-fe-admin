@@ -67,13 +67,13 @@ export default {
               this.appId = item.app_id;
             }
           })
-          this.imageUrl = num.publicValue.wxQrcode;
+          // this.imageUrl = num.publicValue.wxQrcode;
           this.shopAppId = num.publicValue.wxAppId;
           this.shopSecretKey = num.privateValue.wxAppSecret;
           this.shopTranslate = num.publicValue.description;
-          if(this.imageUrl !== '' && this.imageUrl != null){
-            this.deleteBtn = true;
-          }
+          // if(this.imageUrl !== '' && this.imageUrl != null){
+          //   this.deleteBtn = true;
+          // }
         }
       })
     },
@@ -100,7 +100,6 @@ export default {
           // publicValue: this.publicValue,
         }
       }).then(data=>{
-        console.log(data);
         if (data.errors){
           this.$message.error(data.errors[0].code);
         }else {
@@ -129,7 +128,7 @@ export default {
             this.$message.error(data.Message);
             return
           }
-          this.imageUrl = data.Data.wxQrCode;
+          // this.imageUrl = data.Data.wxQrCode;
           this.pluginUnitList();
         }
       })

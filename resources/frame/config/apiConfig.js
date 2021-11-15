@@ -49,7 +49,7 @@ module.exports = {
   thread_stick_get_v3: '/backAdmin/thread.stick.sort', // 置顶列表
   stick_sort_set_post_v3: '/backAdmin/stick.sort.set',  //  置顶排序
   plugin_uploadimage_post_v3: '/backAdmin/plugin/uploadimage',  // 微信小商店图片
-  plugin_settings_post_v3: '/backAdmin/plugin/settings.save',  // 微信小商城设置
+  plugin_settings_post_v3: '/backAdmin/plugin/settings',  // 微信小商城设置
   plugin_list_get_v3: '/backAdmin/plugin/list', // 插件列表
   panel_upload_post_v3: '/backAdmin/plugin/upload', // 上传插件包
   panel_operate_post_v3: '/backAdmin/plugin/operate', // 插件编辑
