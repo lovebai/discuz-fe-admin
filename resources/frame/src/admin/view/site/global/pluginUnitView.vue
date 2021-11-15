@@ -1,6 +1,7 @@
 <template>
   <div class="plugin-unit">
     <Card>
+      <p class="plugin-unit-file"><a href="https://developer.discuz.chat/#/plugin/start" target="_blank">插件文档</a></p>
       <el-upload
         class="upload-demo"
         action
@@ -20,7 +21,7 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="名称">
+        <el-table-column label="英文/中文">
           <template slot-scope="scope">
             <span>{{ scope.row.name_en }}</span>
           </template>
@@ -28,7 +29,7 @@
 
         <el-table-column label="状态">
           <template slot-scope="scope">
-            <p>{{ scope.row.status === 1  ? '发布' : '下线'}}</p>
+            <p>{{ scope.row.status === 1  ? '已发布' : '未发布'}}</p>
           </template>
         </el-table-column>
 

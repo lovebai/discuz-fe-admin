@@ -1504,6 +1504,9 @@
 }
 // 插件设置
 .plugin-unit {
+  &-file {
+    margin-bottom: 10PX;
+  }
   &-post {
     &__box {
       span {
