@@ -7,6 +7,7 @@ export default {
     return {
       configAddress: '',
       configName: '',
+      configPatn: 'http://service-74pdgz7k-1258344699.gz.apigw.tencentcs.com',
     }
   },
   created(){
@@ -27,15 +28,9 @@ export default {
             return
           }
           const {Data: forumData} = res;
-          this.accelerateData = forumData.qcloud.qcloudCdnSpeedDomain;
-          this.mainDomain = forumData.qcloud.qcloudCdnMainDomain
-          const num = forumData.qcloud.qcloudCdnOrigins || [];
-          let text = '';
-          num.forEach(item => {
-            text += `${item}\n`
-          });
-          this.originAddress = text;
-          this.sourceHost = forumData.qcloud.qcloudCdnServerName;
+          this.configAddress = forumData.qcloud.qcloudSsrRegion;
+          this.configName = forumData.qcloud.qcloudSsrBucket;
+          this.configPatn = forumData.qcloud.qcloudSsrAccessPath;
         }
       })
     },
@@ -54,28 +49,18 @@ export default {
         url:'settings_post_v3',
         method:'post',
         data:{
-          "data":[
+          "data": [
             {
-              "key":'qcloud_cdn_speed_domain',
-              "value":this.accelerateData,
+              "key": "qcloud_ssr_region",
+              "value": "ap-guangzhou",
               "tag": "qcloud"
             },
             {
-              "key":'qcloud_cdn_origins',
-              "value": originAddressArr,
-              "tag": "qcloud",
-            },
-            {
-              "key":'qcloud_cdn_server_name',
-              "value":this.sourceHost,
-              "tag": "qcloud",
-            },
-            {
-              "key":'qcloud_cdn_main_domain',
-              "value":this.mainDomain,
-              "tag": "qcloud",
+              "key": "qcloud_ssr_bucket",
+              "value": "discuz-ssr",
+              "tag": "qcloud"
             }
-          ]
+        ]
         }
       })
       .then(res=>{
@@ -99,33 +84,6 @@ export default {
         });
       })
     },
-    purgeCdnClick() {
-      this.purgeCdnLoading = true;
-      this.appFetch({
-        url:'purge_cdn_get_v3',
-        method:'get',
-        data:{}
-      })
-      .then(res => {
-        this.purgeCdnLoading = false;
-        if(res.errors){
-          this.$message.error(res.errors[0].code);
-        } else {
-          if (res.Code !== 0) {
-            this.$message.error(res.Message);
-            return
-          }
-          this.$message({ message: 'cdn缓存清除完毕', type: 'success' });
-        }
-      })
-      .catch(err => {
-        this.purgeCdnLoading = false;
-        this.$message({
-          showClose: true,
-          message: err
-        });
-      })
-    }
   },
   components:{
     Card,

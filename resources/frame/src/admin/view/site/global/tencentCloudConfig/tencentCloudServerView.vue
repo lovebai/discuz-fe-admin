@@ -1,6 +1,10 @@
 <template>
   <div class="config-cdn">
     <Card class="config-cdn-domain">
+      serverless配置
+    </Card>
+
+    <Card class="config-cdn-domain">
       <span class="config-cdn-domain__name"> 配置地区 </span>
       <el-input
         v-model="configAddress"
@@ -20,9 +24,9 @@
       ></el-input>
     </Card>
     
-    <Card class="config-serve"> 
-      <span class="config-serve__name"> 配置存储桶名称 </span>
-      <p></p>
+    <Card class="config-serve" v-if="configPatn"> 
+      <span class="config-serve__name"> 返回地址 </span>
+      <span><a :href="configPatn" target="_blank">{{configPatn}}</a></span>
     </Card>
 
     <Card class="register-option-btn">
