@@ -179,6 +179,9 @@
             <div v-if="contentIndexes(items.content, 'iframe')">
                <div v-html="contentIndexes(items.content, 'iframe').content"></div>
             </div>
+            <div class="cont-manage-theme__table-main__fission">
+              <p class="cont-manage-theme__table-main__fission-text" @click="fissionClick">查看分享裂变数据</p>
+            </div>
           </div>
         </ContArrange>
 

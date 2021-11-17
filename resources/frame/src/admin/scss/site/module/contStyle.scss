@@ -235,6 +235,13 @@
             margin: 10PX 14PX 0 14PX;
           }
         }
+        &__fission {
+          &-text {
+            font-size: 14PX;
+            color: #336699;
+            cursor: pointer; 
+          }
+        }
       }
     }
   }
@@ -331,6 +338,83 @@
 .cont-manage-theme__table-main__audio {
   width: 50%;
   height: 50PX;
+}
+.cont-manage-fission {
+  .cont-manage-min {
+    .card-box__main {
+      display: flex;
+    }
+  }
+  .cont-manage-statistics {
+    width: 30%;
+    &__top {
+      display: flex;
+      justify-content: space-between;
+      &-text {
+        &-title {
+          font-size: 18PX;
+          color: #303133;
+          font-weight: bold;
+          line-height: 30PX;
+          text-align: center;
+        }
+        &-num {
+          margin-top: 10PX;
+          font-size: 18PX;
+          color: #303133;
+          font-weight: bold;
+          line-height: 30PX;
+          text-align: center;
+        }
+      }
+    }
+    &__active {
+      margin-bottom: 80PX;
+    }
+    &-right {
+      padding-top: 70PX;
+    }
+  }
+  .cont-manage-access{
+    width: 300PX;
+    height: 400PX;
+    margin: 17px 15px 21PX 14PX;
+  }
+  .cont-manage-acctitle {
+    font-size: 14PX;
+    font-weight: bold;
+    color: #303133;
+  }
+  .cont-manage-fication {
+    width: 350PX;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &__station {
+      display: flex;
+      line-height: 20PX;
+      flex-wrap: nowrap;
+      margin-bottom: 20PX;
+      .station {
+        width: 20PX;
+        height: 20PX;
+        font-size: 14PX;
+        // background-color: #409eff;
+      }
+      &-text {
+        margin: 0 20PX;
+      }
+      &-left {
+        background: #409eff;
+      }
+      &-poster {
+        background:#E6E6FA;
+      }
+      &-link {
+        background:#32CD32;
+      }
+    }
+  }
 }
 
 /*

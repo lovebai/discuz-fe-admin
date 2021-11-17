@@ -555,6 +555,9 @@ export default {
     filterContent(text) {
       const emojis = webDb.getLItem('Emoji');
       return commonHelper.convertEmoticon(text, emojis);
+    },
+    fissionClick() {
+      this.$router.push({ path:'/admin/cont-manage/fission'});
     }
   },
 

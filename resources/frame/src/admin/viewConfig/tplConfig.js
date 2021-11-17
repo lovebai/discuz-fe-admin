@@ -492,6 +492,19 @@ export default {
               alias: "最新主题"
             }
           },
+          "cont-manage/fission": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/cont/contManages/contManageFissionView"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "内容管理",
+              name: "contManage",
+              attribution: "内容",
+              // alias: "最新主题"
+            }
+          },
           "latest-reply": {
             comLoad: function (resolve) {
               require([
