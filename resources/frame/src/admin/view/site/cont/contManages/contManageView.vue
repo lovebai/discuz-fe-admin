@@ -58,6 +58,12 @@
           </el-select>
         </div> -->
         <div class="cont-manage-header_condition cont-manage-header_condition-lf">
+          <span class="cont-manage-header_condition-title">分享裂变：</span>
+          <el-select v-model="searchData.fissionType" placeholder="选择内容来源" clearable>
+            <el-option v-for="item in fissionList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        </div>
+        <div class="cont-manage-header_condition cont-manage-header_condition-lf">
           <span class="cont-manage-header_condition-title">浏览次数：</span>
           <el-input size="medium" placeholder="大于" v-model="searchData.viewedTimesMin" clearable></el-input>
           <div class="spacing">-</div>
@@ -202,7 +208,9 @@
           width="250"
         >
           <template slot-scope="scope">
-            <el-radio v-model="operatingSelect" :label="scope.row.label">{{scope.row.name}}</el-radio>
+            <div :class="scope.row.label === 'fission' ? 'cont-manage-operating__fissbox' : ''">
+              <el-radio v-model="operatingSelect" :label="scope.row.label">{{scope.row.name}}</el-radio>
+            </div>
           </template>
         </el-table-column>
 
@@ -242,6 +250,71 @@
                 <el-radio :label="2">取消推送</el-radio>
               </el-radio-group>
               <span class="cont-manage__option-select-tip">如未设置，默认展示热门内容</span>
+            </div>
+            <div v-if="scope.row.name === '批量开启分享裂变'">
+              <div class="cont-manage__option-fission">
+                <span class="cont-manage__option-fission__rule">发放规则</span>
+                <el-radio-group
+                  class="cont-manage__option-select"
+                  v-model="distriBution"
+                >
+                  <el-radio :label="1">随机</el-radio>
+                  <el-radio :label="2">定额</el-radio>
+                </el-radio-group>
+              </div>
+
+              <div class="cont-manage__option-fission">
+                <span class="cont-manage__option-fission__rule">红包总金额</span>
+                <el-input
+                  class="cont-manage__option-fission__money"
+                  v-model="fissionPrice"
+                  clearable
+                ></el-input> 元
+              </div>
+
+              <p class="cont-manage__option-fistitle">*当前活动已发放0元，发完后可修改总金额继续塞钱</p>
+
+              <div class="cont-manage__option-fission">
+                <span class="cont-manage__option-fission__rule">每</span>
+                <el-input
+                  class="cont-manage__option-fission__money"
+                  v-model="fissionPeople"
+                  clearable
+                ></el-input> 人阅读帖子，可瓜分一次红包金额
+              </div>
+
+              <div class="cont-manage__option-fission">
+                <span class="cont-manage__option-fission__rule">一位分享用户最多瓜分</span>
+                <el-input
+                  class="cont-manage__option-fission__money"
+                  v-model="fissionMost"
+                  clearable
+                ></el-input> 次
+              </div>
+
+              <div class="cont-manage__option-fission">
+                <span class="cont-manage__option-fission__rule">单次瓜分金额在</span>
+                <el-input
+                  class="cont-manage__option-fission__money"
+                  v-model="fissionSingleLeft"
+                  clearable
+                ></el-input>
+                元和
+                <el-input
+                  class="cont-manage__option-fission__single"
+                  v-model="fissionSingleRight"
+                  clearable
+                ></el-input> 元之间
+              </div>
+
+              <div class="cont-manage__option-fission">
+                <span class="cont-manage__option-fission__rule">活动结束时间</span>
+                <el-date-picker
+                  v-model="endOfActivity"
+                  type="date"
+                  placeholder="选择日期">
+                </el-date-picker>
+              </div>
             </div>
           </template>
         </el-table-column>

@@ -4,7 +4,11 @@ import CardRow from '../../../../view/site/common/card/cardRow';
 export default {
   data:function () {
     return {
-      
+      fissionOpen: '',
+      preventMechanism: '',
+      carveLeft: '',
+      carveRight: '',
+      userSearch: '',
     }
   },
 

@@ -34,6 +34,10 @@ export default {
         {
           name: '批量推送到付费首页',
           label: 'site'
+        },
+        {
+          name: '批量开启分享裂变',
+          label: 'fission'
         }
       ],  //操作列表
       operatingSelect: '',   //操作单选选择
@@ -49,6 +53,20 @@ export default {
           label: '所有分类',
           value: 0
         }
+      ],
+      fissionList: [
+        {
+          name: '全部',
+          id: 0
+        },
+        {
+          name: '已开启',
+          id: 1
+        },
+        {
+          name: '未开启',
+          id: 2
+        },
       ],
       moveCateList: [], // 批量移动的分类列表
       categoryId: '',        //选择站点选中
@@ -101,6 +119,7 @@ export default {
         topicTypeId: '',         //主题类型
         contentSourceId: '',      // 内容来源
         // categoryId: 0,            //主题分类ID
+        fissionType: '',
         categoryId: [0],          //主题分类ID
         pageSelect: '10',         //每页显示数
         themeAuthor: '',          //主题作者
@@ -152,7 +171,13 @@ export default {
         },
       ],
       subLoading:false,     //提交按钮状态
-
+      distriBution: '',     // 发放规则
+      fissionPrice: '',     // 红包总金额
+      fissionPeople: '',    // 瓜分红包阅读帖子人数
+      fissionMost: '',      // 一位最多瓜分次数
+      fissionSingleLeft: '',  // 单次瓜分金额
+      fissionSingleRight: '',
+      endOfActivity: '',      // 活动结束时间
     }
   },
   computed: mapState({

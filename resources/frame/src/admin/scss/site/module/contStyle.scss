@@ -264,6 +264,36 @@
       margin-left: 26PX;
       color: #909399;
     }
+    .cont-manage__option-fission {
+      margin-bottom: 20PX;
+      span {
+        display: inline-block;
+      }
+      &__rule {
+        margin-right: 20PX;
+      }
+      &__money {
+        width: 100PX;
+        margin-right: 20PX;
+        .el-input__inner {
+          width: 100PX;
+          height: 36PX;
+        }
+      }
+      &__single {
+        width: 100PX;
+        margin: 0 20PX;
+        .el-input__inner {
+          width: 100PX;
+          height: 36PX;
+        }
+      }
+    }
+    .cont-manage__option-fistitle {
+      padding: 0;
+      margin-bottom: 20PX;
+      color: #f00;
+    }
     .card-box__main {
       display: flex;
     }
@@ -291,6 +321,10 @@
         font-weight:400;
         line-height: 40PX;
       }    
+    }
+    .cont-manage-operating__fissbox {
+      padding: 10PX 0;
+      height: 395PX;
     }
   }
 }

@@ -1426,3 +1426,104 @@
 .icon-shangdian {
   color: rgb(247, 181, 0);
 }
+.fission-box {
+  &-open {
+    line-height: 30PX;
+    span {
+      display: inline-block;
+    }
+    &__title {
+      width: 100PX;
+      margin-right: 20PX;
+    }
+    &__text {
+      margin-left: 30PX;
+    }
+  }
+  &-bottom {
+    margin: 20PX 0 20PX 0;
+  }
+  &-carve {
+    display: flex;
+    line-height: 36PX;
+    span {
+      display: inline-block;
+    }
+    &__input {
+      margin: 0 20PX;
+      .el-input {
+        width: 36PX;
+      }
+      .el-input__inner {
+        width: 36PX;
+        height: 36PX;
+        padding: 0 5PX;
+      }
+    }
+    &__text {
+      color: #909399;
+    }
+  }
+  &-black {
+    span {
+      display: inline-block;
+    }
+    &__title {
+      color: #303133;
+      margin-right: 20PX;
+    }
+    &__text {
+      color: #909399;
+    }
+  }
+  &-user {
+    margin-top: 20PX;
+    display: flex;
+    &__search {
+      position: relative;
+      .el-input {
+        width: 400PX;
+      }
+      .el-input__inner {
+        width: 400PX;
+        height: 36PX;
+        padding: 0 5PX;
+      }
+      &-box {
+        position: absolute;
+        top: 10PX;
+        left: 140PX;
+        color: #909399;
+      }
+      &-addto {
+        width: 50PX;
+        height: 34PX;
+        line-height: 36PX;
+        text-align: center;
+        margin-left: 20PX;
+        border: 1PX solid #D8DCE6;
+        border-radius: 4PX;
+      }
+    }
+  }
+  &-list {
+    width: 472PX;
+    min-height: 200PX;
+    margin-top: 20PX;
+    background:#F5F5F5;
+    padding: 10PX 10PX;
+    &__user {
+      display: flex;
+      justify-content: space-between;
+      line-height: 26PX;
+      font-size: 14PX;
+      font-weight: bold;
+      span {
+        display: inline-block;
+      }
+      &-delete {
+        margin-right: 100PX;
+      }
+    }
+  }
+}
