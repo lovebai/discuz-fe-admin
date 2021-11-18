@@ -29,22 +29,14 @@ export default {
           }
           const {Data: forumData} = res;
           this.configAddress = forumData.qcloud.qcloudSsrRegion;
-          this.configName = forumData.qcloud.qcloudSsrBucket;
+          if (forumData.qcloud.qcloudSsrBucket) {
+            this.configName = forumData.qcloud.qcloudSsrBucket.replace('discuz-ssr-', '');
+          }
           this.configPatn = forumData.qcloud.qcloudSsrAccessPath;
         }
       })
     },
     submitClick(){
-      this.subLoading = true;
-      let originAddressArr = [];
-      if (this.originAddress) {
-        let lines = this.originAddress.split(/\n/);
-        for (var j = 0; j < lines.length; j++) {
-          if (lines[j].trim() !== '') {
-            originAddressArr.push(lines[j].trim());
-          }
-        }
-      }
       this.appFetch({
         url:'settings_post_v3',
         method:'post',
@@ -52,12 +44,12 @@ export default {
           "data": [
             {
               "key": "qcloud_ssr_region",
-              "value": "ap-guangzhou",
+              "value": this.configAddress,
               "tag": "qcloud"
             },
             {
               "key": "qcloud_ssr_bucket",
-              "value": "discuz-ssr",
+              "value": `discuz-ssr-${this.configName}`,
               "tag": "qcloud"
             }
         ]

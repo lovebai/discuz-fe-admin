@@ -1,5 +1,5 @@
 <template>
-  <div class="config-cdn">
+  <div class="config-serverless">
     <Card class="config-cdn-domain">
       serverless配置
     </Card>
@@ -16,10 +16,12 @@
 
     <Card class="config-cdn-domain"> 
       <span class="config-cdn-domain__name"> 配置存储桶名称 </span>
+      discuz-ssr- 
       <el-input
         v-model="configName"
+        placeholder="请填写appid"
         class="elinput"
-        style="height: 36px; width: 400px"
+        style="height: 36px; width: 200px"
         size="small"
       ></el-input>
     </Card>
