@@ -68,8 +68,14 @@ export default {
           status: '',
           icon: 'icon-jiasuxhdpi',
           setFlag: true
+        },{
+          name: 'SERVERLESS',
+          type: 'qcloud_server',
+          description: '请先配置云API，开通腾讯云的CDN服务，并确保有对应资源包，<a href="https://discuz.com/docs/%E7%AB%99%E7%82%B9%E6%8E%A5%E5%85%A5%20CDN.html" target="_blank">查看文档</a>',
+          status: '',
+          icon: 'icon-jiasuxhdpi',
+          setFlag: true
         }
-
       ]
     }
   },
@@ -93,6 +99,9 @@ export default {
           break;
         case 'qcloud_cdn':
           this.$router.push({ path: '/admin/tencent-cloud-config/cdn', query: { type: type } });
+          break;
+        case 'qcloud_server':
+          this.$router.push({ path: '/admin/tencent-cloud-config/server', query: { type: type } });
           break;
         case 'qcloud_captcha':
           this.$router.push({ path: '/admin/tencent-cloud-config/code', query: { type: type } })

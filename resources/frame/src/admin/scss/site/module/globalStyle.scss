@@ -1272,6 +1272,22 @@
     }
   }
 }
+.config-serverless {
+  .elinput {
+    margin: 0;
+  }
+}
+.config-serve {
+  span {
+    display: inline-block;
+  }
+  &__name {
+    width: 120PX;
+    margin-right: 20PX;
+    font-size: 14PX;
+    color: #303133;
+  }
+}
 .icon-jiasuxhdpi {
   color: #1296db;
 }
