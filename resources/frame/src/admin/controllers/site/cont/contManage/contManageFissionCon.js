@@ -25,6 +25,56 @@ export default {
           num: '30%',
           name: 'cont-manage-fication__station-link station'
         }
+      ],
+      tableData: [
+        {
+          type: 1,
+          mode: '站内阅读',
+          num: '30%',
+          name: 'cont-manage-fication__station-left station'
+        },
+        {
+          type: 2,
+          mode: '海报阅读',
+          num: '30%',
+          name: 'cont-manage-fication__station-poster station'
+        },
+        {
+          type: 3,
+          mode: '链接阅读',
+          num: '30%',
+          name: 'cont-manage-fication__station-link station'
+        },
+        {
+          type: 1,
+          mode: '站内阅读',
+          num: '30%',
+          name: 'cont-manage-fication__station-left station'
+        },
+        {
+          type: 2,
+          mode: '海报阅读',
+          num: '30%',
+          name: 'cont-manage-fication__station-poster station'
+        },
+        {
+          type: 3,
+          mode: '链接阅读',
+          num: '30%',
+          name: 'cont-manage-fication__station-link station'
+        },
+        {
+          type: 1,
+          mode: '站内阅读',
+          num: '30%',
+          name: 'cont-manage-fication__station-left station'
+        },
+        {
+          type: 2,
+          mode: '海报阅读',
+          num: '30%',
+          name: 'cont-manage-fication__station-poster station'
+        }
       ]
     }
   },

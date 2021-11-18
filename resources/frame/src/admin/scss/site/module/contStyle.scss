@@ -415,6 +415,23 @@
       }
     }
   }
+  .cont-manage-analysis {
+    .el-table {
+      // border: 0;
+      // i {
+      //   display: none;
+      // }
+    }
+    tr {
+      th {
+        background: #fff;
+        border: 0;
+      }
+      td {
+        border: 0;
+      }
+    }
+  }
 }
 
 /*
