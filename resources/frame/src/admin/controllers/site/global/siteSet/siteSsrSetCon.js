@@ -10,11 +10,33 @@ export default {
     return {
       activeIndex: '2',
       ssrText: '',
+      configPath: 'http://service-74pdgz7k-1258344699.gz.apigw.tencentcs.com'
     }
   },
-  // created(){
-  // },
+  created(){
+    this.tencentCloudList();
+  },
   methods:{
+    tencentCloudList(){
+      this.appFetch({
+        url:'forum_get_v3',
+        method:'get',
+        data:{}
+      }).then(res=>{
+        if (res.errors){
+          this.$message.error(res.errors[0].code);
+        }else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
+          const {Data: forumData} = res;
+          if (forumData.qcloud.qcloudSsrAccessPath) {
+            this.configPath = forumData.qcloud.qcloudSsrAccessPath;
+          }
+        }
+      })
+    },
     handleSelect() {
       this.$router.push({ path: '/admin/site-seo-set'});
     },
@@ -23,8 +45,8 @@ export default {
         case 'qcloud_close':
           this.$router.push({ path: '/admin/tencent-cloud-config/cloud'});
           break;
-        case 'qcloud_close':
-          this.$router.push({ path: '/admin/tencent-cloud-config/cloud', query: { type: type } });
+        case 'qcloud_server':
+          this.$router.push({ path: '/admin/tencent-cloud-config/server'});
           break;
         default:
       }

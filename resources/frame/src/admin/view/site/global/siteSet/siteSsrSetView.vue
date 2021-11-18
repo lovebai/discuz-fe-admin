@@ -49,7 +49,7 @@
             &nbsp;&nbsp; ...原始配置 <br>
               <br>
               &nbsp;&nbsp;location / { <br>
-                  &nbsp;&nbsp;&nbsp;&nbsp;proxy_pass http://service-74pdgz7k-1258344699.gz.apigw.tencentcs.com;  //代理需要变化 <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;proxy_pass {{configPath}};  //代理需要变化 <br>
                   &nbsp;&nbsp;&nbsp;&nbsp;proxy_connect_timeout        10; <br>
                   &nbsp;&nbsp;&nbsp;&nbsp;proxy_send_timeout           15; <br>
                   &nbsp;&nbsp;&nbsp;&nbsp;proxy_read_timeout           20; <br>
