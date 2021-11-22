@@ -55,7 +55,7 @@ module.exports = {
   plugin_setting_v3: '/plugin/shop/api/wxshop/setting',  // 商品二维码上传
 
   purge_cdn_get_v3: '/backAdmin/purge.cdn.cache',
-
+  Fission_black_get_v3: '/backAdmin/shareFission/black.list', // 分享裂变用户黑名单
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
   categories_create_v3: '/backAdmin/categories.create', // 创建内容分类(批量)

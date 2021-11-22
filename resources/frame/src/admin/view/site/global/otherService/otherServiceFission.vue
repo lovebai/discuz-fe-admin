@@ -41,24 +41,42 @@
       </div>
       <div class="fission-box-user">
         <div class="fission-box-user__search">
-          <el-input v-model="userSearch"></el-input>
-          <div class="fission-box-user__search-box">
+          <el-input v-model="userSearch" @focus="searchInput" @blur="loseInput"></el-input>
+          <div class="fission-box-user__search-box" v-if="searchFocusing">
             <span>
               <i class="el-icon-search"></i>
             </span>
             <span>搜索用户昵称</span>
           </div>
         </div>
-        <div class="fission-box-user__search-addto">
+        <el-button class="fission-box-user__search-addto" type="primary" size="medium" @click="userSearchChange">搜索</el-button>
+        <!-- <div class="fission-box-user__search-addto" @click="userSearchChange">
+           搜索
+        </div> -->
+        <el-button type="primary" size="medium" @click="addtoChange">添加</el-button>
+        <!-- <div class="fission-box-user__search-addto" @click="addtoChange">
           添加
-        </div>
+        </div> -->
+      </div>
+      <div class="fission-box-search" v-if="userList.length > 0">
+        <el-checkbox-group v-model="checkList">
+          <p class="fission-box-search__title" v-for="(item, index) in userList" :key="index">
+            <el-checkbox :label="item">{{item.nickname}}</el-checkbox>
+          </p>
+        </el-checkbox-group>
+        <Page v-if="total > 10" :total="total" :pageSize="pageLimit" :currentPage="pageNum" @current-change="handleCurrentChange" />
       </div>
       <div class="fission-box-list">
-        <li class="fission-box-list__user">
-          <span>名字</span>
-          <span class="fission-box-list__user-delete"><i class="el-icon-delete"></i></span>
+        <li class="fission-box-list__user" v-for="(items, indexs) in userSearchList" :key="indexs">
+          <span>{{items.nickname}}</span>
+          <span class="fission-box-list__user-delete" @click="userSearchDelete(indexs)"><i class="el-icon-delete"></i></span>
         </li>
+         <Page v-if="blackTotal > 10" :total="blackTotal" :pageSize="blackLimit" :currentPage="blackNum" @current-change="blackListChange" />
       </div>
+    </Card>
+
+    <Card>
+      <el-button type="primary" size="medium" @click="importDataBtn">提交</el-button>
     </Card>
   </div>
 </template>
