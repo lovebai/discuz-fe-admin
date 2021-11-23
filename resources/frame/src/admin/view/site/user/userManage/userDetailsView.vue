@@ -206,6 +206,15 @@
         </el-upload>
       </div>
     </Card>
+    
+    <Card header="邀请注册">
+      <div class="invite-users">
+        <p class="invite-users-subscript">1</p>
+        <p class="invite-users-head"><img src=""></p>
+        <p class="invite-users-name">名字</p>
+        <p class="invite-users-time">时间</p>
+      </div>
+    </Card>
 
     <Card class="footer-btn">
       <el-button type="primary" size="medium" @click="submission"

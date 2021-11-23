@@ -200,6 +200,31 @@
     align-items: center;
     background-color: rgba(41, 36, 33, 0.5);
   }
+  .invite-users {
+    display: flex;
+    &-subscript {
+      line-height: 36PX;
+      margin-right: 20PX;
+    }
+    &-head {
+      width: 36PX;
+      height: 36PX;
+      border-radius: 50%;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+    &-name {
+      width: 200PX;
+      margin: 0 30PX;
+      line-height: 36PX;
+    }
+    &-time {
+      line-height: 36PX;
+    }
+  }
 }
 
 
@@ -371,6 +396,28 @@
       left: 45%;
       top: 0;
       width: 340PX;
+    }
+  }
+  .invita-box {
+    .card-box__main {
+      display: flex;
+    }
+    .invita-box-text {
+      width: 45%;
+      .card-row-lf{
+        width: 100%;
+        height: 40PX;
+        line-height: 40PX;
+      }
+      .card-row-rf{
+        display: none;
+      }
+    }
+    .el-input__inner {
+      width: 100PX;
+    }
+    .el-select {
+      margin-right: 20PX;
     }
   }
   .footer-btn__inner{

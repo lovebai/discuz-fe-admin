@@ -476,6 +476,38 @@
             >
           </CardRow>
         </Card>
+        <Card class="invita-box">
+          <CardRow class="invita-box-text">
+            <span>访问有效期</span>
+          </CardRow>
+          <div class="invita-box-right">
+            <el-select v-model="invitaValue" placeholder="请选择">
+              <el-option
+                v-for="item in invitaOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            天
+          </div>
+        </Card>
+        <Card class="invita-box">
+          <CardRow class="invita-box-text">
+            <span>访问有限天内发布内容</span>
+          </CardRow>
+          <div class="invita-box-right">
+            <el-select v-model="invitaValue" placeholder="请选择">
+              <el-option
+                v-for="item in invitaOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            天
+          </div>
+        </Card>
       </div>
       <div class="user-operate">
         <div class="user-operate__header">

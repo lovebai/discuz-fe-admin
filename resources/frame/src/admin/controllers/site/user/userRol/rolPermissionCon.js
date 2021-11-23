@@ -100,7 +100,15 @@
        groupFeeList: [],
        groupDataName: '',
        groupLevel: '',
-     };
+       invitaOptions: [{
+          value: 30,
+          label: '30'
+        }, {
+          value: 3,
+          label: '3'
+        }],
+        invitaValue: ''
+      };
    },
    watch: {
      checked(val) {
