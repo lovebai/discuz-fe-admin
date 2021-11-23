@@ -80,7 +80,7 @@ export default {
         },{
           name: 'SSR存储',
           type: 'qcloud_server',
-          description: '请先配置云API，开通腾讯云的CDN服务，并确保有对应资源包，<a href="https://discuz.com/docs/%E7%AB%99%E7%82%B9%E6%8E%A5%E5%85%A5%20CDN.html" target="_blank">查看文档</a>',
+          description: 'severless配置',
           status: '',
           icon: 'icon-server',
           setFlag: true,
