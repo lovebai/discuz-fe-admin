@@ -1452,6 +1452,7 @@
           }
         }
         .el-dialog {
+          width: 55%;
           height: 500PX;
           position: relative;
           .el-dialog__footer {
@@ -1462,7 +1463,9 @@
           }
         }
         .el-dialog__body {
-          padding-top: 0;
+          padding: 0 20PX;
+          max-height: 70%;
+          overflow: auto;
         }
       }
     }
@@ -1475,18 +1478,60 @@
 }
 .plugin-unit-post__box-upload {
   &-name {
+    display: flex;
+    padding-bottom: 20PX;
     &__left {
-      display: inline-block;
+      width: 100PX;
       margin: 0 20PX 0 0;
       color: #303133;
-      font-size: 16PX;
+      font-size: 14PX;
+      line-height: 36PX;
+    }
+    &__textarea {
+      width: 100PX;
+      margin: 0 20PX 0 0;
+      color: #303133;
+      font-size: 14PX;
     }
     &__right {
+      width: 80%;
+      line-height: 36PX;
+      &-import {
+        width: 100%;
+        .content-import-text {
+          padding-top: 0;
+        }
+        .card-row-box .card-row-rf  {
+          padding: 0;
+        }
+        .content-import-search {
+          width: 100%;
+          margin-right: 0;
+          .el-input__inner {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .elinput{
+      margin: 0;
+      min-width: 200PX;
+      height: 36PX;
+      width: 100%;
       .el-input__inner {
-        width: 400PX;
         height: 36PX;
       } 
     }
+    .el-textarea {
+      min-width: 200PX;
+      width: 100%;
+      .el-textarea__inner {
+        height: 150PX;
+      }
+    }
+    .el-input__inner {
+      height: 36PX;
+    } 
   }
   &-file {
     display: flex;
