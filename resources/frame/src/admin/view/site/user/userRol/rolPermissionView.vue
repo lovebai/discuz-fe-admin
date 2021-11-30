@@ -497,7 +497,7 @@
             <span>访问有限天内发布内容</span>
           </CardRow>
           <div class="invita-box-right">
-            <el-select v-model="invitaValue" placeholder="请选择">
+            <el-select v-model="limitedDaysValue" placeholder="请选择">
               <el-option
                 v-for="item in invitaOptions"
                 :key="item.value"

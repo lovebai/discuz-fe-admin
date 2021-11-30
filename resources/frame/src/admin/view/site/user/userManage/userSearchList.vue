@@ -61,7 +61,7 @@
             </el-table-column>
             
             <el-table-column
-              prop="threadCount"
+              prop="inviteUsersNumber"
               label="邀请注册">
             </el-table-column>
 
