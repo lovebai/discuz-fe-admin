@@ -913,7 +913,9 @@
     line-height: 28PX;
   }
 }
-
+.icon-server {
+  color: #1296db;
+}
 /**
   ip网段设置
 */
@@ -1270,6 +1272,22 @@
       text-align: left;
       color: #909399;
     }
+  }
+}
+.config-serverless {
+  .elinput {
+    margin: 0;
+  }
+}
+.config-serve {
+  span {
+    display: inline-block;
+  }
+  &__name {
+    width: 120PX;
+    margin-right: 20PX;
+    font-size: 14PX;
+    color: #303133;
   }
 }
 .icon-jiasuxhdpi {

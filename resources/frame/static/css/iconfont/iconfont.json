@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "25829702",
+      "name": "server",
+      "font_class": "server1-copy",
+      "unicode": "eac3",
+      "unicode_decimal": 60099
+    },
+    {
+      "icon_id": "1194671",
+      "name": "server",
+      "font_class": "server",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
       "icon_id": "25477641",
       "name": "插件",
       "font_class": "chajian-copy",
