@@ -601,7 +601,18 @@
        this.keyValue = Math.random();
      },
      changeChecked(value, obj) {
-       if (value) return;
+       if (value) {
+          // this.$message({
+          //   showClose: true,
+          //   message: "编辑权限包含查看权限",
+          //   type: "success"
+          // });
+         this.open();
+         if (this.checked.indexOf('switch.thread.viewPosts') === -1) {
+          this.checked.push('switch.thread.viewPosts');
+         }
+        return;
+       }
        const checkedData = this.checked;
        const selectedPermission = this.selectList[obj].map(item => {
          return item[0] ? `category${item[item.length - 1]}.${obj}` : obj;
@@ -712,7 +723,6 @@
        }
      },
      operatePost() {
-       console.log(this.plugInPermissions);
       let params = [];
       this.plugInPermissions.forEach(item => {
         params.push({
@@ -736,7 +746,18 @@
           }
         })
       } 
-     }
+     },
+     open() {
+      this.$alert('编辑权限包含查看权限', '提示', {
+        confirmButtonText: '确定',
+        lockScroll: false,
+        callback: action => {
+          if (this.checked.indexOf('switch.thread.viewPosts') === -1) {
+            this.checked.push('switch.thread.viewPosts');
+          }
+        }
+      });
+    }
    },
    created() {
      this.groupType = this.$route.query.type || 'normal';
