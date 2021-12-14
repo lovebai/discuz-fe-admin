@@ -100,7 +100,16 @@
        groupFeeList: [],
        groupDataName: '',
        groupLevel: '',
-     };
+       invitaOptions: [{
+          value: 30,
+          label: '30'
+        }, {
+          value: 3,
+          label: '3'
+        }],
+        invitaValue: '',
+        limitedDaysValue: ''
+      };
    },
    watch: {
      checked(val) {
@@ -213,6 +222,8 @@
        this.groupDays = data.days;
        this.groupDescription = data.description;
        this.groupNotice = data.notice;
+       this.invitaValue = data.timeRange;
+       this.limitedDaysValue = data.contentRange;
        const permissions = data.permission || [];
        this.checked = [];
        permissions.forEach(item => {
@@ -337,9 +348,12 @@
          if (this.groupType === 'isPaid') {
           this.submitClick();
         }
-       } else {
-         this.submitClick();
-       }
+      } else {
+        this.submitClick();
+        if (Number(this.groupId) === 8) {
+          this.freeExperienceGroup();
+        }
+      }
      },
      groupIncrease() {
       this.appFetch({
@@ -746,7 +760,33 @@
           }
         })
       } 
-     },
+    },
+    freeExperienceGroup(){
+      this.appFetch({
+       url:'groups_batchupdate_post_v3',
+       method:'post',
+       data:{
+         data: [
+           {
+             "name": "免费体验",
+             "id": 8,
+             "timeRange": this.invitaValue,
+             "contentRange": this.limitedDaysValue,
+           }
+         ]
+       }
+     }).then(res=>{
+       if (res.errors){
+         this.$message.error(res.errors[0].code);
+       }else {
+         if (res.Code !== 0) {
+           this.$message.error(res.Message);
+           return
+         }
+       }
+     }).catch(err=>{
+     })
+   },
      open() {
       this.$alert('编辑权限包含查看权限', '提示', {
         confirmButtonText: '确定',
