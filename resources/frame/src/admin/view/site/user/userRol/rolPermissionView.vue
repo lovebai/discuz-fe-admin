@@ -476,7 +476,7 @@
             >
           </CardRow>
         </Card>
-        <Card class="invita-box">
+        <Card class="invita-box" v-if="groupId === 8">
           <CardRow class="invita-box-text">
             <span>访问有效期</span>
           </CardRow>
@@ -492,7 +492,7 @@
             天
           </div>
         </Card>
-        <Card class="invita-box">
+        <Card class="invita-box" v-if="groupId === 8">
           <CardRow class="invita-box-text">
             <span>访问有限天内发布内容</span>
           </CardRow>
