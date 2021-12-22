@@ -58,14 +58,29 @@ export default {
       exends: [],
       groupList: [],
       userGroupId: '',
+      userInviteList: [],
+      pageLimit: 10,
+      pageNum: 1,
+      total: 0,
     };
   },
-
+  watch: {
+    $route: {
+      handler() {
+        this.query = this.$route.query;
+        this.getUserDetail();
+        this.getUserList();
+        this.expandInformation();
+        this.usersInviteList();
+      }
+    }
+  },
   created() {
     this.query = this.$route.query;
     this.getUserDetail();
     this.getUserList();
     this.expandInformation();
+    this.usersInviteList();
   },
 
   methods: {
@@ -114,6 +129,27 @@ export default {
       } catch (err) {}
     },
 
+    // 推广邀请用户列表
+    usersInviteList() {
+      this.appFetch({
+        url: 'users_invite_get_v3',
+        method: 'get',
+        data: {
+          userId: this.query.id,
+        },
+      })
+      .then(res => {
+        if (res.errors) {
+          this.$message.error(res.errors[0].code);
+        } else {
+          if (res.Code !== 0) {
+            this.$message.error(res.Message);
+            return
+          }
+          this.userInviteList = res.Data.pageData;
+        }
+      })
+    },
     // 扩展信息查询
     expandInformation() {
       this.appFetch({
@@ -411,8 +447,10 @@ export default {
         this.userRole = this.userRole;
       });
     },
+    jumpUserDetails(userId) {
+      this.$router.push({path:'/admin/user-details', query: {id: userId}});
+    }
   },
-
   components: {
     Card,
     CardRow

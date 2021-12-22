@@ -564,7 +564,83 @@
     margin-top: 30PX;
   }
 }
+.site-seo {
+  .el-menu-demo {
+    .el-menu-item {
+      padding: 0;
+      margin-right: 20PX;
+    }
+  }
+}
+.site-seo-explain {
+  &__box {
+    width: 100%;
+    background: #F0F8FF;
+    padding: 10PX;
+    &-introduce {
+      font-size: 14PX;
+      line-height: 30PX;
+    }
+    &-btn {
+      // margin-top: 20PX;
+      line-height: 40PX;
+      span {
+        display: inline-block;
+        margin-right: 20PX;
+        color: #336699;
+        cursor: pointer;
+      }
+    }
+  }
 
+}
+.site-seo-address {
+  &__title {
+    display: flex;
+    width: 100%;
+    border-bottom: solid #e6e6e6 1PX;
+    p {
+      width: 120PX;
+      height: 40PX;
+      font-size: 16PX;
+      line-height: 40PX;
+      text-align: center;
+      border: solid #e6e6e6 1PX;
+      border-bottom: 0;
+      cursor: pointer;
+    }
+    &-option {
+      color: #336699;
+    }
+    .title-seat {
+      border-left: 0;
+    }
+  }
+  &__textarea {
+    border:solid #e6e6e6 1PX;
+    border-top: 0;
+    // .el-textarea {
+    //   height: 400px;
+    // }
+    .el-textarea__inner {
+      // height: 100%;
+      border: 0;
+    }
+  }
+  &__ssrtext {
+    padding: 10PX 6PX;
+    line-height: 20PX;
+    border: solid #e6e6e6 1PX;
+  }
+  &__nginx {
+    font-size: 14PX;
+    font-weight: bold;
+  }
+  &__describe {
+    color: #303133;
+    margin: 20PX 0;
+  }
+}
 /**
   全局 - 操作日志
  */
@@ -837,7 +913,9 @@
     line-height: 28PX;
   }
 }
-
+.icon-server {
+  color: #1296db;
+}
 /**
   ip网段设置
 */
@@ -1194,6 +1272,22 @@
       text-align: left;
       color: #909399;
     }
+  }
+}
+.config-serverless {
+  .elinput {
+    margin: 0;
+  }
+}
+.config-serve {
+  span {
+    display: inline-block;
+  }
+  &__name {
+    width: 120PX;
+    margin-right: 20PX;
+    font-size: 14PX;
+    color: #303133;
   }
 }
 .icon-jiasuxhdpi {

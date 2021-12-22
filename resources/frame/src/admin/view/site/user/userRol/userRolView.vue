@@ -245,7 +245,8 @@
                   scope.row.id !== 6 &&
                   scope.row.id !== 7 &&
                   scope.row.id !== 10 &&
-                  scope.row.default !== 1
+                  scope.row.default !== 1 &&
+                  scope.row.id !== 8
                 "
                 type="text"
                 >删除</el-button
