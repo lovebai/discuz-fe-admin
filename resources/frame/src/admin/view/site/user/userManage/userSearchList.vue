@@ -59,6 +59,11 @@
               </template>
 
             </el-table-column>
+            
+            <el-table-column
+              prop="inviteUsersNumber"
+              label="邀请注册">
+            </el-table-column>
 
             <el-table-column
               label="">

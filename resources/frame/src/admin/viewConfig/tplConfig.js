@@ -86,6 +86,28 @@ export default {
               alias: "首页数据设置"
             }
           },
+          "site-seo-set": {
+            comLoad: function (resolve) {
+              require(["../view/site/global/siteSet/siteSeoSetView"], resolve);
+            },
+            metaInfo: {
+              title: "站点设置",
+              name: "siteSet",
+              attribution: "全局",
+              alias: "SEO设置"
+            }
+          },
+          "site-ssr-set": {
+            comLoad: function (resolve) {
+              require(["../view/site/global/siteSet/siteSsrSetView"], resolve);
+            },
+            metaInfo: {
+              title: "站点设置",
+              name: "siteSet",
+              attribution: "全局",
+              alias: "SEO设置"
+            }
+          },
           // "operation-log": {
           //   comLoad: function (resolve) {
           //     require([
@@ -360,6 +382,18 @@ export default {
             comLoad: function (resolve) {
               require([
                 "../view/site/global/tencentCloudConfig/tencentCloudConfigCdnView"
+              ], resolve);
+            },
+            metaInfo: {
+              title: "腾讯云设置",
+              name: "tencentCloudSet",
+              attribution: "全局"
+            }
+          },
+          "tencent-cloud-config/server": {
+            comLoad: function (resolve) {
+              require([
+                "../view/site/global/tencentCloudConfig/tencentCloudServerView"
               ], resolve);
             },
             metaInfo: {
