@@ -641,6 +641,27 @@
     margin: 20PX 0;
   }
 }
+.ssr-explain {
+  &-title {
+    font-size: 14PX;
+    // font-weight: bold;
+    // margin-bottom: 10PX;
+    line-height: 40PX;
+  }
+  &-text {
+    width: 100%;
+    background: #F0F8FF;
+    padding: 10PX;
+    line-height: 30PX;
+  }
+  &-img {
+    width: 70%;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
 /**
   全局 - 操作日志
  */

@@ -14,6 +14,7 @@
       active-text-color="#336699">
       <el-menu-item index="1">站点地图</el-menu-item>
       <el-menu-item index="2">静态输出(SSR)</el-menu-item>
+      <el-menu-item index="3">使用说明</el-menu-item>
     </el-menu>
 
     <Card class="site-seo-explain">
@@ -85,7 +86,7 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;try_files $dst $dst2 $dst3; <br>
               &nbsp;&nbsp;} <br>
               &nbsp;&nbsp;location @proxypass { <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;proxy_pass http://service-74pdgz7k-1258344699.gz.apigw.tencentcs.com; //代理需要变化 <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;proxy_pass {{configPath}}; //代理需要变化 <br>
                 &nbsp;&nbsp;&nbsp;&nbsp;proxy_connect_timeout        10; <br>
                 &nbsp;&nbsp;&nbsp;&nbsp;proxy_send_timeout           15; <br>
                 &nbsp;&nbsp;&nbsp;&nbsp;proxy_read_timeout           20; <br>

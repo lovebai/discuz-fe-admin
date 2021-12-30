@@ -37,8 +37,12 @@ export default {
         this.mapText += item.loc.replace('https://discuz.chat', `${window.location.protocol}//${window.location.host}`) + '\n';
       })
     },
-    handleSelect(key, keyPath) {
-      this.$router.push({ path: '/admin/site-ssr-set'});
+    handleSelect(e) {
+      if (e === '3') {
+        this.$router.push({ path: '/admin/site-ssr-explain'});
+      } else if (e === '2') {
+        this.$router.push({ path: '/admin/site-ssr-set'});
+      }
     },
     optionBtn() {
       let input = '';
