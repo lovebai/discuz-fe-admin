@@ -108,6 +108,17 @@ export default {
               alias: "SEO设置"
             }
           },
+          "site-ssr-explain": {
+            comLoad: function (resolve) {
+              require(["../view/site/global/siteSet/siteSsrExplainView"], resolve);
+            },
+            metaInfo: {
+              title: "站点设置",
+              name: "siteSet",
+              attribution: "全局",
+              alias: "SEO设置"
+            }
+          },
           // "operation-log": {
           //   comLoad: function (resolve) {
           //     require([

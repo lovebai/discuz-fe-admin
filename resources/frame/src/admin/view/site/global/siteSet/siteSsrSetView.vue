@@ -14,6 +14,7 @@
       active-text-color="#336699">
       <el-menu-item index="1">站点地图</el-menu-item>
       <el-menu-item index="2">静态输出(SSR)</el-menu-item>
+      <el-menu-item index="3">使用说明</el-menu-item>
     </el-menu>
 
     <Card class="site-seo-explain">
