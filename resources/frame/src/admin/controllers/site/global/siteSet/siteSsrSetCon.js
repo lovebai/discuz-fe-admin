@@ -37,8 +37,12 @@ export default {
         }
       })
     },
-    handleSelect() {
-      this.$router.push({ path: '/admin/site-seo-set'});
+    handleSelect(e) {
+      if (e === '1') {
+        this.$router.push({ path: '/admin/site-seo-set'});
+      } else if (e === '3') {
+        this.$router.push({ path: '/admin/site-ssr-explain'});
+      }
     },
     flipClick(type) {
       switch(type) {
