@@ -7,7 +7,7 @@ export default {
     return {
       configAddress: '',
       configName: '',
-      configPatn: 'http://service-74pdgz7k-1258344699.gz.apigw.tencentcs.com',
+      configPatn: '',
     }
   },
   created(){
