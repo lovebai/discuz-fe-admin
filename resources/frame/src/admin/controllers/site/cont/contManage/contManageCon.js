@@ -454,6 +454,7 @@ export default {
           createdAtEnd: searchData.dataValue[1],
           categoryId: searchData.categoryId[searchData.categoryId.length - 1],
           source: searchData.contentSourceId,
+          topicId: searchData.topicId,
           sort: '-created_at',
         }
       }).then(res => {
