@@ -61,7 +61,13 @@ export default {
                   title: "首页数据设置",
                   name: "siteSet",
                   icon: "iconzhandianshezhi"
-                }
+                },
+                {
+                  id: 3,
+                  title: "SEO设置",
+                  name: "siteSet",
+                  icon: "iconzhandianshezhi"
+                },
               ]
             },
             {
@@ -117,6 +123,12 @@ export default {
               title: "其他服务设置",
               name: "otherServiceSet",
               icon: "iconqitafuwushezhi"
+            },
+            {
+              id: 10,
+              title: "插件设置",
+              name: "pluginUnit",
+              icon: "icon-chajian"
             },
             // {
             //   id:7,
@@ -539,6 +551,10 @@ export default {
         case "otherServiceSet":
           this.$router.push({ path: "/admin/other-service-set" });
           break;
+        case "pluginUnit":
+          this.$router.push({ path: "/admin/pulgin-unit" });
+          break;
+        
       }
       // this.checkQcloud();
     },
@@ -575,6 +591,10 @@ export default {
         case "首页数据设置":
           this.sideSubmenuSelect = title;
           this.$router.push({ path: "/admin/site-sort-set" });
+          break;
+        case "SEO设置":
+          this.sideSubmenuSelect = title;
+          this.$router.push({ path: "/admin/site-seo-set" });
           break;
         case "最新主题":
           this.sideSubmenuSelect = title;
@@ -694,6 +714,10 @@ export default {
             this.sideSubmenu = this.navList[1].submenu[0].submenu;
             this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[2].title;
             break;
+          case "SEO设置":
+            this.sideSubmenu = this.navList[1].submenu[0].submenu;
+            this.sideSubmenuSelect = this.navList[1].submenu[0].submenu[3].title;
+            break;
           case "最新主题":
             this.sideSubmenu = this.navList[3].submenu[1].submenu;
             this.sideSubmenuSelect = this.navList[3].submenu[1].submenu[0].title;
@@ -743,6 +767,8 @@ export default {
             this.sideSubmenu = [];
             this.$message.error("当下没有侧边栏子菜单");
         }
+      } else {
+        this.sideSubmenu = [];
       }
     },
 

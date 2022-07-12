@@ -46,6 +46,17 @@ module.exports = {
   sequence_post_v3: '/backAdmin/sequence.update', //修改智能排序
   recommend_topics_get_v3: '/backAdmin/recommend.topics', //推荐话题
   recommend_users_post_v3: '/backAdmin/recommend.users', //推荐用户
+  thread_stick_get_v3: '/backAdmin/thread.stick.sort', // 置顶列表
+  stick_sort_set_post_v3: '/backAdmin/stick.sort.set',  //  置顶排序
+  plugin_uploadimage_post_v3: '/backAdmin/plugin/uploadimage',  // 微信小商店图片
+  plugin_settings_post_v3: '/backAdmin/plugin/settings',  // 微信小商城设置
+  plugin_list_get_v3: '/backAdmin/plugin/list', // 插件列表
+  panel_upload_post_v3: '/backAdmin/plugin/upload', // 上传插件包
+  panel_operate_post_v3: '/backAdmin/plugin/operate', // 插件编辑
+  plugin_deleteimage_post_v3: '/backAdmin/plugin/deleteimage', // 商品图片删除
+  plugin_setting_v3: '/plugin/shop/api/wxshop/setting',  // 商品二维码上传
+
+  purge_cdn_get_v3: '/backAdmin/purge.cdn.cache',
 
   // 内容
   categories_get_v3: '/backAdmin/categories', // 分类列表
@@ -89,11 +100,13 @@ module.exports = {
   invite_link_v3: '/backAdmin/adminInvite.link.create', // 邀请链接
   permissionlist_get: '/backAdmin/plugin/permissionlist', // 插件权限
   permission_switch_post: '/backAdmin/plugin/permission.switch',
+  users_invite_get_v3: '/backAdmin/users.invite', // 邀请推广用户列表
   // 登录
   login_post_v3: '/backAdmin/login', // 登录
   refresh_token_post_v3: '/backAdmin/refresh.token', // 刷新token
   create_crawler_get: '/backAdmin/create.crawler',  // 内容导入
 
   emoji_list_get_v3: '/backAdmin/emoji.list', // 获取表情
-  check_crawler_get: '/backAdmin/check.crawler.process' // 数据导入进度查询
+  check_crawler_get: '/backAdmin/check.crawler.process', // 数据导入进度查询
+  sitemap_xml_get: 'sitemap.xml'
 };

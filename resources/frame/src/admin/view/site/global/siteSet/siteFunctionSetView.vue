@@ -19,7 +19,7 @@
         class="card-points"
         description="关闭后，这些功能将无法在站内使用。(仅限小程序)"
       >
-        <el-checkbox v-model="reward">打赏、悬赏、红包、匿名、私信、商品、付费</el-checkbox>
+        <el-checkbox v-model="reward">打赏、悬赏、红包、匿名、私信、商品、帖子付费、用户组付费、充值，提现</el-checkbox>
       </CardRow>
     </Card>
    
@@ -29,7 +29,7 @@
       </div>
       <div class="recharge-points__rf">
         <p>开启后，用户可在站内自主充值钱包余额。</p>
-        <p>根据相关规定，开启自动充值功能站长需先取得ICCP增值业务许可证，请确保已获取相关资质后开启本功能，否则责任自负</p>
+        <p>根据相关规定，开启自动充值功能站长需先取得ICP增值业务许可证，请确保已获取相关资质后开启本功能，否则责任自负</p>
       </div>
     </Card>
 

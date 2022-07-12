@@ -223,19 +223,6 @@
           </CardRow>
         </Card>
         <Card>
-          <CardRow description="允许发帖插入商品的权限">
-            <el-checkbox
-              v-model="checked"
-              label="thread.insertGoods"
-              :disabled="
-                $router.history.current.query.id === '1' ||
-                  $router.history.current.query.id === '7'
-              "
-              >插入商品</el-checkbox
-            >
-          </CardRow>
-        </Card>
-        <Card>
           <CardRow description="允许发帖插入付费的权限">
             <el-checkbox
               v-model="checked"
@@ -488,6 +475,38 @@
               >下载附件</el-checkbox
             >
           </CardRow>
+        </Card>
+        <Card class="invita-box" v-if="groupId === '8'">
+          <CardRow class="invita-box-text">
+            <span>访问有效期</span>
+          </CardRow>
+          <div class="invita-box-right">
+            <el-select v-model="invitaValue" placeholder="请选择">
+              <el-option
+                v-for="item in invitaOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            天
+          </div>
+        </Card>
+        <Card class="invita-box" v-if="groupId === '8'">
+          <CardRow class="invita-box-text">
+            <span>访问有限天内发布内容</span>
+          </CardRow>
+          <div class="invita-box-right">
+            <el-select v-model="limitedDaysValue" placeholder="请选择">
+              <el-option
+                v-for="item in invitaOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            天
+          </div>
         </Card>
       </div>
       <div class="user-operate">
@@ -825,7 +844,7 @@
           >
         </CardRow>
         <CardRow
-          description="站点开启付费模式时下线付费加入、主题被打赏、被付费等的分成比例设置，填1表示10%，不填或为0时为不分成"
+          description="站点开启付费模式时下线注册并付费加入的分成比例设置，填1表示10%，不填或为0时为不分成"
           class="proportion-box"
           v-if="isSubordinate"
         >

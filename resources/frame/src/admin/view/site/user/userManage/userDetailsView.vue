@@ -206,6 +206,15 @@
         </el-upload>
       </div>
     </Card>
+    
+    <Card header="邀请注册：">
+      <div class="invite-users" v-for="(item, index) in userInviteList" :key="index">
+        <p class="invite-users-subscript">{{index + 1}}</p>
+        <p class="invite-users-head" @click="jumpUserDetails(item.userId)"><img :src="item.avatarUrl ? item.avatarUrl : '/static-admin/images/noavatar.gif'"></p>
+        <p class="invite-users-name" @click="jumpUserDetails(item.userId)">{{item.nickname}}</p>
+        <p class="invite-users-time">{{ $dayjs(item.updatedAt).format("YYYY-MM-DD HH:mm") }}</p>
+      </div>
+    </Card>
 
     <Card class="footer-btn">
       <el-button type="primary" size="medium" @click="submission"

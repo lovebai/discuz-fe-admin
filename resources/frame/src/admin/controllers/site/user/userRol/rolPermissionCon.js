@@ -100,7 +100,16 @@
        groupFeeList: [],
        groupDataName: '',
        groupLevel: '',
-     };
+       invitaOptions: [{
+          value: 30,
+          label: '30'
+        }, {
+          value: 3,
+          label: '3'
+        }],
+        invitaValue: '',
+        limitedDaysValue: ''
+      };
    },
    watch: {
      checked(val) {
@@ -213,6 +222,8 @@
        this.groupDays = data.days;
        this.groupDescription = data.description;
        this.groupNotice = data.notice;
+       this.invitaValue = data.timeRange;
+       this.limitedDaysValue = data.contentRange;
        const permissions = data.permission || [];
        this.checked = [];
        permissions.forEach(item => {
@@ -337,9 +348,12 @@
          if (this.groupType === 'isPaid') {
           this.submitClick();
         }
-       } else {
-         this.submitClick();
-       }
+      } else {
+        this.submitClick();
+        if (Number(this.groupId) === 8) {
+          this.freeExperienceGroup();
+        }
+      }
      },
      groupIncrease() {
       this.appFetch({
@@ -601,7 +615,18 @@
        this.keyValue = Math.random();
      },
      changeChecked(value, obj) {
-       if (value) return;
+       if (value) {
+          // this.$message({
+          //   showClose: true,
+          //   message: "编辑权限包含查看权限",
+          //   type: "success"
+          // });
+         this.open();
+         if (this.checked.indexOf('switch.thread.viewPosts') === -1) {
+          this.checked.push('switch.thread.viewPosts');
+         }
+        return;
+       }
        const checkedData = this.checked;
        const selectedPermission = this.selectList[obj].map(item => {
          return item[0] ? `category${item[item.length - 1]}.${obj}` : obj;
@@ -712,7 +737,6 @@
        }
      },
      operatePost() {
-       console.log(this.plugInPermissions);
       let params = [];
       this.plugInPermissions.forEach(item => {
         params.push({
@@ -736,7 +760,44 @@
           }
         })
       } 
-     }
+    },
+    freeExperienceGroup(){
+      this.appFetch({
+       url:'groups_batchupdate_post_v3',
+       method:'post',
+       data:{
+         data: [
+           {
+             "name": "免费体验",
+             "id": 8,
+             "timeRange": this.invitaValue,
+             "contentRange": this.limitedDaysValue,
+           }
+         ]
+       }
+     }).then(res=>{
+       if (res.errors){
+         this.$message.error(res.errors[0].code);
+       }else {
+         if (res.Code !== 0) {
+           this.$message.error(res.Message);
+           return
+         }
+       }
+     }).catch(err=>{
+     })
+   },
+     open() {
+      this.$alert('编辑权限包含查看权限', '提示', {
+        confirmButtonText: '确定',
+        lockScroll: false,
+        callback: action => {
+          if (this.checked.indexOf('switch.thread.viewPosts') === -1) {
+            this.checked.push('switch.thread.viewPosts');
+          }
+        }
+      });
+    }
    },
    created() {
      this.groupType = this.$route.query.type || 'normal';
@@ -765,7 +826,6 @@
          "thread.insertVideo", // 插入视频
          "thread.insertAudio", // 插入语音
          "thread.insertAttachment", // 插入附件
-         "thread.insertGoods", // 插入商品
          "thread.insertPay", // 插入付费
          "thread.insertReward", // 插入悬赏
          "thread.insertRedPacket", // 插入红包

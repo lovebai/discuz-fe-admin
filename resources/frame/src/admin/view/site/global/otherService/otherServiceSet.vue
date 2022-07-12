@@ -10,8 +10,8 @@
         >
           <template slot-scope="scope">
             <div class="pother-service-set-type-box">
-              <i class="iconfont iconweizhi1 table-icon" v-if="scope.row.type === 'lbs_close'"></i>
               <i class="iconfont  icon-daoru1 table-icon daoru" v-if="scope.row.type === 'import'"></i>
+               <i class="iconfont table-icon" :class="scope.row.icon" v-else></i>
               <div class="table-con-box">
                 <p>{{scope.row.name }}</p>
                 <p><span v-html="scope.row.description"></span></p>
@@ -35,7 +35,7 @@
           label="操作"
           width="180">
           <template slot-scope="scope">
-            <div v-if="scope.row.type === 'lbs_close'">
+            <div v-if="scope.row.open">
               <el-button
                 size="mini"
                 @click="configClick(scope.row.tag)"
@@ -43,19 +43,19 @@
               <el-button
                 v-if="scope.row.status"
                 size="mini"
-                @click.native.prevent="statusSetting(false)"
+                @click.native.prevent="statusSetting(false, scope.row.tag)"
               >关闭</el-button>
               <el-button
                 v-else
                 size="mini"
-                @click.native.prevent="statusSetting(true)"
+                @click.native.prevent="statusSetting(true, scope.row.tag)"
               >开启</el-button>
             </div>
 
             <div v-else>
               <el-button
                 size="mini"
-                @click="importClick()"
+                @click="configClick(scope.row.tag)"
               >配置</el-button>
             </div>
           </template>
